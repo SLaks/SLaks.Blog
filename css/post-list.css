@@ -5,12 +5,44 @@
 }
 .post-list li {
   margin: 30px 0;
+  padding: 10px;
   border: 1px solid #eee;
   -webkit-box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
   position: relative;
+  -moz-transition: margin-right ease-out 0.2s;
+  -o-transition: margin-right ease-out 0.2s;
+  -webkit-transition: margin-right ease-out 0.2s;
   transition: margin-right ease-out 0.2s;
   padding-right: 32%;
+}
+.post-list li h2,
+.post-list li p {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.post-list li h2:last-child,
+.post-list li p:last-child {
+  margin-bottom: 0;
+}
+.post-list li h2 span:first-child {
+  background: white;
+  -webkit-box-shadow: 5px 0 8px 1px #ffffff;
+  box-shadow: 5px 0 8px 1px #ffffff;
+}
+.post-list li h2 .date {
+  position: absolute;
+  z-index: -1;
+  top: 10px;
+  line-height: 31px;
+  color: black;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: italic;
+  -moz-transition: right ease-out 0.2s;
+  -o-transition: right ease-out 0.2s;
+  -webkit-transition: right ease-out 0.2s;
+  transition: right ease-out 0.2s;
 }
 .post-list li aside {
   position: absolute;
@@ -18,6 +50,9 @@
   top: 0;
   height: 100%;
   overflow: hidden;
+  -moz-transition: width ease-out 0.2s;
+  -o-transition: width ease-out 0.2s;
+  -webkit-transition: width ease-out 0.2s;
   transition: width ease-out 0.2s;
 }
 .post-list li aside:before {
@@ -39,11 +74,17 @@
   width: 100%;
   letter-spacing: 1px;
 }
+.post-list li h2 .date {
+  right: 32%;
+}
 .post-list li aside {
   width: 30%;
 }
 .post-list li:hover {
   padding-right: 37%;
+}
+.post-list li:hover h2 .date {
+  right: 37%;
 }
 .post-list li:hover aside {
   width: 35%;
