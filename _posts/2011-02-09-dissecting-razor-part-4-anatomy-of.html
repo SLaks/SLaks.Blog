@@ -1,0 +1,34 @@
+---
+title: "Dissecting Razor, part 4: Anatomy of a Razor Page"
+layout: "post"
+permalink: "/2011/02/dissecting-razor-part-4-anatomy-of.html"
+uuid: "4805498511693380800"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-4805498511693380800"
+date: "2011-02-09 14:08:00"
+updated: "2011-02-18 03:43:51"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "4805498511693380800"
+    comments: "0"
+categories: [ASP.Net WebPages, Razor, C#, ASP.Net, dissecting-razor, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>After looking at the various assemblies in the WebPages framework, we will drill into the inner workings of Razor pages.</p>  <h2></h2>  <h2>Razor Side</h2>  <p>An ordinary CSHTML page is transformed into a class which inherits the <a href="http://msdn.microsoft.com/en-us/library/system.web.webpages.webpage%28v=vs.99%29.aspx"><code>WebPage</code> class</a>.&#160; The generator overrides the abstract <code>Execute()</code> method from the to render the page to the HTTP response stream.</p>  <p>Except for class-level directives and constructs (which will be discussed later), all ordinary content in a Razor page end up in the Execute method.&#160; </p>  <p>There are three types of normal content: Literals, Code Blocks, and Code Nuggets.</p>  <p>Literals include any normal text. Razor compiles literal text into calls to the <code>WriteLiteral</code> method, with the text as a (correctly-escaped) string parameter.&#160; Razor expects this method to write its parameter to the page.</p>  <p>Code Blocks include <code>@{ ... }</code> blocks, as well as control structures.&#160; They’re Razor’s equivalent of <code>&lt;% ... %&gt;</code> blocks.&#160; The contents of a code block are emitted as-is in the Execute method.&#160; Code blocks must contain complete statements, or they’ll result in C# syntax errors.</p>  <p>VBHTML pages use <code>@Code ... End </code>Code blocks instead. </p>  <p>Code Nuggets are @-blocks.&#160; They’re Razor’s equivalent of <code>&lt;%: ... %&gt;</code> blocks in an ASPX page.&#160; Scott Guthrie describes <a href="http://weblogs.asp.net/scottgu/archive/2010/12/16/asp-net-mvc-3-implicit-and-explicit-code-nuggets-with-razor.aspx">how these blocks are tokenized</a>.&#160; The contents of a code nugget are passed to the <code>Write</code> method, which is expected to HTML-escape its parameter and print it.</p>  <h2>WebPages Side</h2>  <p>The WebPages framework’s&#160; <code>Write</code> method (which comes from the <code>WebPageBase</code> class) takes a parameter of type <code>Object</code>, allowing one to put any expression in a code nugget.&#160; It passes its parameter to <code><a href="http://msdn.microsoft.com/en-us/library/ee360286.aspx">HttpUtility.HtmlEncode</a></code>, which will call ToString() and HTML-escape the output.&#160; If the parameter is an <code><a href="http://msdn.microsoft.com/en-us/library/system.web.ihtmlstring.aspx">IHtmlString</a></code>, <code>HtmlEncode</code> will return its <code>ToHtmlString()</code> method without escaping.</p>  <p>The base class, method names, and default namespaces can be configured in the RazorEngineHost.&#160; In addition, custom RazorEngineHosts can override the PostProcessGeneratedCode method to make arbitrary modifications to the generated code.</p>  <p>The WebRazorHostFactory in System.Web.WebPages.Razor.dll can also read default namespaces, a default base type, and a custom host from the <code>&lt;system.web.webPages.razor&gt;</code> section in Web.config:</p>  <pre class="brush: xml;">&lt;system.web.webPages.razor&gt;
+    &lt;host factoryType=&quot;MyProject.MyWebPageRazorHost&quot; /&gt;
+    &lt;pages pageBaseType=&quot;MyProject.CustomWebPage&quot;&gt;
+        &lt;namespaces&gt;
+            &lt;add namespace=&quot;MyProject.SomeNamespace&quot; /&gt;
+        &lt;/namespaces&gt;
+    &lt;/pages&gt;
+&lt;/system.web.webPages.razor&gt;</pre>
+
+<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-5-use-source-luke.html"><em>Next Time</em>: Looking at the generated page</a></p>  
+</div>
+{% endraw %}

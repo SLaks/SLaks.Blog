@@ -1,0 +1,25 @@
+---
+title: "Nothing vs Null"
+layout: "post"
+permalink: "/2010/12/nothing-vs-null.html"
+uuid: "1294289107482175748"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-1294289107482175748"
+date: "2010-12-22 17:28:00"
+updated: "2010-12-22 17:28:22"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "1294289107482175748"
+    comments: "0"
+categories: [VB.Net, conditional, null, C#, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>VB.Net’s <a href="http://msdn.microsoft.com/en-us/library/0x9tb07z.aspx"><code>Nothing</code> keyword</a> is is not the same as C#’s <a href="http://msdn.microsoft.com/en-us/library/edakx9da.aspx"><code>null</code></a>.&#160; MSDN states, “Assigning Nothing to a variable sets it to the default value for its declared type. If that type contains variable members, they are all set to their default value”.</p>  <p>In other words, the <code>Nothing</code> keyword is actually equivalent to C#’s <a href="http://msdn.microsoft.com/en-us/library/xwth0h0d%28v=VS.100%29.aspx"><code>default(T)</code> keyword</a>, where <code>T</code> is the type that the expression is used as.</p>  <p>This can lead to nasty surprises with nullable types in conditional operators.&#160; <br />In C#, the expression <code>(...) ? null : 1</code> will not compile, since “there is no implicit conversion between '&lt;null&gt;' and 'int'”.&#160;&#160;&#160; Since&#160; <code>null</code> is an untyped expression, the type of the conditional is inferred to be <code>int</code>, resulting in an error because <code>null</code> cannot be converted to <code>int</code>.</p>  <p>In VB.Net, by contrast, the equivalent expression, <code>If((...), Nothing, 1)</code>, <em>will </em>compile, but will have unexpected results.&#160; Here too, <code>Nothing</code> is an untyped expression, so the type of the conditional is inferred to be <code>Integer</code>.&#160; However, unlike <code>null</code>, <code>Nothing</code> <em>can </em>be converted to <code>Integer</code>, so this is compiled as <code>If((...), <strong>0</strong>, 1)</code>,&#160; which is probably <a href="http://stackoverflow.com/questions/4511608/identical-if-and-if-yield-different-results">not what the programmer intended</a>.</p>  <p>In both languages, the solution is to use an expression which is actually typed as <code>int?</code>, by writing new <code>int?()</code>, (in C#) or <code>New Integer?()</code> (in VB.Net).</p>  
+</div>
+{% endraw %}

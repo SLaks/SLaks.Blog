@@ -1,0 +1,44 @@
+---
+title: "Generic Base Classes in ASP.Net"
+layout: "post"
+permalink: "/2011/01/generic-base-classes-in-aspnet.html"
+uuid: "8664816070151914102"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-8664816070151914102"
+date: "2011-01-27 16:55:00"
+updated: "2011-02-02 16:48:18"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "8664816070151914102"
+    comments: "0"
+categories: [generics, C#, ASP.Net, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>ASP.Net pages can inherit from custom classes (as long as they inherit System.Web.UI.Page).&#160; This can be useful to add utility functions or shared (code-behind) behaviors to your pages.&#160; (Note that you could also use Extension methods or HTTP modules)</p>  <p>However, if you try to inherit a generic base class, it won’t work:</p>  <pre class="brush: csharp;">public class DataPage&lt;T&gt; : Page {
+    public T Data { get; set; }
+}</pre>
+
+<pre>&lt;%@ Page Language=&quot;C#&quot; Inherits=&quot;DataPage&lt;string&gt;&quot; %&gt;</pre>
+
+<p>This code results in a yellow screen of death, with the&#160; parser error, <code>Could not load type 'DataPage&lt;string&gt;'</code>.</p>
+
+<p>This happens because the ASP.Net page parser is unaware of C# generics syntax.&#160; The familiar generics syntax (eg, <code>List&lt;int&gt;</code>) is actually a C# innovation and is not used at all in the actual framework.&#160; The “native” generics syntax, which is used by Reflection, is markedly different: <code>List`1[Int32]</code> (namespaces omitted for brevity).&#160; This name is returned by the <a href="http://msdn.microsoft.com/en-us/library/system.type.assemblyqualifiedname.aspx">Type.AssemblyQualifiedName property</a>. </p>
+
+<p>Since ASP.Net uses reflection APIs to load types, we need to specify generic types using CLR syntax (and with full namespaces).&#160;&#160; Therefore, the following page will work:</p>
+
+<pre>&lt;%@ Page Language=&quot;C#&quot; 
+    Inherits=&quot;TestSite.DataPage`1[[System.String, mscorlib]]&quot; %&gt;</pre>
+
+<p>However, it’s not so simple.&#160; ASP.Net does not call <code>Type.GetType</code> to parse these strings; instead, it loops over every referenced assembly and calls <code>Assembly.GetType</code> on each one.&#160; This is why you don’t need to include the assembly name whenever using the <code>Inherits</code> attribute (which would have been necessary for <code>Type.GetType</code>)&#160; Ordinarily, this is very useful, but here, it comes back to bite you.&#160; <br /><em>It is not possible</em> to parse a type from one assembly with a generic parameter from a different assembly using <code>Assembly.GetType</code>, unless the generic parameter is in mscorlib.</p>
+
+<p>Therefore, for example, it is not possible to create an ASPX page that inherits <code>DataPage&lt;DataLayer.Product&gt;</code> if <code>DataLayer.Product</code> is in a different assembly than <code>DataPage</code>.&#160; As a workaround, one can create a non-generic class which inherits <code>DataPage&lt;DataLayer.Product&gt;</code>, then make the ASPX page inherit this temporary class.</p>
+
+<p><a href="http://blog.slaks.net/2011/01/generic-base-classes-in-aspnet-mvc.html"><em>Next time</em>: MVC magic</a></p>  
+</div>
+{% endraw %}

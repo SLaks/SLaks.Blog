@@ -1,0 +1,25 @@
+---
+title: "Visual Studio 2012 and webpages:Version"
+layout: "post"
+permalink: "/2012/06/visual-studio-2012-and-webpagesversion.html"
+uuid: "9147342851980251040"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-9147342851980251040"
+date: "2012-06-11 22:33:00"
+updated: "2012-06-12 12:32:59"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "9147342851980251040"
+    comments: "2"
+categories: [ASP.Net WebPages, Visual-Studio-2012, ASP.Net MVC]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>If you open an older ASP.Net MVC3 project in Visual Studio 2012, you may see lots of errors in the Razor views, along the lines of “The name 'model' does not exist in the current context”, and similar errors whenever you try to use MVC features like HTML helpers or ViewContext (eg, “System.Web.WebPages.Html.HtmlHelper does not contain a definition for TextBoxFor”).</p>  <p>This happens if there is no <code>&lt;add key=&quot;webpages:Version&quot; value=&quot;1.0&quot; /&gt;</code> in the &lt;appSettings&gt; element in Web.config.</p>  <p>Without this element, Visual Studio will assume that you’re using the latest version of Razor and the WebPages framework.&#160; Until VS2012, this wasn’t a problem, since there was only one version.&#160; However, since VS2012 ships with ASP.Net WebPages 2.0, the IDE will load this version by default.&#160; Since you’ve specified the MVC integration &amp; &lt;configSection&gt; for 1.0 (in Views/Web.config, since all of the assembly references specify Version=1.0.0.0), the language services won’t load the MVC settings.&#160; Therefore, the <code>@model</code> directive will not work, and the view will inherit the standard <code>WebPage</code> base class rather than the MVC <code>WebViewPage</code> base class (which contains the MVC HTML helpers)</p>  <p>This issue has no effect at runtime because the server won’t load any version 2.0 assemblies.</p>  
+</div>
+{% endraw %}

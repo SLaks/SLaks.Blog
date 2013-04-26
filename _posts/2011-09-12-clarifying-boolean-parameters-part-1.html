@@ -1,0 +1,58 @@
+---
+title: "Clarifying Boolean Parameters, part 1"
+layout: "post"
+permalink: "/2011/09/clarifying-boolean-parameters-part-1.html"
+uuid: "2694072100214824965"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-2694072100214824965"
+date: "2011-09-12 21:31:00"
+updated: "2011-09-14 15:31:24"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "2694072100214824965"
+    comments: "1"
+categories: [parameters, C#]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>Have you ever written code like this:</p>  <pre class="brush: csharp;">public void UpdateLayout(bool doFullLayout) {
+    //Code
+    if (doFullLayout) {
+        //Expensive code
+    }
+    //More code
+}</pre>
+
+<p>This pattern is commonly used when some operation has a “cheap” mode and an “expensive” mode.&#160; Other code will have calls like <code>UpdateLayout(false)</code> and <code>UpdateLayout(true)</code> scattered throughout.</p>
+
+<p>The problem is that this isn’t very obvious for people who aren’t familiar with the codebase.&#160; If you take a look at a file you’ve never seen before and see calls like <code>UpdateLayout(false)</code> and <code>UpdateLayout(true)</code> scattered, you’ll have no idea what the true / false means.</p>
+
+<blockquote>
+  <p>The simplest solution is to break it out into two methods: <code>UpdateComplexLayout()</code> and <code>UpdateBasicLayout()</code>.&#160; However,&#160; if the two different layout modes have intertwined code paths (eg, the code before and after the <code>if</code> above), this either won’t be possible or will lead to ugly duplication of code.</p>
+</blockquote>
+
+<p>One alternative is to use enums: </p>
+
+<pre class="brush: csharp;">public enum LayoutUpdateType {
+    Basic,
+    Full
+}
+
+public void UpdateLayout(LayoutUpdateType type) {
+    //Code
+    if (type == LayoutUpdateType.Full) {
+        //Expensive code
+    }
+    //More code
+}</pre>
+
+<p>This way, the callsites are much more descriptive: <code>UpdateLayout(LayoutUpdateType.Full)</code>.&#160; This also makes it easy to add more update modes in the future should the need arise.&#160; However, it makes the callsites much more verbose.&#160; When used frequently, this pattern can lead a vast proliferation of enum types that are each only used by one method, polluting the namespace and making more important enums harder to notice.</p>
+
+<p><a href="http://blog.slaks.net/2011/09/clarifying-boolean-parameters-part-2.html"><em>Next time</em>: Cleverer alternatives</a></p>  
+</div>
+{% endraw %}

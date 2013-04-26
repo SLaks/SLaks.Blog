@@ -1,0 +1,171 @@
+---
+title: "Dissecting Razor, part 5: Use the Source, Luke"
+layout: "post"
+permalink: "/2011/02/dissecting-razor-part-5-use-source-luke.html"
+uuid: "1710821792428510177"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-1710821792428510177"
+date: "2011-02-16 16:54:00"
+updated: "2011-02-18 02:50:23"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "1710821792428510177"
+    comments: "0"
+categories: [ASP.Net WebPages, Razor, C#, ASP.Net, dissecting-razor, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-4-anatomy-of.html">Last time</a>, we saw how basic Razor constructs are translated into C#.</p>  <p>We can see the generated class by adding <code>@{ #error }</code> to the page source. This creates a compiler error in the <code>Execute</code> method, and the resulting Yellow Screen of Death contains a <u>Show Complete Compilation Source:</u> link which will show the generated C# class.&#160; </p>  <p>Let’s start with a very simple page:</p>  <pre class="brush: xml;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;body&gt;
+        1 + 2 = @(1 + 2)&lt;br /&gt;
+        @{ var source = &quot;&lt;b&gt;bold &amp;amp; fancy&lt;/b&gt;&quot;; }
+        &lt;code&gt;@source&lt;/code&gt; is rendered as
+        @(new HtmlString(source))
+    &lt;/body&gt;
+&lt;/html&gt;
+@{ #error }</pre>
+
+<p>This page is rendered like this: (after removing <code>@{ #error }</code>)</p>
+
+<pre class="brush: xml;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;body&gt;
+        1 + 2 = 3&lt;br /&gt;
+        &lt;code&gt;&amp;lt;b&amp;gt;bold &amp;amp;amp; fancy&amp;lt;/b&amp;gt;&lt;/code&gt; is rendered as
+        &lt;b&gt;bold &amp;amp; fancy&lt;/b&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p>As expected, the expression <code>@source</code> is automatically escaped.&#160; Also notice that the newline and indentation around the code block (<code>@{ var ... }</code>)&#160; was not rendered – the Razor parser strips all whitespace surrounding code blocks.&#160; This is a welcome improvement over the ASPX view engine.</p>
+
+<p>Now let’s look at how this HTML is generated.&#160; This page is transformed into the following C# source:</p>
+
+<pre class="brush: csharp;">namespace ASP {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using System.Web.WebPages.Html;
+    using WebMatrix.Data;
+    using WebMatrix.WebData;
+    public class _Page_Razor_SimplePage_cshtml : System.Web.WebPages.WebPage {
+
+#line hidden
+        public _Page_Razor_WriteTo_cshtml() {
+        }
+
+        protected ASP.global_asax ApplicationInstance {
+            get {
+                return ((ASP.global_asax)(Context.ApplicationInstance));
+            }
+        }
+
+        public override void Execute() {
+            WriteLiteral(&quot;&lt;!DOCTYPE html&gt;\r\n&lt;html&gt;\r\n    &lt;body&gt;\r\n        1 + 2 = &quot;);
+
+#line 4 &quot;...\SimplePage.cshtml&quot;
+            Write(1 + 2);
+#line default
+#line hidden
+            WriteLiteral(&quot;&lt;br /&gt;\r\n&quot;);
+
+#line 5 &quot;...\SimplePage.cshtml&quot;
+            var source = &quot;&lt;b&gt;bold &amp;amp; fancy&lt;/b&gt;&quot;;
+#line default
+#line hidden
+            WriteLiteral(&quot;        &lt;code&gt;&quot;);
+
+#line 6 &quot;...\SimplePage.cshtml&quot;
+            Write(source);
+#line default
+#line hidden
+            WriteLiteral(&quot;&lt;/code&gt; is rendered as\r\n        &quot;);
+
+#line 7 &quot;...\SimplePage.cshtml&quot;
+            Write(new HtmlString(source));
+#line default
+#line hidden
+            WriteLiteral(&quot;\r\n    &lt;/body&gt;\r\n&lt;/html&gt;\r\n&quot;);
+
+#line 10 &quot;...\SimplePage.cshtml&quot;
+#error
+#line default
+#line hidden
+
+        }
+    }
+}</pre>
+
+<p>The WebPageRazorEngineHost injects the <code>ApplicationInstance</code> property into the CodeDOM tree; this property allows code in the page to access any custom properties in Global.asax.</p>
+
+<p>As mentioned earlier, the page source is compiled into the <code>Execute()</code> method.</p>
+
+<p>It uses <code>#line</code> directives to pretend that its code is actually in the CSHTML page.&#160; This means that code or line numbers appearing in error pages come from the original CSHTML source, making the code easier to find when debugging.&#160; The <code>#line hidden</code> directives indicate generated source that did not come from actual code in the CSHTML.</p>
+
+<p>As mentioned last time, literal HTML source is passed to the <code>WriteLiteral</code> method, which is inherited from the <code>WebPageBase</code> class.&#160; This method writes its argument to the current output stream (which can vary when making sections).&#160; These calls are wrapped in <code>#line hidden</code> because they come from literal text, not code.</p>
+
+<p>The two code blocks (the variable declaration and the <code>#error</code> directive) are copied straight into&#160; <code>Execute()</code>, wrapped in <code>#line</code> directives that map them to the actual code lines in the CSHTML.</p>
+
+<p>The code nuggets are passed to the <code>Write</code> method, and are similarly wrapped in <code>#line</code> directives. </p>
+
+<p>Here is a more sophisticated Razor page:</p>
+
+<pre class="brush: xml;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;body&gt;
+        @{ const int count = 10; }
+        &lt;table&gt;
+            @for (int i = 0; i &lt; count; i++) {
+                &lt;tr&gt;
+                    &lt;td&gt;@i&lt;/td&gt;
+                    &lt;td&gt;@(i * i)&lt;/td&gt;
+                &lt;/tr&gt;
+            }
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+@{ #error }</pre>
+
+<p>The <code>@for</code> loop is a code block in the form of a control flow statement.&#160; Razor’s C# parser is aware of C# control flow structures and parses them as code blocks.&#160; (The VB parser does the same thing)</p>
+
+<p>Here is the generated <code>Execute()</code> method, with <code>#line</code> directives removed for clarity:</p>
+
+<pre class="brush: xml;">public override void Execute() {
+    WriteLiteral(&quot;&lt;!DOCTYPE html&gt;\r\n&lt;html&gt;\r\n    &lt;body&gt;\r\n&quot;);
+
+    const int count = 10;
+    WriteLiteral(&quot;        &lt;table&gt;\r\n&quot;);
+
+    for (int i = 0; i &lt; count; i++) {
+        WriteLiteral(&quot;                &lt;tr&gt;\r\n                    &lt;td&gt;&quot;);
+
+        Write(i);
+        WriteLiteral(&quot;&lt;/td&gt;\r\n                    &lt;td&gt;&quot;);
+
+        Write(i * i);
+        WriteLiteral(&quot;&lt;/td&gt;\r\n                &lt;/tr&gt;\r\n&quot;);
+
+    }
+    WriteLiteral(&quot;        &lt;/table&gt;\r\n    &lt;/body&gt;\r\n&lt;/html&gt;\r\n&quot;);
+#error
+}</pre>
+
+<p>Here too, we see that all contiguous chunks of literal HTML are passed to <code>WriteLiteral</code>.</p>
+
+<p>This example has two code blocks – the <code>const</code> declaration and the loop.&#160; The <code>for</code> loop code block has HTML inside of it – any HTML markup inside a code block is parsed as normal HTML and passed to <code>WriteLiteral</code>.</p>
+
+<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-6-function-blocks.html"><em>Next Time</em>: Function blocks</a></p>  
+</div>
+{% endraw %}

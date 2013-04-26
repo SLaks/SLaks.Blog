@@ -1,0 +1,52 @@
+---
+title: "Creating Local Extension Methods"
+layout: "post"
+permalink: "/2011/07/creating-local-extension-methods.html"
+uuid: "1173428472759522726"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-1173428472759522726"
+date: "2011-07-27 02:08:00"
+updated: "2011-07-27 02:08:23"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "1173428472759522726"
+    comments: "0"
+categories: [extension-methods, C#, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>Sometimes, it can be useful to make an extension method specifically for a single block of code.&#160; Unfortunately, since extension methods cannot appear in nested classes, there is no obvious way to do that.</p>  <p>Instead, you can create a child namespace containing the extension method.&#160; In order to limit the extension method’s visibility to a single method, you can put that method in a separate namespace block.&#160; This way, you can add a <code>using</code> statement to that namespace alone.</p>  <p>For example:</p>  <pre class="brush: csharp;">namespace Company.Project {
+    partial class MyClass {
+        ...
+    }
+}
+namespace Company.Project {
+    using MyClassExtensions;
+    namespace MyClassExtensions {
+        static class Extensions {
+            public static string Name&lt;T&gt;(this T obj) {
+                if (default(T) == null &amp;&amp; Equals(obj, default(T)))
+                    return &quot;(null &quot; + typeof(T) + &quot;)&quot;;
+                return obj.GetType() + &quot;: &quot; + obj.ToString() 
+                     + &quot;{declared as &quot; + typeof(T) + &quot;}&quot;;
+            }
+        }
+    }
+    partial class MyClass {
+        void DoSomething() {
+            object x = new DateTime();
+            string name = x.Name();
+        }
+    }
+}</pre>
+
+<p>Since the <code>using MyClassExtensions</code> statement appears inside the second namespace block, the extension methods are only visible within that block.&#160; Code that uses these extension method can appear in this second block, while the rest of the class can go in the original namespace block without the extension methods.</p>
+
+<p>This technique should be avoided where possible, since it leads to confusing and non-obvious code.&#160; However, there are situations in which this can make some code much more readable.</p>  
+</div>
+{% endraw %}

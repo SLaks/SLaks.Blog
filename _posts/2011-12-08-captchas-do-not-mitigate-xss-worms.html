@@ -1,0 +1,25 @@
+---
+title: "CAPTCHAs do not mitigate XSS worms"
+layout: "post"
+permalink: "/2011/12/captchas-do-not-mitigate-xss-worms.html"
+uuid: "4207385259454427160"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-4207385259454427160"
+date: "2011-12-08 02:32:00"
+updated: "2011-12-08 02:32:19"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "4207385259454427160"
+    comments: "0"
+categories: [CAPTCHA, XSS, security]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>One <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet#No_Cross-Site_Scripting_.28XSS.29_Vulnerabilities">common</a>&#160;<a href="http://www.processor.com/editorial/article.asp?article=articles%2Fp3207%2F33p07%2F33p07.asp">misconception</a> about web security is that protecting important actions with CAPTCHAs can prevent XSS attacks from doing real damage.&#160; By preventing malicious code from scripting critical tasks, the idea goes, XSS injections won’t be able to accomplish much.</p>  <p>This idea is dangerously wrong.&#160; </p>  <p>First of all, this should not even be considered except as a defense-in-depth mechanism.&#160; Regardless of whether the actions you care about are protected by CAPTCHAs, XSS attacks can create arbitrary UI on your pages, and can thus make “perfect” phishing attacks.</p>  <p>Also, even with CAPTCHAs, an XSS injection can wait until the user performs the critical action, then change the submitted data to the attacker’s whim.</p>  <p>For example, if Twitter took this approach to prevent XSS injections from sending spammy tweets, the attacker could simply wait until the user sends a real tweet, then silently append advertising to the tweet as the user submits it and fills out the CAPTCHA.</p>  <p>However, there is also a more fundamental issue.&#160; Since the injected Javascript is running in the user’s browser, it simply display the CAPTCHA to the user and block all page functionality until the user solves the CAPTCHA.&#160; The attacker can even put his own text around the CAPTCHA to look like a legitimate security precaution, so that the (typical) user will not realize that the site has been compromised.&#160; (that could be prevented by integrating a description of the action being performed into the CAPTCHA itself in a way that the attacker can’t hide)</p>  <p>I haven’t even mentioned the inconvenience of forcing all legitimate, uncompromised users to fill out CAPTCHAs every time they do anything significant.</p>  <p>In summary, CAPTCHAs should only be used to prevent programs from automatically performing actions (eg, bulk-registering Google accounts), and as a rate-limiter if a user sends too many requests too quickly (eg, getting a password wrong too many times in a row).</p>  <p>XSS can only be stopped by <em>properly</em> encoding all user-generated content that gets concatenated into markup (whether HTML, Javascript, <a href="http://stackoverflow.com/q/3607894/34397">or CSS</a>)</p>  
+</div>
+{% endraw %}

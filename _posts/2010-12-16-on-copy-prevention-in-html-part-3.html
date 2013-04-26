@@ -1,0 +1,39 @@
+---
+title: "On copy prevention in HTML, part 3"
+layout: "post"
+permalink: "/2010/12/on-copy-prevention-in-html-part-3.html"
+uuid: "5729657627769682586"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-5729657627769682586"
+date: "2010-12-16 14:30:00"
+updated: "2010-12-16 14:38:40"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "5729657627769682586"
+    comments: "0"
+categories: [Javascript, HTML]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><i>Migrated from my old blog; originally posted 4/16/2007</i></p>
+<p>My <a href="http://blog.slaks.net/2010/12/on-copy-prevention-in-html-part-2.html">previous</a> post stretched the limit of simple copy prevention.  Beyond this point, it gets very complicated.  Before continuing, some thought is in order.  Who are you trying to prevent from copying your text?  Why shouldn't the text be copied?  Unless you are trying to stop a hardcore developer, the previous methods should suffice.  Also, what kind of copying are you trying to prevent?  If you are trying to prevent the copier from copying into a web page, it is significantly harder, because he can copy your source and it will display normally.</p>
+<p>I can think of two ways to prevent the copier from using a screenreader to copy your text.</p>
+<ol>
+<li>Put all of the text into a single, <a href="http://en.wikipedia.org/wiki/CAPTCHA">CAPTCHA</a>-like image.  This way, the screenreader will not be able to read the text.  However, this will also make it more difficult for legitimate people to read your text.  Also, the copier could simply insert the large image as-is into his document.  This risk could be mitigated by watermarking it with your name.</li>
+<li>Break apart the text into many different images, each one somewhat smaller than a letter.  This could be done in server-side code.  Then, use a JavaScript timer to alternate the images so that the screenreader will never see all of the text at once.  To prevent the copier from modifying the JavaScript to show all of the images, alternate them with other images.  For example, write a server-side script that takes X and Y coordinates, and a timer index.  This script would either a white image, or the chunk of text at the given coordinates, depending on the timer index.  To prevent the copier from using GDI to OR-blit screenshots from different times, (or from using Photoshop to make the white transparent, then pasting them together) the white could have random black patterns.  However, this will make the text hard to read.  If a JavaScript timer isn't fast enough to make the text legible, it could be done in Flash.</li>
+</ol>
+Preventing the copier from copying your content into HTML is more difficult.  No matter how obscure your source is, the copier could use a tool like <a href="http://getfirebug.com/">Firebug</a> to copy your DOM source using the innerHTML property.  Here too, there are several options.
+<ol>
+<li>Use my Scrambler (see part 2), and put your name anywhere within the scrambled text.  (for example, you could put in, in the middle, Written by <i>Your Name Here</i>; do not copy)  It is virtually impossible for the copier to extricate the spans that form your name and then fill the resulting gap.  This could also be done in an image.  However,  if you put your name at the end, the copier could position a white DIV to hide it. Or, if his name is similar in length, he could position a white DIV with his name to hide it.</li>
+<li> If you are only worried about part of your text, scramble the entire page.  It would be extremely difficult for the copier to extract the sensitive part.  For example, you could add a lengthy copyright header before the content, and scramble it with the content.  However, the copier could position the containing DIV so that the copyright header is above the top of the DIV. </li>
+<li>Break the text into a large set of images, and use  client-side JavaScript to execute a server-generated script that adds these images from another server-side script.   For every request, require a single-use authorization token returned by the previous request.  The initial page request would include the auth-token for the first script, and each image would be preceded by an AJAX request for auth-tokens for the image and for the next AJAX request.  The first script would have an auth-token for the first AJAX request embedded within it.
+To make it more difficult for an attacker to get an auth-token from the initial script, you could encode the script before sending it, and decode on the client, then pass it to the eval() function.  All responses would have the no-cache header to prevent the copier from taking the images out of the cache, and the images would be used by the background-image attribute on a DIV to prevent Save Image As (only necessary if Save Image As doesn't redownload the image from the server).  The server would track auth-tokens in a database, and delete them when used.
+If you do all this, the only way the copier could get the images from the page would be Print Screen.  To prevent that, make the images flicker as described earlier.  The copier could, however, load your page with JavaScript disabled, download and decode the script, convert it to a full programming language (eg, C#), and use the script's embedded auth-token to send the "AJAX" requests over HTTP (for example, using .NET's HttpWebRequest class) and download the images.  To prevent this, make the auth-tokens expire after about 30 seconds.  If any auth-token is expired, all subsequent images should form something different. (maybe Service Unavailable, or random black pixels, or a different text) By the time the copier finishes writing his program, his "stolen" auth-token will have expired, and he will not know what he did wrong.  To prevent him from trying again, you could blacklist his IP address after receiving an expired request, and embed IP address in auth-tokens.   You could also set and require some innocuous-seeing cookies on the server for every request.  The copier wouldn't notice these cookies, and when he requests the images without these cookies in his request, you could send him whatever you want.  Please note that if your page requires a login, the copier probably will check cookies.  And, if the copier is being paid by the hour (this is quite likely; otherwise, he'd give up), he might even thank you for doing all this.</li>
+</ol>
+</div>
+{% endraw %}

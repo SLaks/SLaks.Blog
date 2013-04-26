@@ -1,0 +1,49 @@
+---
+title: "Requiring Inherited Types in Generic Constraints"
+layout: "post"
+permalink: "/2010/12/requiring-inherited-types-in-generic.html"
+uuid: "4479505221964117033"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-4479505221964117033"
+date: "2010-12-17 17:08:00"
+updated: "2010-12-17 17:08:16"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "4479505221964117033"
+    comments: "0"
+categories: [generics, C#, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>A generic class can specify that its generic parameter must inherit a type.&#160; However, there is no obvious way in general to prevent clients from passing the base type itself.</p>  <p>For example, take the following set of types:</p>  <pre class="brush: csharp;">abstract class Entity  { }
+
+class Person : Entity { }
+class Boat : Entity { }
+class Car : Entity { }
+
+class Repository&lt;TEntity&gt; where TEntity : Entity { }</pre>
+
+<p>This allows the type <code>Repository&lt;Entity&gt;</code>, which doesn’t make logical sense.</p>
+
+<p>In this particular case, we could prevent that by changing the generic constraint to <code>where TEntity : Entity, new()</code>.&#160; Since the base Entity class is abstract, that would disallow a <code>Repository&lt;Entity&gt;</code>.&#160; However,if the concrete entities also&#160; don’t have default constructors, this wouldn’t work.&#160; Similarly, had the base type been an interface, we could add a <code>: class</code> constraint.</p>
+
+<p>There is an (somewhat) ugly hack that can be used to prevent parameterizations of the base class in arbitrary cases (as long as you control every type involved):</p>
+
+<pre class="brush: csharp;">abstract class Entity  { }
+interface IConcreteEntity { }&#160;&#160;&#160; //Marker interface
+
+class Person : Entity, IConcreteEntity { }
+class Boat : Entity, IConcreteEntity { }
+class Car : Entity, IConcreteEntity { }
+
+class Repository&lt;TEntity&gt; 
+      where TEntity : Entity, IConcreteEntity { }</pre>
+
+<p>Specifically, we can add a marker interface which is implemented by all concrete implementations of the base type.&#160; We can then constrain a generic parameter to inherit both the base type and the marker interface.&#160; Since the base class itself does implement the marker interface, it will not be valid as a parameter.&#160; <br />Note that the marker interface must be implemented (perhaps indirectly) by every single concrete implementation.</p>  
+</div>
+{% endraw %}

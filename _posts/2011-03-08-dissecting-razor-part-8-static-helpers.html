@@ -1,0 +1,78 @@
+---
+title: "Dissecting Razor, part 8: Static Helpers"
+layout: "post"
+permalink: "/2011/03/dissecting-razor-part-8-static-helpers.html"
+uuid: "2480252504549257469"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-2480252504549257469"
+date: "2011-03-08 16:41:00"
+updated: "2011-04-29 14:09:11"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "2480252504549257469"
+    comments: "0"
+categories: [ASP.Net WebPages, Razor, razor-helpers, ASP.Net, dissecting-razor, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-7-helpers.html">Razor helpers</a> can be extremely useful, but they are designed to be used only by the page that created them.</p>  <p>To create reusable helpers, you can create CSHTML pages in the App_Code directory.&#160; The WebRazorHostFactory will check for pages in App_Code and create a WebCodeRazorHost instead of the normal WebPageRazorHost.</p>  <p>This happens before the virtual CreateHost method; in order to change this behavior, one must create an inherited RazorBuildProvider and override the CreateHost method; for more details, see the source for more details.</p>  <p>The WebCodeRazorHost compiles helper methods as public static methods by setting the RazorEngineHost.StaticHelpers property to true.&#160; It also overrides PostProcessGeneratedCode to remove the Execute() method and make the <code>Application</code> property static.&#160; </p>  <p>Static helper pages inherit the <a href="http://msdn.microsoft.com/en-us/library/system.web.webpages.helperpage.aspx">HelperPage class</a>, a very stripped-down base class which contains the static WriteTo methods used by the helpers and some static members that expose the Model, Html, and other members from the currently executing page (using the <code>WebPageContext.Current.Page</code> property). </p>  <p>Because the generated Execute() method is removed, all content outside helpers and <code>@functions</code>&#160; blocks is not seen by the compiler.&#160; It is seen by the Razor parser, so it must contain valid Razor syntax (eg, no stray @ characters).</p>  <p>Here is an example:</p>  <pre>@helper Menu(params string[][] items) {
+    &lt;ul&gt;
+        @foreach (var pair in items) {
+            &lt;li&gt;&lt;a href=&quot;@Href(pair[1])&quot;&gt;@pair[0]&lt;/a&gt;&lt;/li&gt;
+        }
+    &lt;/ul&gt;
+}
+
+This text and @code is not compiled.</pre>
+
+<p>This helper can then be called from any other code by writing <font face="Courier New"><em>PageName</em>.Menu(...)</font>, where <code><em>PageName</em></code> is the filename of the CHSTML page in App_Code.&#160; In Razor pages, it can be called like any other helper.&#160; In normal C# code, it returns a <code>HelperResult</code> instance; call <code>ToString()</code> or <code>WriteTo(TextWriter)</code> to get the HTML source.</p>
+
+<p>For example:&#160; (assuming that the helper is defined in ~/App_Code/Helpers.cshtml)</p>
+
+<pre class="brush: csharp;">@Helpers.Menu(
+    new[] { &quot;Home&quot;,    &quot;~/&quot;        },
+    new[] { &quot;About&quot;,   &quot;~/About&quot;   },
+    new[] { &quot;Contact&quot;, &quot;~/Contact&quot; }
+)</pre>
+
+<p>In order to see the source, I need to insert a <code>#error</code> directive inside the helper block; putting it in the page itself will have no effect, since the page is not compiled.&#160; Since the contents of the helper block are code, not markup, I don’t need to wrap it in <code>@{ ... }</code>.</p>
+
+<p>The above helper is transformed into the following C#: (As usual, <code>@line</code> directives have been removed)</p>
+
+<pre class="brush: csharp;">public class Helpers : System.Web.WebPages.HelperPage {
+    public static System.Web.WebPages.HelperResult Menu(params string[][] items) {
+        return new System.Web.WebPages.HelperResult(__razor_helper_writer =&gt; {
+
+            WriteLiteralTo(@__razor_helper_writer, &quot;    &lt;ul&gt;\r\n&quot;);
+            foreach (var pair in items) {
+                WriteLiteralTo(@__razor_helper_writer, &quot;            &lt;li&gt;&lt;a href=\&quot;&quot;);
+                WriteTo(@__razor_helper_writer, Href(pair[1]));
+                WriteLiteralTo(@__razor_helper_writer, &quot;\&quot;&gt;&quot;);
+                WriteTo(@__razor_helper_writer, pair[0]);
+                WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/a&gt;&lt;/li&gt;\r\n&quot;);
+            }
+            WriteLiteralTo(@__razor_helper_writer, &quot;    &lt;/ul&gt;\r\n&quot;);
+#error
+        });
+    }
+    public Helpers() {
+    }
+    protected static System.Web.HttpApplication ApplicationInstance {
+        get {
+            return ((System.Web.HttpApplication)(Context.ApplicationInstance));
+        }
+    }
+}</pre>
+
+<p>Note that the page-level content does not show up anywhere.&#160; The helper itself is compiled exactly like a normal helper, except that it’s <code>static</code>.</p>
+
+<p>Although there aren’t any in this example, <code>@functions</code> blocks will also be emitted normally into the generated source.</p>
+
+<p><a href="http://blog.slaks.net/2011/04/dissecting-razor-part-9-inline-helpers.html"><em>Next Time</em>: Inline Helpers</a></p>  
+</div>
+{% endraw %}

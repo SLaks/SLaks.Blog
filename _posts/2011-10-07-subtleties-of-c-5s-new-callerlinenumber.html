@@ -1,0 +1,70 @@
+---
+title: "Subtleties of C# 5’s new [CallerLineNumber]"
+layout: "post"
+permalink: "/2011/10/subtleties-of-c-5s-new-callerlinenumber.html"
+uuid: "2928383119600063808"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-2928383119600063808"
+date: "2011-10-07 15:20:00"
+updated: "2012-03-01 07:02:20"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "2928383119600063808"
+    comments: "0"
+categories: [design, C#, caller-info-attributes, C# 5]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="http://blog.slaks.net/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p><em>This is part 2 in a series about C# 5’s new caller info attributes; see the <a href="http://blog.slaks.net/2011/10/subtleties-of-new-caller-info.html">introduction</a>.</em></p>  <p>The [CallerLineNumber] attribute tells the compiler to use the line number of the call site instead of the parameter’s default value.&#160; This attribute has more corner cases than [CallerFileName].&#160; In particular, unlike the C preprocessor’s <code>__LINE__</code> macro, the C# compiler inserts the line number of a parsed method call.&#160; Therefore, it is not always clear which line a method call expression maps to.</p>  <p>What should this call print:</p>  <pre class="brush: csharp;">static class Utils {
+    int GetLine([CallerLineNumber] int line = 0) {
+        return line;
+    }
+}
+
+Console.WriteLine(
+    Utils
+        .
+        GetLine
+        (
+        )
+    );</pre>
+
+<p>Should it print the line number that the statement started? The line in which the call to <code>GetLine</code> started? The line containing the parentheses for <code>GetLine</code>? What if it’s in a multi-line lambda expression?</p>
+
+<p>There are also a few cases in which methods are called implicitly by the compiler without appearing in source code.&#160; What should this code print?</p>
+
+<pre class="brush: csharp;">class Funny {
+    public Funny Select(Func&lt;object, object&gt; d,
+                        [CallerLineNumber]int line = 0) {
+        Console.WriteLine(line + &quot;: &quot; + d(d));
+        return this;
+    }
+}
+
+var r = (from x in new Funny() 
+         let y = 1 
+         select 2);</pre>
+
+<p>This code contains two implicit calls to the <code>Select </code>method that don’t have a clear source line (it gets worse for more complicated LINQ queries)</p>
+
+<p>In fact, it is possible to have an implicit method call with no corresponding source code at all.</p>
+
+<p>Consider this code:</p>
+
+<pre class="brush: csharp;">class Loggable {
+    public Loggable([CallerLineNumber] int line = 0) { }
+}
+class SomeClass : Loggable { }</pre>
+
+<p>The compiler will implicitly generate a constructor for <code>SomeClass</code> that calls the base <code>Loggable </code>constructor with its default parameter value.&#160; What line should it pass? In fact, if <code>SomeClass</code> is a partial class that is defined in multiple files, it isn’t even clear what [CallerFileName] should pass.</p>
+
+<p>Also, what should happen in the unlikely case that a [CallerLineNumber] method is called on line 3 billion (which would overflow an <code>int</code>)? (This would be easier to test on Roslyn with a fake stream source) Should it give an integer overflow compile-time error?&#160; If [CallerLineNumber] also supports <code>byte</code> and <code>short</code> parameters, this scenario will be more likely to happen in practice.</p>
+
+<p><a href="http://blog.slaks.net/2011/10/subtleties-of-c-5s-new-callermembername.html"><em>Next time:</em> [CallerMemberName]</a></p>  
+</div>
+{% endraw %}

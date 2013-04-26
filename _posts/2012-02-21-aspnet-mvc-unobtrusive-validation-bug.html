@@ -1,0 +1,49 @@
+---
+title: "ASP.Net MVC Unobtrusive Validation Bug"
+layout: "post"
+permalink: "/2012/02/aspnet-mvc-unobtrusive-validation-bug.html"
+uuid: "8782643458723994748"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-8782643458723994748"
+date: "2012-02-21 18:15:00"
+updated: "2012-02-21 18:15:54"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "8782643458723994748"
+    comments: "0"
+categories: [Javascript, bug, jQuery, ASP.Net MVC]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>If you use the ASP.Net MVC 3 <code>[Compare]</code> validation attribute on a model property, then include that model as a property in a parent model (so that the field name becomes <code>Parent.ChildProperty</code>), the built-in unobtrusive client validation will choke, and will always report the field as having an error.</p>  <p>This is due to a bug on line 288 of jquery.validate.unobtrusive.js: </p>  <pre class="brush: js; first-line: 284; highlight: [288];">adapters.add(&quot;equalto&quot;, [&quot;other&quot;], function (options) {
+    var prefix = getModelPrefix(options.element.name),
+        other = options.params.other,
+        fullOtherName = appendModelPrefix(other, prefix),
+        element = $(options.form).find(&quot;:input[name=&quot; + fullOtherName + &quot;]&quot;)[0];
+
+    setValidationValues(options, &quot;equalTo&quot;, element);
+});</pre>
+
+<p>Because the value of the <code>name</code> attribute selector is not quoted, this fails if the name contains a <code>.</code>.</p>
+
+<p>The simplest fix is to add quotes around the concatenated value.&#160; However, the jQuery selector there is overkill.&#160; HTML form elements have properties for each named input, so you can do this instead:</p>
+
+<pre class="brush: js; first-line: 284;">adapters.add(&quot;equalto&quot;, [&quot;other&quot;], function (options) {
+    var prefix = getModelPrefix(options.element.name),
+        other = options.params.other,
+        fullOtherName = appendModelPrefix(other, prefix),
+        element = options.form[fullOtherName];
+    if (!element)
+        throw new Error(fullOtherName + &quot; not found&quot;);
+    //If there are multiple inputs with that name, get the first one
+    if (element.length &amp;&amp; element[0])        
+        element = element[0];
+    setValidationValues(options, &quot;equalTo&quot;, element);
+});</pre>  
+</div>
+{% endraw %}

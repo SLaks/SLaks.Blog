@@ -1,0 +1,59 @@
+---
+title: "Delegates vs. Function Pointers, part 3: C# 1.0"
+layout: "post"
+permalink: "/2011/06/delegates-vs-function-pointers-part-3-c.html"
+uuid: "6357646512767009617"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-6357646512767009617"
+date: "2011-06-13 21:29:00"
+updated: "2011-06-19 19:49:57"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "6357646512767009617"
+    comments: "0"
+categories: [delegates, C#, .Net, functions]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><i>This is part 3 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-2-c.html">Last time</a>, we saw that it is impossible to bundle context along with a function pointer in C.</p>  <p>In C#, it is possible to fully achieve my <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a>.&#160; In order to explain how this works behind the scenes, I will limit this post to C# 1.0 and not use a lambda expression.&#160; This also means no LINQ, generics, or extension methods, so I will, once again, need to write the filter method myself. </p>  <pre class="brush: csharp;">delegate bool IntFilter(int num);
+
+static ArrayList Filter(IEnumerable source, IntFilter filter) {
+    ArrayList retVal = new ArrayList();
+
+    foreach(int i in source)
+        if (filter(i))
+            retVal.Add(i);
+            
+    return retVal;
+}
+
+class GreaterThan {
+    public GreaterThan(int b) {
+        this.bound = b;
+    }
+    int bound;
+    public bool Passes(int num) {
+        return num &gt; bound;
+    }
+}
+
+int x = 2;
+int[] numbers = { 1, 2, 3, 4 };
+Filter(numbers, new IntFilter(new GreaterThan(x).Passes));</pre>
+
+<p>Please excuse the ugly code; in order to be true to C# 1.0, I can’t just write an iterator, and I can’t implicitly create the delegate.</p>
+
+<p>This code creates a class called <code>GreaterThan</code> that holds the <code>Passes</code> method and the state used by the method.&#160; I create a delegate to pass to <code>Filter</code> out of the <code>Passes</code> method for an instance of the <code>GreaterThan</code> class from the local variable.</p>
+
+<p>To understand how this works, we need to delve further into delegates.&#160; .Net delegates are more than just type-safe function pointers. Unlike the function pointers we've <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-2-c.html">looked at</a>, delegates include state – the <code>Target</code> property. This property stores the object to pass as the hidden <code>this</code> parameter to the method (It's actually somewhat more complicated than that; I will describe open and closed delegates at a later date).&#160; My example creates a delegate instance in which the <code>Target</code> property points to the <code>GreaterThan</code> instance.&#160; When I call the delegate, the <code>Passes</code> method is called on the correct instance from the <code>Target</code> property, so it can read the <code>bound</code> field.</p>
+
+<p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-4-c.html">Next time</a>, we'll see how the C# 2.0+ compilers generate all this boilerplate for you using anonymous methods and lambda expressions. 
+
+  </p>  
+</div>
+{% endraw %}

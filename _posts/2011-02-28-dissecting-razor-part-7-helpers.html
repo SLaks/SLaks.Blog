@@ -1,0 +1,136 @@
+---
+title: "Dissecting Razor, part 7: Helpers"
+layout: "post"
+permalink: "/2011/02/dissecting-razor-part-7-helpers.html"
+uuid: "3265989975997743760"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-3265989975997743760"
+date: "2011-02-28 16:08:00"
+updated: "2011-04-29 13:51:31"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "3265989975997743760"
+    comments: "0"
+categories: [ASP.Net WebPages, Razor, razor-helpers, ASP.Net, dissecting-razor, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>We’ll continue our <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-6-function-blocks.html">trek</a> into Razor’s class-level features with helpers.</p>  <p>Helpers are one of Razor’s unique features.&#160; They encapsulate blocks of HTML and server-side logic into reusable page-level methods.&#160; </p>  <p>You can define a helper by writing <code>@helper MethodName(parameters) { ... }</code>.&#160; Inside the code block, you can put any markup or server-side code.&#160; The contents of a helper are parsed as a code block (like the contents of a loop or <code>if</code> block), so any non-HTML-like markup must be surrounded by <code>&lt;text&gt;</code> tags or prefixed by the <code>@:</code> escape.</p>  <p>Here is a simple example:</p>  <pre class="brush: xml;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;body&gt;
+        @helper NumberRow(int num) {
+            var square = num * num;
+            &lt;tr&gt;
+                &lt;td&gt;@num&lt;/td&gt;
+                &lt;td&gt;@square&lt;/td&gt;
+                &lt;td&gt;@(num % 2 == 0 ? &quot;Even&quot; : &quot;Odd&quot;)&lt;/td&gt;
+            &lt;/tr&gt;
+        }
+        &lt;table&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Number&lt;/th&gt;
+                    &lt;th&gt;Square&lt;/th&gt;
+                    &lt;th&gt;Eveness&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                @for (int i = 0; i &lt; 10; i++) {
+                    @NumberRow(i)
+                }
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p>Note that code statements (such as the <code>square</code> declaration) can go directly inside the helper body without being wrapped in code blocks – the direct contents of the helper is a code block, not markup.&#160; Like any other code block, HTML-like markup is automatically treated as markup instead of code.</p>
+
+<p>Like <code>@functions</code> blocks, helper methods can go anywhere in the source file; the physical location of the block is ignored.</p>
+
+<p>Here is the generated source for the above example: (with blank lines and <code>#line</code> directives stripped for clarity)</p>
+
+<pre class="brush: csharp;">public class _Page_Razor_Helpers_cshtml : System.Web.WebPages.WebPage {
+
+    public System.Web.WebPages.HelperResult NumberRow(int num) {
+        return new System.Web.WebPages.HelperResult(__razor_helper_writer =&gt; {
+
+            var square = num * num;
+
+            WriteLiteralTo(@__razor_helper_writer, &quot;            &lt;tr&gt;\r\n                &lt;td&gt;&quot;);
+            WriteTo(@__razor_helper_writer, num);
+
+            WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/td&gt;\r\n                &lt;td&gt;&quot;);
+            WriteTo(@__razor_helper_writer, square);
+
+            WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/td&gt;\r\n                &lt;td&gt;&quot;);
+            WriteTo(@__razor_helper_writer, num % 2 == 0 ? &quot;Even&quot; : &quot;Odd&quot;);
+
+            WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/td&gt;\r\n            &lt;/tr&gt;\r\n&quot;);
+
+        });
+    }
+    public _Page_Razor_Helpers_cshtml() {
+    }
+    protected ASP.global_asax ApplicationInstance {
+        get {
+            return ((ASP.global_asax)(Context.ApplicationInstance));
+        }
+    }
+    public override void Execute() {
+        WriteLiteral(&quot;&lt;!DOCTYPE html&gt;\r\n&lt;html&gt;\r\n    &lt;body&gt;\r\n        &quot;);
+        WriteLiteral(&quot;\r\n        &lt;table&gt;\r\n            &lt;thead&gt;\r\n                &lt;tr&gt;\r\n                   &quot; +
+        &quot; &lt;th&gt;Number&lt;/th&gt;\r\n                    &lt;th&gt;Square&lt;/th&gt;\r\n                    &lt;th&gt;E&quot; +
+        &quot;veness&lt;/th&gt;\r\n                &lt;/tr&gt;\r\n            &lt;/thead&gt;\r\n            &lt;tbody&gt;\r\n&quot;);
+
+        for (int i = 0; i &lt; 10; i++) {
+            Write(NumberRow(i));
+        }
+
+        WriteLiteral(&quot;            &lt;/tbody&gt;\r\n        &lt;/table&gt;\r\n    &lt;/body&gt;\r\n&lt;/html&gt;\r\n&quot;);
+#error
+
+    }
+}</pre>
+
+<p>Helpers are compiled as class-level methods that take a parameter set and return a System.Web.WebPages.HelperResult.&#160; (This class name is configured by the RazorHostFactory) </p>
+
+<p>Notice the the contents of the helper method are inside a lambda expression that takes a parameter named <code>__razor_helper_writer</code>.&#160; This construction allows the helper to write directly to the HTTP response stream instead of assembling a giant string and then writing the string all at once.</p>
+
+<p id="HelperResult">The HelperResult constructor takes an <code>Action&lt;TextWriter&gt;</code> which contains the contents of the helper block.&#160; The class implements <code>IHtmlString</code> and calls the action from the constructor to generate HTML.&#160; However, under normal circumstances, this <code>IHtmlString</code> implementation is never called.</p>
+
+<p>Calls to helper methods (<code>@NumberRow(i)</code>) are passed to the <code>Write(HelperResult)</code> overload.&#160; This overload calls <code>HelperResult.WriteTo(writer)</code>, which passes the page’s <code>TextWriter</code> directly to the helper’s lambda expression.&#160; Thus, the lambda expression can write directly to the page’s output stream, without passing the output as a parameter to the helper method.</p>
+
+<p>Looking inside the helper, we see that all content is passed to <code>WriteTo</code> and <code>WriteLiteralTo</code> methods, as opposed to the <code>Write</code> and <code>WriteLiteral</code> methods used by the rest of the page.</p>
+
+<p>Helper methods cannot call the normal <code>Write*</code> methods since they aren’t necessarily writing to the current output (even though they usually do).&#160; Therefore, they call these <code>Write*To</code> methods, which accept the <code>TextWriter</code> as a parameter.&#160; These static methods are inherited from the WebPageExecutingBase class; their names are also configured by the RazorHostFactory.&#160; The @ in the parameter is a little-used C# <a href="http://msdn.microsoft.com/en-us/library/aa664670%28v=vs.71%29.aspx">syntactictal feature</a> that allows keywords to be used as identifiers; it has nothing to do with Razor’s use of the @ character.</p>
+
+<p>Since helpers are compiled as normal methods, they can do almost anything that a normal method can.&#160; However, because their contents are compiled inside a lambda expression, they have some limitations.&#160; For example, helpers cannot use <code>ref</code> or <code>out</code> parameters, since <a href="http://stackoverflow.com/questions/1365689/cannot-use-ref-or-out-parameter-in-lambda-expressions/1365865#1365865">they cannot be used inside lambda expressions</a>.&#160; Helpers can take <code>params</code> arrays or optional parameters.</p>
+
+<p>Also, Razor’s C# code parser doesn’t support generic helper methods, although there is no reason that they couldn’t be supported in a later release.</p>
+
+<p>The VB.Net code parser also doesn’t explicitly support generic helpers.&#160; However, because VB.Net generics use parentheses, a VB.Net helper can declare a generic type parameter <em>instead of</em> a normal parameter list.</p>
+
+<p>For example:</p>
+
+<pre class="brush: xml;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+    &lt;body&gt;
+        @Helper PrintType(Of T)
+            @GetType(T)
+        End Helper
+        @PrintType(Of Dictionary(Of Integer, List(Of String)))()
+    &lt;/body&gt;
+
+&lt;/html&gt;</pre>
+
+<p>This trick is not very useful.</p>
+
+<p><a href="http://blog.slaks.net/2011/03/dissecting-razor-part-8-static-helpers.html"><em>Next Time</em>: Static Helpers</a></p>  
+</div>
+{% endraw %}

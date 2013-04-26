@@ -1,0 +1,45 @@
+---
+title: "When can you write ref this?"
+layout: "post"
+permalink: "/2010/12/when-can-you-write-ref-this.html"
+uuid: "3950602889384290075"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-3950602889384290075"
+date: "2010-12-22 20:50:00"
+updated: "2010-12-22 22:55:03"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "3950602889384290075"
+    comments: "0"
+categories: [value-types, C#, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>Usually, you cannot pass <code>ref this</code> as a parameter, since <code>this</code> is not a writable field.&#160; However, that’s not true for value types.&#160; The <code>this</code> field of a value type is a <em>writable</em> value.</p>  <p>To quote the spec (§5.1.5)</p>  <blockquote>   <p>Within an instance method or instance accessor of a struct type, the <code>this</code> keyword behaves exactly as a reference parameter of the struct type (§7.6.7).</p> </blockquote>  <p>Therefore, the following code prints 1:</p>  <pre class="brush: csharp;">static void Main() {
+    Mutable m = new Mutable();
+    m.Mutate();
+    Console.WriteLine(m.Value);
+}
+
+struct Mutable {
+    public int Value;
+    
+    public void Mutate() {
+        this = new Mutable(); 
+        MutateStruct(ref this); 
+    }
+}
+static void MutateStruct(ref Mutable m) { 
+    m.Value++; 
+}</pre>
+
+<p>In practice, this should never come up, since <a href="http://stackoverflow.com/questions/441309/why-are-mutable-structs-evil">mutable structs are <em>evil</em></a> and should be avoided at all costs. </p>
+
+<p><a href="http://blog.slaks.net/2010/12/when-shouldnt-you-write-ref-this.html">Next time</a>: This doesn’t always work.</p>  
+</div>
+{% endraw %}

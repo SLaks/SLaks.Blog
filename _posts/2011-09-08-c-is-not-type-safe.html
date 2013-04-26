@@ -1,0 +1,58 @@
+---
+title: "C# is not type-safe"
+layout: "post"
+permalink: "/2011/09/c-is-not-type-safe.html"
+uuid: "8075220932376926044"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-8075220932376926044"
+date: "2011-09-08 02:12:00"
+updated: "2011-09-08 02:12:06"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "8075220932376926044"
+    comments: "2"
+categories: [C#, .Net, type-safety]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>C# is usually touted as a type-safe language.&#160; However, it is not actually fully type-safe!</p>  <p>To examine this claim, we must first provide a strict definition of type-safety&#160; Wikipedia <a href="http://en.wikipedia.org/wiki/Type_safety">says</a>:</p>  <blockquote>   <p>In <a href="http://en.wikipedia.org/wiki/Computer_science">computer science</a>, <b>type safety</b> is the extent to which a <a href="http://en.wikipedia.org/wiki/Programming_language">programming language</a> discourages or prevents <i>type errors</i>. A type error is erroneous or undesirable program behavior caused by a discrepancy between differing <a href="http://en.wikipedia.org/wiki/Data_type">data types</a>. </p> </blockquote>  <p>To translate this to C#, full type-safety means that any expression that compiles is guaranteed to work at runtime, without causing any invalid cast errors.</p>  <p>Obviously, the cast (and <code>as</code>) operator is an escape hatch from type safety.&#160; It tells the compiler that “I expect this value to actually be of this type, even though you can’t prove it.&#160; If I’m wrong, I’ll live with that”.&#160; Therefore, to be fully type-safe, it must be impossible to get an InvalidCastException at runtime in C# code that does not contain an explicit cast.</p>  <p>Note that parsing or conversion errors (such as any exception from the <code>Convert</code> class) don’t count.&#160; Parsing errors aren’t actually invalid cast errors (instead, they come from unexpected strings), and conversion errors from from cast operations inside the <code>Convert</code> class.&#160; Also, null reference exceptions aren’t cast errors.&#160; </p>  <p>So, why isn’t C# type-safe?</p>  <p>MSDN says that <a href="http://msdn.microsoft.com/en-us/library/system.invalidcastexception.aspx">InvalidCastException</a> is thrown in two conditions:</p>  <blockquote>   <ul>     <li>       <p>For a conversion from a <a href="http://msdn.microsoft.com/en-us/library/system.single.aspx">Single</a> or a <a href="http://msdn.microsoft.com/en-us/library/system.double.aspx">Double</a> to a <a href="http://msdn.microsoft.com/en-us/library/system.decimal.aspx">Decimal</a>, the source value is infinity, Not-a-Number (NaN), or too large to be represented as the destination type.</p>     </li>      <li>       <p>A failure occurs during an explicit reference conversion.</p>     </li>   </ul> </blockquote>  <p>Both of these conditions can only occur from a cast operation, so it looks like C# is in fact type safe.</p>  <p>Or is it?</p>  <pre class="brush: csharp;">IEnumerable numbers = new int[] { 1, 2, 3 };
+
+foreach(string x in numbers) 
+    ;</pre>
+
+<p>This code compiles (!). Running it results in </p>
+
+<blockquote>
+  <p>InvalidCastException: Unable to cast object of type 'System.Int32' to type 'System.String'.</p>
+</blockquote>
+
+<p>On the <code>foreach</code> line.</p>
+
+<p>Since we don’t have any explicit cast operations (The implicit conversion from <code>int[]</code> to <code>IEnumerable</code> is an <em>implicit</em> conversion, which is guaranteed to succeed) , this proves that C# is not type-safe.</p>
+
+<p>What happened?</p>
+
+<p>The <code>foreach</code> construct comes from C# 1.0, before generics existed.&#160; It worked with untyped collections such as <code>ArrayList</code> or <code>IEnumerable</code>.&#160; Therefore, the <code>IEnumerator.Current</code> property that gets assigned to the loop variable would usually be of type <code>object</code>.&#160;&#160; (In fact, the <code>foreach</code> statement is <a href="http://blogs.msdn.com/b/kcwalina/archive/2007/07/18/ducknotation.aspx">duck-typed</a> to allow the enumerator to provide a typed <code>Current</code> property, particularly to avoid boxing).&#160; </p>
+
+<p>Therefore, you would expect that almost all (non-generic) <code>foreach</code> loops would need to have the loop variable declared as <code>object</code>, since that’s the compile-time type of the items in the collection.&#160; Since that would be extremely annoying, the compiler allows you to use any type you want, and will implicitly cast the <code>Current</code> values to the type you declared.&#160; Thus, mis-declaring the type results in an InvalidCastException.</p>
+
+<p>Note that if the <code>foreach</code> type isn’t compatible at all with the type of the <code>Current</code> property, you will get a compile-time error (just like <code>(string)42</code> doesn’t compile).&#160; Therefore, if you stick with generic collections, you’re won’t get these runtime errors (unless you declare the <code>foreach</code> as a subtype of the item type).</p>
+
+<p>C# also isn’t type-safe because of <a href="http://blogs.msdn.com/b/ericlippert/archive/2007/10/17/covariance-and-contravariance-in-c-part-two-array-covariance.aspx">array covariance</a>.</p>
+
+<p>
+  <pre class="brush: csharp;">string[] strings = new string[1];
+object[] arr = strings;
+arr[0] = 7;</pre>
+</p>
+
+<p>This code compiles, but throws “ArrayTypeMismatchException: Attempted to access an element as a type incompatible with the array.” at run-time.</p>
+
+<p>As Eric Lippert <a href="http://blogs.msdn.com/b/ericlippert/archive/2007/10/17/covariance-and-contravariance-in-c-part-two-array-covariance.aspx">explains</a>, this feature was added in order to be more compatible with Java.</p>  
+</div>
+{% endraw %}

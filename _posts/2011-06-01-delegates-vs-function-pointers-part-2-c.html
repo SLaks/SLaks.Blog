@@ -1,0 +1,76 @@
+---
+title: "Delegates vs. Function Pointers, part 2: C"
+layout: "post"
+permalink: "/2011/06/delegates-vs-function-pointers-part-2-c.html"
+uuid: "6446695008622612171"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-6446695008622612171"
+date: "2011-06-01 21:08:00"
+updated: "2011-06-14 02:37:22"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "6446695008622612171"
+    comments: "2"
+categories: [C, closures, functions]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><em>This is part 2 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</em></p>  <p>Unlike most other languages, it is not possible to include any form of state in a function pointer in C.&#160; Therefore, it is impossible to fully implement closures in C without the cooperation of the call-site and/or the compiler.</p>  <p>To illustrate what this means in practice, I will refer to my <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a>, using a filter function to find all elements in an array that are greater than <code>x</code>.&#160; Since C doesn’t have any such function, I’ll write one myself, inspired by <code>qsort</code>:</p>  <pre class="brush: cpp;">void* filter(void* base, 
+             size_t count, 
+             size_t elemSize, 
+             int (*predicate)(const void *)) {
+    //Magic...
+}</pre>
+
+<p>With this function, one can easily find all elements that are greater than some constant:</p>
+
+<pre class="brush: cpp;">int predicate(const void* item) {
+        return *(int*)item &gt; 2;
+}
+
+int arr[] = { 1, 2, 3, 4 };
+filter(arr, 4, sizeof(int), &amp;predicate);</pre>
+
+<p>However, if we want to replace the hard-coded <code>2</code> with a local variable, it becomes more complicated.&#160; Since function pointers, unlike delegates, do not have state, there is no simple way to pass the local variable to the function.</p>
+
+<p>The <a href="http://stackoverflow.com/questions/4210689/pass-extra-parameter-to-comparator-for-qsort/4210705#4210705">most obvious answer</a> is to use a global variable:</p>
+
+<pre class="brush: cpp;">static int minimum;
+int predicate(const void* item) {
+        return *(int*)item &gt; minimum;
+}
+
+int arr[] = { 1, 2, 3, 4 };
+minimum = x;
+filter(arr, 4, sizeof(int), &amp;predicate);</pre>
+
+<p>However, this code will fail horribly if it’s ever run on multiple threads.&#160; In simple cases, you can work around that by storing the value in a global <a href="http://en.wikipedia.org/wiki/Thread-local_storage">thread-local variable</a> (or in <a href="http://msdn.microsoft.com/en-us/library/ms682661.aspx">fiber-local storage</a> for code that uses fibers).&#160;&#160; Because each thread will have its own global, the threads won’t conflict with each-other.&#160; Obviously, this won’t work if the callback might be run on a different thread.</p>
+
+<p>However, even if everything is running on one thread, this still isn’t enough if the code can be re-entrant, or if the callback might be called after the original function call finishes.&#160; This technique assumes that exactly one callback (from a single call to the function that accepted the callback) will be used at any given time.&#160; If the callback might be invoked later (eg, a timer, or a UI handler), this method will break down, since all of the callbacks will share the same global.</p>
+
+<p>In these more complicated cases, one can only pass any state with the cooperation of the original function.&#160; In this (overly simple) example, the <code>filter</code> method can be modified to take a <code>context</code> parameter and pass it to the predicate:</p>
+
+<pre class="brush: cpp;">void* filter(void* base, 
+             size_t count,
+             size_t elemSize, 
+             int (*predicate)(const void *, const void *), 
+             const void* context) {
+        //More magic...
+}
+int predicate(const void* item, const void* context) {
+        return *(int*)item &gt; *(int*)context;
+}
+
+int arr[] = { 1, 2, 3, 4 };
+filter(arr, 4, sizeof(int), &amp;predicate, &amp;x);</pre>
+
+<p>To pass around more complicated state, one could pass a pointer to a <font face="Courier New">struct</font> as the <code>context</code>.</p>
+
+<p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-3-c.html"><em>Next Time: </em>C# 1.0</a></p>  
+</div>
+{% endraw %}

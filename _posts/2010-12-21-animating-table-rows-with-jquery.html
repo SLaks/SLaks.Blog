@@ -1,0 +1,46 @@
+---
+title: "Animating Table Rows with jQuery"
+layout: "post"
+permalink: "/2010/12/animating-table-rows-with-jquery.html"
+uuid: "315267121528090830"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-315267121528090830"
+date: "2010-12-21 17:19:00"
+updated: "2010-12-21 17:24:01"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "315267121528090830"
+    comments: "4"
+categories: [Javascript, animation, HTML, jQuery]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>jQuery contains a powerful and flexible animation engine.&#160; However, it has some limitations, primarily due to underlying limitations of CSS-based layout</p>  <p>For example, there is no simple way to <a href="http://api.jquery.com/slideUp/"><code>slideUp()</code></a> a table row (<code>&lt;tr&gt;</code> element).&#160; The slideUp animation will animate the element’s height to zero.&#160; However, a table row is always tall enough to show its elements, so the animation cannot actually shrink the element.</p>  <p>To work around this, we can wrap the contents of each cell in a <code>&lt;div&gt;</code> element, then <code>slideUp()</code> the <code>&lt;div&gt;</code> elements.&#160; Doing this in the HTML would create ugly and non-semantic markup, so we can do it in jQuery instead.</p>  <p>For example: <strong><em><a href="http://jsfiddle.net/SLaks/LjHBR/"><font size="3">Demo</font></a></em></strong></p>  <pre class="brush: js;">$('tr')
+    .children('td, th')
+    .animate({ padding: 0 })
+    .wrapInner('&lt;div /&gt;')
+    .children()
+    .slideUp(function() { $(this).closest('tr').remove(); });</pre>
+
+<p>Explanation:</p>
+
+<ol>
+  <li>Get all of the cells in the row</li>
+
+  <li>Animate away any padding in the cells</li>
+
+  <li>Wrap all of the contents of each cell in one <code>&lt;div&gt;</code> element for each cell (calling <a href="http://api.jquery.com/wrapInner/">wrapInner()</a>)</li>
+
+  <li>Select the new <code>&lt;div&gt;</code> elements</li>
+
+  <li>Slide up the <code>&lt;div&gt;</code>s, and remove the rows when finished.</li>
+</ol>
+
+<p>If you don’t remove the rows, their borders will still be visible.&#160; Therefore, if you want the rows to stay after the animation, call <code>hide()</code> instead of <code>remove()</code>.</p>
+</div>
+{% endraw %}

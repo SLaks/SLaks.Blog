@@ -1,0 +1,58 @@
+---
+title: "Subtleties of the new Caller Info Attributes in C# 5"
+layout: "post"
+permalink: "/2011/10/subtleties-of-new-caller-info.html"
+uuid: "6749814758208757359"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-6749814758208757359"
+date: "2011-10-06 13:02:00"
+updated: "2012-03-01 07:01:28"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "6749814758208757359"
+    comments: "0"
+categories: [design, .Net, caller-info-attributes, C# 5]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="http://blog.slaks.net/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p>C# 5 is all about asynchronous programming.&#160; However, in additional to the new async features, the C# team managed to slip in a much simpler feature: Caller Info Attributes.</p>  <p>Since C#’s inception, developers have asked for <code>__LINE__</code> and <code>__FILE__</code> macros like those in C and C++.&#160; Since C# intentionally does not support macros, these requests have not been answered.&#160; Until now.</p>  <p>C# 5 adds these features using attributes and optional parameters.&#160; As Anders Hejlsberg <a href="http://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-816T">presented</a> at //Build/, you can write</p>  <pre class="brush: csharp;">public static void Log(string message,
+    [CallerFilePath] string file = &quot;&quot;,
+    [CallerLineNumber] int line = 0,
+    [CallerMemberName] string member = &quot;&quot;)
+{
+    Console.WriteLine(&quot;{0}:{1} – {2}: {3}&quot;, 
+                      file, line, member, message);
+
+}</pre>
+
+<p>If this method is called in C# 5 without specifying the optional parameters, the compiler will insert the file name, line number, and containing member name instead of the default values.&#160; If it’s called in older languages that don’t support optional parameters, those languages will pass the default values, like any other optional method.</p>
+
+<p>These features look trivial at first glance.&#160; However, like most features, they are actually more complicated to design in a solid and robust fashion.&#160; Here are some of the less obvious issues that the C# team needed to deal with when creating this feature:</p>
+
+<p><em>Disclaimer</em>: I am basing these posts entirely on&#160; logical deduction.&#160; I do not have access to a specification or implementation of this feature; all I know is what Anders announced in his //Build/ presentation.&#160; However, the C# team would have needed to <em>somehow</em> deal with each of thee issues.&#160; Since these attributes are not yet supported by any public CTP, I can’t test my assumptions</p>
+
+<p>To start with, they needed to create new compiler errors if the attribute is applied to an incorrectly-typed parameter, or a non-optional parameter.&#160; Creating compiler errors is expensive; they need to be documented, tested, and localized into every language supported by C#.</p>
+
+<p>The attributes should perhaps support nullable types, or parameter types with custom implicit conversions to <code>int</code> or <code>string</code>.&#160; (especially <code>long</code> or <code>short</code>)</p>
+
+<p>If a method with these attributes is called in an expression tree literal (a lambda expression converted to an Expression&lt;TDelegate&gt;), the compiler would need to insert <code>ConstantExpression</code>s with the actual line number or other info to pass as the parameter.</p>
+
+<p>In addition to being supported in methods, the attributes should also be supported on parameters&#160; for delegate types, allowing you to write</p>
+
+<pre class="brush: csharp;">delegate void LinePrinter([CallerLineNumber] int line = 0);
+
+LinePrinter printer = Console.WriteLine;
+printer();</pre>
+
+<p>Each of the individual attributes also has subtle issues.</p>
+
+<p>[CallerFilePath] seems fairly simple.&#160; Any function call must happen in source code, in a source file that has a path.&#160; However, it needs to take into account <code>#line</code> directives, so that, for example, it will work as expected in <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-5-use-source-luke.html">Razor views</a>.&#160; I don’t know what it does inside <code>#line hidden</code>, in which there isn’t a source file.</p>
+
+<p><a href="http://blog.slaks.net/2011/10/subtleties-of-c-5s-new-callerlinenumber.html"><em>Next time</em>: [CallerLineNumber]</a></p>  
+</div>
+{% endraw %}

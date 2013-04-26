@@ -1,0 +1,87 @@
+---
+title: "Creating Markup Actions in Razor"
+layout: "post"
+permalink: "/2011/05/creating-markup-actions-in-razor.html"
+uuid: "8518427648048559497"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-8518427648048559497"
+date: "2011-05-02 18:06:00"
+updated: "2011-05-02 18:06:18"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "8518427648048559497"
+    comments: "1"
+categories: [Razor, ASP.Net, inline-helpers, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p>Razor’s <a href="http://blog.slaks.net/2011/04/dissecting-razor-part-9-inline-helpers.html">inline helpers</a> allow you to create lambda expression that return markup (as a <code>HelperResult</code>).&#160; However, there is no simple way to create a lambda expression that writes HTML directly to the page (instead of returning it).</p>  <p>In ASPX pages, one can simply put the beginning and end of a lambda expression in expression blocks, then put markup in the middle.</p>  <p>For example, this code creates a delegate that writes a <code>&lt;b&gt;</code> tag to the page:</p>  <pre>&lt;%
+    Action pageWriter = () =&gt; {%&gt;&lt;b&gt;I'm from a lambda!&lt;/b&gt;&lt;%};
+    pageWriter();
+    pageWriter();
+    pageWriter();
+%&gt;</pre>
+
+<p>Calling the <code>pageWriter</code> delegate will write directly to the HTTP response stream.</p>
+
+<p>By contrast, Razor inline expressions return their markup.&#160; To do this in a Razor page, one would write</p>
+
+<pre>@{
+    Func&lt;object, HelperResult&gt; htmlMaker
+         = @&lt;b&gt;I'm from a lambda!&lt;/b&gt;;
+    @htmlMaker(null)    //Note @ sign
+    @htmlMaker(null)    //Note @ sign
+    @htmlMaker(null)    //Note @ sign
+}</pre>
+
+<p>Calling <code>htmlMaker</code> without an @ sign will return HTML, but won’t write anything to the page.</p>
+
+<p>When working with libraries designed for ASPX pages, it can be necessary to create ASPX-style inline helpers that write to the page instead of returning a value.&#160; You can do that by creating an inline helper lambda and passing it to the <code>Write method</code>:</p>
+
+<pre>@{
+    Action pageWriter = () =&gt; Write(new Func&lt;object, HelperResult&gt;(
+         @&lt;b&gt;I'm from a lambda!&lt;/b&gt;
+    )(null));
+
+    pageWriter();
+    pageWriter();
+    pageWriter();
+}</pre>
+
+<p>Like the ASPX version, <code>pageWriter</code> now writes directly to the page and does not return anything.</p>
+
+<p>This code can be made simpler by wrapping it in a separate method:</p>
+
+<pre class="brush: csharp;">Action MakeAction(Func&lt;object, HelperResult&gt; inlineHelper) {
+    return () =&gt; Write(inlineHelper(null));
+}</pre>
+
+<p>This method takes an inline helper and returns an <code>Action</code> that writes the helper’s output to the page.&#160; Since it needs to call the page’s <code>Write</code> method (to use the page’s output stream), this method must be defined in the <code>WebPageBase</code> instance, either in an <code>@functions</code> block or in a common base class.</p>
+
+<p>Any code in the inline helper will execute each time the resulting <code>Action</code> is called.</p>
+
+<p>It can be called like this:</p>
+
+<pre>@{
+    Action pageWriter2 = MakeAction(@&lt;b&gt;I'm from a lambda!&lt;/b&gt;);
+
+    pageWriter();
+    pageWriter();
+    pageWriter();
+}</pre>
+
+<p>This code is equivalent to the previous sample, but it’s much simpler.</p>
+
+<p>One can also write write a version that takes a parameter:</p>
+
+<pre class="brush: csharp;">Action&lt;T&gt; MakeAction&lt;T&gt;(Func&lt;T, HelperResult&gt; inlineHelper) {
+    return param =&gt; Write(inlineHelper(param));
+}</pre>
+Note that the type parameter must be specified explicitly; C# does not infer type parameters from the method’s return type.  
+</div>
+{% endraw %}

@@ -1,0 +1,59 @@
+---
+title: "On copy prevention in HTML, part 1"
+layout: "post"
+permalink: "/2010/12/on-copy-prevention-in-html-part-1.html"
+uuid: "1778488699333085844"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-1778488699333085844"
+date: "2010-12-16 14:25:00"
+updated: "2010-12-16 20:12:48"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "1778488699333085844"
+    comments: "0"
+categories: [Javascript, HTML]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><i>Migrated from my old blog; originally posted 4/8/2007</i></p>  <p>Many web developers like to prevent their viewers from copying their text. While I do not approve of this, there are cases where it is appropriate.</p>  <p>The simplest way to achieve this is to use the IE only attribute UNSELECTABLE and the FireFox only css style -moz-user-select. Such HTML looks like this:</p>  <table><tbody>     <tr>       <td>         <pre class="brush: html">&lt;DIV unselectable=&quot;on&quot;
+style=&quot;-moz-user-select:none;&quot;&gt;
+You can't select me.
+&lt;/DIV&gt;</pre>
+      </td>
+
+      <td>
+        <div style="-moz-user-select: none" unselectable="on">You can't select me.</div>
+      </td>
+    </tr>
+  </tbody></table>
+
+<p>To make the HTML and CSS validate, one could do this in Javascript: <code class="prettyprint"><i>Elem</i>.unselectable = &quot;on&quot;; <i>Elem</i>.style.MozUserSelect = &quot;none&quot;;</code></p>
+
+<p>However, this method only works in IE and Firefox. In addition, in IE, it doesn't work very well, and if a user tries hard, he will end up selecting the text. </p>
+
+<p>A slightly better way to do it is to handle the onselectstart event (for IE) and the onmousedown event (for everything else) and return false. This will prevent the browser from handling the events. This results in something like this: </p>
+
+<table><tbody>
+    <tr>
+      <td>
+        <pre class="brush: html">&lt;DIV
+onselectstart=&quot;return false;&quot;
+onmousedown=&quot;return false;&quot; &gt;
+You can't select me.
+&lt;/DIV&gt;</pre>
+      </td>
+
+      <td>
+        <div onselectstart="return false;" onmousedown="return false;">You can't select me.</div>
+      </td>
+    </tr>
+  </tbody></table>
+
+<p>The problem with these methods is that they do nothing to prevent a user from reading the HTML source. This is discussed in the <a href="http://blog.slaks.net/2010/12/on-copy-prevention-in-html-part-2.html">next</a> part.</p>  
+</div>
+{% endraw %}

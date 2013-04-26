@@ -1,0 +1,66 @@
+---
+title: "Delegates vs. Function Pointers, part 4: C# 2.0+"
+layout: "post"
+permalink: "/2011/06/delegates-vs-function-pointers-part-4-c.html"
+uuid: "5387142343229685567"
+guid: "tag:blogger.com,1999:blog-4137132196361303955.post-5387142343229685567"
+date: "2011-06-19 19:49:00"
+updated: "2011-08-16 01:09:05"
+description: 
+blogger:
+    siteid: "4137132196361303955"
+    postid: "5387142343229685567"
+    comments: "0"
+categories: [delegates, closures, C#, lambda-expressions, .Net]
+author: 
+    name: "SLaks"
+    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+---
+
+{% raw %}
+<div class="css-full-post-content js-full-post-content">
+<p><i>This is part 4 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-3-c.html">Last time</a>, we saw that it is possible to pass local state with a delegate in C#.&#160; However, it involves lots of repetitive single-use classes, leading to ugly code.</p>  <p>To alleviate this tedious task, C# 2 supports <a href="http://msdn.microsoft.com/en-us/library/0yw3tz5k%28v=VS.100%29.aspx">anonymous methods</a>, which allow you to embed a function inside another function.&#160; This makes my <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a> much simpler:</p>  <pre class="brush: csharp;">//C# 2.0
+int x = 2;
+int[] numbers = { 1, 2, 3, 4 };
+
+int[] hugeNumbers = Array.FindAll(
+    numbers, 
+    delegate(int n) { return n &gt; x; }
+);
+
+
+
+//C# 3.0
+int x = 2;
+int[] numbers = { 1, 2, 3, 4 };
+
+IEnumerable&lt;int&gt; hugeNumbers = numbers.Where(n =&gt; n &gt; x);</pre>
+
+<p>Clearly, this is much simpler than the C# 1.0 version from last time.&#160; However, anonymous methods and lambda expressions are compile-time features; the CLR itself is not aware of them.&#160; How does this code work? How can an anonymous method use a local variable from its parent scope?</p>
+
+<p>This is an example of a <a href="http://en.wikipedia.org/wiki/Closure_%28computer_science%29">closure</a> – a function bundled together with external variables that the function uses.&#160; The C# compiler handles this the same way that I did manually last time in C# 1: it generates a class to hold the function and the variables that it uses, then creates a delegate from the member function in the class.&#160; Thus, the local state is passed as the delegate’s <code>this</code> parameter.</p>
+
+<p>To see how the C# compiler implements closures, I’ll use <a href="http://wiki.sharpdevelop.net/ILSpy.ashx">ILSpy</a> to decompile the more-familiar C# 3 version: (I simplified the <a href="http://stackoverflow.com/q/6402491/34397">compiler-generated names</a> for readability)</p>
+
+<pre class="brush: csharp;">[CompilerGenerated]
+private sealed class ClosureClass {
+    public int x;
+    public bool Lambda(int n) {
+        return n &gt; this.x;
+    }
+}
+private static void Main() {
+    ClosureClass closure = new ClosureClass();
+    closure.x = 2;
+    int[] numbers = { 1, 2, 3, 4 };
+    IEnumerable&lt;int&gt; hugeNumbers = numbers.Where(closure.Lambda);
+}</pre>
+
+<p>The <code>ClosureClass</code> (which was actually named <code>&lt;&gt;c__DisplayClass1</code>) is equivalent to the <code>GreaterThan</code> class from my previous example.&#160; It holds the local variables used in the lambda expression.&#160; Note that this class <em>replaces</em> the variables – in the original method, instead a local variable named <code>x</code>, the compiler uses the public <code>x</code> field from the <code>ClosureClass</code>.&#160; This means that any changes to the variable affect the lambda expression as well.</p>
+
+<p>The lambda expression is compiled into the <code>Lambda</code> method (which was originally named <code>&lt;Main&gt;b__0</code>).&#160; It uses the same field to access the local variable, sharing state between the original outer function and its lambda expression.</p>
+
+<p><a href="http://blog.slaks.net/2011/07/delegates-vs-function-pointers-part-5.html"><em>Next time: </em>Javascript</a></p>  
+</div>
+{% endraw %}
