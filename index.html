@@ -3,10 +3,18 @@ layout: default
 title: SLaks
 ---
 
-<div id="home">
-  <h1>Blog Posts</h1>
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{% post_url post %}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
+<header>
+	<h1>SLaks.Blog</h1>
+</header>
+
+	<ul class="posts">
+		{% for post in site.posts %}
+			<li>
+				<h2><a href="{{ post.url }}">{{ post.title | xml_escape }} <span class="date">{{ post.date | date: "%Y-%m-%d" }}</span></a></h2>
+				<p>{{ post.content | strip_html | truncatewords 100 }}</p>
+
+				{% capture mainCategory %}{{ post.categories | first | xml_escape }}{% endcapture %}
+				<aside class="{{ mainCategory }}">{{ mainCategory }}</aside>
+			</li>
+		{% endfor %}
+	</ul>
