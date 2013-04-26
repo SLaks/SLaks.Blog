@@ -4,14 +4,87 @@
 	padding: 0;
 
 	li {
-		margin: 20px 0;
+		margin: 30px 0;
 		border: 1px solid #eee;
-		-webkit-box-shadow: 0 0 14px 2px rgba(0,0,0,.5);
-		box-shadow: 0 0 14px 2px rgba(0,0,0,.5);
+		-webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,.3);
+		box-shadow: 0 0 10px 2px rgba(0,0,0,.3);
+		position: relative;
+		transition: margin-right ease-out .2s;
 
 		aside {
-			float: right;
-			background: #f3df49;
+			position: absolute;
+			right: 0;
+			top: 0;
+			height: 100%;
+			overflow: hidden;
+			transition: width ease-out .2s;
+
+			&:before {
+				content: '';
+				display: block;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 200px 30px 0 0;
+				border-color: white transparent transparent transparent;
+			}
+
+			span {
+				position: absolute;
+				text-align: right;
+				right: 10px;
+				bottom: 10px;
+				font-weight: bold;
+				font-size: 24px;
+				width: 100%;
+				letter-spacing: 1px;
+			}
 		}
+
+		.layout(30%);
+
+		&:hover {
+			.layout(35%);
+		}
+
+		.defineCategoryColors();
+
+		.ColorScheme(@baseColor) {
+			aside {
+				background-color: @baseColor;
+			}
+		}
+
+		.ColorScheme(@baseColor, @textColor) {
+			.ColorScheme(@baseColor);
+
+			aside {
+				color: @textColor;
+			}
+		}
+
+		.layout(@sideWidth) {
+			padding-right: @sideWidth + 2;
+
+			aside {
+				width: @sideWidth;
+			}
+		}
+	}
+}
+
+.defineCategoryColors() {
+	.ColorScheme(#5DC4F0, white);
+
+	&.javascript {
+		.ColorScheme(#f3df49);
+	}
+
+	&.dot-net {
+		.ColorScheme(#3babd0);
+	}
+
+	&.csharp {
+		.ColorScheme(#368832);
 	}
 }

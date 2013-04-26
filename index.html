@@ -9,12 +9,17 @@ title: SLaks
 
 	<ul class="post-list">
 		{% for post in site.posts %}
-			<li>
+			{% capture mainCategory %}{{ post.categories | first }}{% endcapture %}
+			{% if mainCategory == '.Net' %}
+				{% assign categoryClass = 'dot-net' %}
+			{% else %}
+				{% capture categoryClass %}{{ mainCategory | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' | downcase }} {% endcapture %}
+			{% endif %}
+			<li class="{{ categoryClass | xml_escape }}">
 				<h2><a href="{{ post.url }}">{{ post.title | xml_escape }} <span class="date">{{ post.date | date: "%Y-%m-%d" }}</span></a></h2>
 				<p>{{ post.content | strip_html | truncatewords 100 }}</p>
 
-				{% capture mainCategory %}{{ post.categories | first | xml_escape }}{% endcapture %}
-				<aside class="{{ mainCategory }}">{{ mainCategory }}</aside>
+				<aside><span>{{ mainCategory | xml_escape }}</span></aside>
 			</li>
 		{% endfor %}
 	</ul>
