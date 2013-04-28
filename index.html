@@ -3,10 +3,6 @@ layout: default
 title: SLaks
 ---
 
-<header>
-	<h1>SLaks.Blog</h1>
-</header>
-
 	<ul class="post-list">
 		{% for post in site.posts %}
 			{% capture mainCategory %}{{ post.categories | first }}{% endcapture %}
