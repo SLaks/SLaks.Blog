@@ -29,7 +29,8 @@
 		.hoverTransition(margin-right, margin-left);
 		// Post titles
 		h2 {
-			line-height: 1.2;
+			font-size: 24px;
+			line-height: 28px;
 			font-weight: 300;
 			// The title text is in a separate element so that
 			// it can cover the date (via shadow) for overlap.
@@ -42,13 +43,12 @@
 			.date {
 				position: absolute;
 				top: 0;
-				z-index: -1;
-				line-height: 31px;
+				z-index: -1; // Make sure the date is covered by the title on overlap
+				.hoverTransition(right, margin-right);
 				color: black;
 				font-size: 16px;
 				font-weight: normal;
 				font-style: italic;
-				.hoverTransition(right);
 			}
 		}
 
@@ -84,6 +84,7 @@
 			top: 0;
 			height: 100%;
 			overflow: hidden;
+			z-index: -2; // The bar should be behind the date so that the date can appear above the white part of the triangle.
 			.hoverTransition(width, right);
 
 			&:before {
@@ -93,7 +94,6 @@
 				width: 0;
 				height: 0;
 				border-style: solid;
-				border-width: 200px 30px 0 0;
 				border-color: white transparent transparent transparent;
 			}
 
@@ -113,25 +113,39 @@
 					font-size: 22px;
 				}
 			}
-
-			@media only screen and (min-width: 1500px) {
-				&:before {
-					border-width: 200px 120px 0 0;
-				}
-			}
 		}
 
 		.layout(30%);
+		.sideSlant(30px);
 
 		&:hover {
 			.layout(35%);
+		}
+
+		@media only screen and (min-width: 1500px) {
+			.sideSlant(120px);
+			.layout(40%);
+
+			&:hover {
+				.layout(43%);
+			}
+		}
+
+		.sideSlant(@whiteWidth) {
+			h2 .date {
+				margin-right: -@whiteWidth * .75; // Cover part of the white triangle
+			}
+
+			aside:before {
+				border-width: 200px @whiteWidth 0 0;
+			}
 		}
 
 		.layout(@sideWidth) {
 			padding-right: @sideWidth + 2;
 
 			h2 .date {
-				right: @sideWidth + 2;
+				right: @sideWidth;
 			}
 
 			aside {

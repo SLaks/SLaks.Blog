@@ -24,7 +24,8 @@
   padding-right: 32%;
 }
 .post-list li h2 {
-  line-height: 1.2;
+  font-size: 24px;
+  line-height: 28px;
   font-weight: 300;
 }
 .post-list li h2 span {
@@ -36,11 +37,6 @@
   position: absolute;
   top: 0;
   z-index: -1;
-  line-height: 31px;
-  color: black;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: italic;
   -moz-transition-duration: .2s;
   -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
@@ -49,10 +45,14 @@
   -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: right;
-  -o-transition-property: right;
-  -webkit-transition-property: right;
-  transition-property: right;
+  -moz-transition-property: right margin-right;
+  -o-transition-property: right margin-right;
+  -webkit-transition-property: right margin-right;
+  transition-property: right margin-right;
+  color: black;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: italic;
 }
 .post-list li h2,
 .post-list li p {
@@ -88,6 +88,7 @@
   top: 0;
   height: 100%;
   overflow: hidden;
+  z-index: -2;
   -moz-transition-duration: .2s;
   -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
@@ -119,7 +120,6 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 200px 30px 0 0;
   border-color: white transparent transparent transparent;
 }
 .post-list li aside span {
@@ -136,25 +136,52 @@
     font-size: 22px;
   }
 }
-@media only screen and (min-width: 1500px) {
-  .post-list li aside:before {
-    border-width: 200px 120px 0 0;
-  }
-}
 .post-list li h2 .date {
-  right: 32%;
+  right: 30%;
 }
 .post-list li aside {
   width: 30%;
+}
+.post-list li h2 .date {
+  margin-right: -22.5px;
+}
+.post-list li aside:before {
+  border-width: 200px 30px 0 0;
 }
 .post-list li:hover {
   padding-right: 37%;
 }
 .post-list li:hover h2 .date {
-  right: 37%;
+  right: 35%;
 }
 .post-list li:hover aside {
   width: 35%;
+}
+@media only screen and (min-width: 1500px) {
+  .post-list li {
+    padding-right: 42%;
+  }
+  .post-list li h2 .date {
+    margin-right: -90px;
+  }
+  .post-list li aside:before {
+    border-width: 200px 120px 0 0;
+  }
+  .post-list li h2 .date {
+    right: 40%;
+  }
+  .post-list li aside {
+    width: 40%;
+  }
+  .post-list li:hover {
+    padding-right: 45%;
+  }
+  .post-list li:hover h2 .date {
+    right: 43%;
+  }
+  .post-list li:hover aside {
+    width: 43%;
+  }
 }
 @media only screen and (max-width: 499px) {
   .post-list li {
