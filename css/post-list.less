@@ -1,23 +1,52 @@
-﻿.hoverTransition(@property) {
-	-moz-transition: @property ease-out .2s;
-	-o-transition: @property ease-out .2s;
-	-webkit-transition: @property ease-out .2s;
-	transition: @property ease-out .2s;
+﻿.hoverTransition(...) {
+	-moz-transition-duration: .2s;
+	-o-transition-duration: .2s;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+	-moz-transition-timing-function: ease-out;
+	-o-transition-timing-function: ease-out;
+	-webkit-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+	-moz-transition-property: @arguments;
+	-o-transition-property: @arguments;
+	-webkit-transition-property: @arguments;
+	transition-property: @arguments;
 }
 
 .post-list {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	@itemPadding: 10px;
 
 	li {
-		margin: 30px 0;
-		padding: 10px;
-		border: 1px solid #eee;
-		-webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,.3);
-		box-shadow: 0 0 10px 2px rgba(0,0,0,.3);
+		margin: 40px 0;
+		padding: 0 @itemPadding @itemPadding;
+		border-bottom: 1px solid #ccc;
 		position: relative;
-		.hoverTransition(margin-right);
+		.hoverTransition(margin-right, margin-left);
+		// Post titles
+		h2 {
+			font-weight: 300;
+			// The title text is in a separate element so that
+			// it can cover the date (via shadow) for overlap.
+			span {
+				background: white;
+				-webkit-box-shadow: 5px 0 8px 1px rgba(255, 255, 255, 1);
+				box-shadow: 5px 0 8px 1px rgba(255, 255, 255, 1);
+			}
+
+			.date {
+				position: absolute;
+				z-index: -1;
+				line-height: 31px;
+				color: black;
+				font-size: 16px;
+				font-weight: normal;
+				font-style: italic;
+				.hoverTransition(right);
+			}
+		}
 
 		h2, p {
 			margin-top: 0;
@@ -28,33 +57,16 @@
 			}
 		}
 
-		h2 span:first-child {
-			background: white;
-			-webkit-box-shadow: 5px 0 8px 1px rgba(255, 255, 255, 1);
-			box-shadow: 5px 0 8px 1px rgba(255, 255, 255, 1);
-		}
-
-		h2 .date {
-			position: absolute;
-			z-index: -1;
-			top: 10px;
-			line-height: 31px;
-			color: black;
-			font-size: 16px;
-			font-weight: normal;
-			font-style: italic;
-			.hoverTransition(right);
-		}
-
 		aside {
 			position: absolute;
 			right: 0;
 			top: 0;
 			height: 100%;
 			overflow: hidden;
-			.hoverTransition(width);
+			.hoverTransition(width, right);
 
 			&:before {
+				.hoverTransition(border-width);
 				content: '';
 				display: block;
 				width: 0;
@@ -64,15 +76,27 @@
 				border-color: white transparent transparent transparent;
 			}
 
+
 			span {
 				position: absolute;
 				text-align: right;
-				right: 10px;
-				bottom: 10px;
-				font-weight: bold;
+				right: @itemPadding;
+				bottom: @itemPadding;
 				font-size: 24px;
 				width: 100%;
 				letter-spacing: 1px;
+			}
+
+			@media only screen and (max-width: 1199px) {
+				span {
+					font-size: 22px;
+				}
+			}
+
+			@media only screen and (min-width: 1500px) {
+				&:before {
+					border-width: 200px 120px 0 0;
+				}
 			}
 		}
 
@@ -107,6 +131,31 @@
 
 			aside {
 				width: @sideWidth;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 479px) {
+		li {
+			@sideWidth: 20px;
+			margin-left: @sideWidth;
+
+			h2 .date {
+				right: @itemPadding !important; // Override hover style
+			}
+
+			aside {
+				right: 100%;
+				width: @sideWidth !important; // Override hover style
+				border-bottom: 1px solid #ccc;
+
+				&:before {
+					content: none;
+				}
+
+				span {
+					display: none;
+				}
 			}
 		}
 	}

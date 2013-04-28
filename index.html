@@ -16,7 +16,7 @@ title: SLaks
 				{% capture categoryClass %}{{ mainCategory | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' | downcase }} {% endcapture %}
 			{% endif %}
 			<li class="{{ categoryClass | xml_escape }}">
-				<h2><a href="{{ post.url }}"><span>{{ post.title | xml_escape }}</span> <span class="date" title="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</span></a></h2>
+				<h2><a href="{{ post.url }}"><span>{{ post.title | xml_escape }}</span> <small class="date" title="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</small></a></h2>
 				<p>{{ post.content | strip_html | truncatewords 100 }}</p>
 
 				<aside><span>{{ mainCategory | xml_escape }}</span></aside>

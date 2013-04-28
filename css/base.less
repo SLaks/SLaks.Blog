@@ -1,5 +1,5 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic,700italic);
 
 body {
 	font-family: 'Source Sans Pro', sans-serif;
@@ -11,6 +11,23 @@ code, kbd, pre, samp {
 
 .container {
 	margin: 0 auto;
-	max-width: 960px;
 	width: 80%;
+}
+
+@media only screen and (max-width: 599px) {
+	.container {
+		width: auto;
+	}
+}
+
+a:link {
+	color: #08c;
+}
+
+a:visited {
+	color: spin(#08c, 5%);
+}
+
+a:hover {
+	color: darken(#08c, 15%);
 }
