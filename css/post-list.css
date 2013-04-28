@@ -2,6 +2,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  line-height: 1;
 }
 .post-list li {
   margin: 40px 0;
@@ -23,6 +24,7 @@
   padding-right: 32%;
 }
 .post-list li h2 {
+  line-height: 1.2;
   font-weight: 300;
 }
 .post-list li h2 span {
@@ -32,6 +34,7 @@
 }
 .post-list li h2 .date {
   position: absolute;
+  top: 0;
   z-index: -1;
   line-height: 31px;
   color: black;
@@ -55,10 +58,29 @@
 .post-list li p {
   margin-top: 0;
   margin-bottom: 5px;
+  clear: both;
 }
 .post-list li h2:last-child,
 .post-list li p:last-child {
   margin-bottom: 0;
+}
+.post-list li aside {
+  background-color: #5dc4f0;
+}
+.post-list li aside {
+  color: #ffffff;
+}
+.post-list li.javascript aside {
+  background-color: #f3df49;
+}
+.post-list li.javascript aside {
+  color: #2e2e2c;
+}
+.post-list li.dot-net aside {
+  background-color: #3babd0;
+}
+.post-list li.csharp aside {
+  background-color: #368832;
 }
 .post-list li aside {
   position: absolute;
@@ -134,27 +156,17 @@
 .post-list li:hover aside {
   width: 35%;
 }
-.post-list li aside {
-  background-color: #5dc4f0;
-}
-.post-list li aside {
-  color: #ffffff;
-}
-.post-list li.javascript aside {
-  background-color: #f3df49;
-}
-.post-list li.dot-net aside {
-  background-color: #3babd0;
-}
-.post-list li.csharp aside {
-  background-color: #368832;
-}
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 499px) {
   .post-list li {
+    padding-right: 10px !important;
     margin-left: 20px;
   }
+  .post-list li h2 span {
+    display: block;
+  }
   .post-list li h2 .date {
-    right: 10px !important;
+    position: static;
+    float: left;
   }
   .post-list li aside {
     right: 100%;

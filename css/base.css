@@ -28,3 +28,9 @@ a:visited {
 a:hover {
   color: #005580;
 }
+p,
+ul,
+ol {
+  line-height: 1.4;
+  margin: 0 0 10px;
+}

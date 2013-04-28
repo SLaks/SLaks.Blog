@@ -17,16 +17,19 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	line-height: 1;
 	@itemPadding: 10px;
 
 	li {
+		// Core listing styles
 		margin: 40px 0;
 		padding: 0 @itemPadding @itemPadding;
 		border-bottom: 1px solid #ccc;
-		position: relative;
+		position: relative; // Stretch <aside> to fill parent height
 		.hoverTransition(margin-right, margin-left);
 		// Post titles
 		h2 {
+			line-height: 1.2;
 			font-weight: 300;
 			// The title text is in a separate element so that
 			// it can cover the date (via shadow) for overlap.
@@ -38,6 +41,7 @@
 
 			.date {
 				position: absolute;
+				top: 0;
 				z-index: -1;
 				line-height: 31px;
 				color: black;
@@ -51,12 +55,29 @@
 		h2, p {
 			margin-top: 0;
 			margin-bottom: 5px;
+			clear: both;
 
 			&:last-child {
 				margin-bottom: 0;
 			}
 		}
 
+		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
+		.ColorScheme(@baseColor) {
+			aside {
+				background-color: @baseColor;
+			}
+		}
+
+		.ColorScheme(@baseColor, @textColor) {
+			.ColorScheme(@baseColor);
+
+			aside {
+				color: @textColor;
+			}
+		}
+		// Desktop-mode category side
+		// (angled bar on the right)
 		aside {
 			position: absolute;
 			right: 0;
@@ -106,22 +127,6 @@
 			.layout(35%);
 		}
 
-		.defineCategoryColors();
-
-		.ColorScheme(@baseColor) {
-			aside {
-				background-color: @baseColor;
-			}
-		}
-
-		.ColorScheme(@baseColor, @textColor) {
-			.ColorScheme(@baseColor);
-
-			aside {
-				color: @textColor;
-			}
-		}
-
 		.layout(@sideWidth) {
 			padding-right: @sideWidth + 2;
 
@@ -134,14 +139,23 @@
 			}
 		}
 	}
-
-	@media only screen and (max-width: 479px) {
+	// Mobile-mode category side.
+	// Narrow bar on the left; no
+	// text.  The date appears on
+	// its own line.
+	@media only screen and (max-width: 499px) {
 		li {
+			padding-right: @itemPadding !important; // Override desktop padding & hover
 			@sideWidth: 20px;
 			margin-left: @sideWidth;
 
+			h2 span {
+				display: block;
+			}
+
 			h2 .date {
-				right: @itemPadding !important; // Override hover style
+				position: static;
+				float: left;
 			}
 
 			aside {
@@ -165,7 +179,7 @@
 	.ColorScheme(#5DC4F0, white);
 
 	&.javascript {
-		.ColorScheme(#f3df49);
+		.ColorScheme(#f3df49, #2e2e2c);
 	}
 
 	&.dot-net {
