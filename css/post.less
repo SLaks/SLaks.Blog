@@ -1,0 +1,15 @@
+﻿@import-once url('./_mixins.less');
+@import-once url('./_colors.less');
+
+body {
+	.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
+	.ColorScheme(@baseColor) {
+		.gradient(to bottom, lighten(@baseColor, 30%) 0, white 25%);
+		background-repeat: no-repeat;
+	}
+
+
+	.ColorScheme(@baseColor, @textColor) {
+		.ColorScheme(@baseColor);
+	}
+}

@@ -12,9 +12,11 @@
 		<title>{{ page.title }}</title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width" />
-		<link href="/css/normalize.css" rel="stylesheet" />
-		<link href="/css/base.css" rel="stylesheet" />
-		<link href="/css/post-list.css" rel="stylesheet" />
+		<link href="/css/normalize.min.css" rel="stylesheet" />
+		<link href="/css/base.min.css" rel="stylesheet" />
+		{% for ref in page.stylesheets %}
+			<link href="/css/{{ ref }}.min.css" rel="stylesheet" />
+		{% endfor %}			
 	</head>
 
 	{% if page.categories %}
