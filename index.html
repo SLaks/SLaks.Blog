@@ -2,18 +2,13 @@
 layout: default
 title: SLaks
 ---
-
 	<ul class="post-list">
 		{% for post in site.posts %}
-			{% capture mainCategory %}{{ post.categories | first }}{% endcapture %}
-			{% if mainCategory == '.Net' %}
-				{% assign categoryClass = 'dot-net' %}
-			{% else %}
-				{% capture categoryClass %}{{ mainCategory | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' | downcase }} {% endcapture %}
-			{% endif %}
+			{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
+			{% include set-category-class %}
 			<li class="{{ categoryClass | xml_escape }}">
 				<h2><a href="{{ post.url }}"><span>{{ post.title | xml_escape }}</span> <small class="date" title="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</small></a></h2>
-				<p>{{ post.content | strip_html | truncatewords 100 }}</p>
+				<p>{{ post.content | strip_html | truncatewords 100 }}<br /> <a href="{{ post.url }}">Read more</a></p>
 
 				<aside><span>{{ mainCategory | xml_escape }}</span></aside>
 			</li>
