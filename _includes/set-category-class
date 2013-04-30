@@ -1,8 +1,8 @@
-﻿{% if categories %}
+{% if categories %}
 	{% capture mainCategory %}{{ categories | split:"~" | first }}{% endcapture %}
 	{% if mainCategory == '.Net' %}
 		{% assign categoryClass = 'dot-net' %}
 	{% else %}
-		{% capture categoryClass %}{{ mainCategory | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' | downcase }} {% endcapture %}
+		{% capture categoryClass %}{{ mainCategory | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' | downcase }}{% endcapture %}
 	{% endif %}
 {% endif %}
