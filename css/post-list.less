@@ -15,6 +15,10 @@
 	transition-property: @arguments;
 }
 
+.category-label {
+	display: none;
+}
+
 .post-list {
 	list-style-type: none;
 	margin: 0;
@@ -28,7 +32,9 @@
 		padding: 0 @itemPadding @itemPadding;
 		border-bottom: 1px solid #ccc;
 		position: relative; // Stretch <aside> to fill parent height
+		z-index: 2;			// Make sure the links in the <aside>s are clickable.
 		.hoverTransition(margin-right, margin-left);
+
 		// Post titles
 		h2 {
 			font-size: 24px;
@@ -74,7 +80,7 @@
 		.ColorScheme(@baseColor, @textColor) {
 			.ColorScheme(@baseColor);
 
-			aside {
+			aside a {
 				color: @textColor;
 			}
 		}
@@ -100,7 +106,7 @@
 			}
 
 
-			span {
+			a {
 				position: absolute;
 				text-align: right;
 				right: @itemPadding;
@@ -108,10 +114,14 @@
 				font-size: 24px;
 				width: 100%;
 				letter-spacing: 1px;
+
+				&:hover {
+					color: darken(#08c, 15%);
+				}
 			}
 
 			@media only screen and (max-width: 1199px) {
-				span {
+				a {
 					font-size: 22px;
 				}
 			}
@@ -183,7 +193,7 @@
 					content: none;
 				}
 
-				span {
+				a {
 					display: none;
 				}
 			}

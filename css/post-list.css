@@ -1,4 +1,7 @@
-﻿.post-list {
+﻿.category-label {
+  display: none;
+}
+.post-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -9,6 +12,7 @@
   padding: 0 10px 10px;
   border-bottom: 1px solid #ccc;
   position: relative;
+  z-index: 2;
   -moz-transition-duration: .2s;
   -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
@@ -67,13 +71,13 @@
 .post-list li aside {
   background-color: #5dc4f0;
 }
-.post-list li aside {
+.post-list li aside a {
   color: #ffffff;
 }
 .post-list li.javascript aside {
   background-color: #f3df49;
 }
-.post-list li.javascript aside {
+.post-list li.javascript aside a {
   color: #2e2e2c;
 }
 .post-list li.dot-net aside {
@@ -122,7 +126,7 @@
   border-style: solid;
   border-color: white transparent transparent transparent;
 }
-.post-list li aside span {
+.post-list li aside a {
   position: absolute;
   text-align: right;
   right: 10px;
@@ -131,8 +135,11 @@
   width: 100%;
   letter-spacing: 1px;
 }
+.post-list li aside a:hover {
+  color: #005580;
+}
 @media only screen and (max-width: 1199px) {
-  .post-list li aside span {
+  .post-list li aside a {
     font-size: 22px;
   }
 }
@@ -203,7 +210,7 @@
   .post-list li aside:before {
     content: none;
   }
-  .post-list li aside span {
+  .post-list li aside a {
     display: none;
   }
 }

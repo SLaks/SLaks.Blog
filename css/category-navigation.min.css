@@ -1,0 +1,15 @@
+---
+---
+{% for cat in site.categories %}
+	{% capture categories %}{{ cat[0] }}{% endcapture %}
+	{% include set-category-class %}
+	#{{ categoryClass }}:target {
+						   display: block;
+	                   }
+	#{{ categoryClass }}:target ~ .post-list > li {
+						   display: none;
+					   }
+	#{{ categoryClass }}:target ~ .post-list > li.{{ categoryClass }} {
+						   display: block;
+					   }
+{% endfor %}
