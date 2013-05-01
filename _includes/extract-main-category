@@ -1,0 +1,16 @@
+{% comment %}
+This function takes a ~-separated list of categories and extracts the primary category (the category to use for the post color).
+
+Input:  categories
+Output: mainCategory, mainCategorySlug
+{% endcomment %}{% if categories %}
+	{% capture mainCategory %}{{ categories | split:"~" | first }}{% endcapture %}
+		{% comment %}
+			Save our input to not affect our caller, then pass only the main category to slugify-categories.
+		{% endcomment %}
+	{% capture allCategories %}{{ categories }}{% endcapture %}
+	{% capture categories %}{{ mainCategory }}{% endcapture %}
+	{% include slugify-categories %}
+	{% capture mainCategorySlug %}{{ categorySlugs }}{% endcapture %}
+	{% capture categories %}{{ allCategories }}{% endcapture %}
+{% endif %}

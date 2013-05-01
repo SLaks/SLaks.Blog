@@ -5,19 +5,19 @@ stylesheets: ["post-list", "category-navigation"]
 ---
 	{% for cat in site.categories %}
 		{% capture categories %}{{ cat[0] }}{% endcapture %}
-		{% include set-category-class %}
-		<p class="category-label" id="{{ categoryClass | xml_escape }}">Showing {{ cat[1] | size }} {{ mainCategory | xml_escape }} posts. <a href="{{ page.url }}">Show all</a></p>
+		{% include extract-main-category %}
+		<p class="category-label" id="{{ mainCategorySlug | xml_escape }}">Showing {{ cat[1] | size }} {{ mainCategory | xml_escape }} posts. <a href="{{ page.url }}">Show all</a></p>
 	{% endfor %}
 
 	<ul class="post-list">
 		{% for post in site.posts %}
 			{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
-			{% include set-category-class %}
-			<li class="{{ categoryClass | xml_escape }}">
+			{% include extract-main-category %}
+			<li class="{{ mainCategorySlug | xml_escape }}">
 				<h2><a href="{{ post.url }}"><span>{{ post.title | xml_escape }}</span> <small class="date" title="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</small></a></h2>
 				<p>{{ post.content | strip_html | truncatewords 100 }}<br /> <a href="{{ post.url }}">Read more</a></p>
 
-				<aside><a href="#{{ categoryClass | cgi_escape | xml_escape }}">{{ mainCategory | xml_escape }}</a></aside>
+				<aside title="{{ post.categories | array_to_sentence_string }}"><a href="#{{ mainCategorySlug | cgi_escape | xml_escape }}">{{ mainCategory | xml_escape }}</a></aside>
 			</li>
 		{% endfor %}
 	</ul>
