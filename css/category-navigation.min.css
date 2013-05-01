@@ -9,7 +9,7 @@
 	#{{ categorySlugs }}:target ~ .post-list > li {
 						   display: none;
 					   }
-	#{{ categorySlugs }}:target ~ .post-list > li.{{ categorySlugs }} {
+	#{{ categorySlugs }}:target ~ .post-list > li[data-categories~="{{ categorySlugs }}"] {
 						   display: block;
 					   }
 {% endfor %}
