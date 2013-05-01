@@ -41,23 +41,36 @@
 	}
 
 	li {
-		// Core listing styles
-		margin: 20px 0;
-		border-left: solid @colorBarWidth;
 		padding: 0 10px;
 		width: @expandedWidth;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
-		overflow: hidden;	// Hide hidden content
+	}
+
+	li:first-child {
+		margin: 20px 0 10px;
+		padding-left: 10px + @colorBarWidth;
+		width: @expandedWidth;
 
 		h2 {
-			font-size: 24px;
-			line-height: 28px;
+			font-size: 26px;
+			line-height: 30px;
 			font-weight: 300;
 			margin: 0;
 		}
+	}
 
+	li + li {
+		margin: 20px 0;
+		border-left: solid @colorBarWidth;
+		overflow: hidden; // Hide hidden content
+		h3 {
+			font-size: 20px;
+			line-height: 1.16;
+			font-weight: 300;
+			margin: 0;
+		}
 		// Hide content until hovered, then slide down
 		p {
 			margin: 0;
@@ -66,7 +79,7 @@
 		}
 
 		&:hover p {
-			margin-top: 10px;
+			margin-top: 5px;
 			max-height: 200px;
 		}
 

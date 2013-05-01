@@ -6,11 +6,12 @@ stylesheets: ["post", "side-post-list"]
 {{ content }}
 
 <ul class="side-post-list">
+	<li><h2>Other posts</h2></li>
 	{% for post in site.posts %}
 		{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
 		{% include extract-main-category %}
-		<li class="{{ mainCategorySlug | xml_escape }}" data-categories="{{ categorySlugs }}">
-			<h2 title="Posted on {{ post.date | date: '%Y-%m-%d' }}"><a href="{{ post.url }}">{{ post.title | xml_escape }}</a></h2>
+		<li title="This post is about {{ post.categories | array_to_sentence_string }}." class="{{ mainCategorySlug | xml_escape }}" data-categories="{{ categorySlugs }}">
+			<h3 title="Posted on {{ post.date | date: '%Y-%m-%d' }}"><a href="{{ post.url }}">{{ post.title | xml_escape }}</a></h3>
 			<p>{{ post.content | strip_html | truncatewords 100 }}</p>
 		</li>
 	{% endfor %}
