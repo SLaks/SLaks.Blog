@@ -49,16 +49,25 @@
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
+		overflow: hidden;	// Hide hidden content
 
 		h2 {
 			font-size: 24px;
 			line-height: 28px;
 			font-weight: 300;
-			margin: 0 0 10px;
+			margin: 0;
 		}
 
+		// Hide content until hovered, then slide down
 		p {
 			margin: 0;
+			max-height: 0;
+			.hoverTransition(margin-top, max-height);
+		}
+
+		&:hover p {
+			margin-top: 10px;
+			max-height: 200px;
 		}
 
 		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
