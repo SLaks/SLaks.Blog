@@ -1,6 +1,17 @@
 ---
 layout: default
-stylesheets: ["post"]
+stylesheets: ["post", "side-post-list"]
 ---
 <h1>{{ page.title | xml_escape }}</h1>
 {{ content }}
+
+<ul class="side-post-list">
+	{% for post in site.posts %}
+		{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
+		{% include extract-main-category %}
+		<li class="{{ mainCategorySlug | xml_escape }}" data-categories="{{ categorySlugs }}">
+			<h2 title="Posted on {{ post.date | date: '%Y-%m-%d' }}"><a href="{{ post.url }}">{{ post.title | xml_escape }}</a></h2>
+			<p>{{ post.content | strip_html | truncatewords 100 }}</p>
+		</li>
+	{% endfor %}
+</ul>
