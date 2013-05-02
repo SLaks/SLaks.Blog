@@ -6,7 +6,7 @@ stylesheets: ["post-list", "category-navigation"]
 	{% for cat in site.categories %}
 		{% capture categories %}{{ cat[0] }}{% endcapture %}
 		{% include extract-main-category %}
-		<p class="category-label" id="{{ mainCategorySlug | xml_escape }}">Showing {{ cat[1] | size }} {{ mainCategory | xml_escape }} posts. <a href="{{ page.url }}">Show all</a></p>
+		<p class="category-label" id="{{ mainCategorySlug | xml_escape }}">Showing {{ cat[1] | size }} {{ mainCategory | xml_escape }} posts. <a href="/">Show all</a></p>
 	{% endfor %}
 
 	<ul class="post-list">

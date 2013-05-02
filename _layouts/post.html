@@ -5,6 +5,13 @@ stylesheets: ["post", "side-post-list"]
 <h1>{{ page.title | xml_escape }}</h1>
 {{ content }}
 
+<p class="post-categories">Categories: 
+	{% for categories in page.categories %}
+		{% include slugify-categories %}
+		<a href="/#{{ categorySlugs | cgi_escape | xml_escape }}">{{ categories | xml_escape }}</a>{% unless forloop.last %}, {% endunless %}
+	{% endfor %}
+</p>
+
 <ul class="side-post-list">
 	<li><h2>Other posts</h2></li>
 	{% for post in site.posts %}

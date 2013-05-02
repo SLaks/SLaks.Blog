@@ -30,3 +30,6 @@ body.csharp {
   background: linear-gradient(to bottom, #86d182 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
+.post-categories {
+  font-style: italic;
+}
