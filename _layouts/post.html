@@ -18,8 +18,12 @@ stylesheets: ["post", "side-post-list"]
 		{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
 		{% include extract-main-category %}
 		<li title="This post is about {{ post.categories | array_to_sentence_string }}." class="{{ mainCategorySlug | xml_escape }}" data-categories="{{ categorySlugs }}">
+			{% if page.id == post.id %}
+			<h3>This post</h3>
+			{% else %}
 			<h3 title="Posted on {{ post.date | date: '%Y-%m-%d' }}"><a href="{{ post.url }}">{{ post.title | xml_escape }}</a></h3>
 			<p>{{ post.content | strip_html | truncatewords 100 }}</p>
+			{% endif %}
 		</li>
 	{% endfor %}
 </ul>
