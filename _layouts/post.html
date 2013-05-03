@@ -3,7 +3,10 @@ layout: default
 stylesheets: ["post", "side-post-list"]
 ---
 <h1>{{ page.title | xml_escape }}</h1>
-{{ content }}
+<small>Posted on {{ page.date | date: "%A, %B %d %Y, at %I:%M: %p" }}</small>
+<article>
+	{{ content }}
+</article>
 
 <p class="post-categories">Categories: 
 	{% for categories in page.categories %}
@@ -12,7 +15,12 @@ stylesheets: ["post", "side-post-list"]
 	{% endfor %}
 </p>
 
-<ul class="side-post-list">
+<p class="post-navigation">
+	{% if page.previous %}<a href="{{ page.previous.url }}" title="{{ page.previous.title }}" class="previous">Previous</a>{% endif %}
+	{% if page.next %}<a href="{{ page.next.url }}" title="{{ page.next.title }}" class="next">Next</a>{% endif %}
+</p>
+
+<ul class="side-post-list"> 
 	<li><h2>Other posts</h2></li>
 	{% for post in site.posts %}
 		{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
