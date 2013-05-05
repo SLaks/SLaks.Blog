@@ -71,18 +71,22 @@
 		}
 
 		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
-		.ColorScheme(@baseColor) {
+		.Background(@color) {
 			aside {
-				background-color: @baseColor;
+				background-color: @color;
+			}
+		}
 
-				a:hover {
-					color: contrast(@baseColor, #333, #ccc);
-				}
+		.ColorScheme(@baseColor) {
+			.Background(@baseColor);
+
+			aside a:hover {
+				color: contrast(@baseColor, #333, #ccc);
 			}
 		}
 
 		.ColorScheme(@baseColor, @textColor) {
-			.ColorScheme(@baseColor);
+			.Background(@baseColor);
 
 			aside a {
 				color: @textColor;
