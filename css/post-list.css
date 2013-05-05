@@ -247,17 +247,15 @@
   -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: border-width left;
-  -o-transition-property: border-width left;
-  -webkit-transition-property: border-width left;
-  transition-property: border-width left;
+  -moz-transition-property: border-width margin-left;
+  -o-transition-property: border-width margin-left;
+  -webkit-transition-property: border-width margin-left;
+  transition-property: border-width margin-left;
   content: '';
   display: block;
   width: 0;
   height: 0;
   border-style: solid;
-  position: absolute;
-  top: 0;
 }
 .post-list li aside a {
   position: absolute;
@@ -277,17 +275,17 @@
   }
 }
 .post-list li h2 .date {
+  margin-right: 5px;
+}
+.post-list li aside:before {
+  margin-left: -30px;
+  border-width: 0 0 200px 30px;
+}
+.post-list li h2 .date {
   right: 30%;
 }
 .post-list li aside {
   width: 30%;
-}
-.post-list li h2 .date {
-  margin-right: 5px;
-}
-.post-list li aside:before {
-  left: -30px;
-  border-width: 0 0 200px 30px;
 }
 .post-list li:hover {
   padding-right: 37%;
@@ -306,7 +304,7 @@
     margin-right: 20px;
   }
   .post-list li aside:before {
-    left: -120px;
+    margin-left: -120px;
     border-width: 0 0 200px 120px;
   }
   .post-list li h2 .date {

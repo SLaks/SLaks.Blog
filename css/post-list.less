@@ -32,7 +32,7 @@
 		margin: 40px 0;
 		padding: 0 @itemPadding @itemPadding;
 		border-bottom: 1px solid #ccc;
-		overflow: hidden;	// Hide extra height of triangle from <aside>
+		overflow: hidden; // Hide extra height of triangle from <aside>
 		position: relative; // Stretch <aside> to fill parent height
 		z-index: 2; // Make sure the links in the <aside>s are clickable.
 		.hoverTransition(margin-right, margin-left);
@@ -72,7 +72,7 @@
 		}
 
 		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
-		.Background(@color) {
+		.CategoryBackground(@color) {
 			aside {
 				background-color: @color;
 
@@ -83,7 +83,7 @@
 		}
 
 		.ColorScheme(@baseColor) {
-			.Background(@baseColor);
+			.CategoryBackground(@baseColor);
 
 			aside a:hover {
 				color: contrast(@baseColor, #333, #ccc);
@@ -91,7 +91,7 @@
 		}
 
 		.ColorScheme(@baseColor, @textColor) {
-			.Background(@baseColor);
+			.CategoryBackground(@baseColor);
 
 			aside a {
 				color: @textColor;
@@ -112,15 +112,13 @@
 			.hoverTransition(width, right);
 
 			&:before {
-				.hoverTransition(border-width, left);
+				.hoverTransition(border-width, margin-left);
 				content: '';
 				display: block;
 				width: 0;
 				height: 0;
 				border-style: solid;
-				// The triangle sits off the left of box
-				position: absolute;
-				top: 0;
+				// The triangle is laid out in .sideSlant() and colored in .CategoryBackground()
 			}
 
 			a {
@@ -133,7 +131,8 @@
 				letter-spacing: 1px;
 
 				&:hover {
-					color: darken(#08c, 15%);
+					// This overrides the color for unstyled categories only.
+					color: @hoverLinkColor;
 				}
 			}
 
@@ -144,19 +143,19 @@
 			}
 		}
 
-		.layout(30%);
 		.sideSlant(30px);
+		.sideWidth(30%);
 
 		&:hover {
-			.layout(35%);
+			.sideWidth(35%);
 		}
 
 		@media only screen and (min-width: 1500px) {
 			.sideSlant(120px);
-			.layout(40%);
+			.sideWidth(40%);
 
 			&:hover {
-				.layout(43%);
+				.sideWidth(43%);
 			}
 		}
 
@@ -164,23 +163,22 @@
 			h2 .date {
 				margin-right: @width / 6; // Don't cover the top part of the triangle
 			}
-
-			// The triangle extends far below the box so that it covers taller posts too
+			// The triangle hangs off the left edge, and extends
+			// far below the box so that it covers taller posts.
 			aside:before {
-				left: -@width;
+				margin-left: -@width;
 				border-width: 0 0 200px @width;
 			}
 		}
 
-		.layout(@sideWidth) {
-			padding-right: @sideWidth + 2;
-
+		.sideWidth(@width) {
+			padding-right: @width + 2; // Don't cover too much of the space occupied by the triangle.
 			h2 .date {
-				right: @sideWidth;
+				right: @width;
 			}
 
 			aside {
-				width: @sideWidth;
+				width: @width;
 			}
 		}
 	}
@@ -190,7 +188,7 @@
 	// its own line.
 	@media only screen and (max-width: 499px) {
 		li {
-			overflow: visible;						// Let the <aside> show through the margin
+			overflow: visible; // Let the <aside> show through the margin
 			padding-right: @itemPadding !important; // Override desktop padding & hover
 			@sideWidth: 20px;
 			margin-left: @sideWidth;
