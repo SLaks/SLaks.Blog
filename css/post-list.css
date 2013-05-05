@@ -80,11 +80,35 @@
 .post-list li.javascript aside a {
   color: #2e2e2c;
 }
+.post-list li.jquery aside {
+  background-color: #0769ad;
+}
+.post-list li.jquery aside a {
+  color: #70c8ee;
+}
+.post-list li.css aside {
+  background-color: #2162af;
+}
+.post-list li.css aside a {
+  color: #ebebeb;
+}
+.post-list li.html aside {
+  background-color: #e34c26;
+}
+.post-list li.html aside a {
+  color: #ebebeb;
+}
+.post-list li.visual-studio-2012 aside {
+  background-color: #742894;
+}
 .post-list li.dot-net aside {
   background-color: #3babd0;
 }
 .post-list li.csharp aside {
   background-color: #368832;
+}
+.post-list li.vb-net aside {
+  background-color: #00539c;
 }
 .post-list li aside {
   position: absolute;
