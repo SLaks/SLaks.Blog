@@ -18,7 +18,7 @@ stylesheets: ["post-list", "category-navigation"]
 				<h2><a href="{{ post.url }}"><span>{{ post.title | xml_escape }}</span> <small class="date" title="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</small></a></h2>
 				<p>{{ post.content | strip_html | truncatewords 100 }}<br /> <a href="{{ post.url }}">Read more</a></p>
 
-				<aside title="This post is about {{ post.categories | array_to_sentence_string }}."><a href="#{{ mainCategorySlug | cgi_escape | xml_escape }}">{{ mainCategory | xml_escape }}</a></aside>
+				<aside title="This post is about {{ post.categories | array_to_sentence_string | replace: '-', ' ' }}."><a href="#{{ mainCategorySlug | cgi_escape | xml_escape }}">{{ mainCategory | xml_escape }}</a></aside>
 			</li>
 		{% endfor %}
 	</ul>
