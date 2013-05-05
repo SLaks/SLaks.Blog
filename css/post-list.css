@@ -92,6 +92,48 @@
 .post-list li.javascript aside a:hover {
   color: #000000;
 }
+.post-list li.derby aside {
+  background-color: #55b3a6;
+}
+.post-list li.derby aside a:hover {
+  color: #333333;
+}
+.post-list li.derby aside a {
+  color: #f6f0e1;
+}
+.post-list li.derby aside a:hover {
+  color: #ba9538;
+}
+.post-list li.socket-io aside {
+  background-color: #19698a;
+}
+.post-list li.socket-io aside a:hover {
+  color: #cccccc;
+}
+.post-list li.node-js aside {
+  background-color: #8bc84b;
+}
+.post-list li.node-js aside a:hover {
+  color: #333333;
+}
+.post-list li.node-js aside a {
+  color: #46483e;
+}
+.post-list li.node-js aside a:hover {
+  color: #000000;
+}
+.post-list li.jekyll aside {
+  background-color: #000000;
+}
+.post-list li.jekyll aside a:hover {
+  color: #cccccc;
+}
+.post-list li.jekyll aside a {
+  color: #dddddd;
+}
+.post-list li.jekyll aside a:hover {
+  color: #ffffff;
+}
 .post-list li.jquery aside {
   background-color: #0769ad;
 }
@@ -102,6 +144,18 @@
   color: #70c8ee;
 }
 .post-list li.jquery aside a:hover {
+  color: #ffffff;
+}
+.post-list li.html aside {
+  background-color: #e34c26;
+}
+.post-list li.html aside a:hover {
+  color: #cccccc;
+}
+.post-list li.html aside a {
+  color: #ebebeb;
+}
+.post-list li.html aside a:hover {
   color: #ffffff;
 }
 .post-list li.css aside {
@@ -116,17 +170,11 @@
 .post-list li.css aside a:hover {
   color: #ffffff;
 }
-.post-list li.html aside {
-  background-color: #e34c26;
+.post-list li.less aside {
+  background-color: #143352;
 }
-.post-list li.html aside a:hover {
+.post-list li.less aside a:hover {
   color: #cccccc;
-}
-.post-list li.html aside a {
-  color: #ebebeb;
-}
-.post-list li.html aside a:hover {
-  color: #ffffff;
 }
 .post-list li.visual-studio-2012 aside {
   background-color: #742894;

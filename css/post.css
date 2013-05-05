@@ -14,12 +14,44 @@ body.javascript {
   background: linear-gradient(to bottom, #fcf8d9 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
+body.derby {
+  background: -webkit-linear-gradient(to bottom, #bfe2dd 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #bfe2dd 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #bfe2dd 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #bfe2dd 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #bfe2dd 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
+body.socket-io {
+  background: -webkit-linear-gradient(to bottom, #5bbae1 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #5bbae1 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #5bbae1 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #5bbae1 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #5bbae1 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
+body.node-js {
+  background: -webkit-linear-gradient(to bottom, #d7ecc0 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #d7ecc0 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #d7ecc0 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #d7ecc0 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #d7ecc0 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
 body.jquery {
-  background: -webkit-linear-gradient(to bottom, #f9fdfe 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #f9fdfe 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #f9fdfe 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #f9fdfe 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #f9fdfe 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #55b5f8 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #55b5f8 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #55b5f8 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #55b5f8 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #55b5f8 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
+body.html {
+  background: -webkit-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.css {
@@ -30,12 +62,12 @@ body.css {
   background: linear-gradient(to bottom, #82b0e7 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
-body.html {
-  background: -webkit-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
+body.less {
+  background: -webkit-linear-gradient(to bottom, #327fcd 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #327fcd 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #327fcd 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #327fcd 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #327fcd 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.visual-studio-2012 {

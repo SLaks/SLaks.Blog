@@ -24,17 +24,37 @@
   background-color: #f3df49;
   color: #2e2e2c;
 }
+.category-list li.derby:before {
+  background-color: #55b3a6;
+  color: #f6f0e1;
+}
+.category-list li.socket-io:before {
+  background-color: #19698a;
+  color: #ffffff;
+}
+.category-list li.node-js:before {
+  background-color: #8bc84b;
+  color: #46483e;
+}
+.category-list li.jekyll:before {
+  background-color: #000000;
+  color: #dddddd;
+}
 .category-list li.jquery:before {
   background-color: #0769ad;
   color: #70c8ee;
+}
+.category-list li.html:before {
+  background-color: #e34c26;
+  color: #ebebeb;
 }
 .category-list li.css:before {
   background-color: #2162af;
   color: #ebebeb;
 }
-.category-list li.html:before {
-  background-color: #e34c26;
-  color: #ebebeb;
+.category-list li.less:before {
+  background-color: #143352;
+  color: #ffffff;
 }
 .category-list li.visual-studio-2012:before {
   background-color: #742894;
