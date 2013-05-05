@@ -20,6 +20,8 @@ stylesheets: ["post", "side-post-list"]
 	{% if page.next %}<a href="{{ page.next.url }}" title="{{ page.next.title }}" class="next">Next</a>{% endif %}
 </p>
 
+<p>I haven't decided whether to set up comments.  If you'd like me to, <a href="https://twitter.com/intent/tweet?related=Schabse&amp;text={{ "@Schabse Can you set up comments on your blog? (I'm reading " | cgi_escape | xml_escape }}{{ page.title | truncate: 90 | cgi_escape | xml_escape }})" title="Ask me to set up commenting." target="_blank">click here</a>.</p>
+
 <ul class="side-post-list"> 
 	<li><h2>Other posts</h2></li>
 	{% for post in site.posts %}

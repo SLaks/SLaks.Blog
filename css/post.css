@@ -38,6 +38,14 @@ body.node-js {
   background: linear-gradient(to bottom, #d7ecc0 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
+body.jekyll {
+  background: -webkit-linear-gradient(to bottom, #4d4d4d 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #4d4d4d 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #4d4d4d 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #4d4d4d 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #4d4d4d 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
 body.jquery {
   background: -webkit-linear-gradient(to bottom, #55b5f8 0, #ffffff 25%);
   background: -ms-linear-gradient(to bottom, #55b5f8 0, #ffffff 25%);
@@ -116,6 +124,9 @@ h1 + small {
 }
 article {
   text-align: justify;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
 }
 article p,
 article ul,
