@@ -1,4 +1,4 @@
-﻿@import-once url('./_colors.less');
+﻿@import-once url('./_variables.less');
 
 @import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,400italic,700italic);
@@ -17,15 +17,15 @@ code, kbd, pre, samp {
 }
 
 a:link {
-	color: #08c;
+	color: @linkColor;
 }
 
 a:visited {
-	color: spin(#08c, 5%);
+	color: @visitedLinkColor;
 }
 
 a:hover {
-	color: darken(#08c, 15%);
+	color: @hoverLinkColor;
 }
 
 p, ul, ol {
@@ -71,4 +71,3 @@ header {
 		font-size: 70px;
 	}
 }
-
