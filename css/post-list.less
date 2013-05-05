@@ -32,6 +32,7 @@
 		margin: 40px 0;
 		padding: 0 @itemPadding @itemPadding;
 		border-bottom: 1px solid #ccc;
+		overflow: hidden;	// Hide extra height of triangle from <aside>
 		position: relative; // Stretch <aside> to fill parent height
 		z-index: 2; // Make sure the links in the <aside>s are clickable.
 		.hoverTransition(margin-right, margin-left);
@@ -74,6 +75,10 @@
 		.Background(@color) {
 			aside {
 				background-color: @color;
+
+				&:before {
+					border-color: transparent transparent @color transparent;
+				}
 			}
 		}
 
@@ -103,20 +108,20 @@
 			right: 0;
 			top: 0;
 			height: 100%;
-			overflow: hidden;
 			z-index: -2; // The bar should be behind the date so that the date can appear above the white part of the triangle.
 			.hoverTransition(width, right);
 
 			&:before {
-				.hoverTransition(border-width);
+				.hoverTransition(border-width, left);
 				content: '';
 				display: block;
 				width: 0;
 				height: 0;
 				border-style: solid;
-				border-color: white transparent transparent transparent;
+				// The triangle sits off the left of box
+				position: absolute;
+				top: 0;
 			}
-
 
 			a {
 				position: absolute;
@@ -155,13 +160,15 @@
 			}
 		}
 
-		.sideSlant(@whiteWidth) {
+		.sideSlant(@width) {
 			h2 .date {
-				margin-right: -@whiteWidth * .75; // Cover part of the white triangle
+				margin-right: @width / 6; // Don't cover the top part of the triangle
 			}
 
+			// The triangle extends far below the box so that it covers taller posts too
 			aside:before {
-				border-width: 200px @whiteWidth 0 0;
+				left: -@width;
+				border-width: 0 0 200px @width;
 			}
 		}
 
@@ -183,6 +190,7 @@
 	// its own line.
 	@media only screen and (max-width: 499px) {
 		li {
+			overflow: visible;						// Let the <aside> show through the margin
 			padding-right: @itemPadding !important; // Override desktop padding & hover
 			@sideWidth: 20px;
 			margin-left: @sideWidth;
