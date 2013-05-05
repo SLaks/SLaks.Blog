@@ -1,0 +1,33 @@
+﻿@import-once url('./_colors.less');
+
+
+
+.category-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+
+	li {
+		margin: 10px 0;
+
+		&:before {
+			content: '◆';
+			border-radius: 3px;
+			font-size: 20px;
+			display: inline-block;
+			text-align: center;
+			line-height: 1;
+			padding: 4px;
+			margin-right: 5px;
+		}
+
+		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
+		.ColorScheme(@baseColor, @textColor: #fff) {
+			&:before {
+				background-color: @baseColor;
+				color: @textColor;
+			}
+		}
+	}
+}

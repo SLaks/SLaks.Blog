@@ -1,0 +1,14 @@
+---
+layout: default
+title: SLaks
+stylesheets: ["category-list"]
+---
+<ul class="category-list">
+	{% for cat in site.categories %}
+		{% capture categories %}{{ cat[0] }}{% endcapture %}
+		{% include slugify-categories %}
+		<li class="{{ categorySlugs | xml_escape }}">
+			<a href="/#{{ categorySlugs | cgi_escape | xml_escape }}">{{ cat[0] | xml_escape }} ({{ cat[1] | size }} posts)</a>
+		</li>
+		{% endfor %}
+	</ul>
