@@ -7,8 +7,8 @@
 	  xmlns:thr="http://purl.org/syndication/thread/1.0"> 
 
 	<title>SLaks.Blog</title>
-	<link rel="alternate"	type="text/html"			href="{{ site.url }}/"/>
-	<link rel="self"		type="application/atom+xml"	href="{{ site.url }}{{ page.url }}"/>
+	<link rel="alternate"	type="text/html"			href="{{ site.baseurl }}/"/>
+	<link rel="self"		type="application/atom+xml"	href="{{ site.baseurl }}{{ page.url }}"/>
 	<updated>{{ site.time | date_to_xmlschema }}</updated>
 	<id>tag:blogger.com,1999:blog-4137132196361303955</id>
 	<author>
@@ -20,7 +20,7 @@
 	{% for post in site.posts %}
 	<entry>
 		<id>{% if post.guid %}{{ post.guid | xml_escape }}{% else %}{{ post.url | xml_escape }}{% endif %}</id>
-		<link rel="alternate" type="text/html" href="{{site.url}}{{ post.url | xml_escape }}"/>
+		<link rel="alternate" type="text/html" href="{{site.baseurl}}{{ post.url | xml_escape }}"/>
 		<title type="text">{{ post.title | xml_escape }}</title>
 		<updated>{{ post.date | date_to_xmlschema }}</updated>
 		<published>{{ post.date | date_to_xmlschema }}</published>
