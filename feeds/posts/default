@@ -1,0 +1,8 @@
+---
+layout: nil
+---
+<?xml version="1.0"?>
+{% include atom.xml %}
+<!-- This file is a copy of atom.xml with a path matching
+	 Blogger's old path to avoid breaking RSS readers.  I
+	 can't change its Content-Type, so it's deprecated -->
