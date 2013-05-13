@@ -20,10 +20,14 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><i>This is part 5 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i></p>  <p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-4-c.html">Last time</a>, we saw how C# 2 supports closures by compiling anonymous functions into member functions of a special class that holds local state from the outer function.&#160; </p>  <p>Unlike the languages we’ve looked at before, Javascript has had closures baked in to the languages since its inception.&#160; My <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a> can be achieved very simply in Javascript:</p>  <pre class="brush: js;">var x = 2;
+<p><i>This is part 5 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i></p>  <p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-4-c.html">Last time</a>, we saw how C# 2 supports closures by compiling anonymous functions into member functions of a special class that holds local state from the outer function.&#160; </p>  <p>Unlike the languages we’ve looked at before, Javascript has had closures baked in to the languages since its inception.&#160; My <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a> can be achieved very simply in Javascript:</p>
+{% endraw %}
+{% highlight js %}
+var x = 2;
 var numbers = [ 1, 2, 3, 4 ];
-var hugeNumbers = numbers.filter(function(n) { return n &gt; x; });</pre>
-
+var hugeNumbers = numbers.filter(function(n) { return n > x; });
+{% endhighlight %}
+{% raw %}
 <p>This code uses the <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/filter"><code>Array.filter</code> method</a>, new to Javascript 1.6, to create a new array with those elements from the first array that pass a callback.&#160; The function expression passed to <code>filter</code> captures the <code>x</code> variable for use inside the callback.</p>
 
 <p>This looks extremely similar to the C# 2.0 version from last time.&#160; However. under the covers, it’s rather different.</p>
@@ -35,32 +39,37 @@ var hugeNumbers = numbers.filter(function(n) { return n &gt; x; });</pre>
 <p>Javascript doesn’t have separate delegate objects that can hold a function and a <code>this</code> parameter.&#160; Instead, the value of the <code>this</code> parameter is determined at the call-site, depending on how the function was called.&#160; This is a common source of confusion to inexperienced Javascript developers.</p>
 
 <p>To simulate closed delegates, we can make a method that takes a function as well as a target object to call it on, and returns a new function which calls the original function with <code>this</code> equal to the target parameter.&#160; That sounds overwhelmingly complicated, but it’s actually not that hard:</p>
-
-<pre class="brush: js;">function createDelegate(func, target) {
+{% endraw %}
+{% highlight js %}
+function createDelegate(func, target) {
     return function() { 
         return func.apply(target, arguments);
     };
 }
 
-var myObject = { name: &quot;Target!&quot;};
+var myObject = { name: "Target!"};
 function myMethod() {
     return this.name;
 }
 
 var delegate = createDelegate(myMethod, myObject);
-alert(delegate());</pre>
-
+alert(delegate());
+{% endhighlight %}
+{% raw %}
 <p>This <code>createDelegate</code> method returns a function expression that captures the <code>func</code> and <code>target</code> parameters, and calls <code>func</code> in the context of <code>target</code>.&#160; Instead of storing the target in a property of a <code>Delegate</code> object (like .Net does), this code stores it in the inner function expression’s closure.</p>
 
 <p>Javascript 1.8.5 provides the <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind"><code>Function.bind</code> method</a>, which is equivalent to this <code>createDelegate</code> method, with additional capabilities as well.&#160; In Chrome, Firefox 4, and IE9, you can write</p>
-
-<pre class="brush: js;">var myObject = { name: &quot;Target!&quot;};
+{% endraw %}
+{% highlight js %}
+var myObject = { name: "Target!"};
 function myMethod() {
     return this.name;
 }
 
 var delegate = myMethod.bind(myObject);
-alert(delegate());</pre>
+alert(delegate());
+{% endhighlight %}
+{% raw %}
 For more information, see the <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind">MDN documentation</a>.  
 </div>
 {% endraw %}

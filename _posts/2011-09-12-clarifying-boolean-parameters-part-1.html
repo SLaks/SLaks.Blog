@@ -20,14 +20,18 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>Have you ever written code like this:</p>  <pre class="brush: csharp;">public void UpdateLayout(bool doFullLayout) {
+<p>Have you ever written code like this:</p>
+{% endraw %}
+{% highlight csharp %}
+public void UpdateLayout(bool doFullLayout) {
     //Code
     if (doFullLayout) {
         //Expensive code
     }
     //More code
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>This pattern is commonly used when some operation has a “cheap” mode and an “expensive” mode.&#160; Other code will have calls like <code>UpdateLayout(false)</code> and <code>UpdateLayout(true)</code> scattered throughout.</p>
 
 <p>The problem is that this isn’t very obvious for people who aren’t familiar with the codebase.&#160; If you take a look at a file you’ve never seen before and see calls like <code>UpdateLayout(false)</code> and <code>UpdateLayout(true)</code> scattered, you’ll have no idea what the true / false means.</p>
@@ -37,8 +41,9 @@ author:
 </blockquote>
 
 <p>One alternative is to use enums: </p>
-
-<pre class="brush: csharp;">public enum LayoutUpdateType {
+{% endraw %}
+{% highlight csharp %}
+public enum LayoutUpdateType {
     Basic,
     Full
 }
@@ -49,8 +54,9 @@ public void UpdateLayout(LayoutUpdateType type) {
         //Expensive code
     }
     //More code
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>This way, the callsites are much more descriptive: <code>UpdateLayout(LayoutUpdateType.Full)</code>.&#160; This also makes it easy to add more update modes in the future should the need arise.&#160; However, it makes the callsites much more verbose.&#160; When used frequently, this pattern can lead a vast proliferation of enum types that are each only used by one method, polluting the namespace and making more important enums harder to notice.</p>
 
 <p><a href="http://blog.slaks.net/2011/09/clarifying-boolean-parameters-part-2.html"><em>Next time</em>: Cleverer alternatives</a></p>  

@@ -30,33 +30,36 @@ author:
 
 This text and @code is not compiled.</pre>
 
-<p>This helper can then be called from any other code by writing <font face="Courier New"><em>PageName</em>.Menu(...)</font>, where <code><em>PageName</em></code> is the filename of the CHSTML page in App_Code.&#160; In Razor pages, it can be called like any other helper.&#160; In normal C# code, it returns a <code>HelperResult</code> instance; call <code>ToString()</code> or <code>WriteTo(TextWriter)</code> to get the HTML source.</p>
+<p>This helper can then be called from any other code by writing <code><em>PageName</em>.Menu(...)</code>, where <code><em>PageName</em></code> is the filename of the CHSTML page in App_Code.&#160; In Razor pages, it can be called like any other helper.&#160; In normal C# code, it returns a <code>HelperResult</code> instance; call <code>ToString()</code> or <code>WriteTo(TextWriter)</code> to get the HTML source.</p>
 
 <p>For example:&#160; (assuming that the helper is defined in ~/App_Code/Helpers.cshtml)</p>
-
-<pre class="brush: csharp;">@Helpers.Menu(
-    new[] { &quot;Home&quot;,    &quot;~/&quot;        },
-    new[] { &quot;About&quot;,   &quot;~/About&quot;   },
-    new[] { &quot;Contact&quot;, &quot;~/Contact&quot; }
-)</pre>
-
+{% endraw %}
+{% highlight csharp %}
+@Helpers.Menu(
+    new[] { "Home",    "~/"        },
+    new[] { "About",   "~/About"   },
+    new[] { "Contact", "~/Contact" }
+)
+{% endhighlight %}
+{% raw %}
 <p>In order to see the source, I need to insert a <code>#error</code> directive inside the helper block; putting it in the page itself will have no effect, since the page is not compiled.&#160; Since the contents of the helper block are code, not markup, I don’t need to wrap it in <code>@{ ... }</code>.</p>
 
 <p>The above helper is transformed into the following C#: (As usual, <code>@line</code> directives have been removed)</p>
-
-<pre class="brush: csharp;">public class Helpers : System.Web.WebPages.HelperPage {
+{% endraw %}
+{% highlight csharp %}
+public class Helpers : System.Web.WebPages.HelperPage {
     public static System.Web.WebPages.HelperResult Menu(params string[][] items) {
-        return new System.Web.WebPages.HelperResult(__razor_helper_writer =&gt; {
+        return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
-            WriteLiteralTo(@__razor_helper_writer, &quot;    &lt;ul&gt;\r\n&quot;);
+            WriteLiteralTo(@__razor_helper_writer, "    <ul>\r\n");
             foreach (var pair in items) {
-                WriteLiteralTo(@__razor_helper_writer, &quot;            &lt;li&gt;&lt;a href=\&quot;&quot;);
+                WriteLiteralTo(@__razor_helper_writer, "            <li><a href=\"");
                 WriteTo(@__razor_helper_writer, Href(pair[1]));
-                WriteLiteralTo(@__razor_helper_writer, &quot;\&quot;&gt;&quot;);
+                WriteLiteralTo(@__razor_helper_writer, "\">");
                 WriteTo(@__razor_helper_writer, pair[0]);
-                WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/a&gt;&lt;/li&gt;\r\n&quot;);
+                WriteLiteralTo(@__razor_helper_writer, "</a></li>\r\n");
             }
-            WriteLiteralTo(@__razor_helper_writer, &quot;    &lt;/ul&gt;\r\n&quot;);
+            WriteLiteralTo(@__razor_helper_writer, "    </ul>\r\n");
 #error
         });
     }
@@ -67,8 +70,9 @@ This text and @code is not compiled.</pre>
             return ((System.Web.HttpApplication)(Context.ApplicationInstance));
         }
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>Note that the page-level content does not show up anywhere.&#160; The helper itself is compiled exactly like a normal helper, except that it’s <code>static</code>.</p>
 
 <p>Although there aren’t any in this example, <code>@functions</code> blocks will also be emitted normally into the generated source.</p>

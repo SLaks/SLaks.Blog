@@ -20,23 +20,30 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><em>Part 1 is <a href="http://blog.slaks.net/2011/09/clarifying-boolean-parameters-part-1.html">here</a></em></p>  <p>Some languages have better ways to pass boolean parameters.&#160; C# 4.0, and all versions of VB, allow parameters to be passed by name.&#160; This allows us to write much clearer code: </p>  <pre class="brush: csharp;">//C# 4.0:
-UpdateLayout(doFullLayout: false) </pre>
+<p><em>Part 1 is <a href="http://blog.slaks.net/2011/09/clarifying-boolean-parameters-part-1.html">here</a></em></p>  <p>Some languages have better ways to pass boolean parameters.&#160; C# 4.0, and all versions of VB, allow parameters to be passed by name.&#160; This allows us to write much clearer code: </p>
+{% endraw %}
+{% highlight csharp %}
+//C# 4.0:
+UpdateLayout(doFullLayout: false) 
+{% endhighlight %}
 
-<pre class="brush: vb;">'VB.Net:
-UpdateLayout(doFullLayout:=False) </pre>
+{% highlight vbnet %}
+'VB.Net:
+UpdateLayout(doFullLayout:=False) 
+{% endhighlight %}
+{% raw %}
+<p>Without requiring any changes to the function definition, this makes the meaning of the <code>true</code> / <code>false</code> abundantly clear at the call-site.</p>
 
-<p>Without requiring any changes to the function definition, this makes the meaning of the <font face="Courier New">true</font> / <font face="Courier New">false</font> abundantly clear at the call-site.</p>
+<p>Javascript offers another interesting alternative.&#160; In Javascript, booleans conditions actually check for “truthyness”.&#160; The statement <code>if(x)</code> will trigger&#160; not just if <code>x</code> is <code>true</code>, but also if <code>x</code> is any “truthy” value, including any object, non-empty string, or non-zero number. Similarly, the expression <code>!x</code> will return <code>false</code> if <code>x</code> is “truthy” and <code>true</code> if <code>x</code> “falsy”.</p>
 
-<p>Javascript offers another interesting alternative.&#160; In Javascript, booleans conditions actually check for “truthyness”.&#160; The statement <font face="Courier New">if(x)</font> will trigger&#160; not just if <font face="Courier New">x</font> is <font face="Courier New">true</font>, but also if <font face="Courier New">x</font> is any “truthy” value, including any object, non-empty string, or non-zero number. Similarly, the expression <font face="Courier New">!x</font> will return <font face="Courier New">false</font> if <font face="Courier New">x</font> is “truthy” and <font face="Courier New">true</font> if <font face="Courier New">x</font> “falsy”.</p>
+<p>This means that we can actually use any non-empty string instead of <code>true</code> in Javascript.&#160; Note that this will only work if the function checks the value for “truthyness”; it won’t work for code like <code>if (x === true)</code>.</p>
 
-<p>This means that we can actually use any non-empty string instead of <font face="Courier New">true</font> in Javascript.&#160; Note that this will only work if the function checks the value for “truthyness”; it won’t work for code like <font face="Courier New">if (x === true)</font>.</p>
-
-<p>Thus, instead of passing <font face="Courier New">true</font> as a boolean, you can pass a string that describes what you’re actually indicating.</p>
+<p>Thus, instead of passing <code>true</code> as a boolean, you can pass a string that describes what you’re actually indicating.</p>
 
 <p>For example:</p>
-
-<pre class="brush: js;">function updatePosition(animate) {
+{% endraw %}
+{% highlight js %}
+function updatePosition(animate) {
     //Calculate position
     if (animate)
         //...
@@ -48,8 +55,9 @@ $(window).resize(function() {
     updatePosition();
 });
 
-updatePosition(&quot;With animation&quot;);</pre>
-
+updatePosition("With animation");
+{% endhighlight %}
+{% raw %}
 <p>Although this results in much more readable code, it can be difficult to understand for people who aren’t familiar with this trick.&#160; If the meaning of the parameter changes, you’ll need to hunt down every place that the function is called and change the string to reflect the new meaning.</p>
 
 <p>Finally, unlike an enum, this does not scale to multiple options.&#160; If you need to have more than two options, you should use global variables or objects to simulate an enum, not strings.</p>  

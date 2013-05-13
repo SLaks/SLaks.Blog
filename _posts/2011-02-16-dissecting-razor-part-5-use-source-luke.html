@@ -20,33 +20,40 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-4-anatomy-of.html">Last time</a>, we saw how basic Razor constructs are translated into C#.</p>  <p>We can see the generated class by adding <code>@{ #error }</code> to the page source. This creates a compiler error in the <code>Execute</code> method, and the resulting Yellow Screen of Death contains a <u>Show Complete Compilation Source:</u> link which will show the generated C# class.&#160; </p>  <p>Let’s start with a very simple page:</p>  <pre class="brush: xml;">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;body&gt;
-        1 + 2 = @(1 + 2)&lt;br /&gt;
-        @{ var source = &quot;&lt;b&gt;bold &amp;amp; fancy&lt;/b&gt;&quot;; }
-        &lt;code&gt;@source&lt;/code&gt; is rendered as
+<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-4-anatomy-of.html">Last time</a>, we saw how basic Razor constructs are translated into C#.</p>  <p>We can see the generated class by adding <code>@{ #error }</code> to the page source. This creates a compiler error in the <code>Execute</code> method, and the resulting Yellow Screen of Death contains a <u>Show Complete Compilation Source:</u> link which will show the generated C# class.&#160; </p>  <p>Let’s start with a very simple page:</p>
+{% endraw %}
+{% highlight xml %}
+<!DOCTYPE html>
+<html>
+    <body>
+        1 + 2 = @(1 + 2)<br />
+        @{ var source = "<b>bold &amp; fancy</b>"; }
+        <code>@source</code> is rendered as
         @(new HtmlString(source))
-    &lt;/body&gt;
-&lt;/html&gt;
-@{ #error }</pre>
-
+    </body>
+</html>
+@{ #error }
+{% endhighlight %}
+{% raw %}
 <p>This page is rendered like this: (after removing <code>@{ #error }</code>)</p>
-
-<pre class="brush: xml;">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;body&gt;
-        1 + 2 = 3&lt;br /&gt;
-        &lt;code&gt;&amp;lt;b&amp;gt;bold &amp;amp;amp; fancy&amp;lt;/b&amp;gt;&lt;/code&gt; is rendered as
-        &lt;b&gt;bold &amp;amp; fancy&lt;/b&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</pre>
-
+{% endraw %}
+{% highlight xml %}
+<!DOCTYPE html>
+<html>
+    <body>
+        1 + 2 = 3<br />
+        <code>&lt;b&gt;bold &amp;amp; fancy&lt;/b&gt;</code> is rendered as
+        <b>bold &amp; fancy</b>
+    </body>
+</html>
+{% endhighlight %}
+{% raw %}
 <p>As expected, the expression <code>@source</code> is automatically escaped.&#160; Also notice that the newline and indentation around the code block (<code>@{ var ... }</code>)&#160; was not rendered – the Razor parser strips all whitespace surrounding code blocks.&#160; This is a welcome improvement over the ASPX view engine.</p>
 
 <p>Now let’s look at how this HTML is generated.&#160; This page is transformed into the following C# source:</p>
-
-<pre class="brush: csharp;">namespace ASP {
+{% endraw %}
+{% highlight csharp %}
+namespace ASP {
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -73,41 +80,42 @@ author:
         }
 
         public override void Execute() {
-            WriteLiteral(&quot;&lt;!DOCTYPE html&gt;\r\n&lt;html&gt;\r\n    &lt;body&gt;\r\n        1 + 2 = &quot;);
+            WriteLiteral("<!DOCTYPE html>\r\n<html>\r\n    <body>\r\n        1 + 2 = ");
 
-#line 4 &quot;...\SimplePage.cshtml&quot;
+#line 4 "...\SimplePage.cshtml"
             Write(1 + 2);
 #line default
 #line hidden
-            WriteLiteral(&quot;&lt;br /&gt;\r\n&quot;);
+            WriteLiteral("<br />\r\n");
 
-#line 5 &quot;...\SimplePage.cshtml&quot;
-            var source = &quot;&lt;b&gt;bold &amp;amp; fancy&lt;/b&gt;&quot;;
+#line 5 "...\SimplePage.cshtml"
+            var source = "<b>bold &amp; fancy</b>";
 #line default
 #line hidden
-            WriteLiteral(&quot;        &lt;code&gt;&quot;);
+            WriteLiteral("        <code>");
 
-#line 6 &quot;...\SimplePage.cshtml&quot;
+#line 6 "...\SimplePage.cshtml"
             Write(source);
 #line default
 #line hidden
-            WriteLiteral(&quot;&lt;/code&gt; is rendered as\r\n        &quot;);
+            WriteLiteral("</code> is rendered as\r\n        ");
 
-#line 7 &quot;...\SimplePage.cshtml&quot;
+#line 7 "...\SimplePage.cshtml"
             Write(new HtmlString(source));
 #line default
 #line hidden
-            WriteLiteral(&quot;\r\n    &lt;/body&gt;\r\n&lt;/html&gt;\r\n&quot;);
+            WriteLiteral("\r\n    </body>\r\n</html>\r\n");
 
-#line 10 &quot;...\SimplePage.cshtml&quot;
+#line 10 "...\SimplePage.cshtml"
 #error
 #line default
 #line hidden
 
         }
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>The WebPageRazorEngineHost injects the <code>ApplicationInstance</code> property into the CodeDOM tree; this property allows code in the page to access any custom properties in Global.asax.</p>
 
 <p>As mentioned earlier, the page source is compiled into the <code>Execute()</code> method.</p>
@@ -121,47 +129,51 @@ author:
 <p>The code nuggets are passed to the <code>Write</code> method, and are similarly wrapped in <code>#line</code> directives. </p>
 
 <p>Here is a more sophisticated Razor page:</p>
-
-<pre class="brush: xml;">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;body&gt;
+{% endraw %}
+{% highlight xml %}
+<!DOCTYPE html>
+<html>
+    <body>
         @{ const int count = 10; }
-        &lt;table&gt;
-            @for (int i = 0; i &lt; count; i++) {
-                &lt;tr&gt;
-                    &lt;td&gt;@i&lt;/td&gt;
-                    &lt;td&gt;@(i * i)&lt;/td&gt;
-                &lt;/tr&gt;
+        <table>
+            @for (int i = 0; i < count; i++) {
+                <tr>
+                    <td>@i</td>
+                    <td>@(i * i)</td>
+                </tr>
             }
-        &lt;/table&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-@{ #error }</pre>
-
+        </table>
+    </body>
+</html>
+@{ #error }
+{% endhighlight %}
+{% raw %}
 <p>The <code>@for</code> loop is a code block in the form of a control flow statement.&#160; Razor’s C# parser is aware of C# control flow structures and parses them as code blocks.&#160; (The VB parser does the same thing)</p>
 
 <p>Here is the generated <code>Execute()</code> method, with <code>#line</code> directives removed for clarity:</p>
-
-<pre class="brush: xml;">public override void Execute() {
-    WriteLiteral(&quot;&lt;!DOCTYPE html&gt;\r\n&lt;html&gt;\r\n    &lt;body&gt;\r\n&quot;);
+{% endraw %}
+{% highlight xml %}
+public override void Execute() {
+    WriteLiteral("<!DOCTYPE html>\r\n<html>\r\n    <body>\r\n");
 
     const int count = 10;
-    WriteLiteral(&quot;        &lt;table&gt;\r\n&quot;);
+    WriteLiteral("        <table>\r\n");
 
-    for (int i = 0; i &lt; count; i++) {
-        WriteLiteral(&quot;                &lt;tr&gt;\r\n                    &lt;td&gt;&quot;);
+    for (int i = 0; i < count; i++) {
+        WriteLiteral("                <tr>\r\n                    <td>");
 
         Write(i);
-        WriteLiteral(&quot;&lt;/td&gt;\r\n                    &lt;td&gt;&quot;);
+        WriteLiteral("</td>\r\n                    <td>");
 
         Write(i * i);
-        WriteLiteral(&quot;&lt;/td&gt;\r\n                &lt;/tr&gt;\r\n&quot;);
+        WriteLiteral("</td>\r\n                </tr>\r\n");
 
     }
-    WriteLiteral(&quot;        &lt;/table&gt;\r\n    &lt;/body&gt;\r\n&lt;/html&gt;\r\n&quot;);
+    WriteLiteral("        </table>\r\n    </body>\r\n</html>\r\n");
 #error
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>Here too, we see that all contiguous chunks of literal HTML are passed to <code>WriteLiteral</code>.</p>
 
 <p>This example has two code blocks – the <code>const</code> declaration and the loop.&#160; The <code>for</code> loop code block has HTML inside of it – any HTML markup inside a code block is parsed as normal HTML and passed to <code>WriteLiteral</code>.</p>

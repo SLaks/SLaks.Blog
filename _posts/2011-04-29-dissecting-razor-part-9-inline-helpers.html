@@ -44,23 +44,25 @@ author:
 <p>The <code>@content(currentUser)</code> call in helper method is translated by the Razor compiler into a call to the overload of the <code>Write</code> method that takes a <code>HelperResult</code> (returned from the delegate).&#160; This overload writes the content of the <code>HelperResult</code> to the page without escaping it (Just like a <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-7-helpers.html#HelperResult">call to a normal helper method</a>).&#160; Functions that take inline helpers can also get the text rendered by the helper by calling <code>ToString()</code> on the <code>HelperResult</code>.</p>
 
 <p>The call to the helper method is compiled to the following C# code:</p>
+{% endraw %}
+{% highlight csharp %}
+Write(IfLoggedOn(
+item => new System.Web.WebPages.HelperResult(__razor_template_writer => {
 
-<pre class="brush: csharp;">Write(IfLoggedOn(
-item =&gt; new System.Web.WebPages.HelperResult(__razor_template_writer =&gt; {
+    WriteLiteralTo(@__razor_template_writer, "    ");
+    WriteLiteralTo(@__razor_template_writer, "<form action=\"");
 
-    WriteLiteralTo(@__razor_template_writer, &quot;    &quot;);
-    WriteLiteralTo(@__razor_template_writer, &quot;&lt;form action=\&quot;&quot;);
+    WriteTo(@__razor_template_writer, Href("Add-Comment"));
 
-    WriteTo(@__razor_template_writer, Href(&quot;Add-Comment&quot;));
+    WriteLiteralTo(@__razor_template_writer, "\" method=\"post\">\r\n        ");
 
-    WriteLiteralTo(@__razor_template_writer, &quot;\&quot; method=\&quot;post\&quot;&gt;\r\n        &quot;);
+    WriteTo(@__razor_template_writer, Html.TextArea("Comment", "Type a comment"));
 
-    WriteTo(@__razor_template_writer, Html.TextArea(&quot;Comment&quot;, &quot;Type a comment&quot;));
+    WriteLiteralTo(@__razor_template_writer, "\r\n   ...  </form>\r\n");
 
-    WriteLiteralTo(@__razor_template_writer, &quot;\r\n   ...  &lt;/form&gt;\r\n&quot;);
-
-})));</pre>
-
+})));
+{% endhighlight %}
+{% raw %}
 <p>The <code>IsLoggedOn</code> method is passed a lambda expression that takes an <code>item</code> parameter and returns a new <code>HelperResult</code>.&#160; The <code>HelperResult</code> is constructed exactly like a <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-7-helpers.html">normal helper</a>, except that it’s in a lambda expression instead of a normal method.</p>
 
 <p>Like normal helpers, then markup inside inline helpers can contain arbitrary code blocks and code nuggets.&#160; However, inline helpers cannot be nested (since that would create conflicting parameter names)</p>

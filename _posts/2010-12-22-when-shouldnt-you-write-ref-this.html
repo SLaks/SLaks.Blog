@@ -20,25 +20,30 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><a href="http://blog.slaks.net/2010/12/when-can-you-write-ref-this.html">Last time</a>, we saw that the <code>this</code> parameter to an instance method in a struct is passed by reference, allowing the method to re-assign <code>this</code> or pass it as a <code>ref</code> parameter.</p>  <p>Due to limitations in the CLR, the <code>this</code> parameter to an iterator method is <em>not</em> a reference to the caller’s struct, and is instead a copy of the value.&#160; Quoting the spec (§7.6.7)</p>  <blockquote>   <ul>     <li>When this is used in a primary-expression within an instance method or instance accessor of a struct, it is classified as a variable. The type of the variable is the instance type (§10.3.1) of the struct within which the usage occurs.        <ul>         <li>If the method or accessor is not an iterator (§10.14), the this variable represents the struct for which the method or accessor was invoked, and behaves exactly the same as a ref parameter of the struct type. </li>          <li>If the method or accessor is an iterator, the this variable represents a <em>copy</em> of the struct for which the method or accessor was invoked, and behaves exactly the same as a <em>value</em> parameter of the struct type. </li>       </ul>     </li>   </ul> </blockquote>  <p>To explain why, you’ll need to understand how iterators are compiled.&#160; <a href="http://csharpindepth.com/Articles/Chapter6/IteratorBlockImplementation.aspx">As Jon Skeet explains</a>, an iterator method is compiled into a nested class that implements IEnumerable, with the original code transformed into a state machine.&#160; This nested class has fields to store the method’s parameters (which includes <code>this</code> for instance methods) so that the iterator code can use them.&#160; </p>  <p>This is why <a href="http://blogs.msdn.com/b/ericlippert/archive/2009/07/13/iterator-blocks-part-two-why-no-ref-or-out-parameters.aspx">iterators cannot take <code>ref</code> parameters</a>; the CLR cannot store a reference (as opposed to a reference <em>type</em>) in a field.&#160; Therefore, the <code>this</code> parameter is passed to iterator methods by value, not by reference.     <br />This is also why <a href="http://msdn.microsoft.com/en-us/library/6ea4324b.aspx">anonymous methods in structs cannot use <code>this</code></a>; anonymous methods are also compiled to methods in separate classes and so cannot inherit the <code>ref</code> parameter.</p>  <p>This means that if you change the <code>Mutate</code> method <a href="http://blog.slaks.net/2010/12/when-can-you-write-ref-this.html">from before</a> into an iterator, the code will still compile (!), but the calling method will not see the changes.</p>  <pre class="brush: csharp;">static void Main() {
+<p><a href="http://blog.slaks.net/2010/12/when-can-you-write-ref-this.html">Last time</a>, we saw that the <code>this</code> parameter to an instance method in a struct is passed by reference, allowing the method to re-assign <code>this</code> or pass it as a <code>ref</code> parameter.</p>  <p>Due to limitations in the CLR, the <code>this</code> parameter to an iterator method is <em>not</em> a reference to the caller’s struct, and is instead a copy of the value.&#160; Quoting the spec (§7.6.7)</p>  <blockquote>   <ul>     <li>When this is used in a primary-expression within an instance method or instance accessor of a struct, it is classified as a variable. The type of the variable is the instance type (§10.3.1) of the struct within which the usage occurs.        <ul>         <li>If the method or accessor is not an iterator (§10.14), the this variable represents the struct for which the method or accessor was invoked, and behaves exactly the same as a ref parameter of the struct type. </li>          <li>If the method or accessor is an iterator, the this variable represents a <em>copy</em> of the struct for which the method or accessor was invoked, and behaves exactly the same as a <em>value</em> parameter of the struct type. </li>       </ul>     </li>   </ul> </blockquote>  <p>To explain why, you’ll need to understand how iterators are compiled.&#160; <a href="http://csharpindepth.com/Articles/Chapter6/IteratorBlockImplementation.aspx">As Jon Skeet explains</a>, an iterator method is compiled into a nested class that implements IEnumerable, with the original code transformed into a state machine.&#160; This nested class has fields to store the method’s parameters (which includes <code>this</code> for instance methods) so that the iterator code can use them.&#160; </p>  <p>This is why <a href="http://blogs.msdn.com/b/ericlippert/archive/2009/07/13/iterator-blocks-part-two-why-no-ref-or-out-parameters.aspx">iterators cannot take <code>ref</code> parameters</a>; the CLR cannot store a reference (as opposed to a reference <em>type</em>) in a field.&#160; Therefore, the <code>this</code> parameter is passed to iterator methods by value, not by reference.     <br />This is also why <a href="http://msdn.microsoft.com/en-us/library/6ea4324b.aspx">anonymous methods in structs cannot use <code>this</code></a>; anonymous methods are also compiled to methods in separate classes and so cannot inherit the <code>ref</code> parameter.</p>  <p>This means that if you change the <code>Mutate</code> method <a href="http://blog.slaks.net/2010/12/when-can-you-write-ref-this.html">from before</a> into an iterator, the code will still compile (!), but the calling method will not see the changes.</p>
+{% endraw %}
+{% highlight csharp %}
+static void Main() {
     Mutable m = new Mutable();
     m.MutateWrong().ToArray();    //Force the iterator to execute
-    Console.WriteLine(&quot;In Main(): &quot; + m.Value);
+    Console.WriteLine("In Main(): " + m.Value);
 }
 
 struct Mutable {
     public int Value;
     
-    public IEnumerable&lt;int&gt; MutateWrong() {
+    public IEnumerable<int> MutateWrong() {
         this = new Mutable();
         MutateStruct(ref this); 
-        Console.WriteLine(&quot;Inside MutateWrong(): &quot; + Value);
+        Console.WriteLine("Inside MutateWrong(): " + Value);
         yield break;
     }
 }
 static void MutateStruct(ref Mutable m) { 
     m.Value++; 
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 This code prints 
 
 <pre>Inside MutateWrong(): 1

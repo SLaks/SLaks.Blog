@@ -20,7 +20,10 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><i>This is part 3 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-2-c.html">Last time</a>, we saw that it is impossible to bundle context along with a function pointer in C.</p>  <p>In C#, it is possible to fully achieve my <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a>.&#160; In order to explain how this works behind the scenes, I will limit this post to C# 1.0 and not use a lambda expression.&#160; This also means no LINQ, generics, or extension methods, so I will, once again, need to write the filter method myself. </p>  <pre class="brush: csharp;">delegate bool IntFilter(int num);
+<p><i>This is part 3 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-2-c.html">Last time</a>, we saw that it is impossible to bundle context along with a function pointer in C.</p>  <p>In C#, it is possible to fully achieve my <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a>.&#160; In order to explain how this works behind the scenes, I will limit this post to C# 1.0 and not use a lambda expression.&#160; This also means no LINQ, generics, or extension methods, so I will, once again, need to write the filter method myself. </p>
+{% endraw %}
+{% highlight csharp %}
+delegate bool IntFilter(int num);
 
 static ArrayList Filter(IEnumerable source, IntFilter filter) {
     ArrayList retVal = new ArrayList();
@@ -38,14 +41,15 @@ class GreaterThan {
     }
     int bound;
     public bool Passes(int num) {
-        return num &gt; bound;
+        return num > bound;
     }
 }
 
 int x = 2;
 int[] numbers = { 1, 2, 3, 4 };
-Filter(numbers, new IntFilter(new GreaterThan(x).Passes));</pre>
-
+Filter(numbers, new IntFilter(new GreaterThan(x).Passes));
+{% endhighlight %}
+{% raw %}
 <p>Please excuse the ugly code; in order to be true to C# 1.0, I can’t just write an iterator, and I can’t implicitly create the delegate.</p>
 
 <p>This code creates a class called <code>GreaterThan</code> that holds the <code>Passes</code> method and the state used by the method.&#160; I create a delegate to pass to <code>Filter</code> out of the <code>Passes</code> method for an instance of the <code>GreaterThan</code> class from the local variable.</p>

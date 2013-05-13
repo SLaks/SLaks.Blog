@@ -20,15 +20,21 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><a href="http://jquery.com">jQuery</a> makes it very easy to modify a DOM tree.&#160; For example, to strip all hyperlinks (<code>&lt;a&gt;</code> tags) from an element, we can write (<strong><a href="http://jsfiddle.net/SLaks/Q6VNH/">demo</a>)</strong></p>  <pre class="brush: js;">$(...).find('a[href]')
-      .replaceWith(function() { return this.childNodes });</pre>
-
+<p><a href="http://jquery.com">jQuery</a> makes it very easy to modify a DOM tree.&#160; For example, to strip all hyperlinks (<code>&lt;a&gt;</code> tags) from an element, we can write (<strong><a href="http://jsfiddle.net/SLaks/Q6VNH/">demo</a>)</strong></p>
+{% endraw %}
+{% highlight js %}
+$(...).find('a[href]')
+      .replaceWith(function() { return this.childNodes });
+{% endhighlight %}
+{% raw %}
 <p>After getting used to this, <a href="http://stackoverflow.com/questions/4750703/cant-modify-returned-ajax-variable">one</a> <a href="http://stackoverflow.com/questions/4536329/whats-the-best-way-to-strip-out-only-the-anchor-html-tags-in-javascript-given-a">might</a> want to use jQuery to modify HTML contained in a string.&#160; Here, however, the naïve approach does not work:</p>
-
-<pre class="brush: js;">var htmlSource = ...;
+{% endraw %}
+{% highlight js %}
+var htmlSource = ...;
 $(htmlSource).find('a[href]')
-      .replaceWith(function() { return this.childNodes });</pre>
-
+      .replaceWith(function() { return this.childNodes });
+{% endhighlight %}
+{% raw %}
 <p>This code tries to remove all <code>&lt;a&gt;</code> tags from the HTML contained in the <code>htmlSource</code> string.&#160; However, what it actually does is create a detached DOM tree containing the new elements, strip all <code>&lt;a&gt;</code> tags in those elements, and throw the whole thing away.&#160; It doesn’t modify the original string.&#160; In fact, since the&#160; <code>$</code> function only takes a reference to an immutable string, this approach <em>cannot</em> modify the original string.</p>
 
 <p>Instead, you need to retrieve the source from the DOM tree after modifying it, then assign that source back to the variable.&#160; </p>
@@ -38,13 +44,16 @@ $(htmlSource).find('a[href]')
 <p>This also eliminates the distinction between root-level elements and nested elements.&#160; If the original HTML string contains root-level <code>&lt;a&gt;</code> elements (which aren’t nested in other tags), writing <code>$(htmlSource).find('a')</code> won’t find them, since <code>.find()</code> only searches the <em>descendants</em> of the elements in the jQuery object.&#160; By wrapping the HTML in a dummy element, all of the elements in the original content become descendants, and can be returned by <code>.find()</code>.</p>
 
 <p>Here, therefore, is the correct way to modify an HTML string using jQuery:</p>
-
-<pre class="brush: js;">var htmlSource = ...;
-var tree = $(&quot;&lt;div&gt;&quot; + htmlSource + &quot;&lt;/div&gt;&quot;);
+{% endraw %}
+{% highlight js %}
+var htmlSource = ...;
+var tree = $("<div>" + htmlSource + "</div>");
 
 tree.find('a[href]')
     .replaceWith(function() { return this.childNodes });
 
-htmlSource = tree.html();</pre>  
+htmlSource = tree.html();
+{% endhighlight %}
+{% raw %}
 </div>
 {% endraw %}

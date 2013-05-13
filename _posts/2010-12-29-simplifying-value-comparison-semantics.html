@@ -20,27 +20,30 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>A common chore in developing real-world C# applications is implementing value semantics for equality.&#160; This involves implementing <code><a href="http://msdn.microsoft.com/en-us/library/ms131187.aspx">IEquatable&lt;T&gt;</a></code>, overriding <code>Equals()</code> and <code>GetHashCode()</code>, and overloading the <code>==</code> and <code>!=</code> operators.</p>  <p>Implementing these methods is a time-consuming and repetitive task, and is easy to get wrong, especially <code>GetHashCode()</code>.&#160; In particular, <a title="What is the best algorithm for an overridden System.Object.GetHashCode?" href="http://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416">the best way implement GetHashCode()</a><code></code> is much more complicated than <code>return x.GetHashCode() ^ y.GetHashCode()</code>.</p>  <p>To simplify this task, I created a <code>ValueComparer</code> class:</p>  <pre class="brush: csharp;">///&lt;summary&gt;
+<p>A common chore in developing real-world C# applications is implementing value semantics for equality.&#160; This involves implementing <code><a href="http://msdn.microsoft.com/en-us/library/ms131187.aspx">IEquatable&lt;T&gt;</a></code>, overriding <code>Equals()</code> and <code>GetHashCode()</code>, and overloading the <code>==</code> and <code>!=</code> operators.</p>  <p>Implementing these methods is a time-consuming and repetitive task, and is easy to get wrong, especially <code>GetHashCode()</code>.&#160; In particular, <a title="What is the best algorithm for an overridden System.Object.GetHashCode?" href="http://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416">the best way implement GetHashCode()</a><code></code> is much more complicated than <code>return x.GetHashCode() ^ y.GetHashCode()</code>.</p>  <p>To simplify this task, I created a <code>ValueComparer</code> class:</p>
+{% endraw %}
+{% highlight csharp %}
+///<summary>
 /// Contains all of the properties of a class that 
 /// are used to provide value semantics.
-///&lt;/summary&gt;
-///&lt;remarks&gt;
+///</summary>
+///<remarks>
 /// You can create a static readonly ValueComparer for your class,
 /// then call into it from Equals, GetHashCode, and CompareTo.
-///&lt;/remarks&gt;
-class ValueComparer&lt;T&gt; : IComparer&lt;T&gt;, IEqualityComparer&lt;T&gt; {
-    public ValueComparer(params Func&lt;T, object&gt;[] props) {
-        Properties = new ReadOnlyCollection&lt;Func&lt;T, object&gt;&gt;(props);
+///</remarks>
+class ValueComparer<T> : IComparer<T>, IEqualityComparer<T> {
+    public ValueComparer(params Func<T, object>[] props) {
+        Properties = new ReadOnlyCollection<Func<T, object>>(props);
     }
 
-    public ReadOnlyCollection&lt;Func&lt;T, object&gt;&gt; Properties
+    public ReadOnlyCollection<Func<T, object>> Properties
             { get; private set; }
 
     public bool Equals(T x, T y) {
         if (ReferenceEquals(x, y)) return true;
         if (x == null || y == null) return false;
         //Object.Equals handles strings and nulls correctly
-        return Properties.All(f =&gt; Equals(f(x), f(y)));    
+        return Properties.All(f => Equals(f(x), f(y)));    
     }
 
     //http://stackoverflow.com/questions/263400/263416#263416
@@ -69,16 +72,18 @@ class ValueComparer&lt;T&gt; : IComparer&lt;T&gt;, IEqualityComparer&lt;T&gt; {
         }
         return 0;
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>This class implements an external comparer that compares two instances by an ordered list of properties.</p>
 
 <p>ValueComparer can be used as a standalone <code>IComparer&lt;T&gt;</code> or <code>IEqualityComparer&lt;T&gt;</code> implementation.</p>
 
 <p>It can also be used to implement value semantics within a type. 
   <br />For example:</p>
-
-<pre class="brush: csharp;">class Person : IComparable&lt;Person&gt;, IEquatable&lt;Person&gt;, IComparable {
+{% endraw %}
+{% highlight csharp %}
+class Person : IComparable<Person>, IEquatable<Person>, IComparable {
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Address { get; set; }
@@ -90,51 +95,55 @@ class ValueComparer&lt;T&gt; : IComparer&lt;T&gt;, IEqualityComparer&lt;T&gt; {
     int IComparable.CompareTo(object obj) { return CompareTo(obj as Person); }
     public bool Equals(Person obj) { return Comparer.Equals(this, obj); }
     public override bool Equals(object obj) { return Equals(obj as Person); }
-    static readonly ValueComparer&lt;Person&gt; Comparer = new ValueComparer&lt;Person&gt;(
-        o =&gt; o.LastName,
-        o =&gt; o.FirstName,
-        o =&gt; o.Address,
-        o =&gt; o.Phone,
-        o =&gt; o.Email
+    static readonly ValueComparer<Person> Comparer = new ValueComparer<Person>(
+        o => o.LastName,
+        o => o.FirstName,
+        o => o.Address,
+        o => o.Phone,
+        o => o.Email
     );
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>To simplify this task, I created a <a href="http://www.slaks.net/Files/ValueComparer.snippet">code snippet</a>:</p>
-
-<pre class="brush: xml;">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;CodeSnippets  xmlns=&quot;http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet&quot;&gt;
-    &lt;CodeSnippet Format=&quot;1.0.0&quot;&gt;
-        &lt;Header&gt;
-            &lt;Title&gt;ValueComparer&lt;/Title&gt;
-            &lt;Shortcut&gt;vc&lt;/Shortcut&gt;
-            &lt;Description&gt;Code snippet for equality methods using ValueComparer&lt;/Description&gt;
-            &lt;Author&gt;SLaks&lt;/Author&gt;
-            &lt;SnippetTypes&gt;
-                &lt;SnippetType&gt;Expansion&lt;/SnippetType&gt;
-            &lt;/SnippetTypes&gt;
-        &lt;/Header&gt;
-        &lt;Snippet&gt;
-            &lt;Declarations&gt;
-                &lt;Literal Editable=&quot;false&quot;&gt;
-                    &lt;ID&gt;classname&lt;/ID&gt;
-                    &lt;ToolTip&gt;Class name&lt;/ToolTip&gt;
-                    &lt;Default&gt;ClassNamePlaceholder&lt;/Default&gt;
-                    &lt;Function&gt;ClassName()&lt;/Function&gt;
-                &lt;/Literal&gt;
-            &lt;/Declarations&gt;
-            &lt;Code Language=&quot;csharp&quot;&gt;
-                &lt;![CDATA[public override int GetHashCode() { return Comparer.GetHashCode(this); }
+{% endraw %}
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>ValueComparer</Title>
+            <Shortcut>vc</Shortcut>
+            <Description>Code snippet for equality methods using ValueComparer</Description>
+            <Author>SLaks</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal Editable="false">
+                    <ID>classname</ID>
+                    <ToolTip>Class name</ToolTip>
+                    <Default>ClassNamePlaceholder</Default>
+                    <Function>ClassName()</Function>
+                </Literal>
+            </Declarations>
+            <Code Language="csharp">
+                <![CDATA[public override int GetHashCode() { return Comparer.GetHashCode(this); }
         public int CompareTo($classname$ obj) { return Comparer.Compare(this, obj); }
         int IComparable.CompareTo(object obj) { return CompareTo(obj as $classname$); }
         public bool Equals($classname$ obj) { return Comparer.Equals(this, obj); }
         public override bool Equals(object obj) { return Equals(obj as $classname$); }
-        static readonly ValueComparer&lt;$classname$&gt; Comparer = new ValueComparer&lt;$classname$&gt;(
-            o =&gt; o.$end$
-        );]]&gt;
-            &lt;/Code&gt;
-        &lt;/Snippet&gt;
-    &lt;/CodeSnippet&gt;
-&lt;/CodeSnippets&gt;</pre>
+        static readonly ValueComparer<$classname$> Comparer = new ValueComparer<$classname$>(
+            o => o.$end$
+        );]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
+{% endhighlight %}
+{% raw %}
 It can also be downloaded <a href="http://www.slaks.net/Files/ValueComparer.snippet">here</a>; save it to My Documents\Visual Studio 2010\Code Snippets\Visual C#\My Code Snippets\
 
 

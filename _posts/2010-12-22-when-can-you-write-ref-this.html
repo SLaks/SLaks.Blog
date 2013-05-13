@@ -20,7 +20,10 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>Usually, you cannot pass <code>ref this</code> as a parameter, since <code>this</code> is not a writable field.&#160; However, that’s not true for value types.&#160; The <code>this</code> field of a value type is a <em>writable</em> value.</p>  <p>To quote the spec (§5.1.5)</p>  <blockquote>   <p>Within an instance method or instance accessor of a struct type, the <code>this</code> keyword behaves exactly as a reference parameter of the struct type (§7.6.7).</p> </blockquote>  <p>Therefore, the following code prints 1:</p>  <pre class="brush: csharp;">static void Main() {
+<p>Usually, you cannot pass <code>ref this</code> as a parameter, since <code>this</code> is not a writable field.&#160; However, that’s not true for value types.&#160; The <code>this</code> field of a value type is a <em>writable</em> value.</p>  <p>To quote the spec (§5.1.5)</p>  <blockquote>   <p>Within an instance method or instance accessor of a struct type, the <code>this</code> keyword behaves exactly as a reference parameter of the struct type (§7.6.7).</p> </blockquote>  <p>Therefore, the following code prints 1:</p>
+{% endraw %}
+{% highlight csharp %}
+static void Main() {
     Mutable m = new Mutable();
     m.Mutate();
     Console.WriteLine(m.Value);
@@ -36,8 +39,9 @@ struct Mutable {
 }
 static void MutateStruct(ref Mutable m) { 
     m.Value++; 
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>In practice, this should never come up, since <a href="http://stackoverflow.com/questions/441309/why-are-mutable-structs-evil">mutable structs are <em>evil</em></a> and should be avoided at all costs. </p>
 
 <p><a href="http://blog.slaks.net/2010/12/when-shouldnt-you-write-ref-this.html">Next time</a>: This doesn’t always work.</p>  

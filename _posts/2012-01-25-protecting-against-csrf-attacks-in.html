@@ -20,35 +20,42 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF attacks</a> are one of the many security issues that web developers must defend against.&#160; Fortunately, ASP.Net MVC makes it easy to defend against CSRF attacks.&#160; Simply slap on [ValidateAntiForgeryToken] to every POST action and include @Html.AntiForgeryToken() in every form, and your forms will be secure against CSRF.</p>  <p>However, it is easy to forget to apply [ValidateAntiForgeryToken] to every action.&#160; To prevent such mistakes, you can create a unit test that loops through all of your controller actions and makes sure that every [HttpPost] action also has [ValidateAntiForgeryToken].&#160; </p>  <p>Since there may be some POST actions that should not be protected against CSRF, you’ll probably also want a marker attribute to tell the test to ignore some actions.</p>  <p>This can be implemented like this:</p>  <p>First, define the marker attribute in the MVC web project.&#160; This attribute can be applied to a single action, or to a controller to allow every action in the controller.</p>  <pre class="brush: csharp;">///&lt;summary&gt;Indicates that an action or controller deliberately 
-/// allows CSRF attacks.&lt;/summary&gt;
-///&lt;remarks&gt;All [HttpPost] actions must have 
+<p><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF attacks</a> are one of the many security issues that web developers must defend against.&#160; Fortunately, ASP.Net MVC makes it easy to defend against CSRF attacks.&#160; Simply slap on [ValidateAntiForgeryToken] to every POST action and include @Html.AntiForgeryToken() in every form, and your forms will be secure against CSRF.</p>  <p>However, it is easy to forget to apply [ValidateAntiForgeryToken] to every action.&#160; To prevent such mistakes, you can create a unit test that loops through all of your controller actions and makes sure that every [HttpPost] action also has [ValidateAntiForgeryToken].&#160; </p>  <p>Since there may be some POST actions that should not be protected against CSRF, you’ll probably also want a marker attribute to tell the test to ignore some actions.</p>  <p>This can be implemented like this:</p>  <p>First, define the marker attribute in the MVC web project.&#160; This attribute can be applied to a single action, or to a controller to allow every action in the controller.</p>
+{% endraw %}
+{% highlight csharp %}
+///<summary>Indicates that an action or controller deliberately 
+/// allows CSRF attacks.</summary>
+///<remarks>All [HttpPost] actions must have 
 /// [ValidateAntiForgeryToken]; any deliberately unprotected 
 /// actions must be marked with this attribute.
-/// This rule is enforced by a unit test.&lt;/remarks&gt;
+/// This rule is enforced by a unit test.</remarks>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public sealed class AllowCsrfAttacksAttribute : Attribute { }</pre>
-
+public sealed class AllowCsrfAttacksAttribute : Attribute { }
+{% endhighlight %}
+{% raw %}
 <p>Then, add the following unit test:</p>
-
-<pre class="brush: csharp;">[TestMethod]
+{% endraw %}
+{% highlight csharp %}
+[TestMethod]
 public void CheckForCsrfProtection() {
     var controllers = typeof(MvcApplication).Assembly.GetTypes().Where(typeof(IController).IsAssignableFrom);
-    foreach (var type in controllers.Where(t =&gt; !t.IsDefined(typeof(AllowCsrfAttacksAttribute), true))) {
+    foreach (var type in controllers.Where(t => !t.IsDefined(typeof(AllowCsrfAttacksAttribute), true))) {
         var postActions = type.GetMethods()
-                                .Where(m =&gt; !m.ContainsGenericParameters)
-                                .Where(m =&gt; !m.IsDefined(typeof(ChildActionOnlyAttribute), true))
-                                .Where(m =&gt; !m.IsDefined(typeof(NonActionAttribute), true))
-                                .Where(m =&gt; !m.GetParameters().Any(p =&gt; p.IsOut || p.ParameterType.IsByRef))
-                                .Where(m =&gt; m.IsDefined(typeof(HttpPostAttribute), true));
+                                .Where(m => !m.ContainsGenericParameters)
+                                .Where(m => !m.IsDefined(typeof(ChildActionOnlyAttribute), true))
+                                .Where(m => !m.IsDefined(typeof(NonActionAttribute), true))
+                                .Where(m => !m.GetParameters().Any(p => p.IsOut || p.ParameterType.IsByRef))
+                                .Where(m => m.IsDefined(typeof(HttpPostAttribute), true));
 
         foreach (var action in postActions) {
             //CSRF XOR AntiForgery
             Assert.IsTrue(action.IsDefined(typeof(AllowCsrfAttacksAttribute), true) != action.IsDefined(typeof(ValidateAntiForgeryTokenAttribute), true),
-                            action.Name + &quot; is [HttpPost] but not [ValidateAntiForgeryToken]&quot;);
+                            action.Name + " is [HttpPost] but not [ValidateAntiForgeryToken]");
         }
     }
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 typeof(MvcApplication) must be any type in the assembly that contains your controllers.&#160; If your controllers are defined in multiple assemblies, you’ll need to include those assemblies too.
 
 

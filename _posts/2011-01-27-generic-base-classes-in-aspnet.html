@@ -20,10 +20,14 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>ASP.Net pages can inherit from custom classes (as long as they inherit System.Web.UI.Page).&#160; This can be useful to add utility functions or shared (code-behind) behaviors to your pages.&#160; (Note that you could also use Extension methods or HTTP modules)</p>  <p>However, if you try to inherit a generic base class, it won’t work:</p>  <pre class="brush: csharp;">public class DataPage&lt;T&gt; : Page {
+<p>ASP.Net pages can inherit from custom classes (as long as they inherit System.Web.UI.Page).&#160; This can be useful to add utility functions or shared (code-behind) behaviors to your pages.&#160; (Note that you could also use Extension methods or HTTP modules)</p>  <p>However, if you try to inherit a generic base class, it won’t work:</p>
+{% endraw %}
+{% highlight csharp %}
+public class DataPage<T> : Page {
     public T Data { get; set; }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <pre>&lt;%@ Page Language=&quot;C#&quot; Inherits=&quot;DataPage&lt;string&gt;&quot; %&gt;</pre>
 
 <p>This code results in a yellow screen of death, with the&#160; parser error, <code>Could not load type 'DataPage&lt;string&gt;'</code>.</p>

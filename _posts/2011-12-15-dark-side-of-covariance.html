@@ -20,10 +20,14 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>What’s wrong with the following code?</p>  <pre class="brush: csharp;">var names = new HashSet&lt;string&gt;(StringComparer.OrdinalIgnoreCase);
+<p>What’s wrong with the following code?</p>
+{% endraw %}
+{% highlight csharp %}
+var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 ...
-if (names.Contains(sqlCommand.ExecuteScalar())</pre>
-
+if (names.Contains(sqlCommand.ExecuteScalar())
+{% endhighlight %}
+{% raw %}
 <p>This&#160; code is intended to check whether the result of a SQL query is contained in a case-insensitive collection of names.&#160; However, if you run this code, the resulting check will be case-sensitive.&#160; Why?</p>
 
 <p>As you may have guessed from the title, this is caused by covariance.&#160; In fact, this code will not compile at all against .Net 3.5.&#160; </p>
@@ -35,11 +39,14 @@ if (names.Contains(sqlCommand.ExecuteScalar())</pre>
 <p>The reason is that although HashSet&lt;String&gt; implements ICollection&lt;string&gt;, it does not implement ICollection&lt;object&gt;.&#160; Since we’re calling Enumerable.Contains&lt;object&gt;, it checks whether the sequence implements ICollection&lt;object&gt;, which it doesn’t.&#160; (ICollection&lt;T&gt; is not covariant, since it allows write access)</p>
 
 <p>Fortunately, there’s a simple fix: just cast the return value back to string (and add a comment explaining the problem).&#160; This allows the compiler to call <code>HashSet&lt;string&gt;.Contains(string)</code>, as was originally intended.</p>
-
-<pre class="brush: csharp;">//Call HashSet&lt;string&gt;.Contains(string), not the
-//covariant Enumerable.Contains(IEnumerable&lt;object&gt;, object)
+{% endraw %}
+{% highlight csharp %}
+//Call HashSet<string>.Contains(string), not the
+//covariant Enumerable.Contains(IEnumerable<object>, object)
 //http://blog.slaks.net/2011/12/dark-side-of-covariance.html
-if (names.Contains((string)sqlCommand.ExecuteScalar())</pre>
+if (names.Contains((string)sqlCommand.ExecuteScalar())
+{% endhighlight %}
+{% raw %}
 (I discovered this issue in my <a href="http://blog.slaks.net/2011/09/using-default-controller-in-aspnet-mvc.html">StringListConstraint for ASP.Net MVC</a>)  
 </div>
 {% endraw %}

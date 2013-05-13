@@ -20,16 +20,20 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="http://blog.slaks.net/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p>C# 5 is all about asynchronous programming.&#160; However, in additional to the new async features, the C# team managed to slip in a much simpler feature: Caller Info Attributes.</p>  <p>Since C#’s inception, developers have asked for <code>__LINE__</code> and <code>__FILE__</code> macros like those in C and C++.&#160; Since C# intentionally does not support macros, these requests have not been answered.&#160; Until now.</p>  <p>C# 5 adds these features using attributes and optional parameters.&#160; As Anders Hejlsberg <a href="http://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-816T">presented</a> at //Build/, you can write</p>  <pre class="brush: csharp;">public static void Log(string message,
-    [CallerFilePath] string file = &quot;&quot;,
+<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="http://blog.slaks.net/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p>C# 5 is all about asynchronous programming.&#160; However, in additional to the new async features, the C# team managed to slip in a much simpler feature: Caller Info Attributes.</p>  <p>Since C#’s inception, developers have asked for <code>__LINE__</code> and <code>__FILE__</code> macros like those in C and C++.&#160; Since C# intentionally does not support macros, these requests have not been answered.&#160; Until now.</p>  <p>C# 5 adds these features using attributes and optional parameters.&#160; As Anders Hejlsberg <a href="http://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-816T">presented</a> at //Build/, you can write</p>
+{% endraw %}
+{% highlight csharp %}
+public static void Log(string message,
+    [CallerFilePath] string file = "",
     [CallerLineNumber] int line = 0,
-    [CallerMemberName] string member = &quot;&quot;)
+    [CallerMemberName] string member = "")
 {
-    Console.WriteLine(&quot;{0}:{1} – {2}: {3}&quot;, 
+    Console.WriteLine("{0}:{1} – {2}: {3}", 
                       file, line, member, message);
 
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>If this method is called in C# 5 without specifying the optional parameters, the compiler will insert the file name, line number, and containing member name instead of the default values.&#160; If it’s called in older languages that don’t support optional parameters, those languages will pass the default values, like any other optional method.</p>
 
 <p>These features look trivial at first glance.&#160; However, like most features, they are actually more complicated to design in a solid and robust fashion.&#160; Here are some of the less obvious issues that the C# team needed to deal with when creating this feature:</p>
@@ -43,12 +47,14 @@ author:
 <p>If a method with these attributes is called in an expression tree literal (a lambda expression converted to an Expression&lt;TDelegate&gt;), the compiler would need to insert <code>ConstantExpression</code>s with the actual line number or other info to pass as the parameter.</p>
 
 <p>In addition to being supported in methods, the attributes should also be supported on parameters&#160; for delegate types, allowing you to write</p>
-
-<pre class="brush: csharp;">delegate void LinePrinter([CallerLineNumber] int line = 0);
+{% endraw %}
+{% highlight csharp %}
+delegate void LinePrinter([CallerLineNumber] int line = 0);
 
 LinePrinter printer = Console.WriteLine;
-printer();</pre>
-
+printer();
+{% endhighlight %}
+{% raw %}
 <p>Each of the individual attributes also has subtle issues.</p>
 
 <p>[CallerFilePath] seems fairly simple.&#160; Any function call must happen in source code, in a source file that has a path.&#160; However, it needs to take into account <code>#line</code> directives, so that, for example, it will work as expected in <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-5-use-source-luke.html">Razor views</a>.&#160; I don’t know what it does inside <code>#line hidden</code>, in which there isn’t a source file.</p>

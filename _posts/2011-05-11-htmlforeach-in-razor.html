@@ -20,15 +20,19 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>Many people write <code>ForEach</code> extension methods for MVC WebForms views, which take a sequence and a delegate to turn each item in the sequence into HTML.</p>  <p>For example:</p>  <pre class="brush: csharp;">public static void ForEach&lt;T&gt;(this HtmlHelper html,
-                              IEnumerable&lt;T&gt; set, 
-                              Action&lt;T&gt; htmlWriter) {
+<p>Many people write <code>ForEach</code> extension methods for MVC WebForms views, which take a sequence and a delegate to turn each item in the sequence into HTML.</p>  <p>For example:</p>
+{% endraw %}
+{% highlight csharp %}
+public static void ForEach<T>(this HtmlHelper html,
+                              IEnumerable<T> set, 
+                              Action<T> htmlWriter) {
     foreach (var item in set) {
         htmlWriter(item);
     }
-}</pre>
-
-<p>(The unused <font face="Courier New">html</font> parameter allows it to be called as an extension method like other HTML helpers)</p>
+}
+{% endhighlight %}
+{% raw %}
+<p>(The unused <code>html</code> parameter allows it to be called as an extension method like other HTML helpers)</p>
 
 <p>This code can be called like this:</p>
 
@@ -46,30 +50,34 @@ author:
 <p>In Razor views, this method cannot easily be called directly, since Razor pages cannot put markup inside of expressions.&#160; You can use a <a href="http://blog.slaks.net/2011/05/creating-markup-actions-in-razor.html">workaround</a> by creating an inline helper and calling it immediately, but it would be better to rewrite the <code>ForEach</code> method to take an <a href="http://blog.slaks.net/2011/04/dissecting-razor-part-9-inline-helpers.html">inline helper</a> directly.</p>
 
 <p>The naïve way to do that is like this:</p>
-
-<pre class="brush: csharp;">public static IHtmlString ForEachSimple&lt;T&gt;(
+{% endraw %}
+{% highlight csharp %}
+public static IHtmlString ForEachSimple<T>(
         this HtmlHelper html,
-        IEnumerable&lt;T&gt; set,
-        Func&lt;T, HelperResult&gt; htmlCreator
+        IEnumerable<T> set,
+        Func<T, HelperResult> htmlCreator
     ) {
     return new HtmlString(String.Concat(set.Select(htmlCreator)));
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>The <code>htmlCreator</code> delegate, which can be passed as an inline helper, returns a <code>HelperResult</code> object containing the markup generated for an item.</p>
 
 <p>This code uses LINQ to call <code>htmlCreator</code> on each item in the set (the <code>Select</code> call), then calls <code>String.Concat</code> to combine them all into one giant string.&#160; (<code>String.Concat</code> will call <code>ToString</code> on each <code>HelperResult</code>, which will return the generated markup)&#160; We could also call <code>String.Join</code> to put a separator, such as a newline, between every two items.</p>
 
-<p>Finally, it returns an <font face="Courier New">HtmlString</font> to prevent Razor from escaping the returned HTML.</p>
+<p>Finally, it returns an <code>HtmlString</code> to prevent Razor from escaping the returned HTML.</p>
 
 <p>It’s equivalent to the following code using a <code>StringBuilder</code> (this is what <code>String.Concat</code> does internally)</p>
-
-<pre class="brush: csharp;">var builder = new StringBuilder();
+{% endraw %}
+{% highlight csharp %}
+var builder = new StringBuilder();
 foreach (var item in set) {
     HelperResult result = htmlCreator(item);
     builder.Append(result.ToString());
 }
-return new HtmlString(builder.ToString());</pre>
-
+return new HtmlString(builder.ToString());
+{% endhighlight %}
+{% raw %}
 <p>This method can be called like this:</p>
 
 <pre>&lt;ul&gt;
@@ -82,18 +90,21 @@ return new HtmlString(builder.ToString());</pre>
 <p>The problem with this approach is that it combines all of the content into a giant string.&#160; If there are a large number of items, or if each item will have a large amount of markup, this can become (a little bit) slow.&#160; It would be better to write each item directly to the caller’s response stream, without assembling any giant strings.&#160; This is where <code>HelperResult</code> comes in.</p>
 
 <p>The HelperResult class allows its caller to pass a <code>TextWriter</code> to the <code>WriteTo</code> method, and the helper delegate will write directly to this <code>TextWriter</code>.&#160; I can take advantage of this to write a <code>ForEach</code> extension that doesn’t build any strings, by returning a <code>HelperResult</code> instead of a regular <code>IHtmlString</code>.</p>
-
-<pre class="brush: csharp;">public static HelperResult ForEachFast&lt;T&gt;(
+{% endraw %}
+{% highlight csharp %}
+public static HelperResult ForEachFast<T>(
         this HtmlHelper html,
-        IEnumerable&lt;T&gt; set,
-        Func&lt;T, HelperResult&gt; htmlCreator
+        IEnumerable<T> set,
+        Func<T, HelperResult> htmlCreator
     ) {
-    return new HelperResult(tw =&gt; {
+    return new HelperResult(tw => {
         foreach (var item in set) {
             htmlCreator(item).WriteTo(tw);
         }
     });
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 This version creates a <code>HelperResult</code> with a delegate that writes each of its items in turn to the <code>TextWriter</code>.
 
 

@@ -20,18 +20,22 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-2-gluing-pieces.html">Last time</a>, we saw how standalone Razor pages are served.</p>  <p>MVC3 maintains the strict separation between the WebPages framework and the Razor engine.1</p>  <h2>Razor Side</h2>  <p>Like the WebPages framework, MVC3 interacts with Razor indirectly, by relying on RazorBuildProvider from System.Web.WebPages.Razor.dll.&#160;&#160; However, MVC3 requires that Razor views inherit its own base class, <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.webviewpage.aspx">System.Web.Mvc.WebViewPage</a>.</p>  <p>MVC3 adds a new @model directive, which can be used instead of @inherits to specify a strongly-typed model.&#160; This syntax is implemented by customized RazorCodeParsers and RazorCodeLanguages in the System.Web.MVC.Razor namespaces.&#160; These classes are invoked by MvcRazorEngineHosts from a custom RazorHostFactory registered in Views/Web.Config:</p>  <pre class="brush: xml;">&lt;system.web.webPages.razor&gt;
-    &lt;host factoryType=&quot;System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35&quot; /&gt;
-    &lt;pages pageBaseType=&quot;System.Web.Mvc.WebViewPage&quot;&gt;
-        &lt;namespaces&gt;
-            &lt;add namespace=&quot;System.Web.Mvc&quot; /&gt;
-            &lt;add namespace=&quot;System.Web.Mvc.Ajax&quot; /&gt;
-            &lt;add namespace=&quot;System.Web.Mvc.Html&quot; /&gt;
-            &lt;add namespace=&quot;System.Web.Routing&quot; /&gt;
-        &lt;/namespaces&gt;
-    &lt;/pages&gt;
-&lt;/system.web.webPages.razor&gt;</pre>
-
+<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-2-gluing-pieces.html">Last time</a>, we saw how standalone Razor pages are served.</p>  <p>MVC3 maintains the strict separation between the WebPages framework and the Razor engine.1</p>  <h2>Razor Side</h2>  <p>Like the WebPages framework, MVC3 interacts with Razor indirectly, by relying on RazorBuildProvider from System.Web.WebPages.Razor.dll.&#160;&#160; However, MVC3 requires that Razor views inherit its own base class, <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.webviewpage.aspx">System.Web.Mvc.WebViewPage</a>.</p>  <p>MVC3 adds a new @model directive, which can be used instead of @inherits to specify a strongly-typed model.&#160; This syntax is implemented by customized RazorCodeParsers and RazorCodeLanguages in the System.Web.MVC.Razor namespaces.&#160; These classes are invoked by MvcRazorEngineHosts from a custom RazorHostFactory registered in Views/Web.Config:</p>
+{% endraw %}
+{% highlight xml %}
+<system.web.webPages.razor>
+    <host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+    <pages pageBaseType="System.Web.Mvc.WebViewPage">
+        <namespaces>
+            <add namespace="System.Web.Mvc" />
+            <add namespace="System.Web.Mvc.Ajax" />
+            <add namespace="System.Web.Mvc.Html" />
+            <add namespace="System.Web.Routing" />
+        </namespaces>
+    </pages>
+</system.web.webPages.razor>
+{% endhighlight %}
+{% raw %}
 <h2>MVC Side</h2>
 
 <p>On the MVC side, MVC3 includes a new <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.razorviewengine.aspx">RazorViewEngine</a> which creates <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.razorview.aspx">RazorView</a> instances.&#160; RazorView inherits the existing BuildManagerCompiledView class, which passes the view’s virtual path to the build manager.&#160; RazorView will take the <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.webviewpage.aspx">WebViewPage</a> from the build manager, find any matching start pages, and execute the view.</p>

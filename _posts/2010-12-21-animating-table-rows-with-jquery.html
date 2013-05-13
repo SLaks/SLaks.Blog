@@ -20,13 +20,17 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>jQuery contains a powerful and flexible animation engine.&#160; However, it has some limitations, primarily due to underlying limitations of CSS-based layout</p>  <p>For example, there is no simple way to <a href="http://api.jquery.com/slideUp/"><code>slideUp()</code></a> a table row (<code>&lt;tr&gt;</code> element).&#160; The slideUp animation will animate the element’s height to zero.&#160; However, a table row is always tall enough to show its elements, so the animation cannot actually shrink the element.</p>  <p>To work around this, we can wrap the contents of each cell in a <code>&lt;div&gt;</code> element, then <code>slideUp()</code> the <code>&lt;div&gt;</code> elements.&#160; Doing this in the HTML would create ugly and non-semantic markup, so we can do it in jQuery instead.</p>  <p>For example: <strong><em><a href="http://jsfiddle.net/SLaks/LjHBR/"><font size="3">Demo</font></a></em></strong></p>  <pre class="brush: js;">$('tr')
+<p>jQuery contains a powerful and flexible animation engine.&#160; However, it has some limitations, primarily due to underlying limitations of CSS-based layout</p>  <p>For example, there is no simple way to <a href="http://api.jquery.com/slideUp/"><code>slideUp()</code></a> a table row (<code>&lt;tr&gt;</code> element).&#160; The slideUp animation will animate the element’s height to zero.&#160; However, a table row is always tall enough to show its elements, so the animation cannot actually shrink the element.</p>  <p>To work around this, we can wrap the contents of each cell in a <code>&lt;div&gt;</code> element, then <code>slideUp()</code> the <code>&lt;div&gt;</code> elements.&#160; Doing this in the HTML would create ugly and non-semantic markup, so we can do it in jQuery instead.</p>  <p>For example: <strong><em><a href="http://jsfiddle.net/SLaks/LjHBR/"><font size="3">Demo</font></a></em></strong></p>
+{% endraw %}
+{% highlight js %}
+$('tr')
     .children('td, th')
     .animate({ padding: 0 })
-    .wrapInner('&lt;div /&gt;')
+    .wrapInner('<div />')
     .children()
-    .slideUp(function() { $(this).closest('tr').remove(); });</pre>
-
+    .slideUp(function() { $(this).closest('tr').remove(); });
+{% endhighlight %}
+{% raw %}
 <p>Explanation:</p>
 
 <ol>

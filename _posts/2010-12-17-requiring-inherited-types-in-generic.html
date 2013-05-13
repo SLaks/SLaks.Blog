@@ -20,30 +20,36 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>A generic class can specify that its generic parameter must inherit a type.&#160; However, there is no obvious way in general to prevent clients from passing the base type itself.</p>  <p>For example, take the following set of types:</p>  <pre class="brush: csharp;">abstract class Entity  { }
+<p>A generic class can specify that its generic parameter must inherit a type.&#160; However, there is no obvious way in general to prevent clients from passing the base type itself.</p>  <p>For example, take the following set of types:</p>
+{% endraw %}
+{% highlight csharp %}
+abstract class Entity  { }
 
 class Person : Entity { }
 class Boat : Entity { }
 class Car : Entity { }
 
-class Repository&lt;TEntity&gt; where TEntity : Entity { }</pre>
-
+class Repository<TEntity> where TEntity : Entity { }
+{% endhighlight %}
+{% raw %}
 <p>This allows the type <code>Repository&lt;Entity&gt;</code>, which doesn’t make logical sense.</p>
 
 <p>In this particular case, we could prevent that by changing the generic constraint to <code>where TEntity : Entity, new()</code>.&#160; Since the base Entity class is abstract, that would disallow a <code>Repository&lt;Entity&gt;</code>.&#160; However,if the concrete entities also&#160; don’t have default constructors, this wouldn’t work.&#160; Similarly, had the base type been an interface, we could add a <code>: class</code> constraint.</p>
 
 <p>There is an (somewhat) ugly hack that can be used to prevent parameterizations of the base class in arbitrary cases (as long as you control every type involved):</p>
-
-<pre class="brush: csharp;">abstract class Entity  { }
-interface IConcreteEntity { }&#160;&#160;&#160; //Marker interface
+{% endraw %}
+{% highlight csharp %}
+abstract class Entity  { }
+interface IConcreteEntity { }    //Marker interface
 
 class Person : Entity, IConcreteEntity { }
 class Boat : Entity, IConcreteEntity { }
 class Car : Entity, IConcreteEntity { }
 
-class Repository&lt;TEntity&gt; 
-      where TEntity : Entity, IConcreteEntity { }</pre>
-
+class Repository<TEntity> 
+      where TEntity : Entity, IConcreteEntity { }
+{% endhighlight %}
+{% raw %}
 <p>Specifically, we can add a marker interface which is implemented by all concrete implementations of the base type.&#160; We can then constrain a generic parameter to inherit both the base type and the marker interface.&#160; Since the base class itself does implement the marker interface, it will not be valid as a parameter.&#160; <br />Note that the marker interface must be implemented (perhaps indirectly) by every single concrete implementation.</p>  
 </div>
 {% endraw %}

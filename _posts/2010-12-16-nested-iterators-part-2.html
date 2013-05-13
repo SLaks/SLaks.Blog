@@ -20,30 +20,36 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>In <a href="http://blog.slaks.net/2010/12/nested-iterators-part-1.html">part 1</a>, we discussed the simple approach to making a nested iterator.&#160; However, we fell short of a completely lazy nested iterator.</p>  <p>In simple cases, we can make an separate iterator method for the subsequence: </p>  <pre class="brush: csharp;">IEnumerable&lt;IEnumerable&lt;int&gt;&gt; FullyLazy() {
-    for(int i = 0; i &lt; 10; i++) 
+<p>In <a href="http://blog.slaks.net/2010/12/nested-iterators-part-1.html">part 1</a>, we discussed the simple approach to making a nested iterator.&#160; However, we fell short of a completely lazy nested iterator.</p>  <p>In simple cases, we can make an separate iterator method for the subsequence: </p>
+{% endraw %}
+{% highlight csharp %}
+IEnumerable<IEnumerable<int>> FullyLazy() {
+    for(int i = 0; i < 10; i++) 
         yield return Inner(i);
 }
-IEnumerable&lt;int&gt; Inner(int i) {
-    for(int j = 0; j &lt; 10; j++)
+IEnumerable<int> Inner(int i) {
+    for(int j = 0; j < 10; j++)
         yield return i * 10 + j;
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 Note that this is actually smaller than the single-method implementation! 
 
 <p>This seems to work very well; the inner iterator code for a particular subsequence will not execute at all unless that subsequence is actually enumerated.</p>
 
 <p>However, this approach falls short in practice.&#160; To see why, consider a real-world example. 
   <br />Here is a fully lazy implementation of a Partition method, which converts a sequence into a 2D “jagged IEnumerable” where each subsequence (partition) contains <em>n</em> elements.</p>
-
-<pre class="brush: csharp;">class Ref&lt;T&gt; { 
+{% endraw %}
+{% highlight csharp %}
+class Ref<T> { 
     public Ref(T value) { Value = value; } 
     public T Value { get; set; } 
 }
 
-public static IEnumerable&lt;IEnumerable&lt;T&gt;&gt; Partition&lt;T&gt;
-              (this IEnumerable&lt;T&gt; sequence, int size) {
+public static IEnumerable<IEnumerable<T>> Partition<T>
+              (this IEnumerable<T> sequence, int size) {
     using(var enumerator = sequence.GetEnumerator()) {
-        var isFinished = new Ref&lt;bool&gt;(false);
+        var isFinished = new Ref<bool>(false);
         while(!isFinished.Value) {
             yield return PartitionInner(
                  enumerator, size, isFinished
@@ -51,26 +57,29 @@ public static IEnumerable&lt;IEnumerable&lt;T&gt;&gt; Partition&lt;T&gt;
         }
     }
 }
-static IEnumerable&lt;T&gt; PartitionInner&lt;T&gt;
-      (IEnumerator&lt;T&gt; enumerator, int size, Ref&lt;bool&gt; isFinished) {
-    while(size --&gt; 0) {
+static IEnumerable<T> PartitionInner<T>
+      (IEnumerator<T> enumerator, int size, Ref<bool> isFinished) {
+    while(size --> 0) {
           isFinished.Value = !enumerator.MoveNext();
         if (isFinished.Value) yield break;
         yield return enumerator.Current;
     }
 }
-</pre>
-
+{% endhighlight %}
+{% raw %}
 <p>This method is complicated by the need to communicate back from the inner iterator to the outer one.&#160; Since <a href="http://blogs.msdn.com/b/ericlippert/archive/2009/05/04/the-stack-is-an-implementation-detail-part-two.aspx">iterators cannot have <code>ref</code> parameters</a>, I need to make a “box” class that holds a reference to an int.&#160; This allows the outer iterator to find out when the sequence finishes.</p>
 
 <p>In addition, this implementation has a subtle bug: If the last partition is full, it will return an extra, empty, partition after it. 
   <br />Fixing this issue would require that the outer method call MoveNext() before each call to the inner method.&#160; This makes the code even more complicated; I won’t list it here (unless people really want me to)</p>
 
 <p>This design has a more fundamental problem: The behavior of the outer method is determined by the inner ones.&#160; It will only work if each inner IEnumerable&lt;T&gt; is enumerated exactly once, before the next MoveNext() call to the outer iterator.&#160; If, for example, you iterate each inner iterator twice, it will behave unexpectedly:</p>
-
-<pre class="brush: csharp;">Enumerable.Range(1, 8)
+{% endraw %}
+{% highlight csharp %}
+Enumerable.Range(1, 8)
           .Partition(3)
-          .Select(p =&gt; String.Join(&quot;, &quot;, p.Concat(p)));</pre>
+          .Select(p => String.Join(", ", p.Concat(p)));
+{% endhighlight %}
+{% raw %}
 This code is intended to create strings that contain each partition twice.&#160; It is supposed to return 
 
 <pre>1, 2, 3, 1, 2, 3
@@ -89,23 +98,23 @@ This code is intended to create strings that contain each partition twice.&#160;
 <p>It gets worse.&#160; In order to allow callers to write <code>thingy.Partition(5).Skip(2)</code>, (which should skip the first two partitions) the <em>outer</em> enumerator needs to cache all items, because it cannot assume that the inner iterators will be called at all.&#160; </p>
 
 <p>Thus, the laziest possible Partition method must use the <a title="Part 1" href="http://blog.slaks.net/2010/12/nested-iterators-part-1.html">original approach</a>: </p>
-
-<pre class="brush: csharp;">public static IEnumerable&lt;IEnumerable&lt;T&gt;&gt; PartitionCorrect&lt;T&gt;
-              (this IEnumerable&lt;T&gt; sequence, int size) {
-    List&lt;T&gt; partition = new List&lt;T&gt;();
+{% endraw %}
+{% highlight csharp %}
+public static IEnumerable<IEnumerable<T>> PartitionCorrect<T>
+              (this IEnumerable<T> sequence, int size) {
+    List<T> partition = new List<T>();
     foreach(var item in sequence) {
         partition.Add(item);
         if (partition.Count == size) {
             yield return partition;
-            partition = new List&lt;T&gt;();
+            partition = new List<T>();
         }
     }
-    if (partition.Count &gt; 0)
+    if (partition.Count > 0)
         yield return partition;
-}</pre>
-
-
-
+}
+{% endhighlight %}
+{% raw %}
 <p>It would be possible to write a slightly lazier version that combines these two approaches and passes a List&lt;T&gt; to the inner iterator, which would return whatever is in the list, then enumerate if necessary to fill the list. However, I’m too <em>lazy</em> to do it.&#160; (unless people really want me to)</p>
 </div>
 {% endraw %}

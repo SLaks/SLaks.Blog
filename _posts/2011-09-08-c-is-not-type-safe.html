@@ -20,11 +20,15 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>C# is usually touted as a type-safe language.&#160; However, it is not actually fully type-safe!</p>  <p>To examine this claim, we must first provide a strict definition of type-safety.&#160;<br />Wikipedia <a href="http://en.wikipedia.org/wiki/Type_safety">says</a>:</p>  <blockquote>   <p>In <a href="http://en.wikipedia.org/wiki/Computer_science">computer science</a>, <b>type safety</b> is the extent to which a <a href="http://en.wikipedia.org/wiki/Programming_language">programming language</a> discourages or prevents <i>type errors</i>. A type error is erroneous or undesirable program behavior caused by a discrepancy between differing <a href="http://en.wikipedia.org/wiki/Data_type">data types</a>. </p> </blockquote>  <p>To translate this to C#, full type-safety means that any expression that compiles is guaranteed to work at runtime, without causing any invalid cast errors.</p>  <p>Obviously, the cast (and <code>as</code>) operator is an escape hatch from type safety.&#160; It tells the compiler that “I expect this value to actually be of this type, even though you can’t prove it.&#160; If I’m wrong, I’ll live with that”.&#160; Therefore, to be fully type-safe, it must be impossible to get an InvalidCastException at runtime in C# code that does not contain an explicit cast.</p>  <p>Note that parsing or conversion errors (such as any exception from the <code>Convert</code> class) don’t count.&#160; Parsing errors aren’t actually invalid cast errors (instead, they come from unexpected strings), and conversion errors from from cast operations inside the <code>Convert</code> class.&#160; Also, null reference exceptions aren’t cast errors.&#160; </p>  <p>So, why isn’t C# type-safe?</p>  <p>MSDN says that <a href="http://msdn.microsoft.com/en-us/library/system.invalidcastexception.aspx">InvalidCastException</a> is thrown in two conditions:</p>  <blockquote>   <ul>     <li>       <p>For a conversion from a <a href="http://msdn.microsoft.com/en-us/library/system.single.aspx">Single</a> or a <a href="http://msdn.microsoft.com/en-us/library/system.double.aspx">Double</a> to a <a href="http://msdn.microsoft.com/en-us/library/system.decimal.aspx">Decimal</a>, the source value is infinity, Not-a-Number (NaN), or too large to be represented as the destination type.</p>     </li>      <li>       <p>A failure occurs during an explicit reference conversion.</p>     </li>   </ul> </blockquote>  <p>Both of these conditions can only occur from a cast operation, so it looks like C# is in fact type safe.</p>  <p>Or is it?</p>  <pre class="brush: csharp;">IEnumerable numbers = new int[] { 1, 2, 3 };
+<p>C# is usually touted as a type-safe language.&#160; However, it is not actually fully type-safe!</p>  <p>To examine this claim, we must first provide a strict definition of type-safety.&#160;<br />Wikipedia <a href="http://en.wikipedia.org/wiki/Type_safety">says</a>:</p>  <blockquote>   <p>In <a href="http://en.wikipedia.org/wiki/Computer_science">computer science</a>, <b>type safety</b> is the extent to which a <a href="http://en.wikipedia.org/wiki/Programming_language">programming language</a> discourages or prevents <i>type errors</i>. A type error is erroneous or undesirable program behavior caused by a discrepancy between differing <a href="http://en.wikipedia.org/wiki/Data_type">data types</a>. </p> </blockquote>  <p>To translate this to C#, full type-safety means that any expression that compiles is guaranteed to work at runtime, without causing any invalid cast errors.</p>  <p>Obviously, the cast (and <code>as</code>) operator is an escape hatch from type safety.&#160; It tells the compiler that “I expect this value to actually be of this type, even though you can’t prove it.&#160; If I’m wrong, I’ll live with that”.&#160; Therefore, to be fully type-safe, it must be impossible to get an InvalidCastException at runtime in C# code that does not contain an explicit cast.</p>  <p>Note that parsing or conversion errors (such as any exception from the <code>Convert</code> class) don’t count.&#160; Parsing errors aren’t actually invalid cast errors (instead, they come from unexpected strings), and conversion errors from from cast operations inside the <code>Convert</code> class.&#160; Also, null reference exceptions aren’t cast errors.&#160; </p>  <p>So, why isn’t C# type-safe?</p>  <p>MSDN says that <a href="http://msdn.microsoft.com/en-us/library/system.invalidcastexception.aspx">InvalidCastException</a> is thrown in two conditions:</p>  <blockquote>   <ul>     <li>       <p>For a conversion from a <a href="http://msdn.microsoft.com/en-us/library/system.single.aspx">Single</a> or a <a href="http://msdn.microsoft.com/en-us/library/system.double.aspx">Double</a> to a <a href="http://msdn.microsoft.com/en-us/library/system.decimal.aspx">Decimal</a>, the source value is infinity, Not-a-Number (NaN), or too large to be represented as the destination type.</p>     </li>      <li>       <p>A failure occurs during an explicit reference conversion.</p>     </li>   </ul> </blockquote>  <p>Both of these conditions can only occur from a cast operation, so it looks like C# is in fact type safe.</p>  <p>Or is it?</p>
+{% endraw %}
+{% highlight csharp %}
+IEnumerable numbers = new int[] { 1, 2, 3 };
 
 foreach(string x in numbers) 
-    ;</pre>
-
+    ;
+{% endhighlight %}
+{% raw %}
 <p>This code compiles (!). Running it results in </p>
 
 <blockquote>
@@ -46,9 +50,13 @@ foreach(string x in numbers)
 <p>C# also isn’t type-safe because of <a href="http://blogs.msdn.com/b/ericlippert/archive/2007/10/17/covariance-and-contravariance-in-c-part-two-array-covariance.aspx">array covariance</a>.</p>
 
 <p>
-  <pre class="brush: csharp;">string[] strings = new string[1];
+{% endraw %}
+{% highlight csharp %}
+string[] strings = new string[1];
 object[] arr = strings;
-arr[0] = 7;</pre>
+arr[0] = 7;
+{% endhighlight %}
+{% raw %}
 </p>
 
 <p>This code compiles, but throws “ArrayTypeMismatchException: Attempted to access an element as a type incompatible with the array.” at run-time.</p>

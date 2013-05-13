@@ -20,13 +20,17 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>C# 4.0 adds support for <a href="http://msdn.microsoft.com/en-us/library/dd264739.aspx">optional parameters</a>.</p>  <p>The following code prints 4:</p>  <pre class="brush: csharp;">static void Main() {
+<p>C# 4.0 adds support for <a href="http://msdn.microsoft.com/en-us/library/dd264739.aspx">optional parameters</a>.</p>  <p>The following code prints 4:</p>
+{% endraw %}
+{% highlight csharp %}
+static void Main() {
     TestMethod();
 }
 static void TestMethod(int i = 4) {
     Console.WriteLine(i);
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>Optional parameters are a compiler feature.&#160; The compiler will emit a normal method with the IL <code>[opt]</code> attribute and a <code>.param</code> declaration that includes a default value:</p>
 
 <pre>.method hidebysig static void 
@@ -46,13 +50,15 @@ static void TestMethod(int i = 4) {
   <br />(in the System.Runtime.InteropServices namespace)</p>
 
 <p>The following C# 1 code will compile identically to the above:</p>
-
-<pre class="brush: csharp;">static void TestMethod(
+{% endraw %}
+{% highlight csharp %}
+static void TestMethod(
     [Optional, DefaultParameterValue(4)] int i
 ) {
     Console.WriteLine(i);
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>Since the older compilers cannot consume optional parameters, you will always need to pass <code>i</code> when calling this method from C# &lt; 4.&#160; However, in C# 4, you can call this method without passing the parameter.</p>
 
 <p>Unfortunately, the syntax parser used by VS2010 doesn’t recognize these attributes.&#160; Therefore, if you attempt to call a method using these attributes, inside the project that defines the method, without specifying the parameter, the IDE will show a syntax error.&#160; The compiler itself, however, will work correctly.&#160; I <a href="https://connect.microsoft.com/VisualStudio/feedback/details/636954/vs2010-background-compiler-cannot-handle-attribute-based-optional-parameters">reported this bug on Connect</a>.</p>

@@ -20,57 +20,62 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>We’ll continue our <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-6-function-blocks.html">trek</a> into Razor’s class-level features with helpers.</p>  <p>Helpers are one of Razor’s unique features.&#160; They encapsulate blocks of HTML and server-side logic into reusable page-level methods.&#160; </p>  <p>You can define a helper by writing <code>@helper MethodName(parameters) { ... }</code>.&#160; Inside the code block, you can put any markup or server-side code.&#160; The contents of a helper are parsed as a code block (like the contents of a loop or <code>if</code> block), so any non-HTML-like markup must be surrounded by <code>&lt;text&gt;</code> tags or prefixed by the <code>@:</code> escape.</p>  <p>Here is a simple example:</p>  <pre class="brush: xml;">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;body&gt;
+<p>We’ll continue our <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-6-function-blocks.html">trek</a> into Razor’s class-level features with helpers.</p>  <p>Helpers are one of Razor’s unique features.&#160; They encapsulate blocks of HTML and server-side logic into reusable page-level methods.&#160; </p>  <p>You can define a helper by writing <code>@helper MethodName(parameters) { ... }</code>.&#160; Inside the code block, you can put any markup or server-side code.&#160; The contents of a helper are parsed as a code block (like the contents of a loop or <code>if</code> block), so any non-HTML-like markup must be surrounded by <code>&lt;text&gt;</code> tags or prefixed by the <code>@:</code> escape.</p>  <p>Here is a simple example:</p>
+{% endraw %}
+{% highlight xml %}
+<!DOCTYPE html>
+<html>
+    <body>
         @helper NumberRow(int num) {
             var square = num * num;
-            &lt;tr&gt;
-                &lt;td&gt;@num&lt;/td&gt;
-                &lt;td&gt;@square&lt;/td&gt;
-                &lt;td&gt;@(num % 2 == 0 ? &quot;Even&quot; : &quot;Odd&quot;)&lt;/td&gt;
-            &lt;/tr&gt;
+            <tr>
+                <td>@num</td>
+                <td>@square</td>
+                <td>@(num % 2 == 0 ? "Even" : "Odd")</td>
+            </tr>
         }
-        &lt;table&gt;
-            &lt;thead&gt;
-                &lt;tr&gt;
-                    &lt;th&gt;Number&lt;/th&gt;
-                    &lt;th&gt;Square&lt;/th&gt;
-                    &lt;th&gt;Eveness&lt;/th&gt;
-                &lt;/tr&gt;
-            &lt;/thead&gt;
-            &lt;tbody&gt;
-                @for (int i = 0; i &lt; 10; i++) {
+        <table>
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Square</th>
+                    <th>Eveness</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 10; i++) {
                     @NumberRow(i)
                 }
-            &lt;/tbody&gt;
-        &lt;/table&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</pre>
-
+            </tbody>
+        </table>
+    </body>
+</html>
+{% endhighlight %}
+{% raw %}
 <p>Note that code statements (such as the <code>square</code> declaration) can go directly inside the helper body without being wrapped in code blocks – the direct contents of the helper is a code block, not markup.&#160; Like any other code block, HTML-like markup is automatically treated as markup instead of code.</p>
 
 <p>Like <code>@functions</code> blocks, helper methods can go anywhere in the source file; the physical location of the block is ignored.</p>
 
 <p>Here is the generated source for the above example: (with blank lines and <code>#line</code> directives stripped for clarity)</p>
-
-<pre class="brush: csharp;">public class _Page_Razor_Helpers_cshtml : System.Web.WebPages.WebPage {
+{% endraw %}
+{% highlight csharp %}
+public class _Page_Razor_Helpers_cshtml : System.Web.WebPages.WebPage {
 
     public System.Web.WebPages.HelperResult NumberRow(int num) {
-        return new System.Web.WebPages.HelperResult(__razor_helper_writer =&gt; {
+        return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
             var square = num * num;
 
-            WriteLiteralTo(@__razor_helper_writer, &quot;            &lt;tr&gt;\r\n                &lt;td&gt;&quot;);
+            WriteLiteralTo(@__razor_helper_writer, "            <tr>\r\n                <td>");
             WriteTo(@__razor_helper_writer, num);
 
-            WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/td&gt;\r\n                &lt;td&gt;&quot;);
+            WriteLiteralTo(@__razor_helper_writer, "</td>\r\n                <td>");
             WriteTo(@__razor_helper_writer, square);
 
-            WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/td&gt;\r\n                &lt;td&gt;&quot;);
-            WriteTo(@__razor_helper_writer, num % 2 == 0 ? &quot;Even&quot; : &quot;Odd&quot;);
+            WriteLiteralTo(@__razor_helper_writer, "</td>\r\n                <td>");
+            WriteTo(@__razor_helper_writer, num % 2 == 0 ? "Even" : "Odd");
 
-            WriteLiteralTo(@__razor_helper_writer, &quot;&lt;/td&gt;\r\n            &lt;/tr&gt;\r\n&quot;);
+            WriteLiteralTo(@__razor_helper_writer, "</td>\r\n            </tr>\r\n");
 
         });
     }
@@ -82,21 +87,22 @@ author:
         }
     }
     public override void Execute() {
-        WriteLiteral(&quot;&lt;!DOCTYPE html&gt;\r\n&lt;html&gt;\r\n    &lt;body&gt;\r\n        &quot;);
-        WriteLiteral(&quot;\r\n        &lt;table&gt;\r\n            &lt;thead&gt;\r\n                &lt;tr&gt;\r\n                   &quot; +
-        &quot; &lt;th&gt;Number&lt;/th&gt;\r\n                    &lt;th&gt;Square&lt;/th&gt;\r\n                    &lt;th&gt;E&quot; +
-        &quot;veness&lt;/th&gt;\r\n                &lt;/tr&gt;\r\n            &lt;/thead&gt;\r\n            &lt;tbody&gt;\r\n&quot;);
+        WriteLiteral("<!DOCTYPE html>\r\n<html>\r\n    <body>\r\n        ");
+        WriteLiteral("\r\n        <table>\r\n            <thead>\r\n                <tr>\r\n                   " +
+        " <th>Number</th>\r\n                    <th>Square</th>\r\n                    <th>E" +
+        "veness</th>\r\n                </tr>\r\n            </thead>\r\n            <tbody>\r\n");
 
-        for (int i = 0; i &lt; 10; i++) {
+        for (int i = 0; i < 10; i++) {
             Write(NumberRow(i));
         }
 
-        WriteLiteral(&quot;            &lt;/tbody&gt;\r\n        &lt;/table&gt;\r\n    &lt;/body&gt;\r\n&lt;/html&gt;\r\n&quot;);
+        WriteLiteral("            </tbody>\r\n        </table>\r\n    </body>\r\n</html>\r\n");
 #error
 
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>Helpers are compiled as class-level methods that take a parameter set and return a System.Web.WebPages.HelperResult.&#160; (This class name is configured by the RazorHostFactory) </p>
 
 <p>Notice the the contents of the helper method are inside a lambda expression that takes a parameter named <code>__razor_helper_writer</code>.&#160; This construction allows the helper to write directly to the HTTP response stream instead of assembling a giant string and then writing the string all at once.</p>
@@ -116,19 +122,21 @@ author:
 <p>The VB.Net code parser also doesn’t explicitly support generic helpers.&#160; However, because VB.Net generics use parentheses, a VB.Net helper can declare a generic type parameter <em>instead of</em> a normal parameter list.</p>
 
 <p>For example:</p>
+{% endraw %}
+{% highlight xml %}
+<!DOCTYPE html>
+<html>
 
-<pre class="brush: xml;">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-
-    &lt;body&gt;
+    <body>
         @Helper PrintType(Of T)
             @GetType(T)
         End Helper
         @PrintType(Of Dictionary(Of Integer, List(Of String)))()
-    &lt;/body&gt;
+    </body>
 
-&lt;/html&gt;</pre>
-
+</html>
+{% endhighlight %}
+{% raw %}
 <p>This trick is not very useful.</p>
 
 <p><a href="http://blog.slaks.net/2011/03/dissecting-razor-part-8-static-helpers.html"><em>Next Time</em>: Static Helpers</a></p>  

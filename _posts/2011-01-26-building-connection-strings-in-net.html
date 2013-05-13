@@ -20,11 +20,15 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>.Net developers frequently need to build connection strings, especially when connecting to Access or Excel files using OleDB.    <br />Code like the following has been written countless times:</p>  <pre class="brush: csharp;">//Bad code! Do not use!
-string conn = &quot;Data Source=&quot; + openFileDialog1.FileName + &quot;; &quot;
-            + &quot;Provider=Microsoft.Jet.OLEDB.4.0;&quot;
-            + &quot;Extended Properties=\&quot;Excel 8.0\&quot;&quot;;</pre>
-
+<p>.Net developers frequently need to build connection strings, especially when connecting to Access or Excel files using OleDB.    <br />Code like the following has been written countless times:</p>
+{% endraw %}
+{% highlight csharp %}
+//Bad code! Do not use!
+string conn = "Data Source=" + openFileDialog1.FileName + "; "
+            + "Provider=Microsoft.Jet.OLEDB.4.0;"
+            + "Extended Properties=\"Excel 8.0\"";
+{% endhighlight %}
+{% raw %}
 <p>This code looks innocuous at first glance, but will not work for all filenames.&#160; If the filename contains characters like <code>'</code>, <code>&quot;</code>, <code>;</code>, or <code>=</code>, this code will create an invalid connection string and throw an exception.</p>
 
 <p>The correct way to build connection strings is to use one of the <a href="http://msdn.microsoft.com/en-us/library/system.data.common.dbconnectionstringbuilder.aspx">DbConnectionStringBuilder</a> classes.&#160; This class implements a dictionary of key-value pairs in the connection string.&#160; It has a <code>ConnectionString</code> property which assembles the instance’s contents into a usable connection string.&#160; Unlike the string concatenation shown above, this property will correctly escape all values.</p>
@@ -32,12 +36,15 @@ string conn = &quot;Data Source=&quot; + openFileDialog1.FileName + &quot;; &quo
 <p>In addition, each of the database clients included with the .Net framework (SQL, OleDB, ODBC, Oracle, and Entity Framework) have their own inherited ConnectionStringBuilder classes in their respective namespaces.&#160; These classes add type-safe properties for the the keys supported by their databases, and handle any special cases when generating the connection string.</p>
 
 <p>Thus, the correct way to write the above code is:</p>
-
-<pre class="brush: csharp;">var connBuilder = new OleDbConnectionStringBuilder {
+{% endraw %}
+{% highlight csharp %}
+var connBuilder = new OleDbConnectionStringBuilder {
     DataSource = openFileDialog1.FileName,
-    Provider = &quot;Microsoft.Jet.OLEDB.4.0&quot;
+    Provider = "Microsoft.Jet.OLEDB.4.0"
 };
-connBuilder[&quot;Extended Properties&quot;] = &quot;Excel 12.0 Macro&quot;;</pre>
+connBuilder["Extended Properties"] = "Excel 12.0 Macro";
+{% endhighlight %}
+{% raw %}
 As an added bonus, these classes implement ICustomTypeDescriptor, so they can be bound to a PropertyGrid to allow the end-user to edit the connection string.&#160; This can be seen in certain places in Visual Studio.  
 </div>
 {% endraw %}

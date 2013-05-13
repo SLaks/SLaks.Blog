@@ -56,11 +56,13 @@ author:
 <p>Like the ASPX version, <code>pageWriter</code> now writes directly to the page and does not return anything.</p>
 
 <p>This code can be made simpler by wrapping it in a separate method:</p>
-
-<pre class="brush: csharp;">Action MakeAction(Func&lt;object, HelperResult&gt; inlineHelper) {
-    return () =&gt; Write(inlineHelper(null));
-}</pre>
-
+{% endraw %}
+{% highlight csharp %}
+Action MakeAction(Func<object, HelperResult> inlineHelper) {
+    return () => Write(inlineHelper(null));
+}
+{% endhighlight %}
+{% raw %}
 <p>This method takes an inline helper and returns an <code>Action</code> that writes the helper’s output to the page.&#160; Since it needs to call the page’s <code>Write</code> method (to use the page’s output stream), this method must be defined in the <code>WebPageBase</code> instance, either in an <code>@functions</code> block or in a common base class.</p>
 
 <p>Any code in the inline helper will execute each time the resulting <code>Action</code> is called.</p>
@@ -78,10 +80,13 @@ author:
 <p>This code is equivalent to the previous sample, but it’s much simpler.</p>
 
 <p>One can also write write a version that takes a parameter:</p>
-
-<pre class="brush: csharp;">Action&lt;T&gt; MakeAction&lt;T&gt;(Func&lt;T, HelperResult&gt; inlineHelper) {
-    return param =&gt; Write(inlineHelper(param));
-}</pre>
+{% endraw %}
+{% highlight csharp %}
+Action<T> MakeAction<T>(Func<T, HelperResult> inlineHelper) {
+    return param => Write(inlineHelper(param));
+}
+{% endhighlight %}
+{% raw %}
 Note that the type parameter must be specified explicitly; C# does not infer type parameters from the method’s return type.  
 </div>
 {% endraw %}

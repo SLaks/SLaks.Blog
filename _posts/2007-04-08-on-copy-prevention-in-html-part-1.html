@@ -19,11 +19,16 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>Many web developers like to prevent their viewers from copying their text. While I do not approve of this, there are cases where it is appropriate.</p>  <p>The simplest way to achieve this is to use the IE only attribute UNSELECTABLE and the FireFox only css style -moz-user-select. Such HTML looks like this:</p>  <table><tbody>     <tr>       <td>         <pre class="brush: html">&lt;DIV unselectable=&quot;on&quot;
-style=&quot;-moz-user-select:none;&quot;&gt;
+<p>Many web developers like to prevent their viewers from copying their text. While I do not approve of this, there are cases where it is appropriate.</p>  <p>The simplest way to achieve this is to use the IE only attribute UNSELECTABLE and the FireFox only css style -moz-user-select. Such HTML looks like this:</p>  <table><tbody>     <tr>       <td>
+{% endraw %}
+{% highlight html %}
+<DIV unselectable="on"
+style="-moz-user-select:none;">
 You can't select me.
-&lt;/DIV&gt;</pre>
-      </td>
+</DIV>
+{% endhighlight %}
+{% raw %}
+</td>
 
       <td>
         <div style="-moz-user-select: none" unselectable="on">You can't select me.</div>
@@ -40,12 +45,16 @@ You can't select me.
 <table><tbody>
     <tr>
       <td>
-        <pre class="brush: html">&lt;DIV
-onselectstart=&quot;return false;&quot;
-onmousedown=&quot;return false;&quot; &gt;
+{% endraw %}
+{% highlight html %}
+<DIV
+onselectstart="return false;"
+onmousedown="return false;" >
 You can't select me.
-&lt;/DIV&gt;</pre>
-      </td>
+</DIV>
+{% endhighlight %}
+{% raw %}
+</td>
 
       <td>
         <div onselectstart="return false;" onmousedown="return false;">You can't select me.</div>

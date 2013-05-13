@@ -20,25 +20,30 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>When designing fluent APIs, one issue that comes up is partial type inference.&#160; If a method has two type parameters, there is no way to call it and only specify one of the type parameters (and leave the other inferred by the compiler)</p>  <p>For example, suppose we are creating a type-safe wrapper around a parameterized SqlCommand.    <br />Ideally, it would be called like this:</p>  <pre class="brush: csharp;">using(DbConnection connection = ...) {
-    var result = connection.ExecuteScalar&lt;int&gt;(
-        &quot;SELECT COUNT(*) FROM TableName WHERE Modified &gt; someDate&quot;,
+<p>When designing fluent APIs, one issue that comes up is partial type inference.&#160; If a method has two type parameters, there is no way to call it and only specify one of the type parameters (and leave the other inferred by the compiler)</p>  <p>For example, suppose we are creating a type-safe wrapper around a parameterized SqlCommand.    <br />Ideally, it would be called like this:</p>
+{% endraw %}
+{% highlight csharp %}
+using(DbConnection connection = ...) {
+    var result = connection.ExecuteScalar<int>(
+        "SELECT COUNT(*) FROM TableName WHERE Modified > someDate",
         new { someDate }
     );
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>Where the generic parameter specifies the return type.</p>
 
 <p>In order to implement this efficiently, one would create methods at runtime which add DbParameters for each property in the anonymous type, and <a href="http://stackoverflow.com/questions/686630/static-generic-class-as-dictionary">store them in a static generic class</a>.&#160;&#160;&#160; <br />It would look something like this:</p>
-
-<pre class="brush: csharp;">static class Extensions {
-    public static void AddParams&lt;TParam&gt;(this IDbCommand command, 
+{% endraw %}
+{% highlight csharp %}
+static class Extensions {
+    public static void AddParams<TParam>(this IDbCommand command, 
                                          TParam parameters)
         where TParam : class { 
         if (parameters != null) 
-            ParamAdders&lt;TParam&gt;.Adder(command, parameters);
+            ParamAdders<TParam>.Adder(command, parameters);
     }
-    static class ParamAdders&lt;TParam&gt; where TParam : class {
+    static class ParamAdders<TParam> where TParam : class {
         public delegate void ParamAdder(IDbCommand command,
                                         TParam parameters);
         public static readonly ParamAdder Adder = CreateParamAdder();
@@ -47,21 +52,23 @@ author:
             return ...; 
         }
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>However, that requires that the ExecuteScalar extension method take TParam as a generic parameter.&#160; Since anonymous types can only be passed as generic parameters via type inference, this makes it impossible to pass the return type as a generic parameter.</p>
 
 <p>To fix this issue, we can split the generic parameters across two methods.&#160; We can change the extension method to take a single generic parameter, and return a generic class with a method that takes the other generic parameter.</p>
 
 <p>For example:</p>
-
-<pre class="brush: csharp;">static class BetterExtensions {
-    public static SqlStatement&lt;T&gt; Sql&lt;T&gt;(this IDbConnection conn,
+{% endraw %}
+{% highlight csharp %}
+static class BetterExtensions {
+    public static SqlStatement<T> Sql<T>(this IDbConnection conn,
                                          string sqlText) { 
-        return new SqlStatement&lt;T&gt;(conn, sqlText); 
+        return new SqlStatement<T>(conn, sqlText); 
     }
 }
-class SqlStatement&lt;TReturn&gt; : IHideObjectMembers {
+class SqlStatement<TReturn> : IHideObjectMembers {
     public SqlStatement(IDbConnection connection, string sql) { 
         Connection = connection; 
         Sql = sql;
@@ -69,23 +76,26 @@ class SqlStatement&lt;TReturn&gt; : IHideObjectMembers {
     public IDbConnection Connection { get; private set; }
     public string Sql { get; private set; }
 
-    public TReturn Execute() { return Execute&lt;object&gt;(null); }
-    public TReturn Execute&lt;TParam&gt;(TParam parameters)
+    public TReturn Execute() { return Execute<object>(null); }
+    public TReturn Execute<TParam>(TParam parameters)
          where TParam : class {
         return ...;
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>I use an <a href="http://www.clariusconsulting.net/blogs/kzu/archive/2008/03/10/58301.aspx">IHideObjectMembers interface</a> to hide the methods inherited from Object from IntelliSense.&#160; Note that the interface must be defined in an assembly outside of your solution. (or, to be more precise, that isn’t a Project reference)</p>
 
 <p>This version would be called like this:</p>
-
-<pre class="brush: csharp;">using(IDbConnection connection = null) {
-    var result = connection.Sql&lt;int&gt;(
-        &quot;SELECT COUNT(*) FROM TableName WHERE Modified &gt; someDate&quot;
+{% endraw %}
+{% highlight csharp %}
+using(IDbConnection connection = null) {
+    var result = connection.Sql<int>(
+        "SELECT COUNT(*) FROM TableName WHERE Modified > someDate"
     ).Execute(new { someDate });
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>The return type is specified explicitly in the call to <code>Sql&lt;T&gt;()</code>, and the parameter type is passed implicitly to <code>Execute&lt;TParam&gt;()</code>.</p>  
 </div>
 {% endraw %}

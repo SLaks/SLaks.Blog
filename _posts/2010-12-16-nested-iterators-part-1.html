@@ -20,16 +20,20 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>C# 2.0 introduced a powerful feature called an <a href="http://msdn.microsoft.com/en-us/library/dscyy5s0.aspx">iterator</a>, a method which returns an IEnumerable&lt;T&gt; or IEnumerator&lt;T&gt; using the new <a href="http://msdn.microsoft.com/en-us/library/9k7k7cf0.aspx">yield keyword</a>.</p>  <p>Using an iterator, you can quickly and easily create a method which returns lazily a sequence of values.&#160; However, lazily returning a sequence of <em>sequences</em> (IEnumerable&lt;IEnumerable&lt;T&gt;&gt;) is not so simple.</p>  <p>The obvious approach is to yield return a List&lt;T&gt;:</p>  <pre class="brush: csharp;">IEnumerable&lt;IEnumerable&lt;int&gt;&gt; SemiLazy() {
-    for(int i = 0; i &lt; 10; i++) {
-        List&lt;int&gt; numbers = new List&lt;int&gt;();
-        for(int j = 0; j &lt; 10; j++)
+<p>C# 2.0 introduced a powerful feature called an <a href="http://msdn.microsoft.com/en-us/library/dscyy5s0.aspx">iterator</a>, a method which returns an IEnumerable&lt;T&gt; or IEnumerator&lt;T&gt; using the new <a href="http://msdn.microsoft.com/en-us/library/9k7k7cf0.aspx">yield keyword</a>.</p>  <p>Using an iterator, you can quickly and easily create a method which returns lazily a sequence of values.&#160; However, lazily returning a sequence of <em>sequences</em> (IEnumerable&lt;IEnumerable&lt;T&gt;&gt;) is not so simple.</p>  <p>The obvious approach is to yield return a List&lt;T&gt;:</p>
+{% endraw %}
+{% highlight csharp %}
+IEnumerable<IEnumerable<int>> SemiLazy() {
+    for(int i = 0; i < 10; i++) {
+        List<int> numbers = new List<int>();
+        for(int j = 0; j < 10; j++)
             numbers.Add(i * 10 + j);
             
         yield return numbers;
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p align="left">(This can be shortened to a single LINQ statement, but that’s beyond the point of this post: <code>Enumerable.Range(0, 10).Select(i =&gt; Enumerable.Range(10 * i, 10))</code> ) </p>
 
 <p>This approach is very simple, but isn’t very lazy; each subsequence will be computed in its entirety, whether it’s consumed or not.</p>
@@ -37,18 +41,20 @@ author:
 <p>This approach also has a subtle catch: the iterator must return a different List&lt;T&gt; instance every time.</p>
 
 <p>If you “optimize” it to re-use the instance, you’ll break callers which don’t use the subsequences immediately:</p>
-
-<pre class="brush: csharp;">IEnumerable&lt;IEnumerable&lt;int&gt;&gt; Wrong() {
-    List&lt;int&gt; numbers = new List&lt;int&gt;();
-    for(int i = 0; i &lt; 10; i++) {
+{% endraw %}
+{% highlight csharp %}
+IEnumerable<IEnumerable<int>> Wrong() {
+    List<int> numbers = new List<int>();
+    for(int i = 0; i < 10; i++) {
         numbers.Clear();
-        for(int j = 0; j &lt; 10; j++)
+        for(int j = 0; j < 10; j++)
             numbers.Add(i * 10 + j);
             
         yield return numbers;
     }
-}</pre>
-
+}
+{% endhighlight %}
+{% raw %}
 <p>Calling <code>SemiLazy().ToArray()[0].First()</code> will return 0 (the first element in the first subsequence); calling <code>Wrong().ToArray()[0].First()</code> will return 90 (since all subsequences refer to the same instance). </p>
 
 <p>Next: How can we achieve full laziness?</p>  
