@@ -1,7 +1,5 @@
 ﻿pygments:     true
-auto:         true
 #permalink:    /:year-:month-:day/:title
 exclude:      ["WE-settings.xml", "SLaks.Blog.sln", "SLaks.Blog.v11.suo", "CNAME"]
 
-server:      true
-server_port: 8775
+port:        8775
