@@ -12,6 +12,6 @@ Output: categorySlugs
 			to remove them with a single replace call afterwords.
 		{% endcomment %}
 	{% capture categorySlugs %}~@~{{ categories }}~@~{% endcapture %}
-	{% capture categorySlugs %}{{ categorySlugs | downcase | replace: '~.net~', '~dot-net~' | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' }}{% endcapture %}
+	{% capture categorySlugs %}{{ categorySlugs | downcase | replace: '~.net~', '~dot-net~' | replace: '~c++~', '~cpp~' | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' }}{% endcapture %}
 	{% capture categorySlugs %}{{ categorySlugs | replace: '~@~', '' | replace: '~', ' ' }}{% endcapture %}
 {% endif %}

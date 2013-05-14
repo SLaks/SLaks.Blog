@@ -1,7 +1,7 @@
 ﻿.defineCategoryColors() {
 	.ColorScheme(#5DC4F0, white);
 
-	&.javascript {
+	&.javascript, &.js {
 		.ColorScheme(#f3df49, #2e2e2c);
 	}
 
@@ -29,6 +29,10 @@
 		.ColorScheme(#e34c26, #ebebeb);
 	}
 
+	&.xml {
+		.ColorScheme(#f60);
+	}
+
 	&.css {
 		.ColorScheme(#2162af, #ebebeb);
 	}
@@ -49,7 +53,11 @@
 		.ColorScheme(#368832);
 	}
 
-	&.vb-net {
+	&.vb-net, &.vbnet {	// For syntax highlighting, I use "vbnet" (pygments doesn't recognize vb-net)
 		.ColorScheme(#00539c);
+	}
+
+	&.cpp {
+		.ColorScheme(#9fbce1);
 	}
 }

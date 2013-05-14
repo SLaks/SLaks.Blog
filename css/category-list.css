@@ -20,7 +20,8 @@
   background-color: #5dc4f0;
   color: #ffffff;
 }
-.category-list li.javascript:before {
+.category-list li.javascript:before,
+.category-list li.js:before {
   background-color: #f3df49;
   color: #2e2e2c;
 }
@@ -48,6 +49,10 @@
   background-color: #e34c26;
   color: #ebebeb;
 }
+.category-list li.xml:before {
+  background-color: #ff6600;
+  color: #ffffff;
+}
 .category-list li.css:before {
   background-color: #2162af;
   color: #ebebeb;
@@ -68,7 +73,12 @@
   background-color: #368832;
   color: #ffffff;
 }
-.category-list li.vb-net:before {
+.category-list li.vb-net:before,
+.category-list li.vbnet:before {
   background-color: #00539c;
+  color: #ffffff;
+}
+.category-list li.cpp:before {
+  background-color: #9fbce1;
   color: #ffffff;
 }

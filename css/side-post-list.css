@@ -81,7 +81,8 @@
   margin-top: 5px;
   max-height: 200px;
 }
-.side-post-list li + li.javascript {
+.side-post-list li + li.javascript,
+.side-post-list li + li.js {
   border-left-color: #f3df49;
 }
 .side-post-list li + li.derby {
@@ -102,6 +103,9 @@
 .side-post-list li + li.html {
   border-left-color: #e34c26;
 }
+.side-post-list li + li.xml {
+  border-left-color: #ff6600;
+}
 .side-post-list li + li.css {
   border-left-color: #2162af;
 }
@@ -117,6 +121,10 @@
 .side-post-list li + li.csharp {
   border-left-color: #368832;
 }
-.side-post-list li + li.vb-net {
+.side-post-list li + li.vb-net,
+.side-post-list li + li.vbnet {
   border-left-color: #00539c;
+}
+.side-post-list li + li.cpp {
+  border-left-color: #9fbce1;
 }

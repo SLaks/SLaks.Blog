@@ -6,7 +6,8 @@
   background: linear-gradient(to bottom, #e9f7fd 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
-body.javascript {
+body.javascript,
+body.js {
   background: -webkit-linear-gradient(to bottom, #fcf8d9 0, #ffffff 25%);
   background: -ms-linear-gradient(to bottom, #fcf8d9 0, #ffffff 25%);
   background: -moz-linear-gradient(to bottom, #fcf8d9 0, #ffffff 25%);
@@ -62,6 +63,14 @@ body.html {
   background: linear-gradient(to bottom, #f4bcae 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
+body.xml {
+  background: -webkit-linear-gradient(to bottom, #ffc299 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #ffc299 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #ffc299 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #ffc299 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #ffc299 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
 body.css {
   background: -webkit-linear-gradient(to bottom, #82b0e7 0, #ffffff 25%);
   background: -ms-linear-gradient(to bottom, #82b0e7 0, #ffffff 25%);
@@ -102,12 +111,21 @@ body.csharp {
   background: linear-gradient(to bottom, #86d182 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
-body.vb-net {
+body.vb-net,
+body.vbnet {
   background: -webkit-linear-gradient(to bottom, #36a1ff 0, #ffffff 25%);
   background: -ms-linear-gradient(to bottom, #36a1ff 0, #ffffff 25%);
   background: -moz-linear-gradient(to bottom, #36a1ff 0, #ffffff 25%);
   background: -o-linear-gradient(to bottom, #36a1ff 0, #ffffff 25%);
   background: linear-gradient(to bottom, #36a1ff 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
+body.cpp {
+  background: -webkit-linear-gradient(to bottom, #ffffff 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #ffffff 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #ffffff 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #ffffff 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #ffffff 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 h1 {
