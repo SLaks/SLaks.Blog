@@ -1,5 +1,9 @@
 ﻿pygments:     true
 #permalink:    /:year-:month-:day/:title
-exclude:      ["WE-settings.xml", "SLaks.Blog.sln", "SLaks.Blog.v11.suo", "CNAME"]
+exclude:      ["WE-settings.xml", "SLaks.Blog.sln", "SLaks.Blog.v11.suo", "CNAME", "*.less"]
 
 port:        8775
+
+markdown:    redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "with_toc_data", "underline"]

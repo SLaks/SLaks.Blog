@@ -1,8 +1,16 @@
-﻿.defineCategoryColors() {
+.defineCategoryColors() {
+	.defineCategoryColors(name);
+	// Define the .Name() mixin since our caller didn't.
+	.Name(@name) {
+	}
+}
+
+.defineCategoryColors(name) {
 	.ColorScheme(#5DC4F0, white);
 
 	&.javascript, &.js {
 		.ColorScheme(#f3df49, #2e2e2c);
+		.Name("Javascript");
 	}
 
 	&.derby {
@@ -27,18 +35,22 @@
 
 	&.html {
 		.ColorScheme(#e34c26, #ebebeb);
+		.Name("HTML");
 	}
 
 	&.xml {
 		.ColorScheme(#f60);
+		.Name("XML");
 	}
 
 	&.css {
 		.ColorScheme(#2162af, #ebebeb);
+		.Name("CSS");
 	}
 
 	&.less {
 		.ColorScheme(#143352);
+		.Name("LESS");
 	}
 
 	&.visual-studio-2012 {
@@ -51,13 +63,16 @@
 
 	&.csharp {
 		.ColorScheme(#368832);
+		.Name("C♯");
 	}
 
-	&.vb-net, &.vbnet {	// For syntax highlighting, I use "vbnet" (pygments doesn't recognize vb-net)
+	&.vb-net, &.vbnet { // For syntax highlighting, I use "vbnet" (pygments doesn't recognize vb-net)
 		.ColorScheme(#00539c);
+		.Name("VB.Net");
 	}
 
 	&.cpp {
 		.ColorScheme(#9fbce1);
+		.Name("C++");
 	}
 }

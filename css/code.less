@@ -1,0 +1,42 @@
+@import-once url('./_colors.less');
+
+.highlight code,		// Normal or overridden highlighted code block
+div + pre {				// Unhighlighted code block preceded by language override
+	position: relative;
+	display: block;
+	padding: 10px;
+	&:before {
+		font-weight: 100;
+		font-family: 'Source Sans Pro', sans-serif;
+		letter-spacing: 8px;
+		position: absolute;
+		top: 0;
+		right: 10px;
+		font-size: 60px;
+		pointer-events: none;	// Make sure this doesn't interfere with selecting code.  (Chrome bug)
+		opacity: .7;			// Makes code behind the label a little more readable.  I can't figure out how to send the label to back without making every span position: relative (perf hit)
+	}
+}
+
+.defineCategoryColors(name); // Invokes .ColorScheme() and .Name() mixins inside of different color classes
+.Name(@name) {
+	.highlight code&:before,		// Normal highlighted code block
+	& + .highlight code:before,		// Highlighted code block preceded by language override
+	& + pre:before {				// Unhighlighted code block preceded by language override 
+		content: @name;
+	}
+}
+.ColorScheme(@baseColor, @textColor: #fff) {
+	@hue: hue(@baseColor);
+	@saturation: saturation(@baseColor);
+
+	.highlight code&,		// Normal highlighted code block
+	& + .highlight code,	// Highlighted code block preceded by language override
+	& + pre {				// Unhighlighted code block preceded by language override
+		background-color: hsl(@hue, @saturation, 90%);
+		outline-color: hsl(@hue, @saturation, 75%);
+		&:before{
+			color: hsl(@hue, @saturation, 40%);
+		}
+	}
+}
