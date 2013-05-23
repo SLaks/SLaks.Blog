@@ -82,3 +82,7 @@
   background-color: #9fbce1;
   color: #ffffff;
 }
+.category-list li.razor:before {
+  background-color: #e7f4ff;
+  color: #000000;
+}

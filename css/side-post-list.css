@@ -128,3 +128,6 @@
 .side-post-list li + li.cpp {
   border-left-color: #9fbce1;
 }
+.side-post-list li + li.razor {
+  border-left-color: #e7f4ff;
+}

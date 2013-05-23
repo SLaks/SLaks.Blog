@@ -244,6 +244,18 @@
 .post-list li.cpp aside a:hover {
   color: #333333;
 }
+.post-list li.razor aside {
+  background-color: #e7f4ff;
+}
+.post-list li.razor aside:before {
+  border-color: transparent transparent #e7f4ff transparent;
+}
+.post-list li.razor aside a {
+  color: #000000;
+}
+.post-list li.razor aside a:hover {
+  color: #000000;
+}
 .post-list li aside {
   position: absolute;
   right: 0;

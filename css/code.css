@@ -250,3 +250,19 @@ pre:before {
 .cpp + pre:before {
   content: "C++";
 }
+.highlight code.razor,
+.razor + .highlight code,
+.razor + pre {
+  background-color: #cce8ff;
+  outline-color: #80c6ff;
+}
+.highlight code.razor:before,
+.razor + .highlight code:before,
+.razor + pre:before {
+  color: #0070cc;
+}
+.highlight code.razor:before,
+.razor + .highlight code:before,
+.razor + pre:before {
+  content: "Razor";
+}
