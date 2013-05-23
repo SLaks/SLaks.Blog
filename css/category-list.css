@@ -38,8 +38,8 @@
   color: #46483e;
 }
 .category-list li.jekyll:before {
-  background-color: #000000;
-  color: #dddddd;
+  background-color: #ffcc00;
+  color: #333333;
 }
 .category-list li.jquery:before {
   background-color: #0769ad;

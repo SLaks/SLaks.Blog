@@ -95,7 +95,7 @@
   border-left-color: #8bc84b;
 }
 .side-post-list li + li.jekyll {
-  border-left-color: #000000;
+  border-left-color: #ffcc00;
 }
 .side-post-list li + li.jquery {
   border-left-color: #0769ad;

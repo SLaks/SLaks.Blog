@@ -40,11 +40,11 @@ body.node-js {
   background-repeat: no-repeat;
 }
 body.jekyll {
-  background: -webkit-linear-gradient(to bottom, #d9d9d9 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #d9d9d9 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #d9d9d9 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #d9d9d9 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #d9d9d9 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #fff0b3 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #fff0b3 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #fff0b3 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #fff0b3 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #fff0b3 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.jquery {

@@ -131,16 +131,16 @@
   color: #000000;
 }
 .post-list li.jekyll aside {
-  background-color: #000000;
+  background-color: #ffcc00;
 }
 .post-list li.jekyll aside:before {
-  border-color: transparent transparent #000000 transparent;
+  border-color: transparent transparent #ffcc00 transparent;
 }
 .post-list li.jekyll aside a {
-  color: #dddddd;
+  color: #333333;
 }
 .post-list li.jekyll aside a:hover {
-  color: #ffffff;
+  color: #000000;
 }
 .post-list li.jquery aside {
   background-color: #0769ad;

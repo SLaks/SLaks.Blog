@@ -88,13 +88,13 @@ pre:before {
 .highlight code.jekyll,
 .jekyll + .highlight code,
 .jekyll + pre {
-  background-color: #e6e6e6;
-  outline-color: #bfbfbf;
+  background-color: #fff5cc;
+  outline-color: #ffe680;
 }
 .highlight code.jekyll:before,
 .jekyll + .highlight code:before,
 .jekyll + pre:before {
-  color: #666666;
+  color: #cca300;
 }
 .highlight code.jquery,
 .jquery + .highlight code,
