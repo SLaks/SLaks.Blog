@@ -1,6 +1,9 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
 
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,400italic,700italic);
+html {
+  position: relative;
+}
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
