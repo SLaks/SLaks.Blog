@@ -22,7 +22,8 @@ author:
 <div class="css-full-post-content js-full-post-content">
 <p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-4-anatomy-of.html">Last time</a>, we saw how basic Razor constructs are translated into C#.</p>  <p>We can see the generated class by adding <code>@{ #error }</code> to the page source. This creates a compiler error in the <code>Execute</code> method, and the resulting Yellow Screen of Death contains a <u>Show Complete Compilation Source:</u> link which will show the generated C# class.&#160; </p>  <p>Let’s start with a very simple page:</p>
 {% endraw %}
-{% highlight xml %}
+<div class="razor"></div>
+{% highlight html %}
 <!DOCTYPE html>
 <html>
     <body>
@@ -37,7 +38,7 @@ author:
 {% raw %}
 <p>This page is rendered like this: (after removing <code>@{ #error }</code>)</p>
 {% endraw %}
-{% highlight xml %}
+{% highlight html %}
 <!DOCTYPE html>
 <html>
     <body>
@@ -130,7 +131,8 @@ namespace ASP {
 
 <p>Here is a more sophisticated Razor page:</p>
 {% endraw %}
-{% highlight xml %}
+<div class="razor"></div>
+{% highlight html %}
 <!DOCTYPE html>
 <html>
     <body>
@@ -152,7 +154,7 @@ namespace ASP {
 
 <p>Here is the generated <code>Execute()</code> method, with <code>#line</code> directives removed for clarity:</p>
 {% endraw %}
-{% highlight xml %}
+{% highlight csharp %}
 public override void Execute() {
     WriteLiteral("<!DOCTYPE html>\r\n<html>\r\n    <body>\r\n");
 
