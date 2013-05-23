@@ -1,10 +1,12 @@
-﻿@import-once url('./_mixins.less');
+@import-once url('./_mixins.less');
 @import-once url('./_colors.less');
 
 body {
 	.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
 	.ColorScheme(@baseColor) {
-		.gradient(to bottom, lighten(@baseColor, 30%) 0, white 25%);
+		@hue: hue(@baseColor);
+		@saturation: saturation(@baseColor);
+		.gradient(to bottom, hsl(@hue, @saturation, 85%) 0, white 25%);
 		background-repeat: no-repeat;
 	}
 
