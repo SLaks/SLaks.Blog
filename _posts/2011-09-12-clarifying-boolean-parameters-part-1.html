@@ -36,9 +36,7 @@ public void UpdateLayout(bool doFullLayout) {
 
 <p>The problem is that this isn’t very obvious for people who aren’t familiar with the codebase.&#160; If you take a look at a file you’ve never seen before and see calls like <code>UpdateLayout(false)</code> and <code>UpdateLayout(true)</code> scattered, you’ll have no idea what the true / false means.</p>
 
-<blockquote>
-  <p>The simplest solution is to break it out into two methods: <code>UpdateComplexLayout()</code> and <code>UpdateBasicLayout()</code>.&#160; However,&#160; if the two different layout modes have intertwined code paths (eg, the code before and after the <code>if</code> above), this either won’t be possible or will lead to ugly duplication of code.</p>
-</blockquote>
+<p>The simplest solution is to break it out into two methods: <code>UpdateComplexLayout()</code> and <code>UpdateBasicLayout()</code>.&#160; However,&#160; if the two different layout modes have intertwined code paths (eg, the code before and after the <code>if</code> above), this either won’t be possible or will lead to ugly duplication of code.</p>
 
 <p>One alternative is to use enums: </p>
 {% endraw %}
