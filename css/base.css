@@ -38,6 +38,19 @@ header {
 }
 header a {
   text-decoration: none;
+  -moz-transition: all linear .2s;
+  -o-transition: all linear .2s;
+  -webkit-transition: all linear .2s;
+  transition: all linear .2s;
+}
+header a:hover {
+  color: #c33;
+}
+header a:hover:first-child {
+  text-shadow: -5px 0 6px #0088cc;
+}
+header a:hover:last-child {
+  text-shadow: 5px 0 6px #0088cc;
 }
 header h1 {
   margin: 0;

@@ -43,6 +43,23 @@ header {
 
 	a {
 		text-decoration: none;
+		-moz-transition: all linear .2s;
+		-o-transition: all linear .2s;
+		-webkit-transition: all linear .2s;
+		transition: all linear .2s;
+
+		// I have a fancy hover effect to
+		// draw attention to the two links
+		&:hover {
+			color: #c33;
+			
+			&:first-child {
+				text-shadow: -5px 0 6px @linkColor;
+			}
+			&:last-child {
+				text-shadow: 5px 0 6px @linkColor;
+			}
+		}
 	}
 
 	h1 {
