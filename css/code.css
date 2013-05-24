@@ -266,3 +266,8 @@ pre:before {
 .razor + pre:before {
   content: "Razor";
 }
+.less + .highlight .err,
+.razor + .highlight .err {
+  color: inherit;
+  background-color: inherit;
+}

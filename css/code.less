@@ -40,3 +40,17 @@ div + pre {				// Unhighlighted code block preceded by language override
 		}
 	}
 }
+
+/////////////////////////////////////
+// Language-specific syntax overrides
+
+// Hide error styling for overridden languages.
+// Pygments doesn't support LESS and other LESS
+// and other languages.  I mark them as similar
+// languages, but this produces spurious errors
+.less, .razor {
+	+ .highlight .err {
+		color: inherit; 
+		background-color: inherit;
+	}
+}
