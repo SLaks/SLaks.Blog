@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><em>This is part 2 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</em></p>  <p>Unlike most other languages, it is not possible to include any form of state in a function pointer in C.&#160; Therefore, it is impossible to fully implement closures in C without the cooperation of the call-site and/or the compiler.</p>  <p>To illustrate what this means in practice, I will refer to my <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a>, using a filter function to find all elements in an array that are greater than <code>x</code>.&#160; Since C doesn’t have any such function, I’ll write one myself, inspired by <code>qsort</code>:</p>
+<p><em>This is part 2 in a series about state and function pointers; part 1 is <a href="/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</em></p>  <p>Unlike most other languages, it is not possible to include any form of state in a function pointer in C.&#160; Therefore, it is impossible to fully implement closures in C without the cooperation of the call-site and/or the compiler.</p>  <p>To illustrate what this means in practice, I will refer to my <a href="/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a>, using a filter function to find all elements in an array that are greater than <code>x</code>.&#160; Since C doesn’t have any such function, I’ll write one myself, inspired by <code>qsort</code>:</p>
 {% endraw %}
 {% highlight cpp %}
 void* filter(void* base, 
@@ -81,6 +81,6 @@ filter(arr, 4, sizeof(int), &predicate, &x);
 {% raw %}
 <p>To pass around more complicated state, one could pass a pointer to a <code>struct</code> as the <code>context</code>.</p>
 
-<p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-3-c.html"><em>Next Time: </em>C# 1.0</a></p>  
+<p><a href="/2011/06/delegates-vs-function-pointers-part-3-c.html"><em>Next Time: </em>C# 1.0</a></p>  
 </div>
 {% endraw %}

@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-4-anatomy-of.html">Last time</a>, we saw how basic Razor constructs are translated into C#.</p>  <p>We can see the generated class by adding <code>@{ #error }</code> to the page source. This creates a compiler error in the <code>Execute</code> method, and the resulting Yellow Screen of Death contains a <u>Show Complete Compilation Source:</u> link which will show the generated C# class.&#160; </p>  <p>Let’s start with a very simple page:</p>
+<p><a href="/2011/02/dissecting-razor-part-4-anatomy-of.html">Last time</a>, we saw how basic Razor constructs are translated into C#.</p>  <p>We can see the generated class by adding <code>@{ #error }</code> to the page source. This creates a compiler error in the <code>Execute</code> method, and the resulting Yellow Screen of Death contains a <u>Show Complete Compilation Source:</u> link which will show the generated C# class.&#160; </p>  <p>Let’s start with a very simple page:</p>
 {% endraw %}
 <div class="razor"></div>
 {% highlight html %}
@@ -180,6 +180,6 @@ public override void Execute() {
 
 <p>This example has two code blocks – the <code>const</code> declaration and the loop.&#160; The <code>for</code> loop code block has HTML inside of it – any HTML markup inside a code block is parsed as normal HTML and passed to <code>WriteLiteral</code>.</p>
 
-<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-6-function-blocks.html"><em>Next Time</em>: Function blocks</a></p>  
+<p><a href="/2011/02/dissecting-razor-part-6-function-blocks.html"><em>Next Time</em>: Function blocks</a></p>  
 </div>
 {% endraw %}

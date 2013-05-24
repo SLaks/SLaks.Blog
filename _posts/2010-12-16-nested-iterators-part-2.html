@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>In <a href="http://blog.slaks.net/2010/12/nested-iterators-part-1.html">part 1</a>, we discussed the simple approach to making a nested iterator.&#160; However, we fell short of a completely lazy nested iterator.</p>  <p>In simple cases, we can make an separate iterator method for the subsequence: </p>
+<p>In <a href="/2010/12/nested-iterators-part-1.html">part 1</a>, we discussed the simple approach to making a nested iterator.&#160; However, we fell short of a completely lazy nested iterator.</p>  <p>In simple cases, we can make an separate iterator method for the subsequence: </p>
 {% endraw %}
 {% highlight csharp %}
 IEnumerable<IEnumerable<int>> FullyLazy() {
@@ -97,7 +97,7 @@ This code is intended to create strings that contain each partition twice.&#160;
 
 <p>It gets worse.&#160; In order to allow callers to write <code>thingy.Partition(5).Skip(2)</code>, (which should skip the first two partitions) the <em>outer</em> enumerator needs to cache all items, because it cannot assume that the inner iterators will be called at all.&#160; </p>
 
-<p>Thus, the laziest possible Partition method must use the <a title="Part 1" href="http://blog.slaks.net/2010/12/nested-iterators-part-1.html">original approach</a>: </p>
+<p>Thus, the laziest possible Partition method must use the <a title="Part 1" href="/2010/12/nested-iterators-part-1.html">original approach</a>: </p>
 {% endraw %}
 {% highlight csharp %}
 public static IEnumerable<IEnumerable<T>> PartitionCorrect<T>

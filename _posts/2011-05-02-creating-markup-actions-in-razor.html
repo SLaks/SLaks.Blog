@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>Razor’s <a href="http://blog.slaks.net/2011/04/dissecting-razor-part-9-inline-helpers.html">inline helpers</a> allow you to create lambda expression that return markup (as a <code>HelperResult</code>).&#160; However, there is no simple way to create a lambda expression that writes HTML directly to the page (instead of returning it).</p>  <p>In ASPX pages, one can simply put the beginning and end of a lambda expression in expression blocks, then put markup in the middle.</p>  <p>For example, this code creates a delegate that writes a <code>&lt;b&gt;</code> tag to the page:</p>  <pre>&lt;%
+<p>Razor’s <a href="/2011/04/dissecting-razor-part-9-inline-helpers.html">inline helpers</a> allow you to create lambda expression that return markup (as a <code>HelperResult</code>).&#160; However, there is no simple way to create a lambda expression that writes HTML directly to the page (instead of returning it).</p>  <p>In ASPX pages, one can simply put the beginning and end of a lambda expression in expression blocks, then put markup in the middle.</p>  <p>For example, this code creates a delegate that writes a <code>&lt;b&gt;</code> tag to the page:</p>  <pre>&lt;%
     Action pageWriter = () =&gt; {%&gt;&lt;b&gt;I'm from a lambda!&lt;/b&gt;&lt;%};
     pageWriter();
     pageWriter();

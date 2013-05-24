@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><i>This is part 4 in a series about state and function pointers; part 1 is <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-3-c.html">Last time</a>, we saw that it is possible to pass local state with a delegate in C#.&#160; However, it involves lots of repetitive single-use classes, leading to ugly code.</p>  <p>To alleviate this tedious task, C# 2 supports <a href="http://msdn.microsoft.com/en-us/library/0yw3tz5k%28v=VS.100%29.aspx">anonymous methods</a>, which allow you to embed a function inside another function.&#160; This makes my <a href="http://blog.slaks.net/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a> much simpler:</p>
+<p><i>This is part 4 in a series about state and function pointers; part 1 is <a href="/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="/2011/06/delegates-vs-function-pointers-part-3-c.html">Last time</a>, we saw that it is possible to pass local state with a delegate in C#.&#160; However, it involves lots of repetitive single-use classes, leading to ugly code.</p>  <p>To alleviate this tedious task, C# 2 supports <a href="http://msdn.microsoft.com/en-us/library/0yw3tz5k%28v=VS.100%29.aspx">anonymous methods</a>, which allow you to embed a function inside another function.&#160; This makes my <a href="/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a> much simpler:</p>
 {% endraw %}
 {% highlight csharp %}
 //C# 2.0
@@ -67,6 +67,6 @@ private static void Main() {
 
 <p>The lambda expression is compiled into the <code>Lambda</code> method (which was originally named <code>&lt;Main&gt;b__0</code>).&#160; It uses the same field to access the local variable, sharing state between the original outer function and its lambda expression.</p>
 
-<p><a href="http://blog.slaks.net/2011/07/delegates-vs-function-pointers-part-5.html"><em>Next time: </em>Javascript</a></p>  
+<p><a href="/2011/07/delegates-vs-function-pointers-part-5.html"><em>Next time: </em>Javascript</a></p>  
 </div>
 {% endraw %}

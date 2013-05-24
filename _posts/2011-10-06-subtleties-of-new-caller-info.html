@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="http://blog.slaks.net/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p>C# 5 is all about asynchronous programming.&#160; However, in additional to the new async features, the C# team managed to slip in a much simpler feature: Caller Info Attributes.</p>  <p>Since C#’s inception, developers have asked for <code>__LINE__</code> and <code>__FILE__</code> macros like those in C and C++.&#160; Since C# intentionally does not support macros, these requests have not been answered.&#160; Until now.</p>  <p>C# 5 adds these features using attributes and optional parameters.&#160; As Anders Hejlsberg <a href="http://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-816T">presented</a> at //Build/, you can write</p>
+<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p>C# 5 is all about asynchronous programming.&#160; However, in additional to the new async features, the C# team managed to slip in a much simpler feature: Caller Info Attributes.</p>  <p>Since C#’s inception, developers have asked for <code>__LINE__</code> and <code>__FILE__</code> macros like those in C and C++.&#160; Since C# intentionally does not support macros, these requests have not been answered.&#160; Until now.</p>  <p>C# 5 adds these features using attributes and optional parameters.&#160; As Anders Hejlsberg <a href="http://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-816T">presented</a> at //Build/, you can write</p>
 {% endraw %}
 {% highlight csharp %}
 public static void Log(string message,
@@ -57,8 +57,8 @@ printer();
 {% raw %}
 <p>Each of the individual attributes also has subtle issues.</p>
 
-<p>[CallerFilePath] seems fairly simple.&#160; Any function call must happen in source code, in a source file that has a path.&#160; However, it needs to take into account <code>#line</code> directives, so that, for example, it will work as expected in <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-5-use-source-luke.html">Razor views</a>.&#160; I don’t know what it does inside <code>#line hidden</code>, in which there isn’t a source file.</p>
+<p>[CallerFilePath] seems fairly simple.&#160; Any function call must happen in source code, in a source file that has a path.&#160; However, it needs to take into account <code>#line</code> directives, so that, for example, it will work as expected in <a href="/2011/02/dissecting-razor-part-5-use-source-luke.html">Razor views</a>.&#160; I don’t know what it does inside <code>#line hidden</code>, in which there isn’t a source file.</p>
 
-<p><a href="http://blog.slaks.net/2011/10/subtleties-of-c-5s-new-callerlinenumber.html"><em>Next time</em>: [CallerLineNumber]</a></p>  
+<p><a href="/2011/10/subtleties-of-c-5s-new-callerlinenumber.html"><em>Next time</em>: [CallerLineNumber]</a></p>  
 </div>
 {% endraw %}

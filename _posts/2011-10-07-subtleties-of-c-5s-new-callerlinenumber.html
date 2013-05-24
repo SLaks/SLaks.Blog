@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="http://blog.slaks.net/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p><em>This is part 2 in a series about C# 5’s new caller info attributes; see the <a href="http://blog.slaks.net/2011/10/subtleties-of-new-caller-info.html">introduction</a>.</em></p>  <p>The [CallerLineNumber] attribute tells the compiler to use the line number of the call site instead of the parameter’s default value.&#160; This attribute has more corner cases than [CallerFileName].&#160; In particular, unlike the C preprocessor’s <code>__LINE__</code> macro, the C# compiler inserts the line number of a parsed method call.&#160; Therefore, it is not always clear which line a method call expression maps to.</p>  <p>What should this call print:</p>
+<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p><em>This is part 2 in a series about C# 5’s new caller info attributes; see the <a href="/2011/10/subtleties-of-new-caller-info.html">introduction</a>.</em></p>  <p>The [CallerLineNumber] attribute tells the compiler to use the line number of the call site instead of the parameter’s default value.&#160; This attribute has more corner cases than [CallerFileName].&#160; In particular, unlike the C preprocessor’s <code>__LINE__</code> macro, the C# compiler inserts the line number of a parsed method call.&#160; Therefore, it is not always clear which line a method call expression maps to.</p>  <p>What should this call print:</p>
 {% endraw %}
 {% highlight csharp %}
 static class Utils {
@@ -73,6 +73,6 @@ class SomeClass : Loggable { }
 
 <p>Also, what should happen in the unlikely case that a [CallerLineNumber] method is called on line 3 billion (which would overflow an <code>int</code>)? (This would be easier to test on Roslyn with a fake stream source) Should it give an integer overflow compile-time error?&#160; If [CallerLineNumber] also supports <code>byte</code> and <code>short</code> parameters, this scenario will be more likely to happen in practice.</p>
 
-<p><a href="http://blog.slaks.net/2011/10/subtleties-of-c-5s-new-callermembername.html"><em>Next time:</em> [CallerMemberName]</a></p>  
+<p><a href="/2011/10/subtleties-of-c-5s-new-callermembername.html"><em>Next time:</em> [CallerMemberName]</a></p>  
 </div>
 {% endraw %}

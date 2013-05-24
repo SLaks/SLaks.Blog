@@ -20,7 +20,7 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>After looking at how Razor’s <a href="http://blog.slaks.net/2011/02/dissecting-razor-part-4-anatomy-of.html"><code>Execute()</code> method</a> is generated, we will turn to class-level features.</p>  <p>C# Razor pages can define class members inside of <code>@functions { ... }</code> blocks.&#160; These are Razor’s equivalent of <code>&lt;script runat=&quot;server&quot;&gt;</code> blocks in ASPX pages.&#160; VBHTML pages use <code>@Functions ... End Functions</code> instead. </p>  <p>Functions blocks are emitted directly into top of the generated class, regardless of their location in the original source.&#160; Unlike code blocks, function blocks cannot contain markup.</p>  <p>Here is a simple example:</p>
+<p>After looking at how Razor’s <a href="/2011/02/dissecting-razor-part-4-anatomy-of.html"><code>Execute()</code> method</a> is generated, we will turn to class-level features.</p>  <p>C# Razor pages can define class members inside of <code>@functions { ... }</code> blocks.&#160; These are Razor’s equivalent of <code>&lt;script runat=&quot;server&quot;&gt;</code> blocks in ASPX pages.&#160; VBHTML pages use <code>@Functions ... End Functions</code> instead. </p>  <p>Functions blocks are emitted directly into top of the generated class, regardless of their location in the original source.&#160; Unlike code blocks, function blocks cannot contain markup.</p>  <p>Here is a simple example:</p>
 {% endraw %}
 <div class="razor"></div>
 {% highlight html %}
@@ -105,6 +105,6 @@ public class _Page_Razor_Functions_cshtml : System.Web.WebPages.WebPage {
 {% raw %}
 <p>This means that putting a <code>functions</code> block before the <code>&lt;!DOCTYPE&gt;</code> will cause the HTML to start with an ugly blank line.&#160; Therefore, it’s best to put <code>functions</code> blocks at the end of the source, where the blank lines won’t matter.</p>
 
-<p><a href="http://blog.slaks.net/2011/02/dissecting-razor-part-7-helpers.html"><em>Next Time</em>: Helpers</a></p>  
+<p><a href="/2011/02/dissecting-razor-part-7-helpers.html"><em>Next Time</em>: Helpers</a></p>  
 </div>
 {% endraw %}
