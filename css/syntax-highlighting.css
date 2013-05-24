@@ -1,10 +1,10 @@
-﻿.highlight .c {
-  color: #999988;
-  font-style: italic;
-}
-.highlight .err {
+﻿.highlight .err {
   color: #a61717;
   background-color: #e3d2d2;
+}
+.highlight .c {
+  color: #999988;
+  font-style: italic;
 }
 .highlight .k {
   font-weight: bold;
@@ -85,12 +85,6 @@
   color: #445588;
   font-weight: bold;
 }
-.highlight .m {
-  color: #009999;
-}
-.highlight .s {
-  color: #dd1144;
-}
 .highlight .na {
   color: #008080;
 }
@@ -129,6 +123,12 @@
 }
 .highlight .w {
   color: #bbbbbb;
+}
+.highlight .m {
+  color: #009999;
+}
+.highlight .s {
+  color: #dd1144;
 }
 .highlight .mf {
   color: #009999;
@@ -175,6 +175,9 @@
 .highlight .ss {
   color: #990073;
 }
+.highlight .il {
+  color: #009999;
+}
 .highlight .bp {
   color: #999999;
 }
@@ -186,7 +189,4 @@
 }
 .highlight .vi {
   color: #008080;
-}
-.highlight .il {
-  color: #009999;
 }
