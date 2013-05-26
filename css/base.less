@@ -3,8 +3,9 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,400italic,700italic);
 
-html{
-	position: relative;	// Force min-height to stretch past scrollbar for side post list.
+html {
+	position: relative; // Force min-height to stretch past scrollbar for side post list.
+	min-height: 100%;
 }
 
 body {
@@ -47,15 +48,15 @@ header {
 		-o-transition: all linear .2s;
 		-webkit-transition: all linear .2s;
 		transition: all linear .2s;
-
 		// I have a fancy hover effect to
 		// draw attention to the two links
 		&:hover {
 			color: #c33;
-			
+
 			&:first-child {
 				text-shadow: -5px 0 6px @linkColor;
 			}
+
 			&:last-child {
 				text-shadow: 5px 0 6px @linkColor;
 			}
