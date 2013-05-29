@@ -20,30 +20,35 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>If you use the ASP.Net MVC 3 <code>[Compare]</code> validation attribute on a model property, then include that model as a property in a parent model (so that the field name becomes <code>Parent.ChildProperty</code>), the built-in unobtrusive client validation will choke, and will always report the field as having an error.</p>  <p>This is due to a bug on line 288 of jquery.validate.unobtrusive.js: </p>  <pre class="brush: js; first-line: 284; highlight: [288];">adapters.add(&quot;equalto&quot;, [&quot;other&quot;], function (options) {
+<p>If you use the ASP.Net MVC 3 <code>[Compare]</code> validation attribute on a model property, then include that model as a property in a parent model (so that the field name becomes <code>Parent.ChildProperty</code>), the built-in unobtrusive client validation will choke, and will always report the field as having an error.</p>  <p>This is due to a bug on line 288 of jquery.validate.unobtrusive.js: </p>
+{% endraw %}
+{% highlight js %}
+adapters.add("equalto", ["other"], function (options) {
     var prefix = getModelPrefix(options.element.name),
         other = options.params.other,
         fullOtherName = appendModelPrefix(other, prefix),
-        element = $(options.form).find(&quot;:input[name=&quot; + fullOtherName + &quot;]&quot;)[0];
+        element = $(options.form).find(":input[name=" + fullOtherName + "]")[0];	// Bug
 
-    setValidationValues(options, &quot;equalTo&quot;, element);
-});</pre>
-
+    setValidationValues(options, "equalTo", element);
+});
+{% endhighlight %}
+{% raw %}
 <p>Because the value of the <code>name</code> attribute selector is not quoted, this fails if the name contains a <code>.</code>.</p>
 
 <p>The simplest fix is to add quotes around the concatenated value.&#160; However, the jQuery selector there is overkill.&#160; HTML form elements have properties for each named input, so you can do this instead:</p>
-
-<pre class="brush: js; first-line: 284;">adapters.add(&quot;equalto&quot;, [&quot;other&quot;], function (options) {
+{% endraw %}
+{% highlight js %}
+adapters.add("equalto", ["other"], function (options) {
     var prefix = getModelPrefix(options.element.name),
         other = options.params.other,
         fullOtherName = appendModelPrefix(other, prefix),
         element = options.form[fullOtherName];
     if (!element)
-        throw new Error(fullOtherName + &quot; not found&quot;);
+        throw new Error(fullOtherName + " not found");
     //If there are multiple inputs with that name, get the first one
-    if (element.length &amp;&amp; element[0])        
+    if (element.length && element[0])        
         element = element[0];
-    setValidationValues(options, &quot;equalTo&quot;, element);
-});</pre>  
+    setValidationValues(options, "equalTo", element);
+});
+{% endhighlight %}
 </div>
-{% endraw %}
