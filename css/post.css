@@ -141,6 +141,11 @@ body.razor {
     margin: 0 15px 0 30px;
   }
 }
+@media only screen and (max-width: 479px) {
+  .container {
+    margin: 0 15px;
+  }
+}
 h1 {
   font-weight: 200;
   font-size: 36px;

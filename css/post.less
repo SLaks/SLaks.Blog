@@ -17,12 +17,22 @@ body {
 	}
 }
 
+@margin: 15px;
+
 @media only screen and (max-width: 599px) {
 	.container {
 		@margin: 15px;
 		margin: 0 @margin 0 @postListCollapsedWidth + @margin;
 	}
 }
+
+@media only screen and (max-width: 479px) {
+	// No sidebar on mobile portrait
+	.container {
+		margin: 0 @margin;
+	}
+}
+
 h1 {
 	font-weight: 200;
 	font-size: 36px;

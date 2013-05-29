@@ -19,7 +19,6 @@
 
 .side-post-list {
 	@itemPadding: 10px;
-	@expandedWidth: 450px;
 	width: @postListCollapsedWidth;
 	overflow: hidden;
 	background-color: white;
@@ -36,7 +35,6 @@
 	.hoverTransition(width, opacity);
 
 	&:hover {
-		min-width: @expandedWidth;
 		opacity: 1;
 		-webkit-box-shadow: 1px 0 12px 0 rgba(0,0,0,.5);
 		box-shadow: 1px 0 12px 0 rgba(0,0,0,.5);
@@ -44,7 +42,6 @@
 
 	li {
 		padding: 0 10px;
-		width: @expandedWidth;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
@@ -53,7 +50,6 @@
 	li:first-child {
 		margin: 20px 0 10px;
 		padding-left: 10px + @postListCollapsedWidth;
-		width: @expandedWidth;
 
 		h2 {
 			font-size: 26px;
@@ -89,5 +85,26 @@
 		.ColorScheme(@baseColor, @textColor: #fff) {
 			border-left-color: @baseColor;
 		}
+	}
+
+
+	.Layout(@expandedWidth) {
+		&:hover {
+			min-width: @expandedWidth;
+		}
+
+		li {
+			width: @expandedWidth;
+		}
+	}
+
+	.Layout(450px);
+
+	@media only screen and (max-width: 599px) {
+		.Layout(320px);
+	}
+
+	@media only screen and (max-width: 479px) {
+		display: none;
 	}
 }
