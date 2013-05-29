@@ -16,6 +16,12 @@ div + pre:before {
   pointer-events: none;
   opacity: .7;
 }
+@media only screen and (max-width: 599px) {
+  .highlight code:before,
+  div + pre:before {
+    display: none;
+  }
+}
 .highlight code,
 + .highlight code,
 + pre {

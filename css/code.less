@@ -16,6 +16,11 @@ div + pre {				// Unhighlighted code block preceded by language override
 		pointer-events: none;	// Make sure this doesn't interfere with selecting code.  (Chrome bug)
 		opacity: .7;			// Makes code behind the label a little more readable.  I can't figure out how to send the label to back without making every span position: relative (perf hit)
 	}
+	@media only screen and (max-width: 599px) {
+		&:before {
+			display: none;	// Caption doesn't fit on mobile
+		}
+	}
 }
 
 .defineCategoryColors(name); // Invokes .ColorScheme() and .Name() mixins inside of different color classes

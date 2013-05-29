@@ -136,6 +136,11 @@ body.razor {
   background: linear-gradient(to bottom, #b3ddff 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
+@media only screen and (max-width: 599px) {
+  .container {
+    margin: 0 15px 0 30px;
+  }
+}
 h1 {
   font-weight: 200;
   font-size: 36px;
