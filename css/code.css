@@ -15,6 +15,22 @@ div + pre:before {
   font-size: 60px;
   pointer-events: none;
   opacity: .7;
+  -moz-transition-duration: .2s;
+  -o-transition-duration: .2s;
+  -webkit-transition-duration: .2s;
+  transition-duration: .2s;
+  -moz-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+}
+.highlight code:hover:before,
+div + pre:hover:before {
+  opacity: .1;
 }
 @media only screen and (max-width: 599px) {
   .highlight code:before,

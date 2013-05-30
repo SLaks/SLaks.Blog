@@ -1,4 +1,6 @@
+@import-once url('./_variables.less');
 @import-once url('./_colors.less');
+@import-once url('./_mixins.less');
 
 .highlight code,		// Normal or overridden highlighted code block
 div + pre {				// Unhighlighted code block preceded by language override
@@ -15,6 +17,10 @@ div + pre {				// Unhighlighted code block preceded by language override
 		font-size: 60px;
 		pointer-events: none;	// Make sure this doesn't interfere with selecting code.  (Chrome bug)
 		opacity: .7;			// Makes code behind the label a little more readable.  I can't figure out how to send the label to back without making every span position: relative (perf hit)
+		.hoverTransition(opacity);
+	}
+	&:hover:before{
+		opacity: .1;			// On mouseover, make the code more readable by near-hiding the label (especially on narrow screens)
 	}
 	@media only screen and (max-width: 599px) {
 		&:before {
