@@ -1,4 +1,4 @@
-﻿.gradient(...) {
+.gradient(...) {
 	@props: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
 
 	background: -webkit-linear-gradient(@props);
@@ -6,4 +6,20 @@
 	background: -moz-linear-gradient(@props);
 	background: -o-linear-gradient(@props);
 	background: linear-gradient(@props);
+}
+
+
+.hoverTransition(...) {
+	-moz-transition-duration: .2s;
+	-o-transition-duration: .2s;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+	-moz-transition-timing-function: ease-out;
+	-o-transition-timing-function: ease-out;
+	-webkit-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+	-moz-transition-property: @arguments;
+	-o-transition-property: @arguments;
+	-webkit-transition-property: @arguments;
+	transition-property: @arguments;
 }
