@@ -29,4 +29,4 @@ When implementing the design, I had the following goals in mind:
  - Excessive use of bulleted lists
   - Bulleted lists are an excellent way to concisely present structured data
 
-_Next time: How I migrated from Blogger to Jekyll_
+_Next time: [How I migrated from Blogger to Jekyll](/2013-05-31/migrating-from-blogger-to-jekyll/)_
