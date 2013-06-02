@@ -20,6 +20,10 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
+<p><em><strong>Update</strong>: This bug was fixed in <a href="http://xregexp.com/history/#v1-5-1">XRegExp 1.5.1</a>.</em><br />
+However, as far as I know, there are no released versions of SyntaxHighlighter that contain the fix.</p>
+<hr />
+
 <p><a href="http://xregexp.com/">XRegExp </a>is an open source JavaScript library that provides an augmented, extensible, cross-browser implementation of regular expressions, including support for additional syntax, flags, and methods.</p>  <p>It’s used by the popular <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter script</a>, which is in turn used by many websites (including this blog) to display syntax-highlighted source code on the client.&#160; Thus, XRegExp has a rather wide usage base.</p>  <p>However, XRegExp conflicts with jQuery.&#160; In IE, any page that includes XRegExp and runs a numeric jQuery animation will result in “TypeError: Object doesn't support this property or method”.</p>  <p><a href="http://jsfiddle.net/SLaks/LR7vA/">Demo</a> (only fails in IE)</p>  <p>This bug is caused by an XRegExp fix for an IE bug in which the <code>exec</code> method doesn't consistently return <code>undefined</code> for nonparticipating capturing groups.&#160; The fix, on line 271, assumes that the parameter passed to <code>exec</code> is a string.&#160; This behavior violates the ECMAScript standard (<a href="http://ecma262-5.com/ELS5_HTML.htm#Section_15.10.6.2">section 15.10.6.2</a>), which states that the parameter to <code>exec</code> should be converted to a string before proceeding.</p>  <p>jQuery relies on this behavior in its <code>animate</code> method, which parses a number using a regex to get the decimal portion.&#160; (<a href="https://github.com/jquery/jquery/blob/1.6.4/src/effects.js#L215">source</a>)</p>  <p>Thus, calling <code>animate</code> with a number after loading XRegExp will fail in IE when XRegExp tries to call <code>slice</code> on a number.</p>  <p>Fortunately, it is very simple to fix XRegExp to convert its argument to a string first:</p>
 {% endraw %}
 {% highlight js %}
