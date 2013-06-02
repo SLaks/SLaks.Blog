@@ -167,13 +167,17 @@ article {
 article p,
 article ul,
 article ol,
-article blockquote {
+article blockquote,
+article pre,
+article .highlight {
   margin: 0 0 15px 0;
 }
 article p:last-child,
 article ul:last-child,
 article ol:last-child,
-article blockquote:last-child {
+article blockquote:last-child,
+article pre:last-child,
+article .highlight:last-child {
   margin: 0;
 }
 article li {
