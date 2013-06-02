@@ -1,4 +1,0 @@
----
-layout: nil
----
-{% include atom.xml %}
