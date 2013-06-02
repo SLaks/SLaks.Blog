@@ -1,0 +1,10 @@
+{% comment %}
+This function takes a string of CSS markup and prints a minified version of the markup to the calling file.
+
+Use: (in source-file.min.css)
+	{% capture css %}{% include source-file.css %}{% endcapture %}{% include minify-css %}
+The source file must be moved to the _includes directory for {% include %} to work.
+
+Input:  css
+Output: <no variable>; result is written directly to the file
+{% endcomment %}{{ css | strip_newlines | remove: ' ' | remove: '	' }}

@@ -1,0 +1,13 @@
+{% for cat in site.categories %}
+	{% capture categories %}{{ cat[0] }}{% endcapture %}
+	{% include slugify-categories %}
+	#{{ categorySlugs }}:target {
+						   display: block;
+	                   }
+	#{{ categorySlugs }}:target ~ .post-list > li {
+						   display: none;
+					   }
+	#{{ categorySlugs }}:target ~ .post-list > li[data-categories~="{{ categorySlugs }}"] {
+						   display: block;
+					   }
+{% endfor %}
