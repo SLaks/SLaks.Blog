@@ -33,7 +33,9 @@ static void TestMethod(int i = 4) {
 {% raw %}
 <p>Optional parameters are a compiler feature.&#160; The compiler will emit a normal method with the IL <code>[opt]</code> attribute and a <code>.param</code> declaration that includes a default value:</p>
 
-<pre>.method hidebysig static void 
+{% endraw %}
+{% highlight text %}
+.method hidebysig static void 
         TestMethod([opt] int32 i) cil managed
 {
     .param [1] = int32(4)
@@ -41,7 +43,9 @@ static void TestMethod(int i = 4) {
     L_0001: ldarg.0 
     L_0002: call void [mscorlib]System.Console::WriteLine(int32)
     L_0007: ret 
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 
 <p>Earlier versions of the C# compiler will ignore this metadata.&#160; Therefore, you can call such methods in earlier versions of C#, but you will always need to pass the optional parameters.</p>
 

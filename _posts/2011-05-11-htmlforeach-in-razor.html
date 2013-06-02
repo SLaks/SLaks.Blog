@@ -36,12 +36,16 @@ public static void ForEach<T>(this HtmlHelper html,
 
 <p>This code can be called like this:</p>
 
-<pre>&lt;ul&gt;
-    &lt;% Html.ForEach(
+{% endraw %}
+{% highlight aspx-cs %}
+<ul>
+    <% Html.ForEach(
             Enumerable.Range(1, 10),
-            item =&gt; { %&gt; &lt;li&gt;&lt;%= item %&gt;&lt;/li&gt; &lt;% }
-    ); %&gt;
-&lt;/ul&gt;</pre>
+            item => { %> <li><%= item %></li> <% }
+    ); %>
+</ul>
+{% endhighlight %}
+{% raw %}
 
 <p>This code creates a lambda expression that writes markup to the page’s response stream by ending the code block inside the lambda body. Neither the lambda expression nor the <code>ForEach</code> helper itself return anything; they both write directly to the response.</p>
 
@@ -80,12 +84,17 @@ return new HtmlString(builder.ToString());
 {% raw %}
 <p>This method can be called like this:</p>
 
-<pre>&lt;ul&gt;
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+<ul>
     @Html.ForEachSimple(
         Enumerable.Range(1, 10),
-        @&lt;li&gt;@item&lt;/li&gt;
+        @<li>@item</li>
     );
-&lt;/ul&gt;</pre>
+</ul>
+{% endhighlight %}
+{% raw %}
 
 <p>The problem with this approach is that it combines all of the content into a giant string.&#160; If there are a large number of items, or if each item will have a large amount of markup, this can become (a little bit) slow.&#160; It would be better to write each item directly to the caller’s response stream, without assembling any giant strings.&#160; This is where <code>HelperResult</code> comes in.</p>
 

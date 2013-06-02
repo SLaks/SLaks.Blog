@@ -20,7 +20,11 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>The new ASP.Net WebPages view engine (formerly <a href="http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx">Razor</a>) allows you to create reusable parameterized blocks of HTML called <a href="http://weblogs.asp.net/mikaelsoderstrom/archive/2010/10/06/declarative-helpers-in-razor.aspx">helpers</a>.&#160; </p>  <p>For example:</p>  <pre>@helper Fibonacci(int count) {
+<p>The new ASP.Net WebPages view engine (formerly <a href="http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx">Razor</a>) allows you to create reusable parameterized blocks of HTML called <a href="http://weblogs.asp.net/mikaelsoderstrom/archive/2010/10/06/declarative-helpers-in-razor.aspx">helpers</a>.&#160; </p>  <p>For example:</p>  
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+@helper Fibonacci(int count) {
     int current = 1, prev = 0;
     for (int i = 0; i &lt; count; i++) {
         @:@current, 
@@ -28,7 +32,9 @@ author:
         current += prev;
         prev = t;
     }
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 
 <p>This helper will write out the first <em>count</em> <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers</a>.&#160; It can be called by writing <code>@Fibonacci(30)</code> in the page that defines the helper.</p>
 
@@ -38,7 +44,10 @@ author:
 
 <p>Therefore, I can rewrite the helper as follows:</p>
 
-<pre>@helper Fibonacci(int count) {
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+@helper Fibonacci(int count) {
     int current = 1, prev = 0;
     for (int i = 0; i &lt; count; i++) {
         __razor_helper_writer.Write(current + &quot;, &quot;);
@@ -46,7 +55,9 @@ author:
         current += prev;
         prev = t;
     }
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 
 <p>Remember to correctly escape your text by calling <code>Html.Encode</code>.&#160; Since this writes directly to the output stream, it doesn’t get the benefit of Razor’s automatic escaping.</p>
 
@@ -54,7 +65,10 @@ author:
 
   <br />Instead, you can write a function:</p>
 
-<pre>@functions{ 
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+@functions {
     string Fibonacci(int count) {
         var builder = new System.Text.StringBuilder();
         int current = 1, prev = 0;
@@ -67,7 +81,10 @@ author:
         }
         return builder.ToString();
     }
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
+
 This can be called the same way as the helper.&#160; Instead of using the special helper support, the call will just print a string, the same you print any other string.&#160; Therefore, the function’s output will be HTML-escaped.&#160; To prevent that, you can change the function to return an <code><a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString</a></code>.
 
 

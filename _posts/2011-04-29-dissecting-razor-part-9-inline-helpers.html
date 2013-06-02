@@ -20,26 +20,36 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>In addition to <a href="/2011/02/dissecting-razor-part-7-helpers.html">normal</a> and <a href="/2011/03/dissecting-razor-part-8-static-helpers.html">static</a> helpers, Razor supports inline helpers, (also known as templates), which allow you to create lambda expressions that return markup.</p>  <p>An inline helper is created by writing <code>@&lt;tag&gt;Content&lt;/tag&gt;</code> as an expression.&#160; This creates a lambda expression that takes a parameter called <code>item</code> and returns a <a href="/2011/02/dissecting-razor-part-7-helpers.html#HelperResult"><code>HelperResult</code> object</a> containing the markup.</p>  <p>Inline helpers are used to create functions that take markup as parameters.&#160; For example, you might make an <code>IfLoggedOn</code> helper that displays content if there is a logged-in user, but shows a login link to anonymous users.&#160; To pass the content to the helper, you can use an inline helper:</p>  <pre>@helper IfLoggedOn(Func&lt;MembershipUser, HelperResult&gt; content) {
+<p>In addition to <a href="/2011/02/dissecting-razor-part-7-helpers.html">normal</a> and <a href="/2011/03/dissecting-razor-part-8-static-helpers.html">static</a> helpers, Razor supports inline helpers, (also known as templates), which allow you to create lambda expressions that return markup.</p>  <p>An inline helper is created by writing <code>@&lt;tag&gt;Content&lt;/tag&gt;</code> as an expression.&#160; This creates a lambda expression that takes a parameter called <code>item</code> and returns a <a href="/2011/02/dissecting-razor-part-7-helpers.html#HelperResult"><code>HelperResult</code> object</a> containing the markup.</p>  <p>Inline helpers are used to create functions that take markup as parameters.&#160; For example, you might make an <code>IfLoggedOn</code> helper that displays content if there is a logged-in user, but shows a login link to anonymous users.&#160; To pass the content to the helper, you can use an inline helper:</p>  
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+@helper IfLoggedOn(Func<MembershipUser, HelperResult> content) {
     var currentUser = Membership.GetUser();
     if (currentUser == null) {
-        &lt;i&gt;
+        <i>
             To use this content, you must 
-            &lt;a href=&quot;@Href(&quot;~/Login&quot;)&quot;&gt;log in&lt;/a&gt;.
-        &lt;/i&gt;
+            <a href="@Href("~/Login")">log in</a>.
+        </i>
     } else {
         @content(currentUser)
     }
-}</pre>
+}
+{% endhighlight %}
+{% raw %}
 
 <p>You can call this method with an inline helper like this:</p>
 
-<pre>@IfLoggedOn(
-    @&lt;form action=&quot;@Href(&quot;Add-Comment&quot;)&quot; method=&quot;post&quot;&gt;
-        @Html.TextArea(&quot;Comment&quot;, &quot;Type a comment&quot;)
-        &lt;input type=&quot;submit&quot; name=&quot;Submit&quot; value=&quot;Add Comment&quot; /&gt;
-    &lt;/form&gt;
-)</pre>
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+@IfLoggedOn(
+    @<form action="@Href("Add-Comment")" method="post">
+        @Html.TextArea("Comment", "Type a comment")
+        <input type="submit" name="Submit" value="Add Comment" />
+    </form>
+){% endhighlight %}
+{% raw %}
 
 <p>The <code>@content(currentUser)</code> call in helper method is translated by the Razor compiler into a call to the overload of the <code>Write</code> method that takes a <code>HelperResult</code> (returned from the delegate).&#160; This overload writes the content of the <code>HelperResult</code> to the page without escaping it (Just like a <a href="/2011/02/dissecting-razor-part-7-helpers.html#HelperResult">call to a normal helper method</a>).&#160; Functions that take inline helpers can also get the text rendered by the helper by calling <code>ToString()</code> on the <code>HelperResult</code>.</p>
 
@@ -69,7 +79,12 @@ item => new System.Web.WebPages.HelperResult(__razor_template_writer => {
 
 <p>The <code>item</code> parameter is implicitly typed based on the delegate type that the helper is being passed as (just like normal lambda expressions).&#160; This allows inline helpers to accept a parameter:</p>
 
-<pre>@IfLoggedOn(@&lt;text&gt;Welcome, @item.UserName!&lt;/text&gt;)</pre>
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+@IfLoggedOn(@<text>Welcome, @item.UserName!</text>)
+{% endhighlight %}
+{% raw %}
 
 <p>(The special <code>&lt;text&gt;</code> tag is used to pass markup without creating an actual HTML tag)</p>
 

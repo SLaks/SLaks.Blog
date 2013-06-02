@@ -20,19 +20,27 @@ author:
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><a href="/2011/02/dissecting-razor-part-7-helpers.html">Razor helpers</a> can be extremely useful, but they are designed to be used only by the page that created them.</p>  <p>To create reusable helpers, you can create CSHTML pages in the App_Code directory.&#160; The WebRazorHostFactory will check for pages in App_Code and create a WebCodeRazorHost instead of the normal WebPageRazorHost.</p>  <p>This happens before the virtual CreateHost method; in order to change this behavior, one must create an inherited RazorBuildProvider and override the CreateHost method; for more details, see the source for more details.</p>  <p>The WebCodeRazorHost compiles helper methods as public static methods by setting the RazorEngineHost.StaticHelpers property to true.&#160; It also overrides PostProcessGeneratedCode to remove the Execute() method and make the <code>Application</code> property static.&#160; </p>  <p>Static helper pages inherit the <a href="http://msdn.microsoft.com/en-us/library/system.web.webpages.helperpage.aspx">HelperPage class</a>, a very stripped-down base class which contains the static WriteTo methods used by the helpers and some static members that expose the Model, Html, and other members from the currently executing page (using the <code>WebPageContext.Current.Page</code> property). </p>  <p>Because the generated Execute() method is removed, all content outside helpers and <code>@functions</code>&#160; blocks is not seen by the compiler.&#160; It is seen by the Razor parser, so it must contain valid Razor syntax (eg, no stray @ characters).</p>  <p>Here is an example:</p>  <pre>@helper Menu(params string[][] items) {
-    &lt;ul&gt;
+<p><a href="/2011/02/dissecting-razor-part-7-helpers.html">Razor helpers</a> can be extremely useful, but they are designed to be used only by the page that created them.</p>  <p>To create reusable helpers, you can create CSHTML pages in the App_Code directory.&#160; The WebRazorHostFactory will check for pages in App_Code and create a WebCodeRazorHost instead of the normal WebPageRazorHost.</p>  <p>This happens before the virtual CreateHost method; in order to change this behavior, one must create an inherited RazorBuildProvider and override the CreateHost method; for more details, see the source for more details.</p>  <p>The WebCodeRazorHost compiles helper methods as public static methods by setting the RazorEngineHost.StaticHelpers property to true.&#160; It also overrides PostProcessGeneratedCode to remove the Execute() method and make the <code>Application</code> property static.&#160; </p>  <p>Static helper pages inherit the <a href="http://msdn.microsoft.com/en-us/library/system.web.webpages.helperpage.aspx">HelperPage class</a>, a very stripped-down base class which contains the static WriteTo methods used by the helpers and some static members that expose the Model, Html, and other members from the currently executing page (using the <code>WebPageContext.Current.Page</code> property). </p>  <p>Because the generated Execute() method is removed, all content outside helpers and <code>@functions</code>&#160; blocks is not seen by the compiler.&#160; It is seen by the Razor parser, so it must contain valid Razor syntax (eg, no stray @ characters).</p>  <p>Here is an example:</p>  
+
+<div class="razor"></div>
+{% endraw %}
+{% highlight csharp %}
+@helper Menu(params string[][] items) {
+    <ul>
         @foreach (var pair in items) {
-            &lt;li&gt;&lt;a href=&quot;@Href(pair[1])&quot;&gt;@pair[0]&lt;/a&gt;&lt;/li&gt;
+            <li><a href="@Href(pair[1])">@pair[0]</a></li>
         }
-    &lt;/ul&gt;
+    </ul>
 }
 
-This text and @code is not compiled.</pre>
+This text and @code is not compiled.
+{% endhighlight %}
+{% raw %}
 
 <p>This helper can then be called from any other code by writing <code><em>PageName</em>.Menu(...)</code>, where <code><em>PageName</em></code> is the filename of the CHSTML page in App_Code.&#160; In Razor pages, it can be called like any other helper.&#160; In normal C# code, it returns a <code>HelperResult</code> instance; call <code>ToString()</code> or <code>WriteTo(TextWriter)</code> to get the HTML source.</p>
 
 <p>For example:&#160; (assuming that the helper is defined in ~/App_Code/Helpers.cshtml)</p>
+<div class="razor"></div>
 {% endraw %}
 {% highlight csharp %}
 @Helpers.Menu(

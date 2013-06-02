@@ -44,10 +44,11 @@ static void MutateStruct(ref Mutable m) {
 }
 {% endhighlight %}
 {% raw %}
+<p>
 This code prints 
-
-<pre>Inside MutateWrong(): 1
-In Main(): 0</pre>
+</p>
+<blockquote><pre>Inside MutateWrong(): 1
+In Main(): 0</pre></blockquote>
 In summary, don’t mutate structs in iterators (or <a href="http://stackoverflow.com/questions/441309/why-are-mutable-structs-evil">at all</a>, if you can help it). 
 
 <br /><a href="http://stackoverflow.com/q/4514538/34397">I don’t know why this isn’t a compiler error.</a>  

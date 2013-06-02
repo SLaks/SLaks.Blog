@@ -27,8 +27,10 @@ public class DataPage<T> : Page {
     public T Data { get; set; }
 }
 {% endhighlight %}
+{% highlight aspx-cs %}
+<%@ Page Language="C#" Inherits="DataPage<string>" %>
+{% endhighlight %}
 {% raw %}
-<pre>&lt;%@ Page Language=&quot;C#&quot; Inherits=&quot;DataPage&lt;string&gt;&quot; %&gt;</pre>
 
 <p>This code results in a yellow screen of death, with the&#160; parser error, <code>Could not load type 'DataPage&lt;string&gt;'</code>.</p>
 
@@ -36,8 +38,12 @@ public class DataPage<T> : Page {
 
 <p>Since ASP.Net uses reflection APIs to load types, we need to specify generic types using CLR syntax (and with full namespaces).&#160;&#160; Therefore, the following page will work:</p>
 
-<pre>&lt;%@ Page Language=&quot;C#&quot; 
-    Inherits=&quot;TestSite.DataPage`1[[System.String, mscorlib]]&quot; %&gt;</pre>
+{% endraw %}
+{% highlight aspx-cs %}
+<%@ Page Language="C#" 
+    Inherits="TestSite.DataPage`1[[System.String, mscorlib]]" %>
+{% endhighlight %}
+{% raw %}
 
 <p>However, it’s not so simple.&#160; ASP.Net does not call <code>Type.GetType</code> to parse these strings; instead, it loops over every referenced assembly and calls <code>Assembly.GetType</code> on each one.&#160; This is why you don’t need to include the assembly name whenever using the <code>Inherits</code> attribute (which would have been necessary for <code>Type.GetType</code>)&#160; Ordinarily, this is very useful, but here, it comes back to bite you.&#160; <br /><em>It is not possible</em> to parse a type from one assembly with a generic parameter from a different assembly using <code>Assembly.GetType</code>, unless the generic parameter is in mscorlib.</p>
 

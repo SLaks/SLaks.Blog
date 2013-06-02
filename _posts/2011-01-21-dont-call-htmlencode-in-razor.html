@@ -18,12 +18,15 @@ author:
     image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
-{% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>One of the unique features of ASP.Net WebPages (formerly Razor) is automatic HTML encoding.&#160; All strings printed by embedded code nuggets (@ blocks) are automatically HTML-encoded.</p>  <p>In addition to this feature, Razor also includes the <code>Html.Encode</code> method, probably copied from ASP.Net MVC.&#160; Calling this method naively leads to a nasty surprise – the string will be double-encoded!     <br />To see why, look more closely at a typical call: <code>@Html.Encode(&quot;&lt;text&gt;&quot;)</code>.&#160; This Razor markup will call <code>Html.Encode</code>, which returns the <em>string</em> <code>&quot;&amp;lt;text&amp;gt;&quot;</code>.&#160;&#160; Since it returns a string and not an <code>IHtmlString</code>, the Razor engine will encode it again, and render <code>&amp;amp;lt;text&amp;amp;gt;</code>.</p>  <p>Careful thought indicates that this behavior is probably correct.&#160; The programmer (hopefully) knows that Razor will escape its output, so the call to <code>Html.Encode</code> should be an attempt to display <em>encoded</em> text.&#160; In fact, this is the simplest way to display HTML-encoded text in a Razor view.&#160; </p>  <p>However, even if it is correct, the behavior is unexpected and should not be relied upon.&#160; The unambiguous way to display encoded text is to call <code>Html.Raw</code>:</p>  <pre>@Html.Raw(Html.Encode(Html.Encode(&quot;Double-encoded &lt;html&gt; text!&quot;)))</pre>
+<p>One of the unique features of ASP.Net WebPages (formerly Razor) is automatic HTML encoding.&#160; All strings printed by embedded code nuggets (@ blocks) are automatically HTML-encoded.</p>  <p>In addition to this feature, Razor also includes the <code>Html.Encode</code> method, probably copied from ASP.Net MVC.&#160; Calling this method naively leads to a nasty surprise – the string will be double-encoded!     <br />To see why, look more closely at a typical call: <code>@Html.Encode(&quot;&lt;text&gt;&quot;)</code>.&#160; This Razor markup will call <code>Html.Encode</code>, which returns the <em>string</em> <code>&quot;&amp;lt;text&amp;gt;&quot;</code>.&#160;&#160; Since it returns a string and not an <code>IHtmlString</code>, the Razor engine will encode it again, and render <code>&amp;amp;lt;text&amp;amp;gt;</code>.</p>  <p>Careful thought indicates that this behavior is probably correct.&#160; The programmer (hopefully) knows that Razor will escape its output, so the call to <code>Html.Encode</code> should be an attempt to display <em>encoded</em> text.&#160; In fact, this is the simplest way to display HTML-encoded text in a Razor view.&#160; </p>  <p>However, even if it is correct, the behavior is unexpected and should not be relied upon.&#160; The unambiguous way to display encoded text is to call <code>Html.Raw</code>:</p>
+
+<div class="razor"></div>
+{% highlight csharp %}
+@Html.Raw(Html.Encode(Html.Encode("Double-encoded <html> text!")))
+{% endhighlight %}
 
 <p>Although it is long and clunky, this clearly shows that the text will be double-encoded.</p>
 
 <p><em>Exercise for the reader</em>: Why is it also necessary to call <code>Html.Raw</code>?</p>
 </div>
-{% endraw %}
