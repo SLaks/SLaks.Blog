@@ -10,10 +10,10 @@ Output: categorySlugs
 			To allow me to replace entire category names, I make sure that the 
 			first and last categories still have ~s around them.  Since Liquid
 			doesn't have a trim function, I use a special sequence to allow me
-			to remove them with a single replace call afterwords.
+			to remove them with a single replace call afterwards.
 		{% endcomment %}
 	{% capture categorySlugs %}~@~{{ categories }}~@~{% endcapture %}
 	{% capture categorySlugs %}{{ categorySlugs | downcase | replace: '~.net~', '~dot-net~' | replace: '~c++~', '~cpp~' | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' }}{% endcapture %}
-	{% capture categorySlugs %}{{ categorySlugs | replace: '~@~', '' | replace: '~', ' ' }}{% endcapture %}
+	{% capture categorySlugs %}{{ categorySlugs | remove: '~@~' | replace: '~', ' ' }}{% endcapture %}
 {% endif %}
 {% endcapture %}
