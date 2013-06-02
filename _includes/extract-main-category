@@ -3,7 +3,8 @@ This function takes a ~-separated list of categories and extracts the primary ca
 
 Input:  categories
 Output: mainCategory, mainCategorySlug
-{% endcomment %}{% if categories %}
+{% endcomment %}{% capture newlineHider %}
+{% if categories %}
 	{% capture mainCategory %}{{ categories | split:"~" | first }}{% endcapture %}
 		{% comment %}
 			Save our input to not affect our caller, then pass only the main category to slugify-categories.
@@ -14,3 +15,4 @@ Output: mainCategory, mainCategorySlug
 	{% capture mainCategorySlug %}{{ categorySlugs }}{% endcapture %}
 	{% capture categories %}{{ allCategories }}{% endcapture %}
 {% endif %}
+{% endcapture %}

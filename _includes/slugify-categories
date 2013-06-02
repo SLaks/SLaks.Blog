@@ -4,7 +4,8 @@ It can also be called with a single category name, and will function equivalentl
 
 Input:  categories
 Output: categorySlugs
-{% endcomment %}{% if categories %}
+{% endcomment %}{% capture newlineHider %}
+{% if categories %}
 		{% comment %}
 			To allow me to replace entire category names, I make sure that the 
 			first and last categories still have ~s around them.  Since Liquid
@@ -15,3 +16,4 @@ Output: categorySlugs
 	{% capture categorySlugs %}{{ categorySlugs | downcase | replace: '~.net~', '~dot-net~' | replace: '~c++~', '~cpp~' | replace: '#', 'sharp' | replace: '.', '-' | replace: ' ', '-' }}{% endcapture %}
 	{% capture categorySlugs %}{{ categorySlugs | replace: '~@~', '' | replace: '~', ' ' }}{% endcapture %}
 {% endif %}
+{% endcapture %}

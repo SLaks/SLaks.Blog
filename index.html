@@ -3,20 +3,16 @@ layout: default
 title: SLaks
 stylesheets: ["post-list", "category-navigation"]
 ---
-	{% capture categoryLabels %}
 	{% comment %} The capture block allows me to use strip_newlines to get rid of all of the extra newlines from the loop. {% endcomment %}
 	{% for cat in site.categories %}
-		{% capture categories %}{{ cat[0] }}{% endcapture %}
-		{% include extract-main-category %}
+		{% capture categories %}{{ cat[0] }}{% endcapture %}{% include extract-main-category %}
 		<p class="category-label" id="{{ mainCategorySlug | xml_escape }}">Showing {{ cat[1] | size }} {{ mainCategory | xml_escape }} posts. <a href="/">Show all</a></p>
 	{% endfor %}
-	{% endcapture %}{{ categoryLabels | strip_newlines | remove: '	' }}
 
 	<ul class="post-list">
 		{% for post in site.posts %}
 			{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
-			{% include extract-main-category %}
-			{% include slugify-categories %}
+			{% include extract-main-category %}{% include slugify-categories %}
 			<li class="{{ mainCategorySlug | xml_escape }}" data-categories="{{ categorySlugs }}">
 				<h2><a href="{{ post.url }}"><span>{{ post.title | xml_escape }}</span> <small class="date" title="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</small></a></h2>
 				<p>{{ post.content | strip_html | truncatewords 100 }}<br /> <a href="{{ post.url }}">Read more</a></p>
