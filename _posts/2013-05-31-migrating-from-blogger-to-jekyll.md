@@ -27,7 +27,7 @@ I had a couple of problems with this script:
 
  - The script also imports comments directly into the resulting HTML, which is rarely a good idea.
 
-I fixed all of these issues in a [pull request](https://github.com/coolaj86/blogger2jekyll/pull/7).  Until that pull request is accepted, you can pick up these fixes by running `npm install -g git://github.com/SLaks/blogger2jekyll.git`.
+I fixed all of these issues in a [pull request](https://github.com/coolaj86/blogger2jekyll/pull/7).  <strike>Until that pull request is accepted, you can pick up these fixes by running `npm install -g git://github.com/SLaks/blogger2jekyll.git`.</strike>  This pull request has now been merged.  However, until the new version is published to npm, you'll still need to install from GitHub by running `npm install -g git://github.com/coolaj86/blogger2jekyll.git`.
 
 I changed it to wrap the contents of each post in a Liquid <code>&#123;% raw %}</code> tag.  I also added an internal option to skip comments.  However, I didn't add a command-line interface for the comment option; to use it, you'll need to manually add `, skipComments: true` to the [`parse()` call](https://github.com/SLaks/blogger2jekyll/blob/master/bin/blogger2jekyll.js#L46).
 
