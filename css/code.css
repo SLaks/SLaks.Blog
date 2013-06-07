@@ -118,6 +118,11 @@ pre:before {
 .jekyll + pre:before {
   color: #cca300;
 }
+.highlight code.jekyll:before,
+.jekyll + .highlight code:before,
+.jekyll + pre:before {
+  content: "Jekyll";
+}
 .highlight code.jquery,
 .jquery + .highlight code,
 .jquery + pre {
