@@ -32,7 +32,7 @@ div + pre {				// Unhighlighted code block preceded by language override
 .defineCategoryColors(name); // Invokes .ColorScheme() and .Name() mixins inside of different color classes
 .Name(@name) {
 	.highlight code&:before,		// Normal highlighted code block
-	& + .highlight code:before,		// Highlighted code block preceded by language override
+	& + div.highlight code:before,	// Highlighted code block preceded by language override (force to be more specific than ordinary highlight)
 	& + pre:before {				// Unhighlighted code block preceded by language override 
 		content: @name;
 	}
@@ -42,7 +42,7 @@ div + pre {				// Unhighlighted code block preceded by language override
 	@saturation: saturation(@baseColor);
 
 	.highlight code&,		// Normal highlighted code block
-	& + .highlight code,	// Highlighted code block preceded by language override
+	& + div.highlight code,	// Highlighted code block preceded by language override (force to be more specific than ordinary highlight)
 	& + pre {				// Unhighlighted code block preceded by language override
 		background-color: hsl(@hue, @saturation, 90%);
 		outline-color: hsl(@hue, @saturation, 75%);
