@@ -15,7 +15,7 @@ body.js {
   background: linear-gradient(to bottom, #faf3b7 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
-body.derby {
+body.derby-js {
   background: -webkit-linear-gradient(to bottom, #cae7e3 0, #ffffff 25%);
   background: -ms-linear-gradient(to bottom, #cae7e3 0, #ffffff 25%);
   background: -moz-linear-gradient(to bottom, #cae7e3 0, #ffffff 25%);

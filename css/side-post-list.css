@@ -82,7 +82,7 @@
 .side-post-list li + li.js {
   border-left-color: #f3df49;
 }
-.side-post-list li + li.derby {
+.side-post-list li + li.derby-js {
   border-left-color: #55b3a6;
 }
 .side-post-list li + li.socket-io {

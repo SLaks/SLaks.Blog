@@ -97,16 +97,16 @@
 .post-list li.js aside a:hover {
   color: #000000;
 }
-.post-list li.derby aside {
+.post-list li.derby-js aside {
   background-color: #55b3a6;
 }
-.post-list li.derby aside:before {
+.post-list li.derby-js aside:before {
   border-color: transparent transparent #55b3a6 transparent;
 }
-.post-list li.derby aside a {
+.post-list li.derby-js aside a {
   color: #f6f0e1;
 }
-.post-list li.derby aside a:hover {
+.post-list li.derby-js aside a:hover {
   color: #ba9538;
 }
 .post-list li.socket-io aside {

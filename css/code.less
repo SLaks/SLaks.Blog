@@ -31,7 +31,9 @@ div + pre {				// Unhighlighted code block preceded by language override
 
 .defineCategoryColors(name); // Invokes .ColorScheme() and .Name() mixins inside of different color classes
 .Name(@name) {
-	.highlight code&:before,		// Normal highlighted code block
+	.highlight code&:before,		// Normal highlighted code block {
+	
+}
 	& + div.highlight code:before,	// Highlighted code block preceded by language override (force to be more specific than ordinary highlight)
 	& + pre:before {				// Unhighlighted code block preceded by language override 
 		content: @name;
