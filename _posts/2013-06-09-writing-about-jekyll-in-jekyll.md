@@ -10,7 +10,7 @@ This problem can occur when writing a blog post about Liquid itself (such as thi
 
 You may want to mention Liquid syntax in two ways: inline code (mentioning a <code>&#123;% tag %}</code> in a sentence), and multi-line syntax highlighted code blocks (including a whole chunk of Liquid markup in a post).
 
-Liquid includes a tag specifically designed to solve this problem: the `{% raw %}{% raw %}{% endraw %}` tag.  For example, the Liquid Markdown used to produce this sentence is:
+Liquid includes a tag specifically designed to solve this problem: the `{% raw %}{% raw %}{% endraw %}` tag.  For example, the Liquid Markdown used to produce the preceding sentence is:
 
 <div class="jekyll"></div>
 {% assign openTag = '{%' %}
