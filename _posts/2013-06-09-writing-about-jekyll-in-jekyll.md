@@ -24,4 +24,4 @@ I wrap the text I'm trying to produce (`{% raw %}{% raw %}{% endraw %}`) in <cod
 All that overhead is very annoying when writing a simple tag.  We can make it simpler by writing part of the tag as an HTML entity, so that Liquid doesn't recognize it as a tag: `&#123;% tag %}`.  The browser will display the HTML entity as a regular `{`, but Liquid won't recognize it.  However, this does mean that we can't use Markdown <code>&#96;</code> blocks to create the code block, since that will escape the HTML and make it display a literal `&#123;`.  
 Thus, the final approach is `<code>&#123;% tag %}</code>`.  Although this isn't much shorter than the Liquid raw tag, I find it more readable, since it doesn't nest Liquid content within Liquid commands.
 
-_Next time: How can you do this inside a syntax-highlighted code block?_
+[_Next time: How can you do this inside a syntax-highlighted code block?_]({% post_url 2013-10-06-jekyll-endraw-in-code %})

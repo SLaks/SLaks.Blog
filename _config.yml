@@ -7,3 +7,7 @@ port:        8775
 markdown:    redcarpet
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "with_toc_data", "underline"]
+
+
+githubRawUrl: https://raw.github.com/SLaks/SLaks.Blog/gh-pages/
+githubUrl:    https://github.com/SLaks/SLaks.Blog/tree/gh-pages/
