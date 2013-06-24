@@ -39,4 +39,4 @@ Examples include most `EventArgs` classes.
 
 Finally, an object is _deeply_ immutable (or read-only) if both it and all of its properties are also deeply immutable (or read-only).  In other words, the entire graph of objects reachable from it must be immutable (or read-only).
 
-_Next time: Creating a simple immutable stack_
+[_Next time: Creating a simple immutable stack_]({% post_url 2013-06-23-creating-immutable-stack %})
