@@ -116,4 +116,4 @@ Like other linked lists, this approach implements both `Push()` and `Pop()` in O
 
 
 
-_Next time: Swapping immutable objects without losing thread-safety_
+[_Next time: Adding covariance_]({% post_url 2013-06-28-covariant-immutable-stack %})
