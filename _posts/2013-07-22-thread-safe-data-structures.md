@@ -43,7 +43,9 @@ To avoid locks, you must only use primitive atomic operations.  This is where im
  3. Use the atomic [compare-and-swap](http://en.wikipedia.org/wiki/Compare-and-swap) operation to set the field to the new value if and only if no other thread has changed it since step 1.
  4. If a different thread has changed the object (if the compare-and-swap failed), go back to step 1 and try again.
 
-It is important that the object being swapped be fully immutable.  Otherwise, changes to parts of the object from other threads can go unnoticed during the atomic replacement, leading to the [ABA problem](http://en.wikipedia.org/wiki/ABA_problem).  Using deeply immutable objects prevents this from causing a problem.  If `A` is truly immutable, there can be nothing wrong with missing the `B` that happened in the middle; if there was any change that wasn't fully undone, the new value wouldn't be the same `A`.
+It is important that the object being swapped be fully immutable.  Otherwise, changes to parts of the object from other threads can go unnoticed during the atomic replacement, leading to the [ABA problem](http://en.wikipedia.org/wiki/ABA_problem).  
+
+Using deeply immutable objects prevents this from causing a problem.  If `A` is truly immutable, there can be nothing wrong with missing the `B` that happened in the middle; if there was any change that wasn't fully undone, the new value wouldn't be the same `A`.
 
 This technique only works if the mutation you're trying to perform (step 2) is a [pure function](http://en.wikipedia.org/wiki/Pure_function).  Since the operation can run more than once, any side effects that it has can happen multiple times, which will probably break your program.  Similarly, it must be thread-safe (which pure functions implicitly are), since nothing is preventing it from running on multiple threads concurrently.
 
@@ -75,9 +77,11 @@ Steps 1 and 2 must be done in the same loop in case a third thread inserts a sec
 
 The dequeue operation then becomes much more complicated, because it needs to work correctly in all three states.  For more information, see Julian Bucknall's [detailed implementation of a lock-free concurrent queue](http://www.boyet.com/Articles/LockfreeQueue.html).
 
-The basic idea is to design the public methods to be able to run successfully from any intermediate state caused by another thread.  This technique can be very difficult to implement correctly for complex operations
+The basic idea is to design the public methods to be able to run successfully from any intermediate state caused by another thread.  This technique can be very difficult to implement correctly for complex operations.
 
-##Final notes
+As with simple compare-and-swap loops, the individual mutations must be either pure or safely revertible.
+
+#Final notes
 
 The idea behind all of these techniques is to either handle or prevent other threads that modify your object while your operation is running.  When using thread-safe objects, you must bear the same requirement in mind.  Any time you perform two operations on an object, it is your responsibility to ensure that nothing has changed between the two operations.  
 
