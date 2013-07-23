@@ -113,4 +113,4 @@ while (!objectStack.IsEmpty) {
 
 The private `PersistentStack<T>.LinkNode` class now needs to be `internal` so that the extension method can instantiate it.
 
-_Next time: Swapping immutable objects without losing thread-safety_
+[_Next time: Swapping immutable objects without losing thread-safety_]({% post_url 2013-07-22-thread-safe-data-structures %})
