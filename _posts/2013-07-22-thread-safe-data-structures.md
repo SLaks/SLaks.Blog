@@ -1,7 +1,7 @@
 ---
 title: "Immutability, part 3: Writing thread-safe data structures"
 layout: "post"
-categories: [async, multi-threading, concepts]
+categories: [thread-safety, lock-free, multi-threading, concepts]
 ---
 
 [Last time]({% post_url 2013-06-23-creating-immutable-stack %}), I showed how to create a simple [covariant]({% post_url 2013-06-28-covariant-immutable-stack %}) immutable stack.
