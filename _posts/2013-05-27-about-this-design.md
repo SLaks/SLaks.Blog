@@ -13,7 +13,7 @@ When implementing the design, I had the following goals in mind:
   - This means that I cannot use Octopress or Jekyll plugins
  - No build step
   - I want to be able to edit posts from anywhere, without having to install Ruby or Grunt.js and run any kind of build process before pushing
-  - I do use pre-compiled LESS, since Jekyll on GitHub Pages cannot compile LESS, and I really want to use LESS.  (also, since LESS needs to be edited far less often than post content, and since my editor [automatically compiles LESS files on save](http://vswebessentials.com/features/less)
+  - I do use pre-compiled LESS, since Jekyll on GitHub Pages cannot compile LESS, and I really want to use LESS.  (also, since LESS needs to be edited far less often than post content, and since my editor [automatically compiles LESS files on save](http://vswebessentials.com/features/less))
  - No Javascript
   - Especially with the power of CSS selectors, there should be no reason to use Javascript for static content
   - If I add comments, I will have to relax this restriction (since the site will no longer be purely static content)
