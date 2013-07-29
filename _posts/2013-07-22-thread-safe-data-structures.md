@@ -88,4 +88,4 @@ The idea behind all of these techniques is to either handle or prevent other thr
 To aid in this, well-designed concurrent classes will offer composite operations that perform common tasks atomically, such as .Net's [`ConcurrentDictionary.GetOrAdd()` method](http://http://msdn.microsoft.com/en-us/library/ee378677)) (this is [one of the problems](http://stackoverflow.com/a/12182099/34397) with Java's `Collections.synchronized*()` wrappers).  In the absence of such methods, you will still need to use locks to ensure that no other mutations interrupt your operation.
 
 
-_Next time: How to build thread-safe lock-free data structures using compare-and-swap loops_
+[_Next time: How to build thread-safe lock-free data structures using compare-and-swap loops_]({% post_url 2013-07-29-creating-lock-free-data-structures %})
