@@ -4,6 +4,8 @@ exclude:      ["WE-settings.xml", "SLaks.Blog.sln", "SLaks.Blog.v11.suo", "CNAME
 
 port:        8775
 
+excerpt_separator: N/A-------N/A... Workaround for https://github.com/mojombo/jekyll/issues/1401
+
 markdown:    redcarpet
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "with_toc_data", "underline"]
