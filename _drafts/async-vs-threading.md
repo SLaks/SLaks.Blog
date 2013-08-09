@@ -1,5 +1,5 @@
 ---
-title: "Asynchrony vs. multi-threading"
+title: "Asynchrony vs. Multi-threading, part 1"
 layout: "post"
 categories: [async, multi-threading, concepts]
 ---
