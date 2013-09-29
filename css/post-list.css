@@ -176,16 +176,16 @@
   color: #333333;
 }
 .post-list li.css aside {
-  background-color: #2162af;
+  background-color: #97d8ff;
 }
 .post-list li.css aside:before {
-  border-color: transparent transparent #2162af transparent;
+  border-color: transparent transparent #97d8ff transparent;
 }
 .post-list li.css aside a {
-  color: #ebebeb;
+  color: #131313;
 }
 .post-list li.css aside a:hover {
-  color: #ffffff;
+  color: #000000;
 }
 .post-list li.less aside {
   background-color: #143352;

@@ -74,15 +74,15 @@ pre:before {
 .js + pre:before {
   content: "Javascript";
 }
-.highlight code.derby,
-.derby + div.highlight code,
-.derby + pre {
+.highlight code.derby-js,
+.derby-js + div.highlight code,
+.derby-js + pre {
   background-color: #dcefed;
   outline-color: #a7d7d1;
 }
-.highlight code.derby:before,
-.derby + div.highlight code:before,
-.derby + pre:before {
+.highlight code.derby-js:before,
+.derby-js + div.highlight code:before,
+.derby-js + pre:before {
   color: #3f8d82;
 }
 .highlight code.socket-io,
@@ -169,13 +169,13 @@ pre:before {
 .highlight code.css,
 .css + div.highlight code,
 .css + pre {
-  background-color: #d4e4f7;
-  outline-color: #94bbeb;
+  background-color: #ccebff;
+  outline-color: #80ceff;
 }
 .highlight code.css:before,
 .css + div.highlight code:before,
 .css + pre:before {
-  color: #215fab;
+  color: #007ecc;
 }
 .highlight code.css:before,
 .css + div.highlight code:before,
