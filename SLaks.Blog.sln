@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SLaks.Blog", "http://localhost:12611", "{FFBFAFAC-BA7A-4EEE-9B22-B15C41A8ADE5}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
@@ -19,14 +21,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SLaks.Blog", "http://localh
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = ".\"
+		SlnRelativePath = "..\SLaks.Blog\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6EFDA9D4-A25D-45FE-8BC1-96B868EF186E}"
-	ProjectSection(SolutionItems) = preProject
-		WE-settings.xml = WE-settings.xml
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
