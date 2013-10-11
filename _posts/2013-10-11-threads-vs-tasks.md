@@ -1,7 +1,7 @@
 ---
 title: "Threads vs. Tasks"
 layout: "post"
-categories: [async, multi-threading, concepts]
+categories: [C#, async, multi-threading, concepts]
 ---
 
 .Net has three low-level mechanisms to run code in parallel: `Thread`, `ThreadPool`, and `Task`.  These three mechanism serve different purposes.
