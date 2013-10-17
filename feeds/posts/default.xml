@@ -6,7 +6,7 @@
 	<title>SLaks.Blog</title>
 	<link rel="alternate"	type="text/html"			href="{{ site.absolueBaseUrl }}/"/>
 	<link rel="self"		type="application/atom+xml"	href="{{ site.absolueBaseUrl }}{{ page.url }}"/>
-	<updated>{{ site.time | date_to_rfc822 }}</updated>
+	<updated>{{ site.time | date_to_xmlschema  }}</updated>
 	<id>tag:blogger.com,1999:blog-4137132196361303955</id>
 	<author>
 		<name>Schabse Laks</name>
@@ -19,8 +19,8 @@
 		<id>{% if post.guid %}{{ post.guid | xml_escape }}{% else %}{{ site.absolueBaseUrl }}{{ post.path | xml_escape }}{% endif %}</id>
 		<link rel="alternate" type="text/html" href="{{site.absolueBaseUrl}}{{ post.url | xml_escape }}"/>
 		<title type="text">{{ post.title | xml_escape }}</title>
-		<updated>{{ post.date | date_to_rfc822  }}</updated>
-		<published>{% if post.updated %}{{ post.updated | date_to_rfc822  }}{% else %}{{ post.date | date_to_rfc822  }}{% endif %}</published>
+		<updated>{{ post.date | date_to_xmlschema   }}</updated>
+		<published>{% if post.updated %}{{ post.updated | date_to_xmlschema   }}{% else %}{{ post.date | date_to_xmlschema   }}{% endif %}</published>
 
 		{% for categories in post.categories %}
 		{% include slugify-categories %}
