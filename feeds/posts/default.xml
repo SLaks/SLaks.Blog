@@ -1,12 +1,7 @@
 ---
 ---
-<?xml version="1.0"?>
-<feed xmlns="http://www.w3.org/2005/Atom"
-	  xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/"
-	  xmlns:blogger="http://schemas.google.com/blogger/2008"
-	  xmlns:georss="http://www.georss.org/georss"
-	  xmlns:gd="http://schemas.google.com/g/2005"
-	  xmlns:thr="http://purl.org/syndication/thread/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
 	<title>SLaks.Blog</title>
 	<link rel="alternate"	type="text/html"			href="{{ site.absolueBaseUrl }}/"/>
@@ -21,15 +16,15 @@
 
 	{% for post in site.posts %}
 	<entry>
-		<id>{% if post.guid %}{{ post.guid | xml_escape }}{% else %}{{ post.path | xml_escape }}{% endif %}</id>
+		<id>{% if post.guid %}{{ post.guid | xml_escape }}{% else %}{{ site.absolueBaseUrl }}{{ post.path | xml_escape }}{% endif %}</id>
 		<link rel="alternate" type="text/html" href="{{site.absolueBaseUrl}}{{ post.url | xml_escape }}"/>
 		<title type="text">{{ post.title | xml_escape }}</title>
 		<updated>{{ post.date | date_to_rfc822  }}</updated>
 		<published>{% if post.updated %}{{ post.updated | date_to_rfc822  }}{% else %}{{ post.date | date_to_rfc822  }}{% endif %}</published>
 
-		{% for categories in page.categories %}
+		{% for categories in post.categories %}
 		{% include slugify-categories %}
-		<category scheme="{{ site.url }}/#" label="{{ categories | xml_escape }}" term="{{ categorySlugs | xml_escape }}" />
+		<category scheme="{{ site.absolueBaseUrl }}/#" label="{{ categories | xml_escape }}" term="{{ categorySlugs | xml_escape }}" />
 		{% endfor %}
 
 		<author>
