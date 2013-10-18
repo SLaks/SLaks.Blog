@@ -14,7 +14,7 @@
 		<email>Dev@SLaks.Net</email>
 	</author>
 
-	{% for post in site.posts %}
+	{% for post in site.posts %}{% unless post.preview %}
 	<entry>
 		<id>{% if post.guid %}{{ post.guid | xml_escape }}{% else %}{{ site.absolueBaseUrl }}{{ post.path | xml_escape }}{% endif %}</id>
 		<link rel="alternate" type="text/html" href="{{site.absolueBaseUrl}}{{ post.url | xml_escape }}"/>
@@ -34,6 +34,6 @@
 		</author>
 		<content type="html">{{ post.content | xml_escape }}</content>
 	</entry>
-	{% endfor %}
+	{% endunless %}{% endfor %}
 
 </feed>

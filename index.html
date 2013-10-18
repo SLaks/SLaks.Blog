@@ -10,7 +10,7 @@ stylesheets: ["post-list", "category-navigation"]
 	{% endfor %}
 
 	<ul class="post-list">
-		{% for post in site.posts %}
+		{% for post in site.posts %}{% unless post.preview %}
 			{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
 			{% include extract-main-category %}{% include slugify-categories %}
 			<li class="{{ mainCategorySlug | xml_escape }}" data-categories="{{ categorySlugs }}">
@@ -19,5 +19,5 @@ stylesheets: ["post-list", "category-navigation"]
 
 				<aside title="This post is about {{ post.categories | array_to_sentence_string | replace: '-', ' ' }}."><a href="#{{ mainCategorySlug | cgi_escape | xml_escape }}">{{ mainCategory | xml_escape }}</a></aside>
 			</li>
-		{% endfor %}
+		{% endunless %}{% endfor %}
 	</ul>
