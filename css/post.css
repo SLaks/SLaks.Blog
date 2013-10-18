@@ -87,7 +87,8 @@ body.less {
   background: linear-gradient(to bottom, #c1d9f0 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
-body.visual-studio-2012 {
+body.visual-studio-2012,
+body.visual-studio-2013 {
   background: -webkit-linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
   background: -ms-linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
   background: -moz-linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
