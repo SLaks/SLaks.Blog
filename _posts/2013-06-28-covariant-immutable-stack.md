@@ -36,12 +36,14 @@ Java, by contrast, would allow us to write `Stack<U> <U super T> push(U element)
 
 However, all is not lost.  Although we can't constrain `Push()` based on the parent type's type parameter, we can constrain it on _its own_ type parameter.  Specifically, we can make it an extension method:
 
+<div class="small"></div>
 ```csharp
 public static IStack<U> Push<T, U>(this IStack<T> stack, U element) where T : U;
 ```
 
 In fact, once we move it out of the class itself, we don't even need a second type parameter.  Since the stack is covariant, the `IStack<T>` parameter is convertible to `IStack<U>`, so we can simplify it to take just one generic parameter:
 
+<div class="small"></div>
 ```csharp
 public static IStack<U> Push<U>(this IStack<U> stack, U element);
 ```

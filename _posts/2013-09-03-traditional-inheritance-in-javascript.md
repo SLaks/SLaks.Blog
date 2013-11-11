@@ -63,6 +63,7 @@ The first two problems are relatively easy to solve.
 
 To solve the first problem, we can simply add 
 
+<div class="small"></div>
 ```js
 Kangaroo.prototype.constructor = Kangaroo;
 ```
@@ -95,6 +96,7 @@ function Kangaroo(name) {
 
 To fix the third problem, we need to make a new object inheriting `Animal.prototype` to be `Kangaroo`'s prototype, without actually calling the constructor.  This is what the ES5 `Object.create()` function does:
 
+<div class="small"></div>
 ```js
 Kangaroo.prototype = Object.create(Animal.prototype);
 ```

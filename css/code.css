@@ -38,6 +38,10 @@ div + pre:hover:before {
     display: none;
   }
 }
+div.small + div.highlight code:before,
+div.small + pre:before {
+  font-size: 30px;
+}
 .highlight code,
  + div.highlight code,
  + pre {

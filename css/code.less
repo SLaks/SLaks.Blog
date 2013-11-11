@@ -29,6 +29,13 @@ div + pre {				// Unhighlighted code block preceded by language override
 	}
 }
 
+div.small {
+	& + div.highlight code:before,	// Highlighted code block preceded by small marker
+	& + pre:before {				// Unhighlighted code block preceded by small marker 
+		font-size: 30px;
+	}
+}
+
 .defineCategoryColors(name); // Invokes .ColorScheme() and .Name() mixins inside of different color classes
 .Name(@name) {
 	.highlight code&:before,		// Normal highlighted code block

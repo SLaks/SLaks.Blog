@@ -10,6 +10,7 @@ It also has some more confusing uses.
 
 If you have an array of functions, and you want to execute every function in the array, you can write
 
+<div class="small"></div>
 ```js
 myFuncs.forEach(function(f) { f(); });
 ```
@@ -17,12 +18,14 @@ myFuncs.forEach(function(f) { f(); });
 However, all you're really doing is calling `.call()` on every function in the array.
 Therefore, you would instead want to write
 
+<div class="small"></div>
 ```js
 myFuncs.forEach(Function.prototype.call);
 ```
 
 However, this won't work, because `call()` calls the function in its `this` parameter (eg, `myFunc.call()`), not its first argument.  This code would end up running 
 
+<div class="small"></div>
 ```js
 Function.prototype.call.call(null, myFuncs[0], 0, myFuncs);
 ```
@@ -31,24 +34,28 @@ This will throw a `TypeError`, since `call()` can only be called on a function.
 
 What you actually want to run is
 
+<div class="small"></div>
 ```js
 Function.prototype.call.call(Function.prototype.call, myFuncs[0], ...);
 ```
 
 In other words, you want to call `call()` and pass your function as its `this` (before any other parameters).  To make `forEach()` do that, you need to bind `call()` to itself:
 
+<div class="small"></div>
 ```js
 myFuncs.forEach(Function.prototype.call.bind(Function.prototype.call));
 ```
 
 To make this code shorter (and even more confusing), note that since `Function` is itself an instance of `Function`, you can skip the prototype and reference `call` directly:
 
+<div class="small"></div>
 ```js
 myFuncs.forEach(Function.call.bind(Function.call));
 ```
 
 You can make it even shorter by referencing `call` from a shorter function:
 
+<div class="small"></div>
 ```js
 myFuncs.forEach(eval.call.bind(eval.call));
 ```
