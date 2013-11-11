@@ -63,4 +63,4 @@ Visual Studio is a 10+ year old codebase built on a mix of technologies new and 
 
 In particular, the editor was completely rewritten in Visual Studio 2010, and is implemented entirely in C# code using WPF.  This new editor uses the [Managed Extensibility Framework (MEF)](http://msdn.microsoft.com/en-us/library/vstudio/dd460648) to load and execute all of its internal components, making it very friendly for extensions.  You can write classes that implement interfaces from the editor and export them using MEF, and the editor will automatically import and run them when it loads appropriate documents.  Similarly, you can import interfaces from the editor to gain access to existing services like colorization and error checking for use within your extension.
 
-In part 2, I will discuss the different services that the editor uses and how it can be extended.
+[_Next time: Core concepts_]({% post_url 2013-11-10-extending-visual-studio-part-2-core-concepts %})
