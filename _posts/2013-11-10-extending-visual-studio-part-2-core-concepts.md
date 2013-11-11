@@ -48,15 +48,14 @@ Your `IVsPackage` will get an `IServiceProvider` in its `SetSite()` method, whic
 var textManager = (IVsTextManager)this.GetService(typeof(SVsTextManager));
 ```
 
-In case you need a service in code outside of your package class, it also saves this service provider in the static `ServiceProvider.GlobalProvider` property.  The COM interop classes for the various services you can use are contained in assemblies with names ending in `.Interop`; MSDN has a [full list](http://msdn.microsoft.com/en-us/library/vstudio/bb164686.aspx).
+The COM interop classes for the various services you can use are contained in assemblies with names ending in `.Interop`; MSDN has a [full list](http://msdn.microsoft.com/en-us/library/vstudio/bb164686.aspx).
 
 If you need to interact with newer MEF components from a VsPackage, you need to grab Visual Studio's global composition service from from the ServiceProvider:
 
 <div class="small"></div>
 ```csharp
-var componentModel = (IComponentModel)ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel));
+var componentModel = (IComponentModel)this.GetService(typeof(SComponentModel));
 ```
-The web tools package also has a static helper to retrieve this from the global service provider; see the `WebEditor.CompositionService` property.
 
 #Working with MEF extensions
 Using MEF is much simpler.  You can export components used by the editor by implementing the appropriate editor interface, then decorating your class with the MEF `[Exports]` attribute.  In these classes, you can import other editor services by decorating a field with the `[Imports]` attribute.
