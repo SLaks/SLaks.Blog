@@ -39,8 +39,8 @@ div + pre:hover:before {
   }
 }
 .highlight code,
-+ div.highlight code,
-+ pre {
+ + div.highlight code,
+ + pre {
   background-color: #d0eefb;
   outline-color: #8ad4f4;
 }
