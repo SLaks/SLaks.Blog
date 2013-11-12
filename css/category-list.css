@@ -20,6 +20,10 @@
   background-color: #5dc4f0;
   color: #ffffff;
 }
+.category-list li.type-theory:before {
+  background-color: #570000;
+  color: #ffffff;
+}
 .category-list li.javascript:before,
 .category-list li.js:before {
   background-color: #f3df49;

@@ -78,6 +78,9 @@
   margin-top: 5px;
   max-height: 200px;
 }
+.side-post-list li + li.type-theory {
+  border-left-color: #570000;
+}
 .side-post-list li + li.javascript,
 .side-post-list li + li.js {
   border-left-color: #f3df49;

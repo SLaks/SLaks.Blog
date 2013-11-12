@@ -53,6 +53,17 @@ div.highlight code:before,
 pre:before {
   color: #1188bb;
 }
+.highlight code.type-theory,
+.type-theory + div.highlight code,
+.type-theory + pre {
+  background-color: #ffcccc;
+  outline-color: #ff8080;
+}
+.highlight code.type-theory:before,
+.type-theory + div.highlight code:before,
+.type-theory + pre:before {
+  color: #cc0000;
+}
 .highlight code.javascript,
 .highlight code.js,
 .javascript + div.highlight code,

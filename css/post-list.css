@@ -81,6 +81,15 @@
 .post-list li aside a:hover {
   color: #8c8c8c;
 }
+.post-list li.type-theory aside {
+  background-color: #570000;
+}
+.post-list li.type-theory aside:before {
+  border-color: transparent transparent #570000 transparent;
+}
+.post-list li.type-theory aside a:hover {
+  color: #cccccc;
+}
 .post-list li.javascript aside,
 .post-list li.js aside {
   background-color: #f3df49;
