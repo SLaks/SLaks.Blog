@@ -225,6 +225,10 @@ article code {
 .post-categories {
   font-style: italic;
 }
+.post-categories .RightLink {
+  font-style: normal;
+  float: right;
+}
 .post-navigation .previous:before {
   content: '« ';
 }
