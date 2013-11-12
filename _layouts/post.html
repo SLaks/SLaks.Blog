@@ -20,7 +20,24 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 	{% if page.next %}{% unless page.next.preview %}<a href="{{ page.next.url }}" title="{{ page.next.title }}" class="next">Next</a>{% endunless %}{% endif %}
 </p>
 
-<p>I haven't decided whether to set up comments.  If you'd like me to, <a href="https://twitter.com/intent/tweet?related=Schabse&amp;text={{ "@Schabse Can you set up comments on your blog? (I'm reading " | cgi_escape | xml_escape }}{{ page.title | truncate: 90 | cgi_escape | xml_escape }})" title="Ask me to set up commenting." target="_blank">click here</a>.</p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'slaksblog';
+
+	// Jekyll doesn't have a JS-escape function; this seems to work reliably instead.
+	var disqus_identifier = decodeURIComponent('{{ page.id | cgi_escape | replace: "+", " " }}');
+	var disqus_title = decodeURIComponent('{{ page.title | cgi_escape | replace: "+", " " }}');
+	var disqus_url = '{{ site.absolueBaseUrl }}' + decodeURIComponent('{{ page.url | cgi_escape | replace: "+", " " }}');
+
+
+	(function () {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 <ul class="side-post-list"> 
 	<li><h2>Other posts</h2></li>
