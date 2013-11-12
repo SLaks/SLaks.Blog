@@ -28,7 +28,7 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 	// Jekyll doesn't have a JS-escape function; this seems to work reliably instead.
 	var disqus_identifier = decodeURIComponent('{{ page.id | cgi_escape | replace: "+", " " }}');
 	var disqus_title = decodeURIComponent('{{ page.title | cgi_escape | replace: "+", " " }}');
-	var disqus_url = '{{ site.absolueBaseUrl }}' + decodeURIComponent('{{ page.url | cgi_escape | replace: "+", " " }}');
+	var disqus_url = '{{ site.absoluteBaseUrl }}' + decodeURIComponent('{{ page.url | cgi_escape | replace: "+", " " }}');
 
 
 	(function () {
