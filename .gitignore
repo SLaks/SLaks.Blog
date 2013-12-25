@@ -68,6 +68,7 @@ DocProject/Help/html
 publish
 
 # Others
+*.ide
 [Bb]in
 [Oo]bj
 sql
