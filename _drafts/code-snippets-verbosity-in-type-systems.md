@@ -20,15 +20,15 @@ public static T FindMax<T, TProperty>
 
 ```js
 function findMax(a, b, prop) {
-    return prop(a) >= prop(b) ? a : b;
+	return prop(a) >= prop(b) ? a : b;
 }
-// 75 characters
+	// 75 characters
 ```
 
-_Side note:_, the Javascript version can be made much more usable, though less flexible by accepting a property name instead of a callback:
+_Side note:_, the Javascript version can be made much more usable, though less flexible, by accepting a property name instead of a callback:
 
 ```js
 function findMax(a, b, prop) {
-    return prop(a) >= prop(b) ? a : b;
+	return a[prop] >= b[prop] ? a : b;
 }
 ```
