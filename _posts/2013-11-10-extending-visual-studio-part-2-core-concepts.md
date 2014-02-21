@@ -101,4 +101,4 @@ Providers allow the editor to create instances of your services when creating te
 
 For more information on the various services you can provide for the editor, see [MSDN](http://msdn.microsoft.com/en-us/library/dd885244.aspx "Editor Extension Points").
 
-_Next time: Tips from the trenches_
+[_Next time: How Visual Studio deals with assembly versioning_]({% post_url 2014-02-21-extending-visual-studio-part-3-assembly-versioning %})
