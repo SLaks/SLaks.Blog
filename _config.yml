@@ -8,7 +8,7 @@ excerpt_separator: ""   # Workaround for https://github.com/mojombo/jekyll/issue
 
 markdown:    redcarpet
 redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "with_toc_data", "underline"]
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "with_toc_data"]
 
 
 githubRawUrl: https://raw.github.com/SLaks/SLaks.Blog/gh-pages/
