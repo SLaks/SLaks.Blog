@@ -4,7 +4,12 @@ titleSuffix: " &ndash; SLaks.Blog"
 stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 ---
 <h1>{{ page.title | xml_escape }}</h1>
-<small>Posted on {{ page.date | date: "%A, %B %d %Y, at %I:%M:%S %p" }}</small>
+{% capture postTime %}{{ page.date | date: "%H:%M:%S" }}{% endcapture %}
+{% if postTime == "00:00:00" %}
+<small>Posted on {{ page.date | date: "%A, %B %d, %Y" }}</small>
+{% else %}
+<small>Posted on {{ page.date | date: "%A, %B %d, %Y, at %-I:%M:%S %p" }} UTC</small>
+{% endif %}
 <article>
 	{{ content }}
 </article>
