@@ -1,4 +1,4 @@
-﻿.highlight code,
+.highlight code,
 div + pre {
   position: relative;
   display: block;
@@ -213,19 +213,25 @@ pre:before {
 .less + pre:before {
   content: "LESS";
 }
+.highlight code.visual-studio,
 .highlight code.visual-studio-2012,
 .highlight code.visual-studio-2013,
+.visual-studio + div.highlight code,
 .visual-studio-2012 + div.highlight code,
 .visual-studio-2013 + div.highlight code,
+.visual-studio + pre,
 .visual-studio-2012 + pre,
 .visual-studio-2013 + pre {
   background-color: #ebd7f4;
   outline-color: #ce9be4;
 }
+.highlight code.visual-studio:before,
 .highlight code.visual-studio-2012:before,
 .highlight code.visual-studio-2013:before,
+.visual-studio + div.highlight code:before,
 .visual-studio-2012 + div.highlight code:before,
 .visual-studio-2013 + div.highlight code:before,
+.visual-studio + pre:before,
 .visual-studio-2012 + pre:before,
 .visual-studio-2013 + pre:before {
   color: #7d2ca0;

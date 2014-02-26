@@ -1,4 +1,4 @@
-﻿.category-list {
+.category-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -65,6 +65,7 @@
   background-color: #143352;
   color: #ffffff;
 }
+.category-list li.visual-studio:before,
 .category-list li.visual-studio-2012:before,
 .category-list li.visual-studio-2013:before {
   background-color: #742894;

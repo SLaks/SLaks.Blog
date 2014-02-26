@@ -1,4 +1,4 @@
-﻿.side-post-list {
+.side-post-list {
   width: 15px;
   overflow: hidden;
   background-color: white;
@@ -112,6 +112,7 @@
 .side-post-list li + li.less {
   border-left-color: #143352;
 }
+.side-post-list li + li.visual-studio,
 .side-post-list li + li.visual-studio-2012,
 .side-post-list li + li.visual-studio-2013 {
   border-left-color: #742894;

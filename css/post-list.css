@@ -1,4 +1,4 @@
-﻿.category-label {
+.category-label {
   display: none;
 }
 .post-list {
@@ -205,14 +205,17 @@
 .post-list li.less aside a:hover {
   color: #cccccc;
 }
+.post-list li.visual-studio aside,
 .post-list li.visual-studio-2012 aside,
 .post-list li.visual-studio-2013 aside {
   background-color: #742894;
 }
+.post-list li.visual-studio aside:before,
 .post-list li.visual-studio-2012 aside:before,
 .post-list li.visual-studio-2013 aside:before {
   border-color: transparent transparent #742894 transparent;
 }
+.post-list li.visual-studio aside a:hover,
 .post-list li.visual-studio-2012 aside a:hover,
 .post-list li.visual-studio-2013 aside a:hover {
   color: #cccccc;
