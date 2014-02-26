@@ -17,7 +17,7 @@ This is the simplest, most ideal solution to the problem; extensions can simply 
 
 VS includes two categories of immutable DLLs: COM interop assemblies and immutable shell assemblies.
 
-COM interop assemblies (`Microsoft.VisualStudio.Shell.Interop.XX` and similar) contain nothing but COM interfacs (including supporting enums and structures, but with no classes at all).  Since COM does not allow existing interfaces to change, immutability isn't a problem here.  Instead, new functionality is added by creating new interfaces in newer COM assemblies (eg, `IVsSolution` through `IVsSolution5`) with additional methods.
+COM interop assemblies (`Microsoft.VisualStudio.Shell.Interop.XX` and similar) contain nothing but COM interfaces (including supporting enums and structures, but with no classes at all).  Since COM does not allow existing interfaces to change, immutability isn't a problem here.  Instead, new functionality is added by creating new interfaces in newer COM assemblies (eg, `IVsSolution` through `IVsSolution5`) with additional methods.
 
 Immutable shell assemblies (`Microsoft.VisualStudio.Shell.Immutable.XX`) contain managed types that the shell team has decided will never need to change.  They mostly comtain simple types, such as interfaces, enums, and EventArgs classes, that are used by other parts of the shell.
 
@@ -33,4 +33,4 @@ Finally, there are DLLs with no compatibility guarantees whatsoever.  Most other
 
 There is no simple way to use unversioned assemblies in a VSIX without requiring a separate project for each VS release.
 
-_Next time: Writing cross-version extensions_
+[_Next time: Writing cross-version extensions_]({% post_url 2014-02-25-extending-visual-studio-part-4-writing-cross-version-extensions %})
