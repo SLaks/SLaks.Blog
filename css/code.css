@@ -53,6 +53,31 @@ div.highlight code:before,
 pre:before {
   color: #1188bb;
 }
+.highlight code.april-fools,
+.highlight code.errorfree,
+.april-fools + div.highlight code,
+.errorfree + div.highlight code,
+.april-fools + pre,
+.errorfree + pre {
+  background-color: #ffcccc;
+  outline-color: #ff8080;
+}
+.highlight code.april-fools:before,
+.highlight code.errorfree:before,
+.april-fools + div.highlight code:before,
+.errorfree + div.highlight code:before,
+.april-fools + pre:before,
+.errorfree + pre:before {
+  color: #cc0000;
+}
+.highlight code.april-fools:before,
+.highlight code.errorfree:before,
+.april-fools + div.highlight code:before,
+.errorfree + div.highlight code:before,
+.april-fools + pre:before,
+.errorfree + pre:before {
+  content: "ErrorFree";
+}
 .highlight code.type-theory,
 .type-theory + div.highlight code,
 .type-theory + pre {

@@ -78,6 +78,10 @@
   margin-top: 5px;
   max-height: 200px;
 }
+.side-post-list li + li.april-fools,
+.side-post-list li + li.errorfree {
+  border-left-color: #ff0000;
+}
 .side-post-list li + li.type-theory {
   border-left-color: #570000;
 }

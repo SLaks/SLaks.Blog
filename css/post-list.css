@@ -81,6 +81,18 @@
 .post-list li aside a:hover {
   color: #8c8c8c;
 }
+.post-list li.april-fools aside,
+.post-list li.errorfree aside {
+  background-color: #ff0000;
+}
+.post-list li.april-fools aside:before,
+.post-list li.errorfree aside:before {
+  border-color: transparent transparent #ff0000 transparent;
+}
+.post-list li.april-fools aside a:hover,
+.post-list li.errorfree aside a:hover {
+  color: #cccccc;
+}
 .post-list li.type-theory aside {
   background-color: #570000;
 }

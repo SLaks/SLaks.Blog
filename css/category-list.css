@@ -20,6 +20,11 @@
   background-color: #5dc4f0;
   color: #ffffff;
 }
+.category-list li.april-fools:before,
+.category-list li.errorfree:before {
+  background-color: #ff0000;
+  color: #ffffff;
+}
 .category-list li.type-theory:before {
   background-color: #570000;
   color: #ffffff;
