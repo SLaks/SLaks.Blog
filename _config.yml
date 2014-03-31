@@ -1,6 +1,6 @@
 pygments:     true
 permalink:    /:year-:month-:day/:title
-exclude:      ["WE-settings.xml", "SLaks.Blog.sln", "SLaks.Blog.v11.suo", "CNAME", "*.less"]
+exclude:      ["WE-settings.xml", "SLaks.Blog.sln", "SLaks.Blog.v11.suo", "CNAME", "*.less", "*.ide"]
 
 port:        8775
 
