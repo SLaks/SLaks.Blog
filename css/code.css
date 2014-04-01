@@ -3,6 +3,8 @@ div + pre {
   position: relative;
   display: block;
   padding: 10px;
+  overflow-x: auto;
+  white-space: pre;
 }
 .highlight code:before,
 div + pre:before {
