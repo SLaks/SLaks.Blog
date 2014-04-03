@@ -104,9 +104,10 @@ All arithmetic operators will pop the values they read.
  - `N` (print Number)  
    Pops a value from the stack and prints its numeric value to standard out.
  - `D` (the letter after C)  
-   Reads a single character from standard in, and pushes its Unicode codepoint index on to the stack
+   Reads a single character from standard in, and pushes its Unicode codepoint index on to the stack.  Pushes -1 for EOF.
  - `O` (the letter after N)  
-   Reads a number from standard in (followed by a newline) and pushes it onto the stack.  The strings `Infinity`, `-Infinity`, and `NaN` are parsed as-is; all other letters or invalid characters are stripped.
+   Reads a number from standard in (followed by a newline) and pushes it onto the stack.  The strings `Infinity`, `-Infinity`, and `NaN` are parsed as-is; all other letters or invalid characters are stripped.  If there are no numeric characters to read (for example, if standard in is at EOF), this will push 0.  
+There is currently no way to determine whether a 0 was read because the user typed zero, because the user typed nothing but letters, or because standard in is at EOF.
  - `R` (Random)  
    Pushes a random number in the range [0, 1) on to the stack.
  - `T` (Timestamp)  
