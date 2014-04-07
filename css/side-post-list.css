@@ -1,4 +1,4 @@
-.side-post-list {
+﻿.side-post-list {
   width: 15px;
   overflow: hidden;
   background-color: white;
@@ -77,6 +77,9 @@
 .side-post-list li + li:hover p {
   margin-top: 5px;
   max-height: 200px;
+}
+.side-post-list li + li.roslyn {
+  border-left-color: #68217a;
 }
 .side-post-list li + li.april-fools,
 .side-post-list li + li.errorfree {

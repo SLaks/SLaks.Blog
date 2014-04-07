@@ -1,4 +1,4 @@
-.category-label {
+﻿.category-label {
   display: none;
 }
 .post-list {
@@ -80,6 +80,15 @@
 }
 .post-list li aside a:hover {
   color: #8c8c8c;
+}
+.post-list li.roslyn aside {
+  background-color: #68217a;
+}
+.post-list li.roslyn aside:before {
+  border-color: transparent transparent #68217a transparent;
+}
+.post-list li.roslyn aside a:hover {
+  color: #cccccc;
 }
 .post-list li.april-fools aside,
 .post-list li.errorfree aside {

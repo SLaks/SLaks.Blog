@@ -1,4 +1,4 @@
-.category-list {
+﻿.category-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -18,6 +18,10 @@
 }
 .category-list li:before {
   background-color: #5dc4f0;
+  color: #ffffff;
+}
+.category-list li.roslyn:before {
+  background-color: #68217a;
   color: #ffffff;
 }
 .category-list li.april-fools:before,

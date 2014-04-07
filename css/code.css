@@ -1,4 +1,4 @@
-.highlight code,
+﻿.highlight code,
 div + pre {
   position: relative;
   display: block;
@@ -54,6 +54,17 @@ div.small + pre:before {
 div.highlight code:before,
 pre:before {
   color: #1188bb;
+}
+.highlight code.roslyn,
+.roslyn + div.highlight code,
+.roslyn + pre {
+  background-color: #eed7f4;
+  outline-color: #d59be4;
+}
+.highlight code.roslyn:before,
+.roslyn + div.highlight code:before,
+.roslyn + pre:before {
+  color: #892ca0;
 }
 .highlight code.april-fools,
 .highlight code.errorfree,
