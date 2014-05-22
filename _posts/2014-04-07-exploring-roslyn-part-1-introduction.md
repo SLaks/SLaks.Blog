@@ -71,4 +71,4 @@ Finally, Microsoft.VisualStudio.LanguageServices.dll (and the corresponding C# &
 
 This layer is even less externally useful than EditorFeatures; it's entirely coupled to ugly VS implementation details.  Its only useful public type is the `VisualStudioWorkspace` class, which extends the core Roslyn `Workspace` with VS-specific integration methods to get projects, display definition & FAR results, and a few other things.
 
-_Next time: Inside the End-User Preview_
+[_Next time: Inside the End-User Preview_]({% post_url 2014-05-21-exploring-roslyn-part-2-inside-end-user-preview %})
