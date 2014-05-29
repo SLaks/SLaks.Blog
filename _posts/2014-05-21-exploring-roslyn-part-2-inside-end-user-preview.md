@@ -73,3 +73,5 @@ There are also a number of completely new refactorings:
  - Fix function return type (VB only)
 
 <img src="/images/2014/roslyn-refactorings.png" alt="Roslyn Refactorings" style="max-width: 100%" />
+
+[_Next time: Breaking Changes_]({% post_url 2014-05-28-exploring-roslyn-part-3-breaking-changes %})
