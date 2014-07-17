@@ -45,7 +45,7 @@ public static void RedirectAssembly(string shortName, Version targetVersion, str
 					  + ",\tloaded by " + (args.RequestingAssembly == null ? "(unknown)" : args.RequestingAssembly.FullName));
 
 		requestedAssembly.Version = targetVersion;
-		requestedAssembly.SetPublicKeyToken(new AssemblyName("x, PublicKeyToken=" + publicKeyToken));
+		requestedAssembly.SetPublicKeyToken(new AssemblyName("x, PublicKeyToken=" + publicKeyToken).GetPublicKeyToken());
 		requestedAssembly.CultureInfo = CultureInfo.InvariantCulture;
 
 		AppDomain.CurrentDomain.AssemblyResolve -= handler;
