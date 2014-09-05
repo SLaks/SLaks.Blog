@@ -78,6 +78,9 @@
   margin-top: 5px;
   max-height: 200px;
 }
+.side-post-list li + li.xaml {
+  border-left-color: #378ce9;
+}
 .side-post-list li + li.roslyn {
   border-left-color: #68217a;
 }

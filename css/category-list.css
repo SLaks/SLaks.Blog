@@ -20,6 +20,10 @@
   background-color: #5dc4f0;
   color: #ffffff;
 }
+.category-list li.xaml:before {
+  background-color: #378ce9;
+  color: #ffffff;
+}
 .category-list li.roslyn:before {
   background-color: #68217a;
   color: #ffffff;

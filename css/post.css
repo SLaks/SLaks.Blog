@@ -1,9 +1,17 @@
 ﻿body {
-  background: -webkit-linear-gradient(to bottom, #b9e5f8 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #b9e5f8 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #b9e5f8 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #b9e5f8 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #b9e5f8 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #b9e6f9 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #b9e6f9 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #b9e6f9 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #b9e6f9 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #b9e6f9 0, #ffffff 25%);
+  background-repeat: no-repeat;
+}
+body.xaml {
+  background: -webkit-linear-gradient(to bottom, #bad7f7 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #bad7f7 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #bad7f7 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #bad7f7 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #bad7f7 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.roslyn {
@@ -33,11 +41,11 @@ body.type-theory {
 }
 body.javascript,
 body.js {
-  background: -webkit-linear-gradient(to bottom, #faf3b7 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #faf3b7 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #faf3b7 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #faf3b7 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #faf3b7 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #faf2b7 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #faf2b7 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #faf2b7 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #faf2b7 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #faf2b7 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.derby-js {
@@ -49,11 +57,11 @@ body.derby-js {
   background-repeat: no-repeat;
 }
 body.socket-io {
-  background: -webkit-linear-gradient(to bottom, #bee3f3 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #bee3f3 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #bee3f3 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #bee3f3 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #bee3f3 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #bee4f3 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #bee4f3 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #bee4f3 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #bee4f3 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #bee4f3 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.node-js {
@@ -73,11 +81,11 @@ body.jekyll {
   background-repeat: no-repeat;
 }
 body.jquery {
-  background: -webkit-linear-gradient(to bottom, #b6dffc 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #b6dffc 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #b6dffc 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #b6dffc 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #b6dffc 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #b5dffc 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #b5dffc 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #b5dffc 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #b5dffc 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #b5dffc 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.html {
@@ -115,19 +123,19 @@ body.less {
 body.visual-studio,
 body.visual-studio-2012,
 body.visual-studio-2013 {
-  background: -webkit-linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #e1c3ef 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #e2c3ef 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #e2c3ef 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #e2c3ef 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #e2c3ef 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #e2c3ef 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.dot-net {
-  background: -webkit-linear-gradient(to bottom, #c1e4f0 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #c1e4f0 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #c1e4f0 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #c1e4f0 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #c1e4f0 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #c1e5f0 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #c1e5f0 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #c1e5f0 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #c1e5f0 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #c1e5f0 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 body.csharp {
@@ -156,11 +164,11 @@ body.cpp {
   background-repeat: no-repeat;
 }
 body.razor {
-  background: -webkit-linear-gradient(to bottom, #b3ddff 0, #ffffff 25%);
-  background: -ms-linear-gradient(to bottom, #b3ddff 0, #ffffff 25%);
-  background: -moz-linear-gradient(to bottom, #b3ddff 0, #ffffff 25%);
-  background: -o-linear-gradient(to bottom, #b3ddff 0, #ffffff 25%);
-  background: linear-gradient(to bottom, #b3ddff 0, #ffffff 25%);
+  background: -webkit-linear-gradient(to bottom, #b3dcff 0, #ffffff 25%);
+  background: -ms-linear-gradient(to bottom, #b3dcff 0, #ffffff 25%);
+  background: -moz-linear-gradient(to bottom, #b3dcff 0, #ffffff 25%);
+  background: -o-linear-gradient(to bottom, #b3dcff 0, #ffffff 25%);
+  background: linear-gradient(to bottom, #b3dcff 0, #ffffff 25%);
   background-repeat: no-repeat;
 }
 @media only screen and (max-width: 599px) {
