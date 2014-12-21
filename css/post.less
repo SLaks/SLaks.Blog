@@ -2,20 +2,15 @@
 @import url('./_colors.less');
 @import url('./_mixins.less');
 
-body {
-	.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
-	.ColorScheme(@baseColor) {
+.defineCategoryColors({
+	body@{selector} {
 		@hue: hue(@baseColor);
 		@saturation: saturation(@baseColor);
 		.gradient(to bottom, hsl(@hue, @saturation, 85%) 0, white 25%);
 		background-repeat: no-repeat;
 	}
+});
 
-
-	.ColorScheme(@baseColor, @textColor) {
-		.ColorScheme(@baseColor);
-	}
-}
 
 @margin: 15px;
 
