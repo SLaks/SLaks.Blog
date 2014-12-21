@@ -20,12 +20,11 @@
 			margin-right: 5px;
 		}
 
-		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
-		.ColorScheme(@baseColor, @textColor: #fff) {
-			&:before {
+		.defineCategoryColors({
+			&@{selector}:before {
 				background-color: @baseColor;
 				color: @textColor;
 			}
-		}
+		});
 	}
 }

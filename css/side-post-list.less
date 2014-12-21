@@ -66,10 +66,11 @@
 			max-height: 200px;
 		}
 
-		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
-		.ColorScheme(@baseColor, @textColor: #fff) {
-			border-left-color: @baseColor;
-		}
+		.defineCategoryColors({
+			&@{selector} {
+				border-left-color: @baseColor;
+			}
+		});
 	}
 
 

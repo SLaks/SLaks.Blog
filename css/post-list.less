@@ -57,36 +57,29 @@
 			}
 		}
 
-		.defineCategoryColors(); // Invokes .ColorScheme() mixin inside of different color classes
-		.CategoryBackground(@color) {
-			aside {
-				background-color: @color;
+		.defineCategoryColors({
+			&@{selector} aside {
+				background-color: @baseColor;
 
 				&:before {
-					border-color: transparent transparent @color transparent;
+					border-color: transparent transparent @baseColor transparent;
+				}
+
+				a when (@textColor = @defaultTextColor) {
+					&:hover {
+						color: contrast(@baseColor, #333, #ccc);
+					}
+				}
+
+				a when not (@textColor = @defaultTextColor) {
+					color: @textColor;
+
+					&:hover {
+						color: contrast(@baseColor, darken(@textColor, 45%), lighten(@textColor, 45%));
+					}
 				}
 			}
-		}
-
-		.ColorScheme(@baseColor) {
-			.CategoryBackground(@baseColor);
-
-			aside a:hover {
-				color: contrast(@baseColor, #333, #ccc);
-			}
-		}
-
-		.ColorScheme(@baseColor, @textColor) {
-			.CategoryBackground(@baseColor);
-
-			aside a {
-				color: @textColor;
-
-				&:hover {
-					color: contrast(@baseColor, darken(@textColor, 45%), lighten(@textColor, 45%));
-				}
-			}
-		}
+		});
 		// Desktop-mode category side
 		// (angled bar on the right)
 		aside {
@@ -115,6 +108,7 @@
 				font-size: 24px;
 				width: 100%;
 				letter-spacing: 1px;
+				color: white;
 
 				&:hover {
 					// This overrides the color for unstyled categories only.

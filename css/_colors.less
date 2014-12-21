@@ -1,102 +1,61 @@
-.defineCategoryColors() {
-	.defineCategoryColors(name);
-	// Define the .Name() mixin since our caller didn't.
-	.Name(@name) {
-	}
+// This helper mixin iterates over a comma-separated set;
+// calling the .Iteration mixin for each item in the set.
+// It must be defined outside the callsite mixin, because
+// of https://github.com/less/less.js/issues/2350.
+.Loop(@set; @index: length(@set)) when (@index > 0) {	// extract() is one-based
+	.Loop(@set; @index - 1);
+	.Iteration(extract(@set, @index));	
 }
 
-.defineCategoryColors(name) {
-	.ColorScheme(#5DC4F0, white);
 
-	&.xaml {
-		.ColorScheme(#378ce9);
-		.Name("XAML");
+// Calls @callback() with each supported color scheme,
+// passing @name ('' for tags that are not languages),
+// @baseColor, and @textColor via scoped variables, as
+// well as @selector with the CSS selector (which will
+// be empty for the default scheme) and @class for the
+// classname without dot (for concatenation)
+.defineCategoryColors(@callback) {
+	// The text color passed for tags that do not define a custom text color.
+	@defaultTextColor: #fff;
+
+	// Defines a color scheme without a language name
+	.TagTheme(@classes; @baseColor; @textColor: @defaultTextColor)  {
+		.LanguageTheme(@classes; ''; @baseColor; @textColor);
 	}
 
-	&.roslyn {
-		.ColorScheme(#68217a);
+	// Defines a color scheme with a language name
+	.LanguageTheme(@classes; @name; @baseColor; @textColor: @defaultTextColor) {
+		.Loop(@classes);
+		.Iteration(@class) {
+			// Prepend a dot to classnames, while leaving the default empty.
+			// Replace() doesn't work properly on keywords; https://github.com/less/less.js/issues/2351
+			@selector: e(replace('@{class}', '(^[a-z])', '.$1'));
+			@callback();
+		}
 	}
 
-	&.april-fools, &.errorfree {
-		.ColorScheme(red);
-		.Name("ErrorFree");
-	}
 
-	&.type-theory {
-		.ColorScheme(#570000);
-	}
+	.TagTheme(e(''); #5DC4F0; @defaultTextColor);
 
-	&.javascript, &.js {
-		.ColorScheme(#f3df49, #2e2e2c);
-		.Name("Javascript");
-	}
-
-	&.derby-js {
-		.ColorScheme(#55b3a6, #f6f0e1);
-	}
-
-	&.socket-io {
-		.ColorScheme(#19698a);
-	}
-
-	&.node-js {
-		.ColorScheme(#8BC84B, #46483e);
-	}
-
-	&.jekyll {
-		.ColorScheme(#fc0, #333);
-		.Name("Jekyll");
-	}
-
-	&.jquery {
-		.ColorScheme(#0769ad, #70c8ee);
-	}
-
-	&.html {
-		.ColorScheme(#e34c26, #ebebeb);
-		.Name("HTML");
-	}
-
-	&.xml {
-		.ColorScheme(#f60);
-		.Name("XML");
-	}
-
-	&.css {
-		.ColorScheme(#97d8ff, #131313);
-		.Name("CSS");
-	}
-
-	&.less {
-		.ColorScheme(#143352);
-		.Name("LESS");
-	}
-
-	&.visual-studio, &.visual-studio-2012, &.visual-studio-2013 {
-		.ColorScheme(#742894);
-	}
-
-	&.dot-net {
-		.ColorScheme(#3babd0);
-	}
-
-	&.csharp {
-		.ColorScheme(#368832);
-		.Name("C♯");
-	}
-
-	&.vb-net, &.vbnet { // For syntax highlighting, I use "vbnet" (pygments doesn't recognize vb-net)
-		.ColorScheme(#00539c);
-		.Name("VB.Net");
-	}
-
-	&.cpp {
-		.ColorScheme(#9fbce1);
-		.Name("C++");
-	}
-
-	&.razor {
-		.ColorScheme(#e7f4ff, black);
-		.Name("Razor");
-	}
+	.LanguageTheme(xaml;			"XAML";			#378ce9);
+	.TagTheme(roslyn;								#68217a);
+	.LanguageTheme(april-fools, errorfree; "ErrorFree"; red);
+	.TagTheme(type-theory;							#570000);
+	.LanguageTheme(javascript, js;	"Javascript";	#f3df49;	#2e2e2c);
+	.TagTheme(derby-js;								#55b3a6; #f6f0e1);
+	.TagTheme(socket-io;							#19698a);
+	.TagTheme(node-js;								#8BC84B; #46483e);
+	.LanguageTheme(jekyll;			"Jekyll";		#fc0;		#333);
+	.TagTheme(jquery;								#0769ad; #70c8ee);
+	.LanguageTheme(html;			"HTML";			#e34c26;	#ebebeb);
+	.LanguageTheme(xml;				"XML";			#f60);
+	.LanguageTheme(css;				"CSS";			#97d8ff;	#131313);
+	.LanguageTheme(less;			"LESS";			#143352);
+	.TagTheme(visual-studio, visual-studio-2012, visual-studio-2013;	#742894);
+	.TagTheme(dot-net;								#3babd0);
+	.LanguageTheme(csharp;			"C♯";			#368832);
+	// For syntax highlighting; I use "vbnet" (pygments doesn't recognize vb-net)
+	.LanguageTheme(vb-net, vbnet;	"VB.Net";		#00539c);
+	.LanguageTheme(cpp;				"C++";			#9fbce1);
+	.LanguageTheme(razor;			"Razor";		#e7f4ff;	#000);	
 }

@@ -2,6 +2,7 @@
 @import url('./_colors.less');
 @import url('./_mixins.less');
 
+
 .highlight code,		// Normal or overridden highlighted code block
 div + pre {				// Unhighlighted code block preceded by language override
 	position: relative;
@@ -38,28 +39,24 @@ div.small {
 	}
 }
 
-.defineCategoryColors(name); // Invokes .ColorScheme() and .Name() mixins inside of different color classes
-.Name(@name) {
-	.highlight code&:before,		// Normal highlighted code block
-	& + div.highlight code:before,	// Highlighted code block preceded by language override (force to be more specific than ordinary highlight)
-	& + pre:before {				// Unhighlighted code block preceded by language override 
-		content: @name;
-	}
-}
-.ColorScheme(@baseColor, @textColor: #fff) {
+.defineCategoryColors({
 	@hue: hue(@baseColor);
 	@saturation: saturation(@baseColor);
 
-	.highlight code&,		// Normal highlighted code block
-	& + div.highlight code,	// Highlighted code block preceded by language override (force to be more specific than ordinary highlight)
-	& + pre {				// Unhighlighted code block preceded by language override
-		background-color: hsl(@hue, @saturation, 90%);
-		outline-color: hsl(@hue, @saturation, 75%);
-		&:before{
-			color: hsl(@hue, @saturation, 40%);
+	& when not (@name = '') {		// Guards are only currently allowed on a single selector
+		.highlight code.language-@{class},	// Normal highlighted code block
+		@{selector} + div.highlight code,		// Highlighted code block preceded by language override (force to be more specific than ordinary highlight)
+		@{selector} + pre {					// Unhighlighted code block preceded by language override
+			background-color: hsl(@hue, @saturation, 90%);
+			outline-color: hsl(@hue, @saturation, 75%);
+
+			&:before {
+				content: @name;
+				color: hsl(@hue, @saturation, 40%);
+			}
 		}
 	}
-}
+});
 
 /////////////////////////////////////
 // Language-specific syntax overrides
