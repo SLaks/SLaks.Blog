@@ -44,41 +44,53 @@ div.small + div.highlight code:before,
 div.small + pre:before {
   font-size: 30px;
 }
-.highlight code.language-xaml,
-.xaml + div.highlight code,
-.xaml + pre {
-  background-color: #d1e5fa;
-  outline-color: #8cbdf2;
+.highlight code.language-cpp,
+.cpp + div.highlight code,
+.cpp + pre {
+  background-color: #d8e4f3;
+  outline-color: #9ebbe1;
 }
-.highlight code.language-xaml:before,
-.xaml + div.highlight code:before,
-.xaml + pre:before {
-  content: "XAML";
-  color: #1462b8;
+.highlight code.language-cpp:before,
+.cpp + div.highlight code:before,
+.cpp + pre:before {
+  content: "C++";
+  color: #31609b;
 }
-.highlight code.language-april-fools,
-.april-fools + div.highlight code,
-.april-fools + pre {
-  background-color: #ffcccc;
-  outline-color: #ff8080;
+.highlight code.language-csharp,
+.csharp + div.highlight code,
+.csharp + pre {
+  background-color: #dbf1da;
+  outline-color: #a5dda2;
 }
-.highlight code.language-april-fools:before,
-.april-fools + div.highlight code:before,
-.april-fools + pre:before {
-  content: "ErrorFree";
-  color: #cc0000;
+.highlight code.language-csharp:before,
+.csharp + div.highlight code:before,
+.csharp + pre:before {
+  content: "C♯";
+  color: #3b9537;
 }
-.highlight code.language-errorfree,
-.errorfree + div.highlight code,
-.errorfree + pre {
-  background-color: #ffcccc;
-  outline-color: #ff8080;
+.highlight code.language-css,
+.css + div.highlight code,
+.css + pre {
+  background-color: #ccecff;
+  outline-color: #80cfff;
 }
-.highlight code.language-errorfree:before,
-.errorfree + div.highlight code:before,
-.errorfree + pre:before {
-  content: "ErrorFree";
-  color: #cc0000;
+.highlight code.language-css:before,
+.css + div.highlight code:before,
+.css + pre:before {
+  content: "CSS";
+  color: #007fcc;
+}
+.highlight code.language-html,
+.html + div.highlight code,
+.html + pre {
+  background-color: #f9dad2;
+  outline-color: #f0a28e;
+}
+.highlight code.language-html:before,
+.html + div.highlight code:before,
+.html + pre:before {
+  content: "HTML";
+  color: #b53717;
 }
 .highlight code.language-javascript,
 .javascript + div.highlight code,
@@ -116,42 +128,6 @@ div.small + pre:before {
   content: "Jekyll";
   color: #cca300;
 }
-.highlight code.language-html,
-.html + div.highlight code,
-.html + pre {
-  background-color: #f9dad2;
-  outline-color: #f0a28e;
-}
-.highlight code.language-html:before,
-.html + div.highlight code:before,
-.html + pre:before {
-  content: "HTML";
-  color: #b53717;
-}
-.highlight code.language-xml,
-.xml + div.highlight code,
-.xml + pre {
-  background-color: #ffe0cc;
-  outline-color: #ffb380;
-}
-.highlight code.language-xml:before,
-.xml + div.highlight code:before,
-.xml + pre:before {
-  content: "XML";
-  color: #cc5200;
-}
-.highlight code.language-css,
-.css + div.highlight code,
-.css + pre {
-  background-color: #ccecff;
-  outline-color: #80cfff;
-}
-.highlight code.language-css:before,
-.css + div.highlight code:before,
-.css + pre:before {
-  content: "CSS";
-  color: #007fcc;
-}
 .highlight code.language-less,
 .less + div.highlight code,
 .less + pre {
@@ -164,17 +140,17 @@ div.small + pre:before {
   content: "LESS";
   color: #2866a4;
 }
-.highlight code.language-csharp,
-.csharp + div.highlight code,
-.csharp + pre {
-  background-color: #dbf1da;
-  outline-color: #a5dda2;
+.highlight code.language-razor,
+.razor + div.highlight code,
+.razor + pre {
+  background-color: #cce8ff;
+  outline-color: #80c5ff;
 }
-.highlight code.language-csharp:before,
-.csharp + div.highlight code:before,
-.csharp + pre:before {
-  content: "C♯";
-  color: #3b9537;
+.highlight code.language-razor:before,
+.razor + div.highlight code:before,
+.razor + pre:before {
+  content: "Razor";
+  color: #006fcc;
 }
 .highlight code.language-vb-net,
 .vb-net + div.highlight code,
@@ -200,29 +176,53 @@ div.small + pre:before {
   content: "VB.Net";
   color: #006dcc;
 }
-.highlight code.language-cpp,
-.cpp + div.highlight code,
-.cpp + pre {
-  background-color: #d8e4f3;
-  outline-color: #9ebbe1;
+.highlight code.language-xaml,
+.xaml + div.highlight code,
+.xaml + pre {
+  background-color: #d1e5fa;
+  outline-color: #8cbdf2;
 }
-.highlight code.language-cpp:before,
-.cpp + div.highlight code:before,
-.cpp + pre:before {
-  content: "C++";
-  color: #31609b;
+.highlight code.language-xaml:before,
+.xaml + div.highlight code:before,
+.xaml + pre:before {
+  content: "XAML";
+  color: #1462b8;
 }
-.highlight code.language-razor,
-.razor + div.highlight code,
-.razor + pre {
-  background-color: #cce8ff;
-  outline-color: #80c5ff;
+.highlight code.language-xml,
+.xml + div.highlight code,
+.xml + pre {
+  background-color: #ffe0cc;
+  outline-color: #ffb380;
 }
-.highlight code.language-razor:before,
-.razor + div.highlight code:before,
-.razor + pre:before {
-  content: "Razor";
-  color: #006fcc;
+.highlight code.language-xml:before,
+.xml + div.highlight code:before,
+.xml + pre:before {
+  content: "XML";
+  color: #cc5200;
+}
+.highlight code.language-april-fools,
+.april-fools + div.highlight code,
+.april-fools + pre {
+  background-color: #ffcccc;
+  outline-color: #ff8080;
+}
+.highlight code.language-april-fools:before,
+.april-fools + div.highlight code:before,
+.april-fools + pre:before {
+  content: "ErrorFree";
+  color: #cc0000;
+}
+.highlight code.language-errorfree,
+.errorfree + div.highlight code,
+.errorfree + pre {
+  background-color: #ffcccc;
+  outline-color: #ff8080;
+}
+.highlight code.language-errorfree:before,
+.errorfree + div.highlight code:before,
+.errorfree + pre:before {
+  content: "ErrorFree";
+  color: #cc0000;
 }
 .less + .highlight .err,
 .razor + .highlight .err {

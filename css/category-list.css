@@ -20,25 +20,21 @@
   background-color: #5dc4f0;
   color: #ffffff;
 }
-.category-list li.xaml:before {
-  background-color: #378ce9;
+.category-list li.cpp:before {
+  background-color: #9fbce1;
   color: #ffffff;
 }
-.category-list li.roslyn:before {
-  background-color: #68217a;
+.category-list li.csharp:before {
+  background-color: #368832;
   color: #ffffff;
 }
-.category-list li.april-fools:before {
-  background-color: red;
-  color: #ffffff;
+.category-list li.css:before {
+  background-color: #97d8ff;
+  color: #131313;
 }
-.category-list li.errorfree:before {
-  background-color: red;
-  color: #ffffff;
-}
-.category-list li.type-theory:before {
-  background-color: #570000;
-  color: #ffffff;
+.category-list li.html:before {
+  background-color: #e34c26;
+  color: #ebebeb;
 }
 .category-list li.javascript:before {
   background-color: #f3df49;
@@ -48,40 +44,60 @@
   background-color: #f3df49;
   color: #2e2e2c;
 }
-.category-list li.derby-js:before {
-  background-color: #55b3a6;
-  color: #f6f0e1;
-}
-.category-list li.socket-io:before {
-  background-color: #19698a;
-  color: #ffffff;
-}
-.category-list li.node-js:before {
-  background-color: #8bc84b;
-  color: #46483e;
-}
 .category-list li.jekyll:before {
   background-color: #ffcc00;
   color: #333333;
 }
-.category-list li.jquery:before {
-  background-color: #0769ad;
-  color: #70c8ee;
+.category-list li.less:before {
+  background-color: #143352;
+  color: #ffffff;
 }
-.category-list li.html:before {
-  background-color: #e34c26;
-  color: #ebebeb;
+.category-list li.razor:before {
+  background-color: #e7f4ff;
+  color: #000000;
+}
+.category-list li.vb-net:before {
+  background-color: #00539c;
+  color: #ffffff;
+}
+.category-list li.vbnet:before {
+  background-color: #00539c;
+  color: #ffffff;
+}
+.category-list li.xaml:before {
+  background-color: #378ce9;
+  color: #ffffff;
 }
 .category-list li.xml:before {
   background-color: #ff6600;
   color: #ffffff;
 }
-.category-list li.css:before {
-  background-color: #97d8ff;
-  color: #131313;
+.category-list li.dot-net:before {
+  background-color: #3babd0;
+  color: #ffffff;
 }
-.category-list li.less:before {
-  background-color: #143352;
+.category-list li.roslyn:before {
+  background-color: #68217a;
+  color: #ffffff;
+}
+.category-list li.type-theory:before {
+  background-color: #570000;
+  color: #ffffff;
+}
+.category-list li.derby-js:before {
+  background-color: #55b3a6;
+  color: #f6f0e1;
+}
+.category-list li.jquery:before {
+  background-color: #0769ad;
+  color: #70c8ee;
+}
+.category-list li.node-js:before {
+  background-color: #8bc84b;
+  color: #46483e;
+}
+.category-list li.socket-io:before {
+  background-color: #19698a;
   color: #ffffff;
 }
 .category-list li.visual-studio:before {
@@ -96,27 +112,11 @@
   background-color: #742894;
   color: #ffffff;
 }
-.category-list li.dot-net:before {
-  background-color: #3babd0;
+.category-list li.april-fools:before {
+  background-color: red;
   color: #ffffff;
 }
-.category-list li.csharp:before {
-  background-color: #368832;
+.category-list li.errorfree:before {
+  background-color: red;
   color: #ffffff;
-}
-.category-list li.vb-net:before {
-  background-color: #00539c;
-  color: #ffffff;
-}
-.category-list li.vbnet:before {
-  background-color: #00539c;
-  color: #ffffff;
-}
-.category-list li.cpp:before {
-  background-color: #9fbce1;
-  color: #ffffff;
-}
-.category-list li.razor:before {
-  background-color: #e7f4ff;
-  color: #000000;
 }

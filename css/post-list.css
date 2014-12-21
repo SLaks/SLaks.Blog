@@ -78,50 +78,47 @@
 .post-list li aside a:hover {
   color: #333333;
 }
-.post-list li.xaml aside {
-  background-color: #378ce9;
+.post-list li.cpp aside {
+  background-color: #9fbce1;
 }
-.post-list li.xaml aside:before {
-  border-color: transparent transparent #378ce9 transparent;
+.post-list li.cpp aside:before {
+  border-color: transparent transparent #9fbce1 transparent;
 }
-.post-list li.xaml aside a:hover {
+.post-list li.cpp aside a:hover {
+  color: #333333;
+}
+.post-list li.csharp aside {
+  background-color: #368832;
+}
+.post-list li.csharp aside:before {
+  border-color: transparent transparent #368832 transparent;
+}
+.post-list li.csharp aside a:hover {
   color: #cccccc;
 }
-.post-list li.roslyn aside {
-  background-color: #68217a;
+.post-list li.css aside {
+  background-color: #97d8ff;
 }
-.post-list li.roslyn aside:before {
-  border-color: transparent transparent #68217a transparent;
+.post-list li.css aside:before {
+  border-color: transparent transparent #97d8ff transparent;
 }
-.post-list li.roslyn aside a:hover {
-  color: #cccccc;
+.post-list li.css aside a {
+  color: #131313;
 }
-.post-list li.april-fools aside {
-  background-color: red;
+.post-list li.css aside a:hover {
+  color: #000000;
 }
-.post-list li.april-fools aside:before {
-  border-color: transparent transparent red transparent;
+.post-list li.html aside {
+  background-color: #e34c26;
 }
-.post-list li.april-fools aside a:hover {
-  color: #cccccc;
+.post-list li.html aside:before {
+  border-color: transparent transparent #e34c26 transparent;
 }
-.post-list li.errorfree aside {
-  background-color: red;
+.post-list li.html aside a {
+  color: #ebebeb;
 }
-.post-list li.errorfree aside:before {
-  border-color: transparent transparent red transparent;
-}
-.post-list li.errorfree aside a:hover {
-  color: #cccccc;
-}
-.post-list li.type-theory aside {
-  background-color: #570000;
-}
-.post-list li.type-theory aside:before {
-  border-color: transparent transparent #570000 transparent;
-}
-.post-list li.type-theory aside a:hover {
-  color: #cccccc;
+.post-list li.html aside a:hover {
+  color: #ffffff;
 }
 .post-list li.javascript aside {
   background-color: #f3df49;
@@ -147,39 +144,6 @@
 .post-list li.js aside a:hover {
   color: #000000;
 }
-.post-list li.derby-js aside {
-  background-color: #55b3a6;
-}
-.post-list li.derby-js aside:before {
-  border-color: transparent transparent #55b3a6 transparent;
-}
-.post-list li.derby-js aside a {
-  color: #f6f0e1;
-}
-.post-list li.derby-js aside a:hover {
-  color: #ffffff;
-}
-.post-list li.socket-io aside {
-  background-color: #19698a;
-}
-.post-list li.socket-io aside:before {
-  border-color: transparent transparent #19698a transparent;
-}
-.post-list li.socket-io aside a:hover {
-  color: #cccccc;
-}
-.post-list li.node-js aside {
-  background-color: #8bc84b;
-}
-.post-list li.node-js aside:before {
-  border-color: transparent transparent #8bc84b transparent;
-}
-.post-list li.node-js aside a {
-  color: #46483e;
-}
-.post-list li.node-js aside a:hover {
-  color: #000000;
-}
 .post-list li.jekyll aside {
   background-color: #ffcc00;
 }
@@ -191,6 +155,102 @@
 }
 .post-list li.jekyll aside a:hover {
   color: #000000;
+}
+.post-list li.less aside {
+  background-color: #143352;
+}
+.post-list li.less aside:before {
+  border-color: transparent transparent #143352 transparent;
+}
+.post-list li.less aside a:hover {
+  color: #cccccc;
+}
+.post-list li.razor aside {
+  background-color: #e7f4ff;
+}
+.post-list li.razor aside:before {
+  border-color: transparent transparent #e7f4ff transparent;
+}
+.post-list li.razor aside a {
+  color: #000000;
+}
+.post-list li.razor aside a:hover {
+  color: #000000;
+}
+.post-list li.vb-net aside {
+  background-color: #00539c;
+}
+.post-list li.vb-net aside:before {
+  border-color: transparent transparent #00539c transparent;
+}
+.post-list li.vb-net aside a:hover {
+  color: #cccccc;
+}
+.post-list li.vbnet aside {
+  background-color: #00539c;
+}
+.post-list li.vbnet aside:before {
+  border-color: transparent transparent #00539c transparent;
+}
+.post-list li.vbnet aside a:hover {
+  color: #cccccc;
+}
+.post-list li.xaml aside {
+  background-color: #378ce9;
+}
+.post-list li.xaml aside:before {
+  border-color: transparent transparent #378ce9 transparent;
+}
+.post-list li.xaml aside a:hover {
+  color: #cccccc;
+}
+.post-list li.xml aside {
+  background-color: #ff6600;
+}
+.post-list li.xml aside:before {
+  border-color: transparent transparent #ff6600 transparent;
+}
+.post-list li.xml aside a:hover {
+  color: #cccccc;
+}
+.post-list li.dot-net aside {
+  background-color: #3babd0;
+}
+.post-list li.dot-net aside:before {
+  border-color: transparent transparent #3babd0 transparent;
+}
+.post-list li.dot-net aside a:hover {
+  color: #cccccc;
+}
+.post-list li.roslyn aside {
+  background-color: #68217a;
+}
+.post-list li.roslyn aside:before {
+  border-color: transparent transparent #68217a transparent;
+}
+.post-list li.roslyn aside a:hover {
+  color: #cccccc;
+}
+.post-list li.type-theory aside {
+  background-color: #570000;
+}
+.post-list li.type-theory aside:before {
+  border-color: transparent transparent #570000 transparent;
+}
+.post-list li.type-theory aside a:hover {
+  color: #cccccc;
+}
+.post-list li.derby-js aside {
+  background-color: #55b3a6;
+}
+.post-list li.derby-js aside:before {
+  border-color: transparent transparent #55b3a6 transparent;
+}
+.post-list li.derby-js aside a {
+  color: #f6f0e1;
+}
+.post-list li.derby-js aside a:hover {
+  color: #ffffff;
 }
 .post-list li.jquery aside {
   background-color: #0769ad;
@@ -204,46 +264,25 @@
 .post-list li.jquery aside a:hover {
   color: #ffffff;
 }
-.post-list li.html aside {
-  background-color: #e34c26;
+.post-list li.node-js aside {
+  background-color: #8bc84b;
 }
-.post-list li.html aside:before {
-  border-color: transparent transparent #e34c26 transparent;
+.post-list li.node-js aside:before {
+  border-color: transparent transparent #8bc84b transparent;
 }
-.post-list li.html aside a {
-  color: #ebebeb;
+.post-list li.node-js aside a {
+  color: #46483e;
 }
-.post-list li.html aside a:hover {
-  color: #ffffff;
-}
-.post-list li.xml aside {
-  background-color: #ff6600;
-}
-.post-list li.xml aside:before {
-  border-color: transparent transparent #ff6600 transparent;
-}
-.post-list li.xml aside a:hover {
-  color: #cccccc;
-}
-.post-list li.css aside {
-  background-color: #97d8ff;
-}
-.post-list li.css aside:before {
-  border-color: transparent transparent #97d8ff transparent;
-}
-.post-list li.css aside a {
-  color: #131313;
-}
-.post-list li.css aside a:hover {
+.post-list li.node-js aside a:hover {
   color: #000000;
 }
-.post-list li.less aside {
-  background-color: #143352;
+.post-list li.socket-io aside {
+  background-color: #19698a;
 }
-.post-list li.less aside:before {
-  border-color: transparent transparent #143352 transparent;
+.post-list li.socket-io aside:before {
+  border-color: transparent transparent #19698a transparent;
 }
-.post-list li.less aside a:hover {
+.post-list li.socket-io aside a:hover {
   color: #cccccc;
 }
 .post-list li.visual-studio aside {
@@ -273,62 +312,23 @@
 .post-list li.visual-studio-2013 aside a:hover {
   color: #cccccc;
 }
-.post-list li.dot-net aside {
-  background-color: #3babd0;
+.post-list li.april-fools aside {
+  background-color: red;
 }
-.post-list li.dot-net aside:before {
-  border-color: transparent transparent #3babd0 transparent;
+.post-list li.april-fools aside:before {
+  border-color: transparent transparent red transparent;
 }
-.post-list li.dot-net aside a:hover {
+.post-list li.april-fools aside a:hover {
   color: #cccccc;
 }
-.post-list li.csharp aside {
-  background-color: #368832;
+.post-list li.errorfree aside {
+  background-color: red;
 }
-.post-list li.csharp aside:before {
-  border-color: transparent transparent #368832 transparent;
+.post-list li.errorfree aside:before {
+  border-color: transparent transparent red transparent;
 }
-.post-list li.csharp aside a:hover {
+.post-list li.errorfree aside a:hover {
   color: #cccccc;
-}
-.post-list li.vb-net aside {
-  background-color: #00539c;
-}
-.post-list li.vb-net aside:before {
-  border-color: transparent transparent #00539c transparent;
-}
-.post-list li.vb-net aside a:hover {
-  color: #cccccc;
-}
-.post-list li.vbnet aside {
-  background-color: #00539c;
-}
-.post-list li.vbnet aside:before {
-  border-color: transparent transparent #00539c transparent;
-}
-.post-list li.vbnet aside a:hover {
-  color: #cccccc;
-}
-.post-list li.cpp aside {
-  background-color: #9fbce1;
-}
-.post-list li.cpp aside:before {
-  border-color: transparent transparent #9fbce1 transparent;
-}
-.post-list li.cpp aside a:hover {
-  color: #333333;
-}
-.post-list li.razor aside {
-  background-color: #e7f4ff;
-}
-.post-list li.razor aside:before {
-  border-color: transparent transparent #e7f4ff transparent;
-}
-.post-list li.razor aside a {
-  color: #000000;
-}
-.post-list li.razor aside a:hover {
-  color: #000000;
 }
 .post-list li aside {
   position: absolute;
