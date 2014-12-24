@@ -119,6 +119,12 @@
 .side-post-list li + li.xml {
   border-left-color: #ff6600;
 }
+.side-post-list li + li.async {
+  border-left-color: #ff7700;
+}
+.side-post-list li + li.multi-threading {
+  border-left-color: #ff7700;
+}
 .side-post-list li + li.dot-net {
   border-left-color: #3babd0;
 }

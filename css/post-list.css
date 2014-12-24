@@ -213,6 +213,24 @@
 .post-list li.xml aside a:hover {
   color: #cccccc;
 }
+.post-list li.async aside {
+  background-color: #ff7700;
+}
+.post-list li.async aside:before {
+  border-color: transparent transparent #ff7700 transparent;
+}
+.post-list li.async aside a:hover {
+  color: #cccccc;
+}
+.post-list li.multi-threading aside {
+  background-color: #ff7700;
+}
+.post-list li.multi-threading aside:before {
+  border-color: transparent transparent #ff7700 transparent;
+}
+.post-list li.multi-threading aside a:hover {
+  color: #cccccc;
+}
 .post-list li.dot-net aside {
   background-color: #3babd0;
 }
