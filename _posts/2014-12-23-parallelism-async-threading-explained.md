@@ -1,5 +1,5 @@
 ---
-title: "Parallelism, Asynchrony, and Multi-threading Explained"
+title: "Concurrency, part 1: Parallelism, Asynchrony, and Multi-threading Explained"
 layout: "post"
 categories: [async, multi-threading, concepts]
 ---
@@ -46,4 +46,4 @@ As mentioned earlier, asynchrony and multi-threading are completely orthogonal c
  - Java, by contrast, is fully multi-threaded, with a powerful system of Executors and synchronization primitives, but has extremely little support for asynchronous operations.  Before Java 8, Java had no built-in asynchronous operations, although there are some third-party libraries that offer async network IO.  
  - C# is both asynchronous and multi-threaded.  Like Java, it has a rich threading API, but unlike Java, it has had asynchronous IO methods since day 1.  .Net 4.5 introduced simple-to-use asynchronous IO methods using the TPL and `Task<T>`, replacing the older, more cumbersome APM-based methods (`Begin*()` and `End*()`).  However, outside the core .Net framework, many third-party libraries still do not offer asynchronous versions of IO-bound operations.
 
-_Next time: Promises: Asynchronous operations, the easy way_
+[_Next time: Patterns for Asynchronous Methods_](/2015-01-04/async-method-patterns)
