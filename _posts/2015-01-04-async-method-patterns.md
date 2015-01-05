@@ -51,4 +51,4 @@ function addHash(path, callback) {
 }
 ```
 
-_Next time: More about promises_
+[_Next time: More about promises_](/2015-01-05/introducing-promises)
