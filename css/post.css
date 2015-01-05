@@ -254,7 +254,7 @@ article {
 article h2 {
   font-weight: 200;
   font-size: 24px;
-  margin-bottom: 0;
+  margin-bottom: 12px;
   border-bottom: solid 1px #aaa;
 }
 article p,
