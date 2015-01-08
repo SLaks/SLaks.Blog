@@ -2,6 +2,7 @@
 title: "Concurrency, part 4: Comparing promises frameworks in different languages"
 layout: "post"
 categories: [async, promises, concepts, javascript]
+redirect_from: "/2015-01-08/promises-frameworks-langauge-comparison/"
 ---
 
 [Last time](/2015-01-05/introducing-promises), I explained what promises are and how they work.  Now, I'll explore standard & third-party promise libraries in popular languages, explaining how they implement each facet of the promise paradigm.

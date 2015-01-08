@@ -15,3 +15,6 @@ githubRawUrl: https://raw.github.com/SLaks/SLaks.Blog/gh-pages/
 githubUrl:    https://github.com/SLaks/SLaks.Blog/tree/gh-pages/
 
 absoluteBaseUrl: http://blog.slaks.net
+
+gems:
+  - jekyll-redirect-from
