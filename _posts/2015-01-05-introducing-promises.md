@@ -167,4 +167,4 @@ function testAjaxFailure() {
 }
 ```
 
-_Next time: Comparing promises in different languages_
+[_Next time: Comparing promises in different languages_](/2015-01-08/promises-frameworks-langauge-comparison/)
