@@ -61,4 +61,4 @@ The best part of typename comments is their broad support spectrum: This syntax 
 
 [<img src="/images/2015/vs-typename-comments.png" alt="Screenshot of syntax highlighting for typename comments" style="max-width:100%;" />](/images/2015/vs-typename-comments.png)
 
-_Next time: The method behind the madness_
+[_Next time: The method behind the madness_](/2015-04-02/typename-comments-the-method-behind-the-madness)
