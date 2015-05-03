@@ -108,6 +108,14 @@
   background-color: #19698a;
   color: #ffffff;
 }
+.category-list li.vs-code:before {
+  background-color: #038fd6;
+  color: #ffffff;
+}
+.category-list li.visual-studio-code:before {
+  background-color: #038fd6;
+  color: #ffffff;
+}
 .category-list li.visual-studio:before {
   background-color: #742894;
   color: #ffffff;

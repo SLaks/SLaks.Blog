@@ -303,6 +303,24 @@
 .post-list li.socket-io aside a:hover {
   color: #cccccc;
 }
+.post-list li.vs-code aside {
+  background-color: #038fd6;
+}
+.post-list li.vs-code aside:before {
+  border-color: transparent transparent #038fd6 transparent;
+}
+.post-list li.vs-code aside a:hover {
+  color: #cccccc;
+}
+.post-list li.visual-studio-code aside {
+  background-color: #038fd6;
+}
+.post-list li.visual-studio-code aside:before {
+  border-color: transparent transparent #038fd6 transparent;
+}
+.post-list li.visual-studio-code aside a:hover {
+  color: #cccccc;
+}
 .post-list li.visual-studio aside {
   background-color: #742894;
 }

@@ -146,6 +146,12 @@
 .side-post-list li + li.socket-io {
   border-left-color: #19698a;
 }
+.side-post-list li + li.vs-code {
+  border-left-color: #038fd6;
+}
+.side-post-list li + li.visual-studio-code {
+  border-left-color: #038fd6;
+}
 .side-post-list li + li.visual-studio {
   border-left-color: #742894;
 }
