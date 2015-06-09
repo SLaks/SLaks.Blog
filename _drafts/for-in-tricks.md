@@ -4,7 +4,7 @@ layout: "post"
 categories: [Javascript, evil]
 ---
 
-Javascript's for in loop hasa surprising subtelty.  
+Javascript's for in loop has a surprising subtlety.  
 
 The spec says that there are two versions of the for in loop.
 

@@ -44,4 +44,4 @@ Never show an error message
 ----
 
 _Note: Although I have some understanding of the use of cryptographic primtiives, I am not a professional cryptographer._  
-Please take any cryptographic advice with a grain of salt (pun intended).  If you are building highly sensitive systems, you should verify with your company's cryptogrpaher (you _do_ have one, right?)
+Please take any cryptographic advice with a grain of salt (pun intended).  If you are building highly sensitive systems, you should verify with your company's cryptographer (you _do_ have one, right?)
