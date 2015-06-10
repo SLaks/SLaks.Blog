@@ -103,4 +103,4 @@ jQuery returns promises from all of its asynchronous operations.  `$.ajax()` (an
 
 
 
-_Next time: Advanced promise development guidelines_
+[_Next time: Advanced promise development guidelines_](/2015-06-10/advanced-promise-usage)
