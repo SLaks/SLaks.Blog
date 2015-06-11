@@ -145,8 +145,8 @@ function memoizeAsync(fn) {
 }
 ```
 
-In multi-threaded environments (eg, not Javascript), you must also beware of thread-safety.  You can do this lock-free fashion by using a [compare-and-swap loop](/2013-07-29/creating-lock-free-data-structures) to insert the promise into an immutable map.  Make sure to only actually send the request after the compare-and-swap loop completes successfully, at which point you know that only your thread has added the value.  (Depending on how your request call works, you may need to add a promise resolver to the map, then resolve it to the request result after sending it.)
+In multi-threaded environments (ie, not Javascript), you must also beware of thread-safety.  You can do this lock-free fashion by using a [compare-and-swap loop](/2013-07-29/creating-lock-free-data-structures) to insert the promise into an immutable map.  Make sure to only actually send the request after the compare-and-swap loop completes successfully, at which point you know that only your thread has added the value.  (Depending on how your request call works, you may need to add a promise resolver to the map, then resolve it to the request result after sending it.)
 
 
 
-_Next time: Using await for easier asynchrony in C#_
+[_Next time: Using await for easier asynchrony in C#_](/2015-06-11/easier-csharp-async-with-await)
