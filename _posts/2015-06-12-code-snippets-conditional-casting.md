@@ -48,7 +48,7 @@ For simple uses, C# 6 introduces the ideal way to do this with the conditional a
 <div class="small"></div>
 ```csharp
 (x as Button)?.Click();
-(null as IPAddress)?.Address = null;
+(null as StreamWriter)?.WriteLine();
 ```
 
 If the cast fails, it will evaluate to null, and the `?.` operator won't do anything.  However, this only helps if you're doing exactly one method call on the casted expression, and does not work for assignments or [event handler registration](https://github.com/dotnet/roslyn/issues/1276).
