@@ -136,12 +136,12 @@ Here is a line-by-line explanation:
  1. Increment the value at heap location 0.  
     (Load, add one, store)
  2. Print the square of said value.
-    (Load, duplicate, multiple, print)
+    (Load, duplicate, multiply, print)
  3. Compare the value at heap location 0 to 0x42, pushing 1 if it's less than 42 and 0 if it's greater or equal.
    (Load, push comparand, compare)
  4. Jump forward by two bytes if it was less (thus wrapping around to the beginning of the file), or one byte if it's time to exit the loop.
    (add one, jump)
- 5. A final byte to jump to to exit the program.  (without this byte, jumping forward would either wrap around or remain at the jump instruction, so the program would hang after finishing the loop.
+ 5. A final byte to jump to to exit the program.  Without this byte, jumping forward would either wrap around (for `1`) or remain at the jump instruction (for `0`), so the program would hang after finishing the loop.
 
 #Other notes
 It is impossible to make non-breaking changes to the ErrorFree language once it's released, since any new code you want to allow already has an existing meaning.  Instead, newer versions must be explicitly specified when invoking the compiler/interpreter.
