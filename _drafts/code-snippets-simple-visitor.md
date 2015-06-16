@@ -4,6 +4,10 @@ layout: "post"
 categories: [C#, design-patterns, code-snippets]
 ---
 
+_This post is part of a [series](/#code-snippets) of blog posts called code snippets.  These blog posts will explore successively more interesting ways to do simple tasks or abuse language features._
+
+Roslyn does something like this for symbols.
+
 ```csharp
 public static void Visit(this Login login, Action<TwitterLogin> twitter, Action<FacebookLogin> facebook, Action<PasswordLogin> email) {
 	if (login == null) throw new ArgumentNullException("login");

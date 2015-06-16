@@ -4,7 +4,7 @@ layout: "post"
 categories: [C#, casts, code-snippets]
 ---
 
-_This post is the beginning of a new [series](/#code-snippets) of blog posts called code snippets.  These blog posts will explore interesting ways to do simple tasks, or interesting ways to abuse features._
+_This post is the beginning of a new [series](/#code-snippets) of blog posts called code snippets.  These blog posts will explore successively more interesting ways to do simple tasks or abuse language features._
 
 When writing C#, you will occasionally need to check whether an object is an instance of a certain type (eg, `Button`), and use part of that type if it is.
 
