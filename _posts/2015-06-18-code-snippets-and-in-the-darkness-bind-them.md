@@ -3,7 +3,7 @@ title: "Code Snippets: And in the darkness bind() them"
 layout: "post"
 categories: [Javascript, code-snippets]
 ---
-_This post is part of a [series](/#code-snippets) of blog posts called code snippets.  These blog posts will explore interesting ways to do simple tasks, or interesting ways to abuse features._
+_This post is part of a [series](/#code-snippets) of blog posts called code snippets.  These blog posts will explore successively more interesting ways to do simple tasks or abuse language features._
 
 Javascript's [`bind()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) (new to ES5) is very useful for passing callbacks or event handlers that use an existing `this`.
 
@@ -63,7 +63,7 @@ myFuncs.forEach(eval.call.bind(eval.call));
 
 (other short function names, such as `Date` or `isNaN`, would also work)
 
-_Side note:_ Please, don't do this.
+_Side note:_ Please, don't do that.
 
 This technique effectively "uncurries" the `this` parameter from a function.  It takes `call()`, which accepts the function to call as `this`, and produces a function that accepts the function to call as its first normal parameter (and ignores `this`).  You can use the same technique for other prototype functions.  For example, you can turn `Array.push` into a standalone function that mutates its first parameter:
 
@@ -99,6 +99,7 @@ You can take an array of objects, and turn it into an array of functions bound t
 ```js
 var elements = [document.head, document.body];
 var cloners = elements.map(Function.bind.bind(Element.prototype.cloneNode));
+var clone0 = cloners[0]();
 ```
 
 This takes an array of elements and creates an array of functions that will clone those elements on each call.  It works by binding `bind()` to bind `cloneNode()`; it ends up calling `cloneNode.bind(array[x])`.  
