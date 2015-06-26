@@ -41,7 +41,7 @@ Func<T, object> getter;
 if (!getters.TryGetValue(name, out getter)) {
 	getter = (Func<T, object>)Delegate.CreateDelegate(
 		typeof(Func<T, object>),
-		typeof(TargetException).GetProperty(name).GetMethod
+		typeof(T).GetProperty(name).GetMethod
 	);
 	getters.Add(name, getter);
 }
@@ -56,4 +56,17 @@ This approach has some caveats.  This can only work if you know the type of the 
 
 This also won't work for properties that return value types.  Variance [works because](http://stackoverflow.com/a/12454932/34397) the runtime representation of the types are completely identical, so that the JITted code doesn't know or care that the actual type parameter is different.  Value types require different codegen than reference types, so this cannot begin to work.
 
-To solve these problems, you can do actual runtime code generation, using the ever-handy `Expression<T>`.
+To solve these problems, you can do actual runtime code generation, using the ever-handy `Expression<T>`.  Specifically, you need to create an expression tree that casts an `object` parameter to `T` (if you don't know the actual type at compile time), then boxes the result of the property into an `object` (if it's a value type).
+
+```csharp
+var param = Expression.Parameter(typeof(T));
+getter = Expression.Lambda<Func<T, object>>(
+	Expression.Convert(
+		Expression.Property(param, name),
+		typeof(object)
+	),
+	param
+).Compile();
+```
+
+The `Expression.Convert()` node will automatically generate a boxing conversion if `T` is a value type, making this work.  This whole block is only necessary if `T` is a value type; if it's a reference type, you can skip the entire runtime codegen phase with the previous example.
