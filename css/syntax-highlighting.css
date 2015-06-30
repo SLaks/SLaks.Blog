@@ -1,4 +1,4 @@
-.highlight .err {
+﻿.highlight .err {
   color: #a61717;
   background-color: #e3d2d2;
 }
@@ -73,7 +73,7 @@
   font-weight: bold;
 }
 .highlight .kd {
-  color: #ad6100;
+  color: #3232b2;
 }
 .highlight .kp {
   font-weight: bold;
@@ -82,7 +82,10 @@
   font-weight: bold;
 }
 .highlight .kt {
-  color: #ad6100;
+  color: #3232b2;
+}
+.highlight .n {
+  color: #c06c00;
 }
 .highlight .na {
   color: #008080;
