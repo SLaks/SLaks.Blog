@@ -92,6 +92,9 @@
 .side-post-list li + li.html {
   border-left-color: #e34c26;
 }
+.side-post-list li + li.java {
+  border-left-color: #e76f00;
+}
 .side-post-list li + li.javascript {
   border-left-color: #f3df49;
 }

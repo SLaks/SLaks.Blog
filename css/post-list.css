@@ -120,6 +120,15 @@
 .post-list li.html aside a:hover {
   color: #ffffff;
 }
+.post-list li.java aside {
+  background-color: #e76f00;
+}
+.post-list li.java aside:before {
+  border-color: transparent transparent #e76f00 transparent;
+}
+.post-list li.java aside a:hover {
+  color: #cccccc;
+}
 .post-list li.javascript aside {
   background-color: #f3df49;
 }

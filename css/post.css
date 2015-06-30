@@ -38,6 +38,14 @@ body.html {
   background: linear-gradient(to bottom, #f6c7bb 0, white 25%);
   background-repeat: no-repeat;
 }
+body.java {
+  background: -webkit-linear-gradient(to bottom, #ffd7b3 0, white 25%);
+  background: -ms-linear-gradient(to bottom, #ffd7b3 0, white 25%);
+  background: -moz-linear-gradient(to bottom, #ffd7b3 0, white 25%);
+  background: -o-linear-gradient(to bottom, #ffd7b3 0, white 25%);
+  background: linear-gradient(to bottom, #ffd7b3 0, white 25%);
+  background-repeat: no-repeat;
+}
 body.javascript {
   background: -webkit-linear-gradient(to bottom, #faf2b7 0, white 25%);
   background: -ms-linear-gradient(to bottom, #faf2b7 0, white 25%);

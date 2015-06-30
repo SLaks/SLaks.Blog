@@ -36,6 +36,10 @@
   background-color: #e34c26;
   color: #ebebeb;
 }
+.category-list li.java:before {
+  background-color: #e76f00;
+  color: #ffffff;
+}
 .category-list li.javascript:before {
   background-color: #f3df49;
   color: #2e2e2c;

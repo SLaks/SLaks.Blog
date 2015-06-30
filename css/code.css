@@ -92,6 +92,18 @@ div.small + pre:before {
   content: "HTML";
   color: #b53717;
 }
+.highlight code.language-java,
+.java + div.highlight code,
+.java + pre {
+  background-color: #ffe5cc;
+  outline-color: #ffbd80;
+}
+.highlight code.language-java:before,
+.java + div.highlight code:before,
+.java + pre:before {
+  content: "Java";
+  color: #cc6200;
+}
 .highlight code.language-javascript,
 .javascript + div.highlight code,
 .javascript + pre {
