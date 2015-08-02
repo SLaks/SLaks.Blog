@@ -34,7 +34,7 @@ class DerivedClass : BaseClass {
 ```
 
 Here, renaming `DoSomething()` to `DoOtherThing()` will change the method call in the derived class to `BaseClass.DoSomething()` to make sure it still references the correct method.
-
+       
 Some conflicts cannot be resolved.  For example:
 
 Given that Roslyn already knows what everything in your code means, this would seem like a simple feature to add.  However, the sheer number of different corner cases that can occur belies that assumptions.
@@ -53,3 +53,17 @@ Main()
 Aliases
 Rename String
 Rename to `var`
+
+```csharp
+namespace Outer {
+	using New = Old;
+	namespace B {
+		class C { New x; }
+		static class Old { }
+		static class Outer { }
+		static class ExtraClass { }	// Rename to New
+	}
+	class Old { }
+}
+static class Old { }
+```
