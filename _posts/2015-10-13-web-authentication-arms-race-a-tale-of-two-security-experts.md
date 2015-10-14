@@ -12,7 +12,7 @@ This entire conversation assumes that the user has already legitimately establis
  - **Attacker**: I will watch your network traffic and steal the passwords as they come down the wire.
 
  - **Defender**: I will change the `<form>` to submit over HTTPS, so you won't see any readable passwords.
- - **Attacker**: I will run an active MITM attack as the user loads the login page, and insert Javascript that sends the password to my server in the background.
+ - **Attacker**: I will run an active [MITM attack](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) as the user loads the login page, and insert Javascript that sends the password to my server in the background.
 
  - **Defender**: I will serve the login page itself over HTTPS too, so you won't be able to read or change it.
  - **Attacker**: I will watch your network traffic and steal the resulting authentication cookies, so I can still impersonate users even without knowing the password.
@@ -33,7 +33,7 @@ This entire conversation assumes that the user has already legitimately establis
   
  - **Attacker**: I will change my phishing page to request a second factor as well, then immediately use it to log in once.  (this will give the attacker a single login session with no way of logging in again, but that is often enough to cause harm)
   
- - **Defender**: I will replace my SMS or [TOTP](https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm) second factor with a private key on a [tamper-resistant hardware device](https://www.yubico.com/products/yubikey-hardware/), rendering an MITM attack completely unable to use the stolen credential (the private key is used to sign a challenge from the server, and never leaves the device; and the attacker cannot generate the same challenge that he got from the defender's server without the ephemeral server-side private key for that authentication challenge).
+ - **Defender**: I will replace my SMS or [TOTP](https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm) second factor with a private key on a [tamper-resistant hardware device](https://www.yubico.com/products/yubikey-hardware/), rendering an MITM attack completely unable to use the stolen credential (the private key is used to sign a challenge from the server, and never leaves the device; and the attacker cannot generate the same challenge that he got from the defender's server without the ephemeral server-side private key for that authentication challenge).  This also prevents phishing attacks, since the browser will incorporate the site origin into the challenge signed by the private key, and will refuse to send a challenge signed for the defender's server to any other origin.  This is only possible because the browser actively cooperates, unlike purely web-based solutions like SQRL.
  
  _Private keys, such as U2F devices, are unphishable credentials; it is now completely impossible for anyone who does not have physical posession of the private key to authenticate.  Note that this assumes that the hardware device is trusted; if the attacker can swap the device for a device with a known private key, all bets are off.  Also note that you should still use a password in conjuction with the hardware device, to prevent an attacker from simply stealing the device (if the device itself requires a password to operate, that's also fine)._
  
