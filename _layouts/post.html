@@ -48,6 +48,7 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 
 <ul class="side-post-list"> 
 	<li><h2>Other posts</h2></li>
+	{% if site.github or jekyll.environment != "development" %}
 	{% for post in site.posts %}{% unless post.preview %}
 		{% capture categories %}{{ post.categories | join:"~" }}{% endcapture %}
 		{% include extract-main-category %}
@@ -60,4 +61,5 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 			{% endif %}
 		</li>
 	{% endunless %}{% endfor %}
+	{% endif %}
 </ul>
