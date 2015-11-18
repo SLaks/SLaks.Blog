@@ -4,6 +4,7 @@ layout: "post"
 categories: [cryptography, security, mistakes]
 ---
 
+When writing code that deals with security or cryptography, there are a number of mistakes that many people make; some obvious and some quite subtle.  This post describes the most common mistakes I've seen and why they're wrong. 
 
 #Don't re-invent the car
 Correctly using cryptographic primitives is _hard_.  If at all possible, you should not use raw cryptographic primitives (even well-accepted ones like AES, RSA, or SHA2) directly; instead, you should use professionally-built and reviewed protocols that use these systems, such as TLS, [NaCl](http://nacl.cr.yp.to/), [Keyczar](https://github.com/google/keyczar), and others.
