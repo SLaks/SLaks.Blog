@@ -128,6 +128,12 @@
 .side-post-list li + li.multi-threading {
   border-left-color: #ff7700;
 }
+.side-post-list li + li.cryptography {
+  border-left-color: #a90a0a;
+}
+.side-post-list li + li.security {
+  border-left-color: #a90a0a;
+}
 .side-post-list li + li.dot-net {
   border-left-color: #3babd0;
 }

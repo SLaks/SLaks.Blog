@@ -240,6 +240,24 @@
 .post-list li.multi-threading aside a:hover {
   color: #cccccc;
 }
+.post-list li.cryptography aside {
+  background-color: #a90a0a;
+}
+.post-list li.cryptography aside:before {
+  border-color: transparent transparent #a90a0a transparent;
+}
+.post-list li.cryptography aside a:hover {
+  color: #cccccc;
+}
+.post-list li.security aside {
+  background-color: #a90a0a;
+}
+.post-list li.security aside:before {
+  border-color: transparent transparent #a90a0a transparent;
+}
+.post-list li.security aside a:hover {
+  color: #cccccc;
+}
 .post-list li.dot-net aside {
   background-color: #3babd0;
 }

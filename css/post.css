@@ -134,6 +134,22 @@ body.multi-threading {
   background: linear-gradient(to bottom, #ffd6b3 0, white 25%);
   background-repeat: no-repeat;
 }
+body.cryptography {
+  background: -webkit-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: -ms-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: -moz-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: -o-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background-repeat: no-repeat;
+}
+body.security {
+  background: -webkit-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: -ms-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: -moz-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: -o-linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background: linear-gradient(to bottom, #fbb7b7 0, white 25%);
+  background-repeat: no-repeat;
+}
 body.dot-net {
   background: -webkit-linear-gradient(to bottom, #c1e5f0 0, white 25%);
   background: -ms-linear-gradient(to bottom, #c1e5f0 0, white 25%);

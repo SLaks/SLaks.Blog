@@ -84,6 +84,14 @@
   background-color: #ff7700;
   color: #ffffff;
 }
+.category-list li.cryptography:before {
+  background-color: #a90a0a;
+  color: #ffffff;
+}
+.category-list li.security:before {
+  background-color: #a90a0a;
+  color: #ffffff;
+}
 .category-list li.dot-net:before {
   background-color: #3babd0;
   color: #ffffff;
