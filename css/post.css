@@ -52,6 +52,12 @@ body.jekyll {
   background: linear-gradient(to bottom, #fff0b3 0, white 25%);
   background-repeat: no-repeat;
 }
+body.liquid {
+  background: -webkit-linear-gradient(to bottom, #fff0b3 0, white 25%);
+  background: -webkit-linear-gradient(top, #fff0b3 0, white 25%);
+  background: linear-gradient(to bottom, #fff0b3 0, white 25%);
+  background-repeat: no-repeat;
+}
 body.less {
   background: -webkit-linear-gradient(to bottom, #c1d9f0 0, white 25%);
   background: -webkit-linear-gradient(top, #c1d9f0 0, white 25%);

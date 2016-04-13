@@ -89,6 +89,9 @@
 .side-post-list li + li.jekyll {
   border-left-color: #fc0;
 }
+.side-post-list li + li.liquid {
+  border-left-color: #fc0;
+}
 .side-post-list li + li.less {
   border-left-color: #143352;
 }

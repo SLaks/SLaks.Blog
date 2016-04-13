@@ -134,6 +134,18 @@ div.small + pre:before {
   content: "Jekyll";
   color: #cca300;
 }
+.highlight code.language-liquid,
+.liquid + div.highlight code,
+.liquid + pre {
+  background-color: #fff5cc;
+  outline-color: #ffe680;
+}
+.highlight code.language-liquid:before,
+.liquid + div.highlight code:before,
+.liquid + pre:before {
+  content: "Jekyll";
+  color: #cca300;
+}
 .highlight code.language-less,
 .less + div.highlight code,
 .less + pre {

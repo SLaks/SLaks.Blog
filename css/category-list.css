@@ -52,6 +52,10 @@
   background-color: #fc0;
   color: #333;
 }
+.category-list li.liquid:before {
+  background-color: #fc0;
+  color: #333;
+}
 .category-list li.less:before {
   background-color: #143352;
   color: #fff;

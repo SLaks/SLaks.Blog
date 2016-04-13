@@ -152,6 +152,18 @@
 .post-list li.jekyll aside a:hover {
   color: #000000;
 }
+.post-list li.liquid aside {
+  background-color: #fc0;
+}
+.post-list li.liquid aside:before {
+  border-color: transparent transparent #fc0 transparent;
+}
+.post-list li.liquid aside a {
+  color: #333;
+}
+.post-list li.liquid aside a:hover {
+  color: #000000;
+}
 .post-list li.less aside {
   background-color: #143352;
 }
