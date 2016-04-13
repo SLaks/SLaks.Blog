@@ -9,15 +9,32 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<title>{{ page.title }}{{ page.titleSuffix }}</title>
+		<title>{{ page.title }}{{ layout.titleSuffix }}</title>
 		<link rel="alternate" type="application/atom+xml" title="SLaks.Blog - Atom" href="{{ site.url }}/feeds/posts/default.xml" />
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@Schabse" />
+		<meta name="og:title" content="{{ page.title | xml_escape }}{{ layout.titleSuffix }}" />
+		<meta name="twitter:title" content="{{ page.title | xml_escape }}{{ layout.titleSuffix }}" />
+		{% if page.layout == "post" %}
+			<meta name="twitter:description" content="{{ post.content | strip_html | truncatewords 100 }}" />
+		{% else %}
+			<meta name="twitter:description" content="Making the world a better place, one line of code at a time" />
+		{% endif %}
+		{% if page.twitterImage %}
+			<meta name="twitter:image" content="{{ page.twitterImage }}" />
+		{% endif %}
+
 		<meta name="viewport" content="width=device-width" />
 		<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 		<link href="/css/normalize.min.css" rel="stylesheet" />
 		<link href="/css/base.min.css" rel="stylesheet" />
+		{% for ref in layout.stylesheets %}
+			<link href="/css/{{ ref }}.min.css" rel="stylesheet" />
+		{% endfor %}
 		{% for ref in page.stylesheets %}
 			<link href="/css/{{ ref }}.min.css" rel="stylesheet" />
-		{% endfor %}			
+		{% endfor %}
 	</head>
 
 	{% if page.categories %}
