@@ -18,7 +18,7 @@ samp {
   width: 80%;
 }
 a:link {
-  color: #0088cc;
+  color: #08c;
 }
 a:visited {
   color: #0077cc;
@@ -43,8 +43,6 @@ header {
 }
 header a {
   text-decoration: none;
-  -moz-transition: all linear .2s;
-  -o-transition: all linear .2s;
   -webkit-transition: all linear .2s;
   transition: all linear .2s;
 }
@@ -52,10 +50,10 @@ header a:hover {
   color: #c33;
 }
 header a:hover:first-child {
-  text-shadow: -5px 0 6px #0088cc;
+  text-shadow: -5px 0 6px #08c;
 }
 header a:hover:last-child {
-  text-shadow: 5px 0 6px #0088cc;
+  text-shadow: 5px 0 6px #08c;
 }
 header h1 {
   margin: 0;
@@ -85,3 +83,5 @@ header h2 {
     margin: 0 30px;
   }
 }
+
+/*# sourceMappingURL=base.css.map */

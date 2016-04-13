@@ -1,4 +1,4 @@
-﻿.highlight code,
+.highlight code,
 div + pre {
   position: relative;
   display: block;
@@ -17,16 +17,10 @@ div + pre:before {
   font-size: 60px;
   pointer-events: none;
   opacity: .7;
-  -moz-transition-duration: .2s;
-  -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: opacity;
-  -o-transition-property: opacity;
   -webkit-transition-property: opacity;
   transition-property: opacity;
 }
@@ -241,3 +235,5 @@ div.small + pre:before {
   color: inherit;
   background-color: inherit;
 }
+
+/*# sourceMappingURL=code.css.map */

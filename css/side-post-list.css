@@ -1,4 +1,4 @@
-﻿.side-post-list {
+.side-post-list {
   width: 15px;
   overflow: hidden;
   background-color: white;
@@ -12,28 +12,19 @@
   margin: 0;
   padding: 0;
   line-height: 1;
-  -moz-transition-duration: .2s;
-  -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: width opacity;
-  -o-transition-property: width opacity;
   -webkit-transition-property: width opacity;
   transition-property: width opacity;
 }
 .side-post-list:hover {
   opacity: 1;
-  -webkit-box-shadow: 1px 0 12px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 1px 0 12px 0 rgba(0, 0, 0, 0.5);
 }
 .side-post-list li {
   padding: 0 10px;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 .side-post-list li:first-child {
@@ -60,16 +51,10 @@
 .side-post-list li + li p {
   margin: 0;
   max-height: 0;
-  -moz-transition-duration: .2s;
-  -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: margin-top max-height;
-  -o-transition-property: margin-top max-height;
   -webkit-transition-property: margin-top max-height;
   transition-property: margin-top max-height;
 }
@@ -78,7 +63,7 @@
   max-height: 200px;
 }
 .side-post-list li + li {
-  border-left-color: #5dc4f0;
+  border-left-color: #5DC4F0;
 }
 .side-post-list li + li.cpp {
   border-left-color: #9fbce1;
@@ -102,7 +87,7 @@
   border-left-color: #f3df49;
 }
 .side-post-list li + li.jekyll {
-  border-left-color: #ffcc00;
+  border-left-color: #fc0;
 }
 .side-post-list li + li.less {
   border-left-color: #143352;
@@ -120,7 +105,7 @@
   border-left-color: #378ce9;
 }
 .side-post-list li + li.xml {
-  border-left-color: #ff6600;
+  border-left-color: #f60;
 }
 .side-post-list li + li.async {
   border-left-color: #ff7700;
@@ -150,7 +135,7 @@
   border-left-color: #0769ad;
 }
 .side-post-list li + li.node-js {
-  border-left-color: #8bc84b;
+  border-left-color: #8BC84B;
 }
 .side-post-list li + li.socket-io {
   border-left-color: #19698a;
@@ -195,3 +180,5 @@
     display: none;
   }
 }
+
+/*# sourceMappingURL=side-post-list.css.map */

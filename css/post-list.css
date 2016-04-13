@@ -1,4 +1,4 @@
-﻿.category-label {
+.category-label {
   display: none;
 }
 .post-list {
@@ -14,16 +14,10 @@
   overflow: hidden;
   position: relative;
   z-index: 2;
-  -moz-transition-duration: .2s;
-  -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: margin-right margin-left;
-  -o-transition-property: margin-right margin-left;
   -webkit-transition-property: margin-right margin-left;
   transition-property: margin-right margin-left;
   padding-right: 32%;
@@ -35,23 +29,16 @@
 }
 .post-list li h2 span {
   background: white;
-  -webkit-box-shadow: 5px 0 8px 1px #ffffff;
   box-shadow: 5px 0 8px 1px #ffffff;
 }
 .post-list li h2 .date {
   position: absolute;
   top: 0;
   z-index: -1;
-  -moz-transition-duration: .2s;
-  -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: right margin-right;
-  -o-transition-property: right margin-right;
   -webkit-transition-property: right margin-right;
   transition-property: right margin-right;
   color: black;
@@ -70,13 +57,13 @@
   margin-bottom: 0;
 }
 .post-list li aside {
-  background-color: #5dc4f0;
+  background-color: #5DC4F0;
 }
 .post-list li aside:before {
-  border-color: transparent transparent #5dc4f0 transparent;
+  border-color: transparent transparent #5DC4F0 transparent;
 }
 .post-list li aside a:hover {
-  color: #333333;
+  color: #333;
 }
 .post-list li.cpp aside {
   background-color: #9fbce1;
@@ -85,7 +72,7 @@
   border-color: transparent transparent #9fbce1 transparent;
 }
 .post-list li.cpp aside a:hover {
-  color: #333333;
+  color: #333;
 }
 .post-list li.csharp aside {
   background-color: #368832;
@@ -94,7 +81,7 @@
   border-color: transparent transparent #368832 transparent;
 }
 .post-list li.csharp aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.css aside {
   background-color: #97d8ff;
@@ -127,7 +114,7 @@
   border-color: transparent transparent #e76f00 transparent;
 }
 .post-list li.java aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.javascript aside {
   background-color: #f3df49;
@@ -154,13 +141,13 @@
   color: #000000;
 }
 .post-list li.jekyll aside {
-  background-color: #ffcc00;
+  background-color: #fc0;
 }
 .post-list li.jekyll aside:before {
-  border-color: transparent transparent #ffcc00 transparent;
+  border-color: transparent transparent #fc0 transparent;
 }
 .post-list li.jekyll aside a {
-  color: #333333;
+  color: #333;
 }
 .post-list li.jekyll aside a:hover {
   color: #000000;
@@ -172,7 +159,7 @@
   border-color: transparent transparent #143352 transparent;
 }
 .post-list li.less aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.razor aside {
   background-color: #e7f4ff;
@@ -181,7 +168,7 @@
   border-color: transparent transparent #e7f4ff transparent;
 }
 .post-list li.razor aside a {
-  color: #000000;
+  color: #000;
 }
 .post-list li.razor aside a:hover {
   color: #000000;
@@ -193,7 +180,7 @@
   border-color: transparent transparent #00539c transparent;
 }
 .post-list li.vb-net aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.vbnet aside {
   background-color: #00539c;
@@ -202,7 +189,7 @@
   border-color: transparent transparent #00539c transparent;
 }
 .post-list li.vbnet aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.xaml aside {
   background-color: #378ce9;
@@ -211,16 +198,16 @@
   border-color: transparent transparent #378ce9 transparent;
 }
 .post-list li.xaml aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.xml aside {
-  background-color: #ff6600;
+  background-color: #f60;
 }
 .post-list li.xml aside:before {
-  border-color: transparent transparent #ff6600 transparent;
+  border-color: transparent transparent #f60 transparent;
 }
 .post-list li.xml aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.async aside {
   background-color: #ff7700;
@@ -229,7 +216,7 @@
   border-color: transparent transparent #ff7700 transparent;
 }
 .post-list li.async aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.multi-threading aside {
   background-color: #ff7700;
@@ -238,7 +225,7 @@
   border-color: transparent transparent #ff7700 transparent;
 }
 .post-list li.multi-threading aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.cryptography aside {
   background-color: #a90a0a;
@@ -247,7 +234,7 @@
   border-color: transparent transparent #a90a0a transparent;
 }
 .post-list li.cryptography aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.security aside {
   background-color: #a90a0a;
@@ -256,7 +243,7 @@
   border-color: transparent transparent #a90a0a transparent;
 }
 .post-list li.security aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.dot-net aside {
   background-color: #3babd0;
@@ -265,7 +252,7 @@
   border-color: transparent transparent #3babd0 transparent;
 }
 .post-list li.dot-net aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.roslyn aside {
   background-color: #68217a;
@@ -274,7 +261,7 @@
   border-color: transparent transparent #68217a transparent;
 }
 .post-list li.roslyn aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.type-theory aside {
   background-color: #570000;
@@ -283,7 +270,7 @@
   border-color: transparent transparent #570000 transparent;
 }
 .post-list li.type-theory aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.derby-js aside {
   background-color: #55b3a6;
@@ -310,10 +297,10 @@
   color: #ffffff;
 }
 .post-list li.node-js aside {
-  background-color: #8bc84b;
+  background-color: #8BC84B;
 }
 .post-list li.node-js aside:before {
-  border-color: transparent transparent #8bc84b transparent;
+  border-color: transparent transparent #8BC84B transparent;
 }
 .post-list li.node-js aside a {
   color: #46483e;
@@ -328,7 +315,7 @@
   border-color: transparent transparent #19698a transparent;
 }
 .post-list li.socket-io aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.vs-code aside {
   background-color: #038fd6;
@@ -337,7 +324,7 @@
   border-color: transparent transparent #038fd6 transparent;
 }
 .post-list li.vs-code aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.visual-studio-code aside {
   background-color: #038fd6;
@@ -346,7 +333,7 @@
   border-color: transparent transparent #038fd6 transparent;
 }
 .post-list li.visual-studio-code aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.visual-studio aside {
   background-color: #742894;
@@ -355,7 +342,7 @@
   border-color: transparent transparent #742894 transparent;
 }
 .post-list li.visual-studio aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.visual-studio-2012 aside {
   background-color: #742894;
@@ -364,7 +351,7 @@
   border-color: transparent transparent #742894 transparent;
 }
 .post-list li.visual-studio-2012 aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.visual-studio-2013 aside {
   background-color: #742894;
@@ -373,7 +360,7 @@
   border-color: transparent transparent #742894 transparent;
 }
 .post-list li.visual-studio-2013 aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.april-fools aside {
   background-color: red;
@@ -382,7 +369,7 @@
   border-color: transparent transparent red transparent;
 }
 .post-list li.april-fools aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li.errorfree aside {
   background-color: red;
@@ -391,7 +378,7 @@
   border-color: transparent transparent red transparent;
 }
 .post-list li.errorfree aside a:hover {
-  color: #cccccc;
+  color: #ccc;
 }
 .post-list li aside {
   position: absolute;
@@ -399,30 +386,18 @@
   top: 0;
   height: 100%;
   z-index: -2;
-  -moz-transition-duration: .2s;
-  -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: width right;
-  -o-transition-property: width right;
   -webkit-transition-property: width right;
   transition-property: width right;
 }
 .post-list li aside:before {
-  -moz-transition-duration: .2s;
-  -o-transition-duration: .2s;
   -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -moz-transition-timing-function: ease-out;
-  -o-transition-timing-function: ease-out;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -moz-transition-property: border-width margin-left;
-  -o-transition-property: border-width margin-left;
   -webkit-transition-property: border-width margin-left;
   transition-property: border-width margin-left;
   content: '';
@@ -523,3 +498,5 @@
     display: none;
   }
 }
+
+/*# sourceMappingURL=post-list.css.map */
