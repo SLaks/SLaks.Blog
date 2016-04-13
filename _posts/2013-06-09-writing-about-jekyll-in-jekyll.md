@@ -12,9 +12,9 @@ You may want to mention Liquid syntax in two ways: inline code (mentioning a <co
 
 Liquid includes a tag specifically designed to solve this problem: the `{% raw %}{% raw %}{% endraw %}` tag.  For example, the Liquid Markdown used to produce the preceding sentence is:
 
-<div class="jekyll small"></div>
+<div class="small"></div>
 {% assign openTag = '{%' %}
-```
+```liquid
 Liquid includes a tag specifically designed to solve this problem: 
 the `{{ openTag }} raw %}{{ openTag }} raw %}{{ openTag }} endraw %}` tag.
 ```

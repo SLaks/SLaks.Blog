@@ -10,8 +10,7 @@ categories: [Jekyll, Liquid, jekyll-hacks]
 
 These techniques cannot be used in syntax-highlighted code blocks (Jekyll's <code>&#123;% higlight %}</code> tag or a Markdown code block), since such blocks are always HTML-escaped.  Instead, you can wrap all of the code in the block with a Liquid <code>&#123;% raw %}</code> tag.  Since the Liquid tag is processed before Markdown or syntax highlighting, this works perfectly.
 
-<div class="jekyll"></div>
-``` {% raw %}
+```liquid {% raw %}
 {% raw %}
 Liquid uses tags like {% if %} or {% for %}.
 It also supports variable interpolation: {{ someVariable }}
@@ -22,8 +21,7 @@ This approach works wonderfully, until you try to put the <code>&#123;% endraw %
 
 One potential option would be to break apart the tag; something like
 
-<div class="jekyll"></div>
-``` {% raw %}
+```liquid {% raw %}
 {% raw %}
 This is how you show the termination of the `{% raw %}` tag inside itself: 
 {% {% endraw %}endraw %}{% raw %}
@@ -44,8 +42,7 @@ To work around this bug, we need to put the `{{ openTag }}` text outside the `{{
 Variables can help here.  We can create a Liquid variable that holds the literal text `{{ openTag }}`, then interpolate this variable outside the `{{ openTag }} raw %}` block.
 For example:
 
-<div class="jekyll"></div>
-``` {% raw %}
+```liquid {% raw %}
 {% assign openTag = '{%' %}
 {% raw %}
 This is how you show the termination of the `{% raw %}` tag inside itself: 
@@ -63,5 +60,5 @@ This code is parsed like this:
 
 This technique can also be used to write tags in inline code: <code>&#96;{% raw %}{{ openTag }} sometag %}{% endraw  %}&#96;</code>
 
-If these worksarounds seem completicated, writing this post itself (also in Liquid Markdown!) was even more complicated.  
+If these workarounds seem complicated, writing this post itself (also in Liquid Markdown!) was even more complicated.  
 See the [source]({{ site.githubRawUrl }}{{ page.path }}) to see how I did it.

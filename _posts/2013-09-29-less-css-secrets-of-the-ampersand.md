@@ -8,7 +8,7 @@ One of the less-documented features of the [LESS language](http://lesscss.org) i
 The ampersand selector is most commonly used when applying a modifying class or pseudo-class to an existing selector:
 
 <div class="less"></div>
-```css
+```scss
 a {
 	color: blue;
 	&:hover {
@@ -27,7 +27,7 @@ However, `&` has a variety of other uses.
 `&` can be used to make a nested selector that only applies its rules when an _ancestor_ of the outer selector has a class.  For example:
 
 <div class="less"></div>
-```css
+```sass
 form a {
 	color: purple;
 	body.QuietMode & {
@@ -52,7 +52,7 @@ This allows a `QuietMode` class to be applied to the root element to override lo
 This technique is particularly useful in mixins; it allows a mixin to to wrap a larger selector around the selector it was called in.  For example:
 
 <div class="less"></div>
-```css
+```sass
 .MyBox(@size, @color) {
 	width: @size - 4px;
 	border: 2px solid darken(@color, 10%);
@@ -71,7 +71,7 @@ Using a prefix with the `&` allows the mixin to emit rules that are not nested i
 Similarly to the previous example, `&` can be used to create a nested selector (in a mixin or in another selector) that only matches a specific element.  For example:
 
 <div class="less"></div>
-```css
+```scss
 .quoted-source {
 	background: #fcc;
 	blockquote& {
@@ -97,7 +97,7 @@ This allows you to add speciallize a class for a specific element type, while ke
 `&` can be used to repeatedly refer to the parent selector, while keeping your code [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Don't repeat yourself").  For example:
 
 <div class="less"></div>
-```css
+```sass
 .btn.btn-primary.btn-lg[disabled] {
 	& + & + & {
 		margin-left: 10px;
@@ -119,7 +119,7 @@ This example will add space between consecutive runs of large disabled buttons, 
 `&` can be used to easily generate every possible permutation of selectors for use with combinators.  For example:
 
 <div class="less"></div>
-```css
+```scss
 p, blockquote, ul, li {
 	border-top: 1px solid gray;
 	& + & {

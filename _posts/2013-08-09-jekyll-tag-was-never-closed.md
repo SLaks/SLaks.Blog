@@ -18,10 +18,9 @@ The problem came in Jekyll 1.1.0, which [parses Jekyll tags in post excerpts](ht
 
 Here is an example of the bug:
 
-<div class="jekyll"></div>
-```
-{% raw %}
----
+
+```liquid
+{% raw %}---
 title: "Buggy post"
 ---
 This is an example of a post with some code:
@@ -37,10 +36,8 @@ This is an example of a post with some code:
 
 Jekyll will extract the following excerpt:
 
-<div class="jekyll"></div>
-```
-{% raw %}
-This is an example of a post with some code:
+```liquid
+{% raw %}This is an example of a post with some code:
 {% highlight html %}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head><title></title></head>
@@ -57,7 +54,7 @@ Better yet, you can set `excerpt_separator` to an empty string, so that the exce
 
 In short, this bug can be fixed by adding the following line to `_config.yml`:
 
-```
+```yaml
 excerpt_separator: ""   # Workaround for http://blog.slaks.net{{ page.url }}
 ```
 

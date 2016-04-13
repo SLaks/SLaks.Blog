@@ -1,4 +1,4 @@
-highlighter:   'pygments'
+highlighter:   'rouge'
 permalink:    /:year-:month-:day/:title
 exclude:      ["WE-settings.xml", "SLaks.Blog.sln", "SLaks.Blog.v11.suo", "CNAME", "*.ide", "node_modules"]
 
