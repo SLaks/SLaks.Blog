@@ -10,7 +10,7 @@ But what if you could program without any errors?
 
 To avoid these troublesome errors, I am proud to present a new language called **ErrorFree**.  This language cannot have any errors, anywhere.  In fact, every possible file, of any length, is a valid ErrorFree program that can compile and run successfully.
 
-#Design Philosophy
+# Design Philosophy
 Avoiding every possible kind of error (while maintaining Turing-completeness) presents a number of challenges:
 
  - **Syntax errors**  
@@ -31,7 +31,7 @@ Since dividing by zero (including 0 &divide; 0) must also be valid, the ErrorFre
 Regrettably, most computers do not have unlimited storage capacity.  If the stack grows too large to store, ErrorFree implementations are allowed to drop values from the bottom of the stack (above the cushion of infinite zeros) to reclaim space.  Similarly, if the heap (see below) grows too large, the implementation is allowed to drop values from the farthest end from the address being inserted into.  
 Implementations are encouraged to avoid this behavior as much as possible.
 
-#Conventions
+# Conventions
 Every byte in an ErrorFree source file will either push a value to the stack (a _value byte_) or will perform an operation involving the stack (an _operator byte_).  For convenience, operator bytes are chosen based on their ASCII values.  Operator bytes fall into three categories:
 
  - Arithmetic operators use the appropriate symbols.  For example, `/` will divide the top two values on the stack and push the result.
@@ -53,10 +53,10 @@ Since raw bytes cannot be displayed as-is, ErrorFree source code should be displ
 
 This code pushes the number 74 (`(((1 + 2) * 4) * 5) + 0xE = 0x4A`) on to the stack. (`4A` cannot be pushed directly, since `J` is an operator byte.)  A simpler alternative would be <code>4B 01&nbsp;&nbsp;-</code>.
 
-#Operators
+# Operators
 ErrorFree supports the following operators:
 
-##Arithmetic operators
+## Arithmetic operators
 All arithmetic operators will pop the values they read.
 
  - `+`  
@@ -78,7 +78,7 @@ All arithmetic operators will pop the values they read.
  - `<`  
    Pushes one if the second value on the stack is less than the top value, or zero otherwise.
 
-##Pure operators
+## Pure operators
 
  - `d` (Duplicate)  
    Pushes a second copy of the top value on the stack.
@@ -97,7 +97,7 @@ All arithmetic operators will pop the values they read.
  - `c` (Ceiling)  
    Pops a value from the stack and pushes the smallest integer larger than that value.  Leaves infinities and NaNs unchanged.
 
-##Impure Operators
+## Impure Operators
 
  - `C` (print Character)  
    Pops a value from the stack, and prints its Unicode codepoint to standard out.  Non-integer values are truncated, negative values are made positive, and infinity and NaN become 0.
@@ -119,7 +119,7 @@ There is currently no way to determine whether a 0 was read because the user typ
  - `L`  (Load)  
    Pops a value from the stack, then reads the heap location at that address and pushes its value to the stack.
 
-#Sample program
+# Sample program
 This 19-byte program prints the squares of numbers 1 through 0x42.  It stores the loop index at heap location 0.
 
 <div class="errorfree"></div>
@@ -143,7 +143,7 @@ Here is a line-by-line explanation:
    (add one, jump)
  5. A final byte to jump to to exit the program.  Without this byte, jumping forward would either wrap around (for `1`) or remain at the jump instruction (for `0`), so the program would hang after finishing the loop.
 
-#Other notes
+# Other notes
 It is impossible to make non-breaking changes to the ErrorFree language once it's released, since any new code you want to allow already has an existing meaning.  Instead, newer versions must be explicitly specified when invoking the compiler/interpreter.
 
 ErrorFree does not include a built-in syntax for comments.  Instead, you can simply write your comments directly in the code, then precede them by jump operators so that they don't execute.  When displaying code, comments can be written like operators.  Care must be taken to ensure that no other jump instructions end up jumping into the middle of a comment.  For example:

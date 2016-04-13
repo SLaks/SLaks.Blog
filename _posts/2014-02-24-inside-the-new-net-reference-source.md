@@ -15,7 +15,7 @@ Most importantly, you can now download a [50MB zip file](http://referencesource-
 
 These are not the original csproj files from the actual BCL build, and nothing will actually compile.  The compilation process for the BCL projects is far more complicated than a simple build, including auto-generated localization (SR) files, bits of native code, and various other specialized tools, including MSBuild magic for [cyclic dependencies](http://blogs.msdn.com/b/kirillosenkov/archive/2013/11/23/circular-assembly-references-in-the-net-framework.aspx).  However, they're perfect for browsing within VS.
 
-#Reference Source Browser
+# Reference Source Browser
 <a href="/images/2014/reference-source-browser.png" target="_blank"><img src="/images/2014/reference-source-browser.png" alt="Reference Source Browser" style="float: right; max-width: 40%" /></a>
 However, the crown jewel of the new release is the new online source browser.  Kirill Osenkov used Roslyn to create a wonderful web app that presents the full source code in an easily browsable fashion.  You can search for 
 any class or function name, then see complete syntax-highlighted source code right in your browser, without having to download or install anything (the search engine is actually more powerful than that; see the [home page](http://referencesource-beta.microsoft.com/) for more details).  You can explore more directly by clicking any project from the home page to see all of the source files in that project.  You can even see a full list of types in each project by namespace (click the namespace icon in any file), perfect for discovering little-known types in large assemblies.
@@ -26,14 +26,14 @@ As you navigate through the source, the URL will update to point to that exact f
 
 Some parts of the .Net framework do not have source code in the browser, either because they're written in C++/CLI (which Roslyn cannot parse), or because the relevant product teams have not yet completed the bureaucracy required to release the source publicly.  To preserve Go to Definition within these projects, the source browser includes source from metadata for them (just like you get when from Go to Definition in Visual Studio, and in fact powered by the same Roslyn-based code).  In the list of projects on the homepage, the ones without actual source simply have the DLL file as the filename, instead of the path to the `.csproj` file.
 
-#Visual Studio Integration
+# Visual Studio Integration
 The one shortcoming of the new release is that you can't jump directly to the source of a function from within Visual Studio.  When debugging, you can step into functions that you call using the debug symbols, but you cannot quickly see the source as you write code in the first place.
 
 To solve that, I created a Visual Studio extension called [**Ref12**](http://visualstudiogallery.msdn.microsoft.com/f89b27c5-7d7b-4059-adde-7ccc709fa86e).  After installing this extension on Visual Studio 2010 or later, you can press F12 on any function in the .Net class libraries and jump to the reference source for that function in your default browser (if you're at Microsoft and actually working on the .Net framework, the extension won't get in your way).
 
 <img src="http://i1.visualstudiogallery.msdn.s-msft.com/f89b27c5-7d7b-4059-adde-7ccc709fa86e/image/file/125181/1/ref12%20screenshot.png" alt="Ref12 Screenshot" style="max-width: 100%" />
 
-#Easter Eggs
+# Easter Eggs
 There are also a number of hidden URLs in the reference source containing additional stats:
 
  - http://referencesource-beta.microsoft.com/i.txt contains stats for the overall index, including line count (over 6 million!) and more

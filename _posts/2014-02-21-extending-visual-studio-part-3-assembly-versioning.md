@@ -10,7 +10,7 @@ One of the complex aspects of writing Visual Studio extensions is dealing with v
 
 Visual Studio takes a number of different approaches to this problem:
 
-##Immutable assemblies
+## Immutable assemblies
 Some VS assemblies simply never change, at all.  These assemblies have exactly one version &ndash; the version of VS that they were introduced in &ndash; and newer versions of VS continue to ship the exact same DLL.
 
 This is the simplest, most ideal solution to the problem; extensions can simply reference these DLLs directly, and they will continue to work with all future VS versions without any problems.  However, since most VS functionality is designed to change in future versions, few parts of VS can live in immutable DLLs.  
@@ -21,14 +21,14 @@ COM interop assemblies (`Microsoft.VisualStudio.Shell.Interop.XX` and similar) c
 
 Immutable shell assemblies (`Microsoft.VisualStudio.Shell.Immutable.XX`) contain managed types that the shell team has decided will never need to change.  They mostly comtain simple types, such as interfaces, enums, and EventArgs classes, that are used by other parts of the shell.
 
-##Versioned assemblies
+## Versioned assemblies
 Then there are assemblies that do change, but which Microsoft officially supports for use in extensions.  In order to make ordinary Visual Studio extensions work in future versions of Visual Studio, VS includes `<bindingRedirect>`s in devenv.exe.config that redirect all older versions of these assemblies to the correct version for the installed copy of VS.  This way, extensions that reference older versions will be seamlessly redirected to the correct version on newer VS installations.  
 
 In turn, Microsoft must make sure to never introduce breaking changes in these assemblies.  To facilitate this, versioned assemblies tend to mostly contain interfaces & officially-public APIs only; most of the implementations & internal APIs live in unversioned assemblies elsewhere (especially `Microsoft.VisualStudio.Platform.VSEditor.dll`)
 
 Versioned assemblies include all of the public APIs for the new WPF editors (`Microsoft.VisualStudio.Text.*`), the core shell APIs (`Microsoft.VisualStudio.Shell.XX`), and a number of assemblies for specific features.  See devenv.exe.config in your VS installation directory for a full list.
 
-##Unversioned assemblies
+## Unversioned assemblies
 Finally, there are DLLs with no compatibility guarantees whatsoever.  Most other VS assemblies, especially implementation assemblies and assemblies for smaller or younger teams, are unversioned assemblies, with a separate version for each VS release and no binding redirects at all.
 
 There is no simple way to use unversioned assemblies in a VSIX without requiring a separate project for each VS release.

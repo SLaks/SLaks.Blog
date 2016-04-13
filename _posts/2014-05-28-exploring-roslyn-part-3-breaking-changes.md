@@ -12,7 +12,7 @@ Breaking changes come in two varieties: Forward-breaking changes, meaning that c
 
 Obviously, all of the new language features in C# 6 are backwards-breaking changes; they will never work with older compilers.  However, there are some more subtle changes which can prevent projects from being compiled without Roslyn even if they don't use any new features.
 
-#Lifting variables in iterator methods
+# Lifting variables in iterator methods
 When you write an iterator method (using `yield return`), the compiler will transform your method into a class which implements `IEnumerable<T>`, turning your actual code into a state machine inside `MoveNext()`.  (See [Jon Skeet's blog post](http://csharpindepth.com/articles/chapter6/iteratorblockimplementation.aspx) for a thorough explanation.)
 
 Local variables in your method become fields in the iterator class, so they can be persisted across calls to `MoveNext()`.  The old compiler would always lift every single local variable to a field, even if it's never used across a `yield return` boundary (meaning that it doesn't need to stick around between `MoveNext()` calls).  The Roslyn compiler is smarter, and only lifts locals when it needs to (if the local is used both before and after a `yield return`).
@@ -23,7 +23,7 @@ This can also be a backwards-breaking change, for two reasons.  Most obviously, 
 
 More subtly, this means that code compiled with the native compiler can load types earlier than it would have with Roslyn.  This [bit me](https://github.com/SLaks/Ref12/commit/2c52df7be397c052980bf91d2bcc6a90eae9c926) in [Ref12](http://visualstudiogallery.msdn.microsoft.com/f89b27c5-7d7b-4059-adde-7ccc709fa86e), where I had an iterator that used a type in an [unversioned assembly](/2014-02-26/extending-visual-studio-part-5-dealing-with-unversioned-assemblies) that I loaded using a `AssemblyResolve` handler.  With Roslyn, it worked fine.  Without Roslyn, that type ended up in a field in the iterator class, so MEF tried to load the type when inspecting the assembly (through `Assembly.GetTypes()`), and the extension refused to load.
 
-##Demo
+## Demo
 ```csharp
 static void Main() {
 	var e = M();
@@ -62,7 +62,7 @@ With Roslyn, it prints
 
 Since the variable is not referenced again after `yield return`, Roslyn compiles it to a local variable within `MoveNext()`, allowing it to be GC'd while the iterator is still alive.
 
-#Loading indirectly referenced assemblies during compilation
+# Loading indirectly referenced assemblies during compilation
 This is a backwards-breaking change only; it will not break any code that already works with the pre-Roslyn compiler.
 
 When compiling code that uses types from a different assembly, the compiler needs to load that assembly to look up the metadata for those types.  It will also load assemblies for types that are related to methods you call directly, such as base types, or parameter types in other overloads.
@@ -71,7 +71,7 @@ The native compiler took a heavy-handed approach; it always tried to load every 
 
 This means that projects created with Roslyn can easily be missing references that will prevent them from compiling with the native compiler.  In the worst case, there are types like `ExtensionManagerService` (in Visual Studio) that implement COM interop interfaces in private PIAs (Microsoft.Internal.VisualStudio.Shell.Interop.11.0.DesignTime.dll) that are not available outside Microsoft.  With Roslyn, you won't even notice these; the IDE does not show them, and the compiler completely ignores them.  The native compiler, on the other hand, will completely refuse to compile code that uses these types, since it can't load those base interfaces.  This bit me [here](https://github.com/SLaks/Root-VSIX/issues/1).  (The solution is to create your own PIA assembly from the embedded interop types in ILSpy.)
 
-#Overload resolution with conflicting ambiguities
+# Overload resolution with conflicting ambiguities
 C# 6.0 has some subtle changes in the behavior of overload resolution with optional parameters.  Before Roslyn, if you had a method call that was ambiguous between two overloads, but one of those overloads had additional optional parameters, whereas the other didn't, the native compiler would choose the first overload.
 
 For example:
@@ -96,7 +96,7 @@ Overload resolution is extremely complicated, but Roslyn's behavior appears to b
   
 After removing omitted optional parameters, it is clear that neither of these overloads is better, so the ambiguity error is correct.
 
-#Other bugfixes
+# Other bugfixes
 The Roslyn compiler also fixes a number of minor bugs in the old compiler, rejecting code that was incorrectly accepted by the native compiler (such as the overload resolution example above), or accepting code that the old compiler incorrectly reported an error for.
 
  - Roslyn will show a warning when comparing a non-null value type to null (eg, `new DateTime() == null`).  

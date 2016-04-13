@@ -6,7 +6,7 @@ categories: [async, promises, concepts, javascript]
 
 [Last time](/2015-01-08/comparing-different-languages-promises-frameworks), I listed standard & third-party promise libraries in popular languages, comparing how each one implements the promise paradigm.  In this post, I'll describe some advanced patterns for promise usage.
 
-#Error handling
+# Error handling
 One of the more useful features of promise-based asynchrony is automatic propagation of errors.  However, just like traditional exception handling, this feature is only useful if errors are correctly propagated up the call stack until they reach a method that knows how to handle them.  
 
 Promise-based error handling adds an additional concern in that errors are only passed along explicit promise chains.  If you write a function that creates a promise chain and ignores it (without returning the resulting promise to its caller), errors in that chain will typically be silently ignored; this can hide serious bugs in your code.
@@ -25,10 +25,10 @@ These concerns translate into a simple set of guidelines.  There are two kinds o
 
 In summary, **never leave a promise chain &ldquo;dangling&rdquo;**.  Instead, either return the resulting promise to your caller, or handle errors yourself at the end of the chain.
 
-#Calling asynchronous methods in loops
+# Calling asynchronous methods in loops
 One common challenge when working with asynchronous operations is running an asynchronous operation in a loop over a collection of source items.  Here too, promises can help simplify your code.  The technique for doing this depends whether you want to run in sequence or in parallel.  
 
-##Parallel Operations
+## Parallel Operations
 If your operations are completely independent, and can run in parallel, you can simply kick off all of them at once, then wait for all of the promises to complete.  In Javascript, this looks like this:
 
 ```js
@@ -53,7 +53,7 @@ allDone.then(function(results) {
 
 This second set of promise chains will also run in parallel, but will only start after all of the first chains finish.
 
-##Sequential operations
+## Sequential operations
 Running a collection of asynchronous operations in sequence is more complicated.  If you don't want each operation to start until the previous operation finishes, you must build a chain of promises, like this:
 
 ```js
@@ -90,7 +90,7 @@ items.reduce(function(promise, item) {
 }, Promise.resolve([]));
 ```
 
-#Passing state along a promise chain
+# Passing state along a promise chain
 When writing more-complex asynchronous workflows, you may need to pass state along a promise chain, from an intermediary promise result to a later promise callback.  For example, you might need to asynchronously fetch a post, fetch its author, then render both objects.
 
 Unfortunately, there is no good way to do this.  The best option is to build an array of all of the objects you need, using `Promise.all()` to wait for new promises while keeping existing values:
@@ -123,7 +123,7 @@ loadPost(id)
 
 If you need to load multiple items in separate steps, you can keep building larger and larger arrays of all of the items you need to load (obviously, you should try to load them in parallel &ndash; by returning multiple promises in a single array &ndash; where possible).
 
-#Caching asynchronous operations
+# Caching asynchronous operations
 Another common task when writing asynchronous code is to cache the result of an asynchronous operation.  As long as whatever you're doing is reasonably idempotent (eg, loading data that rarely changes, or executing a fixed version of an external script file), you will generally want to load it just once, and have future calls reuse the first call.  This technique is called [memoization](http://en.wikipedia.org/wiki/Memoization).
 
 When doing this, you must be careful to avoid race conditions.  If you only cache each call after the result arrives, you can still end up making multiple calls if the second call is made before the first one responds.  Instead, you should cache the promise of the result immediately, so you can return that promise directly for the next call, whether it has loaded or not.  However, if the call returns an error, you will presumably want to clear it from the cache so that the next call can try again (unless you know it's a permanent error).

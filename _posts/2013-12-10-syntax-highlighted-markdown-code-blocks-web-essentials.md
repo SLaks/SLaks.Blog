@@ -14,12 +14,12 @@ You get the full editing experience you're used to in Visual Studio, including s
 
 This is perfect for writing Readmes or documentation for open-source projects on GitHub, or for any other Markdown files you may write.
 
-#How it works
+# How it works
 Visual Studio 2010 rewrote the editor from the ground up in WPF.  This new editor has a powerful feature called [Projection Buffers](http://msdn.microsoft.com/en-us/library/dd885240.aspx#projection), which allow a single editor to seamlessly mix text from different sources.  This can be used to make a virtual editor that mixes code from different files (eg, [Debugger Canvas](http://blogs.msdn.com/b/kaelr/archive/2012/03/10/code-canvas-vs-code-bubbles-vs-debugger-canvas.aspx)), or to mix different languages within a single file (eg, Javascript and CSS blocks within an HTML file).
 
 My Markdown editor uses this feature to project code blocks in your Markdown files using Visual Studio's built-in editor services   
 
-#What languages are supported?
+# What languages are supported?
 Any language that Visual Studio can highlight, including any custom extensions you've installed.  
 
 All languages services built for the new WPF-based editor should work perfectly with projection buffers.  This includes HTML (sort of), CSS, Javascript, and any languages from extensions that only work in VS2010 or later.  The language service itself needs to work properly with projection buffers; if it makes unwarranted assumptions about text buffers always having files on disk or only one TextView, things may not work.  

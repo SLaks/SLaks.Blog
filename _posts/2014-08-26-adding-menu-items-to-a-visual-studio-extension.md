@@ -10,7 +10,7 @@ Newer parts of VS, such as the editor, the Web Tools, or Roslyn, are built using
 
 You can follow along in your own extension, or you can see all of these changes in [this commit](https://github.com/SLaks/Ref12/commit/6ce75a4d7f4bfde5c3c51073ebb9db97baa67f42) in Ref12.
 
-#1. Add a menu resource file
+# 1. Add a menu resource file
 Visual Studio menu commands are compiled from `.vsct` files, which are compiled by the VSCT compiler into embedded `.ctmenu` resources within the DLL.  To get started, you need to add a `.vsct` file (the name doesn't matter) to your project as a `<VSCTCompile>` tag.  This must be done by editing the project file directly.  You'll also need to add an empty `VSPackage.resx` file for the VSCT compiler to embed the compiled resource into
 
 The project file modifications (add these into any `<ItemGroup>`) are as follows:
@@ -58,7 +58,7 @@ The command ID values must be unique within each command group (GUID), so you do
 
 The `<Parent>` entry specifies the group that the command should be placed in; you can find all standard groups in Program Files\Microsoft Visual Studio 12.0\VSSDK\VisualStudioIntegration\Common\Inc\vsshlids.h.  You can also find a list of all command IDs in stdidcmd.h in the same folder.
 
-#2. Define a VSPackage for Visual Studio to load
+# 2. Define a VSPackage for Visual Studio to load
 To make Visual Studio load your menu command file, you need to define a VSPackage within your addin and register it in the VSIX.
 
 First, add the following code file (the class name does not matter):
@@ -95,7 +95,7 @@ You also need to tell the VSIX to include the package and generate the pkgdef fi
 
 If you're using the designer (for version 2 VSIXes), go to the Assets section, click New, select `Microsoft.VisualStudio.VsPackage`, `A project in the current solution`, and select your project.
 
-#3. Fix the project configuration
+# 3. Fix the project configuration
 Finally, you need to make a few changes to the csproj file to correctly register the addin:
 
 First, delete `<GeneratePkgDefFile>false</GeneratePkgDefFile>` if it's present to tell the VSIX compiler to generate a pkgdef to register your package.  Purely MEF-based addins don't need pkgdef files at all, so most project templates will add that, but once you create a VSPackage, you need a pkgdef to register it with Visual Studio's native COM addin loader.
@@ -109,7 +109,7 @@ Next, add the following markup anywhere in the root element (not in an `<ItemGro
 
 VSPackages are actually COM DLLs that are registered in the Visual Studio hive's config key and loaded using normal COM practices.  Managed VSPackages are loaded using COM interop; they are registered as `mscoree.dll`, which then looks up a managed assembly to load from the same registry key.  By default, the PkgDef creator will emit `"Assembly"="YourAssemblyName"`, which mscoree will try to load using the standard .Net assembly loader.  Unless your VSPackage DLL is in the GAC (which it won't be), this won't work, and VS will silently refuse to load your package.  Setting `<UseCodebase>` in the project file will make it emit `"CodeBase"="$PackageFolder$\YourAddin.dll"` (`$PackageFolder$` is substituted for the actual DLL path when the VSIX is installed), which tells mscoree the exact path to load it from.
 
-#4. Implement the command
+# 4. Implement the command
 After doing all this, your command should show up when you hit F5 in the addin (running in the Experimental instance).  However, you still need to actually implement the command so that something will happen when the button is clicked.
 
 For global commands, the simplest way to do this is to override the `Initialize()` method in your package and add code like the following:

@@ -17,12 +17,12 @@ Since the object is documented (or assumed to be non-thread-safe, there is no ne
 
 For fully thread-safe objects, this requirement becomes much more difficult.  Because other threads can interact with your object at any time, it must _never_ be in an inconsistent state.  There are a number of ways to make this work.
 
-##Atomic operations
+## Atomic operations
 Most instruction sets provide a couple of instructions which execute atomically (such as atomic increment or compare-and-swap).  These instructions are inherently thread-safe; the CPU guarantees that no other thread can see inconsistent results.  However, if your class is anything more complicated than a simple counter, this won't help.
 
 If you're writing higher-level code, you can also use existing higher-level atomic operations, such as `ConcurrentDictionary`.  These operations are in turn implemented using the other techniques described in this article.
 
-##Locks
+## Locks
 This is the simplest approach.  If you wrap every public method in a `lock()` statement, other threads can never observe inconsistent state, since they can only start executing after all method calls finish.  This is the approach taken by Java's `Collections.synchronized*()` methods. 
 
 However, this approach [has a number of problems](http://en.wikipedia.org/wiki/Lock_%28computer_science%29#Disadvantages):
@@ -34,7 +34,7 @@ If thread A runs some other code that locks on the same object that you're locki
  - It's very prone to deadlocks if your code is re-entrant.  
 If thread A calls your code, then tries to grab some other lock in a re-entrant callback, but thread B is already holding that other lock and is now trying to enter your code, you will get a deadlock.  This problem is difficult to fully prevent when writing reusable re-entrant code.
 
-##Compare-and-swap loops
+## Compare-and-swap loops
 
 To avoid locks, you must only use primitive atomic operations.  This is where immutable data structures really shine.  If you put all of the state you need to change in a single immutable object, you can make all of the changes from an &lsquo;offline&rsquo; reference to the object, then atomically swap in your new copy if no-one else has changed it.  This technique works as follows:
 
@@ -51,7 +51,7 @@ This technique only works if the mutation you're trying to perform (step 2) is a
 
 If the function does have side-effects, you can still use this technique by reverting those side effects if the compare-and-swap failed (in step 4).  This way, the side effects from each invocation will be cancelled before the next try.  However, this can only help if the function and its inverse (to revert changes) are both thread-safe, and if you can guarantee that the brief window of time before the side-effects of a failed attempt are reverted won't cause trouble.  If not, the only solution is a normal lock.
 
-##Make every state &ldquo;consistent&rdquo;
+## Make every state &ldquo;consistent&rdquo;
 
 Compare-and-swap loops are the ideal way to implement lock-free mutable data structures.  However, compare-and-swap can only operate on one thing at a time.  If you need to mutate two separate fields, you need more complicated techniques.
 
@@ -81,7 +81,7 @@ The basic idea is to design the public methods to be able to run successfully fr
 
 As with simple compare-and-swap loops, the individual mutations must be either pure or safely revertible.
 
-#Final notes
+# Final notes
 
 The idea behind all of these techniques is to either handle or prevent other threads that modify your object while your operation is running.  When using thread-safe objects, you must bear the same requirement in mind.  Any time you perform two operations on an object, it is your responsibility to ensure that nothing has changed between the two operations.  
 

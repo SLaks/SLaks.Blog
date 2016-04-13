@@ -6,14 +6,14 @@ categories: [async, promises, concepts, javascript]
 
 [Last time](/2015-01-04/async-method-patterns), I explored the two main options for writing asynchronous functions.  Now, I'll describe promises in more depth.  The concept of a promise can be implemented in any language; the sample code is in Javascript, running in a Node-like environment.  Part 4 will describe the details promise frameworks in various other languages.
 
-#Basics
+# Basics
 A promise is an object that stores an asynchronously-computed value, or an error.   The only way to consume the promise's value (or error) is to pass it a callback by calling `then()` (some frameworks have different names for the method).  A promise is always in one of three states: unresolved, fulfilled, or rejected.  An unresolved promise has no value yet, and instead stores a list of callbacks to run once the promise is resolved.  In this state, calling `then()` will store the callback in this list to be consumed later.  
 
 Once the operation backing the promise completes, the promise is resolved to a fulfilled or rejected state.  At this point, the resolved value is stored in the promise, and the list of callbacks is executed and cleared.  Once a promise has been resolved, it becomes completely immutable, storing only the result.  Passing a callback to a resolved promise will execute it immediately.  Some implementations will execute callbacks on resolved promises synchronously, making `then()` a potentially reentrant call; others, including all standards-compliant Javascript promises, will always run it asynchronously in a threadpool or a later message loop).
 
 Note that a promise can only be resolved once.  Thus, promises are only useful for operations that complete once and result in a single value (or collection).  If you have an operation that can finish in multiple stages (eg, if it can have change events, or if different parts come in at different times), promises will not help; instead, you can use a stream abstraction, such as Node.js [streams](https://github.com/substack/stream-handbook/blob/master/readme.markdown) or .Net [Reactive Extensions](https://rx.codeplex.com/).
 
-#Creating promises
+# Creating promises
 Promises are created from asynchronous operations.  Modern asynchronous methods (eg, most new .Net APIs, and promise-aware Javascript libraries) will generally return promises themselves, letting you consume them without further effort.  You can also create promises from other things, as described below.
 
 Multi-threaded environments like C# or Java 8 also have thread pool APIs that run code in a background thread, then return a promise of the eventual result of the code.  This is particularly useful in UI applications, to run CPU-bound work in a background thread, then consume the result in the UI.
@@ -60,7 +60,7 @@ More sophisticated promise libraries will also include helper methods to "promis
 
 Finally, most promise frameworks include convenience methods to create pre-resolved or pre-rejected promises from existing values (useful when an async API has a synchronous "fast path" such as a cache), as well as promises that will be resolved after a given delay.
 
-#Composing promises
+# Composing promises
 The biggest advantage to promise-based asynchrony is the ease of composition.  You can return a value from a promise callback to get a new promise which will be resolved to that value once the original promise completes.  This lets you easily create functions that compute values based on the result of an existing async operation, simply by returning the computed value from the promise callback, and returning the resulting promise from the function.  
 
 You can also return another promise from a promise callback, giving you a promise that will be resolved once this second operation finishes.  This lets you chain together a sequence of asynchronous by simply returning the promise for each new operation from successive then() callbacks on the resulting promises.  This is much nicer than nesting multiple completion callbacks from old-style async methods.  In effect, this lets the inner promise &ldquo;escape&rdquo; from the scope of its promise callback, giving you a promise of its result in the original function.
@@ -105,7 +105,7 @@ function getTripWeather(itinerary) {
 }
 ```
 
-#Error handling
+# Error handling
 Promises can also store error state.  When an asynchronous operation fails, the resulting promise will be rejected rather than resolved, storing the error instead of the result.  When this happens, none of the regular `then()` callbacks will run; instead, the promises returned by the `then()` calls will themselves be rejected.  Thus, errors will automatically propagate down a promise chain; once an error occurs, the rest of the handlers will be skipped, until the error is handled.  If an exception is thrown in any promise callback, the promise returned by that callback will also be rejected.  Similarly, if a promise callback returns a promise (from a chained async operation) which is rejected, the next promise returned by `then()` will also be rejected.
 
 To handle errors, you can add an error callback, typically either by passing a second callback to `then()` or by passing a callback to a separate function like `fail()`.  These behave exactly the same as `then()` callbacks, except that they will only run when the promise is rejected.  A resolved (as opposed to rejected) promise will skip error callbacks, just like a rejected promise skips normal callbacks.
@@ -136,7 +136,7 @@ someFailingFunction()	// Returns a rejected promise
 
 ```
 
-#Unit testing
+# Unit testing
 Asynchronous functions create special challenges for unit tests.  A unit test for an asynchronous function must wait until the async part of the method finishes, and must catch exceptions or assertion failures that are raised in asynchronous continuations (in `then()` callbacks).  A naive unit test that does not somehow wait for asynchronous operations to complete won't actually test anything; if the asynchronous part fails, it will never be reported.
 
 To solve this issue, most modern test runners allow unit tests to return promises.  The test runner will check whether each test returns a promise, and, if it does, will wait for the promise to be resolved before concluding the test.  If the returned promise is rejected, it will mark the test as failed, with the rejection reason as the failure message.  

@@ -8,7 +8,7 @@ _This post is part of a [series](/#code-snippets) of blog posts called code snip
 
 I recently set out to create snippets of code that have nothing inherently wrong with them, but can never appear in a valid program.
 
-#Impossible accessibility
+# Impossible accessibility
 The simplest example is a statement that uses `internal` types from two different assemblies, so that there is no project that it could legally appear in:
 
 ```csharp
@@ -29,7 +29,7 @@ Note that the method itself is not impossible to call;  `Base.Method()` is perfe
 
 Adding an `[InternalsVisibleTo]` attribute to the first assembly, or compiling both assemblies with circular references (this is possible, if you try very hard), would make this statement legal.  To prevent that, you can simply make both nested members `protected`. 
 
-#void expressions
+# void expressions
 A more interesting approach is to create an expression of type `void`.  This expression is completely fine, except that there is no way to _use_ an expression of type `void` anywhere.
 
 The only valid place that the type `void` can appear in C# is as a method return type; thus, the only way to make an expression of type `void` is a method call.  Method calls are legal as expression statements, so that is perfectly fine.
@@ -51,7 +51,7 @@ Any attempt to use this query will result in either "CS0201: Only assignment, ca
 _Side note_: I need to take the unusual approach of making a LINQ query against a static method on a type to prevent people from making it compile by adding a matching extension method that does not return `void`.
 
 
-#Impossible overload resolution
+# Impossible overload resolution
 A subtler approach is to make two overloads of a generic method such that it is impossible to distinguish between them:
 
 <div class="small"></div>
@@ -66,7 +66,7 @@ Ordinarily, C# has a number of ways to help disambiguate between generic overloa
 
 However, these methods are identical in all of these regards, leaving no way to tell the compiler which one you want to call.  (note that it is possible to call them at runtime using Reflection)
 
-#Generic constraint conflict
+# Generic constraint conflict
 
 Another option is to create a method with conflicting generic type constraints, such that there is no possible type that will satisfy the constraints.  Ordinarily, the compiler will not let you do that; a type parameter cannot be constrained to two different classes.  However, you can bypass this restriction using more generics:
 
@@ -79,7 +79,7 @@ class Container<T, U> {
 It is impossible to call `Method` on any instance parameterized with classes that do not inherit one another (eg, `Container<Exception, Type>`).  Unlike the previous example, it is _completely_ impossible to call this method on such an instantiation, even with reflection &ndash; there is no type that is valid value for `Z`.
 
 
-#Impossible inheritance
+# Impossible inheritance
 Any of these impossible methods can also be used to make a class that can never have any instances, by making an abstract method that cannot be implemented:
 
 ```csharp
@@ -101,7 +101,7 @@ abstract class Impossible : Base<Type, Exception> { }
 
 Here, implementing `Impossible` will give "CS0455 Type parameter 'Z' inherits conflicting constraints 'Exception' and 'Type'".
 
-#Interface method conflict
+# Interface method conflict
 Since Java is less feature-rich than C#, there are far fewer examples of impossible code in Java.  However, this feature sparsity can be used to create code which is only impossible in Java &ndash; inheriting conflicting interface methods:
 
 ```java

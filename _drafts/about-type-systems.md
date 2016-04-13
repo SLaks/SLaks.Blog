@@ -4,7 +4,7 @@ layout: "post"
 categories: [type-theory, generics]
 ---
 
-##What is a type?
+## What is a type?
 
 A type is set of values.  For example, the type `int` in C# and Java is the set of all integers between <code>-2<sup>31</sup></code> and <code>2<sup>31</sup> - 1</code>.  
 
@@ -31,13 +31,13 @@ IAmABird tweety = new MyAirplane();	// Boom!
 
 This would work in a language with a structural type system (such as TypeScript), but most object-oriented languages have nominative type systems.
 
-##Where are type used?
+## Where are type used?
 Most languages have a type system that defines how types behave at compile-time and/or at runtime.  The type system determines the type of each value (at runtime) and each expression (at compile time).  
 The type system then checks that each operation is valid.  When you assign an expression to a variable, the type system checks that the expression's type is convertible to the variable's type.
 
 In languages like C or C++, the type system exists purely at compile-time.  The compiler checks all function calls, variable assignments, and other conversions to make sure that the types involved are compatible with each-other.
 
-##What kind a type system do?
+## What kind a type system do?
 
 A type system provides certain features (eg, immutability, generics, null-safety, ...)
 

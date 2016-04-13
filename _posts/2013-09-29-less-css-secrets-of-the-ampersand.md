@@ -22,7 +22,7 @@ The inner selector in this example compiles to `a:hover`.  Without the `&`, it w
 
 However, `&` has a variety of other uses.
 
-#Changing state based on parent classes
+# Changing state based on parent classes
 
 `&` can be used to make a nested selector that only applies its rules when an _ancestor_ of the outer selector has a class.  For example:
 
@@ -67,7 +67,7 @@ This technique is particularly useful in mixins; it allows a mixin to to wrap a 
 ```
 Using a prefix with the `&` allows the mixin to emit rules that are not nested in the location where the mixin was invoked, allowing it to specify higher-level filters.
 
-#Filtering a nested selector to only match certain elements
+# Filtering a nested selector to only match certain elements
 Similarly to the previous example, `&` can be used to create a nested selector (in a mixin or in another selector) that only matches a specific element.  For example:
 
 <div class="less"></div>
@@ -93,7 +93,7 @@ blockquote.quoted-source {
 
 This allows you to add speciallize a class for a specific element type, while keeping the specializations nicely nested within the rest of the class.
 
-#Avoiding repetition when selecting repeated elements
+# Avoiding repetition when selecting repeated elements
 `&` can be used to repeatedly refer to the parent selector, while keeping your code [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Don't repeat yourself").  For example:
 
 <div class="less"></div>
@@ -114,7 +114,7 @@ This compiles to
 
 This example will add space between consecutive runs of large disabled buttons, without repeating the entire selector three times.
 
-#Simplifying combinatorial explosions
+# Simplifying combinatorial explosions
 
 `&` can be used to easily generate every possible permutation of selectors for use with combinators.  For example:
 

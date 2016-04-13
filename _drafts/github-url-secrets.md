@@ -30,7 +30,7 @@ There are also a couple of specialised URLs that do not follow this pattern:
  - [Compare](https://github.com/blog/612-introducing-github-compare-view) (https://&zwj;github.com/**user**/**repo**/compare/**start-revision**...**end-revision**)
 
 
-##Other URLs
+## Other URLs
  - You can add `?w=1` to any diff URL (commit, pull request, or compare) to see a diff that ignores whitespace
  - You can add `.diff` or `.patch` to any diff URL to see a plaintext patch file for that comparison.
  - You can add `?author=<username>` to a commit listing URL to filter it to only show commits by that author.	

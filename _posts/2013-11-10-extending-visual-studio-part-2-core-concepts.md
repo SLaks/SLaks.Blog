@@ -6,11 +6,11 @@ categories: [visual-studio-2013, vs-extensions]
 
 [My previous post]({% post_url 2013-10-18-extending-visual-studio-part-1-getting-started %}) described how to get started writing Visual Studio extensions.  This post will introduce the basic concepts needed to work with Visual Studio's extensibility APIs.
 
-#Creating an extension
+# Creating an extension
 
 The Visual Studio SDK includes a number of templates for creating extensions.  Which template you use depends on what parts of Visual Studio you want to extend.
 
-##Editor Extensions
+## Editor Extensions
 If you only want to extend the new WPF editor, you can create an editor extension.  Editor extensions allow you to add or change features (IntelliSense, highlighting, etc) for existing languages that use the new editor, as well as creating entirely new language service with their own syntax highlighting & IntelliSense.  These projects simply export MEF components to be consumed by the editor, without involving any COM interop at all.  
 
 The SDK includes four different templates for editor extensions; these templates include sample code for specific editor features:
@@ -22,18 +22,18 @@ The SDK includes four different templates for editor extensions; these templates
 
 Each of these templates includes a MEF export of the appropriate editor service (eg, `IClassifierProvider`, `IWpfTextViewMarginProvider`, or `IVsTextViewCreationListener`) for the editor to import and invoke.  Extensions can export as many components as you want; you can freely mix and match exports from different templates in your project.  If you want to extend a different part of the editor (eg, IntelliSense, outlining, or error checking), you can start from any of these templates, then delete the existing classes and start fresh.
 
-##VsPackage extensions
+## VsPackage extensions
 If you want to extend other aspects of Visual Studio, you'll need to dig into the older COM code and create a VsPackage project.  VsPackages can extend all other parts of Visual Studio, including tool windows, options pages, project system, and menu/toolbar commands.  They can also add event handlers to other parts of Visual Studio to further customize behavior.
 
 VsPackage extensions are created from the VsPackage project template, which will open a wizard allowing you to add sample functionality to your package.  You can create a sample menu command, a custom tool window, or a fully custom editor (hosting your own WinForms control such as a designer rather than the built-in WPF text editor), then edit the samples to include your actual functionality.
 
 
-##More advanced extensions
+## More advanced extensions
 Visual Studio extensions are packaged in VSIX files, which are ZIP files containing DLLs and other files used by the extension.  When you install an extension, the VSIX installer will extract the VSIX to a folder for the extension, in `<user profile>\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\<random characters>`.  If your extension needs other files (eg, a separate EXE file), you can add the files to your project, then set `Include in VSIX` to true in the Properties window.  You can get the installation directory in your code from `Path.GetDirectoryName(typeof(YourType).Assembly.Location)`.
 
 The VSIX file also controls how your DLL is loaded by Visual Studio; this is specified by the Assets section [`Source.extension.vsixmanifest` file](http://msdn.microsoft.com/en-us/library/vstudio/ee943167.aspx) in the extension project.  To load a VsPackage from your project, register it as a `Microsoft.VisualStudio.VsPackage` asset; to load MEF exports, use `Microsoft.VisualStudio.MefComponent` (the project templates do this for you).  If you want to use both approaches in the same extension, you'll need to register the project twice; once as each asset type.
 
-#Working with VsPackages
+# Working with VsPackages
 
 VsPackage extensions must contain a class that implements [`IVsPackage`](http://msdn.microsoft.com/en-us/library/microsoft.visualstudio.shell.interop.ivspackage), which Visual Studio will call to intialize the extension.  Most managed extensions will instead inherit the [`Package` helper class](http://msdn.microsoft.com/en-us/library/microsoft.visualstudio.shell.package), which implements most of this and other basic interfaces for you, leaving you free to write actual extensions.  For more information, see [MSDN](http://msdn.microsoft.com/en-us/library/vstudio/bb166209.aspx "Managed VSPackages").
 
@@ -57,7 +57,7 @@ If you need to interact with newer MEF components from a VsPackage, you need to 
 var componentModel = (IComponentModel)this.GetService(typeof(SComponentModel));
 ```
 
-#Working with MEF extensions
+# Working with MEF extensions
 Using MEF is much simpler.  You can export components used by the editor by implementing the appropriate editor interface, then decorating your class with the MEF `[Exports]` attribute.  In these classes, you can import other editor services by decorating a field with the `[Imports]` attribute.
 
 The new editor is built around ContentTypes, which map editor services to file types.  Each editor language (C#, HTML, CSS, etc) has a `ContentType` containing the name of the language, as well as a list of base ContentTypes that it inherits.  ContentType inheritance allows you to reuse editor service in more advanced languages; for example, the `Razor` ContentType inherits from the `htmlx` ContentType  (HTMLX is the [new HTML editor](http://madskristensen.net/post/my-road-to-visual-studio-2013) that shipped in VS2013; the old HTML editor is not easily extensible).  You can create your own ContentTypes by applying attributes to MEF-exported static fields; see the documentation for [details](http://msdn.microsoft.com/en-us/library/dd885244.aspx#sectionToggle0) and a [walkthrough](http://msdn.microsoft.com/en-us/library/ee372313.aspx).

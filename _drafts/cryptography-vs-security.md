@@ -14,7 +14,7 @@ Classical encryption is only as secure as the key.
 
 There is _no way_ to use cryptography alone to prove who you're talking to.
 
-##You must understand what you're securing
+## You must understand what you're securing
 You cannot simply "add security" to an existing system.
 Instead, you must specify exactly what you want to prevent, who you're defending against, and what security boundaries exist and where.
 
@@ -24,7 +24,7 @@ Or you could build a bullet-proof, encrypted, authenticated banking system, but 
 
 In particular, learn how your use cases affect requirements for the crypto algorithms (eg, key reuse, attacker-controlled inputs, padding oracles), and figure out what you need to prevent (eg, authentication, replay).
 
-##Understand the requirements of your crypto algorithms
+## Understand the requirements of your crypto algorithms
 This usually means, use a secure RNG, and don't reuse keys.
 
 

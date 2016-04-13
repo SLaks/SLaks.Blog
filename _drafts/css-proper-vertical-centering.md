@@ -19,7 +19,7 @@ There are a variety of hacks to achieve vertical centering, but each one has its
 
 However, CSS3 quietly introduced a much more powerful alternative to table layout that can be also used to vertically center content without any of this limitations.
 
-##Flexbox to the rescue
+## Flexbox to the rescue
 Simply apply these two rules to the parent element:
 ```css
 display: flex;

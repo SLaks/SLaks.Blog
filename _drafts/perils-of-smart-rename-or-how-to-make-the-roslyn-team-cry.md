@@ -41,8 +41,7 @@ Given that Roslyn already knows what everything in your code means, this would s
 
 Symbolic rename is probably the most fiendishly difficult feature in the entire Roslyn project.
 
-[As is my wont]({% post_url 2011-10-06-subtleties-of-new-caller-info %}), I'll explore some evil corner cases, in anticipation of a public preview that I can try them out on.
-
+Here are some of the more diabolical corner cases that make this feature so complicated:
 https://twitter.com/jasonmalinowski/status/436205667947266048
 https://twitter.com/jasonmalinowski/status/436209922934460416
 

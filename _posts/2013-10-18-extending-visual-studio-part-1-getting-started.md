@@ -6,7 +6,7 @@ categories: [visual-studio-2013, vs-extensions]
 
 In addition to being an excellent development environment, Visual Studio also has a powerful extensibility system.  In this blog post, I will explain how to start writing Visual Studio extensions, so you can make the IDE work the way you want it to.
 
-#Getting Started
+# Getting Started
 To use or develop extensions, you need Visual Studio Professional or higher (Express Edition won't work).
 
 First, download and install the [Visual Studio SDK](http://www.microsoft.com/visualstudio/eng/downloads#d-vs-sdk) (for VS2012, see [here](http://www.microsoft.com/en-us/download/details.aspx?id=30668); this adds project types for Visual Studio extensions and is required in order to open or create any extension.
@@ -58,7 +58,7 @@ If you want to extend an existing extension, you'll need to create an account on
 
 > Since this rewrites history, if you've already pushed the branch to your fork on GitHub, your next push will need the `-f` flag to overwrite the existing remote history.
 
-#Visual Studio Extensibility Basics
+# Visual Studio Extensibility Basics
 Visual Studio is a 10+ year old codebase built on a mix of technologies new and ancient.  Most of the older portions of Visual Studio, including the project system and the command dispatcher, are written in native code and support extensibility using ugly COM and GUIDs.  Newer parts of Visual Studio are usually written in managed code (the big exception being the new Javascript language service, which is written in C++ around IE's Chakra engine), and are thus easier to extend.
 
 In particular, the editor was completely rewritten in Visual Studio 2010, and is implemented entirely in C# code using WPF.  This new editor uses the [Managed Extensibility Framework (MEF)](http://msdn.microsoft.com/en-us/library/vstudio/dd460648) to load and execute all of its internal components, making it very friendly for extensions.  You can write classes that implement interfaces from the editor and export them using MEF, and the editor will automatically import and run them when it loads appropriate documents.  Similarly, you can import interfaces from the editor to gain access to existing services like colorization and error checking for use within your extension.
