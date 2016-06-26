@@ -34,216 +34,287 @@ div + pre:hover:before {
     display: none;
   }
 }
-div.small + div.highlight code:before,
+div.small + .highlighter-rouge code:before,
+div.small + .highlight code:before,
 div.small + pre:before {
   font-size: 30px;
 }
+.highlighter-rouge.language-cpp code,
 .highlight code.language-cpp,
-.cpp + div.highlight code,
+.cpp + .highlighter-rouge code,
+.cpp + .highlight code,
 .cpp + pre {
   background-color: #d8e4f3;
   outline-color: #9ebbe1;
 }
+.highlighter-rouge.language-cpp code:before,
 .highlight code.language-cpp:before,
-.cpp + div.highlight code:before,
+.cpp + .highlighter-rouge code:before,
+.cpp + .highlight code:before,
 .cpp + pre:before {
   content: "C++";
   color: #31609b;
 }
+.highlighter-rouge.language-csharp code,
 .highlight code.language-csharp,
-.csharp + div.highlight code,
+.csharp + .highlighter-rouge code,
+.csharp + .highlight code,
 .csharp + pre {
   background-color: #dbf1da;
   outline-color: #a5dda2;
 }
+.highlighter-rouge.language-csharp code:before,
 .highlight code.language-csharp:before,
-.csharp + div.highlight code:before,
+.csharp + .highlighter-rouge code:before,
+.csharp + .highlight code:before,
 .csharp + pre:before {
   content: "C♯";
   color: #3b9537;
 }
+.highlighter-rouge.language-css code,
 .highlight code.language-css,
-.css + div.highlight code,
+.css + .highlighter-rouge code,
+.css + .highlight code,
 .css + pre {
   background-color: #ccecff;
   outline-color: #80cfff;
 }
+.highlighter-rouge.language-css code:before,
 .highlight code.language-css:before,
-.css + div.highlight code:before,
+.css + .highlighter-rouge code:before,
+.css + .highlight code:before,
 .css + pre:before {
   content: "CSS";
   color: #007fcc;
 }
+.highlighter-rouge.language-html code,
 .highlight code.language-html,
-.html + div.highlight code,
+.html + .highlighter-rouge code,
+.html + .highlight code,
 .html + pre {
   background-color: #f9dad2;
   outline-color: #f0a28e;
 }
+.highlighter-rouge.language-html code:before,
 .highlight code.language-html:before,
-.html + div.highlight code:before,
+.html + .highlighter-rouge code:before,
+.html + .highlight code:before,
 .html + pre:before {
   content: "HTML";
   color: #b53717;
 }
+.highlighter-rouge.language-java code,
 .highlight code.language-java,
-.java + div.highlight code,
+.java + .highlighter-rouge code,
+.java + .highlight code,
 .java + pre {
   background-color: #ffe5cc;
   outline-color: #ffbd80;
 }
+.highlighter-rouge.language-java code:before,
 .highlight code.language-java:before,
-.java + div.highlight code:before,
+.java + .highlighter-rouge code:before,
+.java + .highlight code:before,
 .java + pre:before {
   content: "Java";
   color: #cc6200;
 }
+.highlighter-rouge.language-javascript code,
 .highlight code.language-javascript,
-.javascript + div.highlight code,
+.javascript + .highlighter-rouge code,
+.javascript + .highlight code,
 .javascript + pre {
   background-color: #fcf7cf;
   outline-color: #f7ea87;
 }
+.highlighter-rouge.language-javascript code:before,
 .highlight code.language-javascript:before,
-.javascript + div.highlight code:before,
+.javascript + .highlighter-rouge code:before,
+.javascript + .highlight code:before,
 .javascript + pre:before {
   content: "Javascript";
   color: #bfaa0d;
 }
+.highlighter-rouge.language-js code,
 .highlight code.language-js,
-.js + div.highlight code,
+.js + .highlighter-rouge code,
+.js + .highlight code,
 .js + pre {
   background-color: #fcf7cf;
   outline-color: #f7ea87;
 }
+.highlighter-rouge.language-js code:before,
 .highlight code.language-js:before,
-.js + div.highlight code:before,
+.js + .highlighter-rouge code:before,
+.js + .highlight code:before,
 .js + pre:before {
   content: "Javascript";
   color: #bfaa0d;
 }
+.highlighter-rouge.language-jekyll code,
 .highlight code.language-jekyll,
-.jekyll + div.highlight code,
+.jekyll + .highlighter-rouge code,
+.jekyll + .highlight code,
 .jekyll + pre {
   background-color: #fff5cc;
   outline-color: #ffe680;
 }
+.highlighter-rouge.language-jekyll code:before,
 .highlight code.language-jekyll:before,
-.jekyll + div.highlight code:before,
+.jekyll + .highlighter-rouge code:before,
+.jekyll + .highlight code:before,
 .jekyll + pre:before {
   content: "Jekyll";
   color: #cca300;
 }
+.highlighter-rouge.language-liquid code,
 .highlight code.language-liquid,
-.liquid + div.highlight code,
+.liquid + .highlighter-rouge code,
+.liquid + .highlight code,
 .liquid + pre {
   background-color: #fff5cc;
   outline-color: #ffe680;
 }
+.highlighter-rouge.language-liquid code:before,
 .highlight code.language-liquid:before,
-.liquid + div.highlight code:before,
+.liquid + .highlighter-rouge code:before,
+.liquid + .highlight code:before,
 .liquid + pre:before {
   content: "Jekyll";
   color: #cca300;
 }
+.highlighter-rouge.language-less code,
 .highlight code.language-less,
-.less + div.highlight code,
+.less + .highlighter-rouge code,
+.less + .highlight code,
 .less + pre {
   background-color: #d6e5f5;
   outline-color: #99bfe6;
 }
+.highlighter-rouge.language-less code:before,
 .highlight code.language-less:before,
-.less + div.highlight code:before,
+.less + .highlighter-rouge code:before,
+.less + .highlight code:before,
 .less + pre:before {
   content: "LESS";
   color: #2866a4;
 }
+.highlighter-rouge.language-razor code,
 .highlight code.language-razor,
-.razor + div.highlight code,
+.razor + .highlighter-rouge code,
+.razor + .highlight code,
 .razor + pre {
   background-color: #cce8ff;
   outline-color: #80c5ff;
 }
+.highlighter-rouge.language-razor code:before,
 .highlight code.language-razor:before,
-.razor + div.highlight code:before,
+.razor + .highlighter-rouge code:before,
+.razor + .highlight code:before,
 .razor + pre:before {
   content: "Razor";
   color: #006fcc;
 }
+.highlighter-rouge.language-vb-net code,
 .highlight code.language-vb-net,
-.vb-net + div.highlight code,
+.vb-net + .highlighter-rouge code,
+.vb-net + .highlight code,
 .vb-net + pre {
   background-color: #cce7ff;
   outline-color: #80c3ff;
 }
+.highlighter-rouge.language-vb-net code:before,
 .highlight code.language-vb-net:before,
-.vb-net + div.highlight code:before,
+.vb-net + .highlighter-rouge code:before,
+.vb-net + .highlight code:before,
 .vb-net + pre:before {
   content: "VB.Net";
   color: #006dcc;
 }
+.highlighter-rouge.language-vbnet code,
 .highlight code.language-vbnet,
-.vbnet + div.highlight code,
+.vbnet + .highlighter-rouge code,
+.vbnet + .highlight code,
 .vbnet + pre {
   background-color: #cce7ff;
   outline-color: #80c3ff;
 }
+.highlighter-rouge.language-vbnet code:before,
 .highlight code.language-vbnet:before,
-.vbnet + div.highlight code:before,
+.vbnet + .highlighter-rouge code:before,
+.vbnet + .highlight code:before,
 .vbnet + pre:before {
   content: "VB.Net";
   color: #006dcc;
 }
+.highlighter-rouge.language-xaml code,
 .highlight code.language-xaml,
-.xaml + div.highlight code,
+.xaml + .highlighter-rouge code,
+.xaml + .highlight code,
 .xaml + pre {
   background-color: #d1e5fa;
   outline-color: #8cbdf2;
 }
+.highlighter-rouge.language-xaml code:before,
 .highlight code.language-xaml:before,
-.xaml + div.highlight code:before,
+.xaml + .highlighter-rouge code:before,
+.xaml + .highlight code:before,
 .xaml + pre:before {
   content: "XAML";
   color: #1462b8;
 }
+.highlighter-rouge.language-xml code,
 .highlight code.language-xml,
-.xml + div.highlight code,
+.xml + .highlighter-rouge code,
+.xml + .highlight code,
 .xml + pre {
   background-color: #ffe0cc;
   outline-color: #ffb380;
 }
+.highlighter-rouge.language-xml code:before,
 .highlight code.language-xml:before,
-.xml + div.highlight code:before,
+.xml + .highlighter-rouge code:before,
+.xml + .highlight code:before,
 .xml + pre:before {
   content: "XML";
   color: #cc5200;
 }
+.highlighter-rouge.language-april-fools code,
 .highlight code.language-april-fools,
-.april-fools + div.highlight code,
+.april-fools + .highlighter-rouge code,
+.april-fools + .highlight code,
 .april-fools + pre {
   background-color: #ffcccc;
   outline-color: #ff8080;
 }
+.highlighter-rouge.language-april-fools code:before,
 .highlight code.language-april-fools:before,
-.april-fools + div.highlight code:before,
+.april-fools + .highlighter-rouge code:before,
+.april-fools + .highlight code:before,
 .april-fools + pre:before {
   content: "ErrorFree";
   color: #cc0000;
 }
+.highlighter-rouge.language-errorfree code,
 .highlight code.language-errorfree,
-.errorfree + div.highlight code,
+.errorfree + .highlighter-rouge code,
+.errorfree + .highlight code,
 .errorfree + pre {
   background-color: #ffcccc;
   outline-color: #ff8080;
 }
+.highlighter-rouge.language-errorfree code:before,
 .highlight code.language-errorfree:before,
-.errorfree + div.highlight code:before,
+.errorfree + .highlighter-rouge code:before,
+.errorfree + .highlight code:before,
 .errorfree + pre:before {
   content: "ErrorFree";
   color: #cc0000;
 }
 .less + .highlight .err,
-.razor + .highlight .err {
+.razor + .highlight .err,
+.less + .highlighter-rouge .err,
+.razor + .highlighter-rouge .err {
   color: inherit;
   background-color: inherit;
 }

@@ -33,8 +33,9 @@ div + pre {				// Unhighlighted code block preceded by language override
 }
 
 div.small {
-	& + div.highlight code:before,	// Highlighted code block preceded by small marker
-	& + pre:before {				// Unhighlighted code block preceded by small marker 
+	& + .highlighter-rouge code:before,	// Highlighted Markdown code block preceded by small marker
+	& + .highlight code:before,			// Highlighted Jekyll code block preceded by small marker
+	& + pre:before {					// Unhighlighted code block preceded by small marker
 		font-size: 30px;
 	}
 }
@@ -43,10 +44,12 @@ div.small {
 	@hue: hue(@baseColor);
 	@saturation: saturation(@baseColor);
 
-	& when not (@name = '') {		// Guards are only currently allowed on a single selector
-		.highlight code.language-@{class},	// Normal highlighted code block
-		@{selector} + div.highlight code,		// Highlighted code block preceded by language override (force to be more specific than ordinary highlight)
-		@{selector} + pre {					// Unhighlighted code block preceded by language override
+	& when not (@name = '') {						// Guards are only currently allowed on a single selector
+		.highlighter-rouge.language-@{class} code,	// Normal highlighted code block from Markdown
+		.highlight code.language-@{class},			// Normal highlighted code block from legacy Jekyll posts
+		@{selector} + .highlighter-rouge code,		// Highlighted Markdown code block preceded by language override (force to be more specific than ordinary highlight)
+		@{selector} + .highlight code,				// Highlighted Jekyll code block preceded by language override (force to be more specific than ordinary highlight)
+		@{selector} + pre {							// Unhighlighted code block preceded by language override
 			background-color: hsl(@hue, @saturation, 90%);
 			outline-color: hsl(@hue, @saturation, 75%);
 
@@ -66,8 +69,9 @@ div.small {
 // and other languages.  I mark them as similar
 // languages, but this produces spurious errors
 .less, .razor {
-	+ .highlight .err {
-		color: inherit; 
+	+ .highlight .err,
+	+ .highlighter-rouge .err {
+		color: inherit;
 		background-color: inherit;
 	}
 }

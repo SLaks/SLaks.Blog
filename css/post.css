@@ -242,7 +242,8 @@ article ul,
 article ol,
 article blockquote,
 article pre,
-article .highlight {
+article .highlight,
+article .highlighter-rouge {
   margin: 0 0 15px 0;
 }
 article p:last-child,
@@ -250,7 +251,8 @@ article ul:last-child,
 article ol:last-child,
 article blockquote:last-child,
 article pre:last-child,
-article .highlight:last-child {
+article .highlight:last-child,
+article .highlighter-rouge:last-child {
   margin: 0;
 }
 article li {
