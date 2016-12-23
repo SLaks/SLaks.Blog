@@ -1,4 +1,3 @@
-/// <reference path="typings/node/node.d.ts"/>	
 var path = require('path');
 
 var gulp = require('gulp');
@@ -6,6 +5,7 @@ var gulp = require('gulp');
 var watch = require('gulp-watch');
 var batch = require('gulp-batch');
 var plumber = require('gulp-plumber');
+var filter = require('gulp-filter');
 var rename = require("gulp-rename");
 
 var less = require('gulp-less');
@@ -30,6 +30,7 @@ gulp.task('default', function () {
 		.pipe(sourcemaps.write('./', { includeContent: false }))
 		.pipe(gulp.dest('./css'))
 
+		.pipe(filter(['**/*.css']))	// Don't rename & re-mapify .map files
         .pipe(rename({suffix: '.min'}))
         .pipe(cleanCSS())
 		.pipe(sourcemaps.write('./', { includeContent: false }))

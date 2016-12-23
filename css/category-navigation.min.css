@@ -1,3 +1,0 @@
----
----
-{% capture css %}{% include category-navigation.css %}{% endcapture %}{% include minify-css %}
