@@ -281,6 +281,23 @@ article code {
   padding: 0 3px;
   outline: solid 1px #d1d1d1;
 }
+article h1 code,
+article h2 code,
+article h3 code,
+article h4 code,
+article h5 code,
+article h6 code {
+  outline: none;
+  background-color: transparent;
+}
+article .twitter-frame {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 .post-categories {
   font-style: italic;
 }
