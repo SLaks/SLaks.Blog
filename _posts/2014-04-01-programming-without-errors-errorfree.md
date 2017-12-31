@@ -38,7 +38,7 @@ Every byte in an ErrorFree source file will either push a value to the stack (a 
  - Pure/idempotent operators (operators that only depend on or affect the stack, and do not have side-effects or depend on external state) use lowercase letters symbolizing the operation.  For example, `t` will transpose the top two values on the stack.
  - Impure operators (operators that have side-effects) use uppercase letters symbolizing the operation.  For example, `J` will jump a number of bytes (the top of the stack) from the current position in the source file, then continue executing from that byte.
 
-In addition to the stack, ErrorFree provides a heap, which can store numbers (double-precision floating point, just like the stack) at any positive or negative integral index.  The heap can be used to store data, allowing you to build arrays, linked lists, or other more complex data structures.  Like the stack. the heap is initialized to zero at every location.
+In addition to the stack, ErrorFree provides a heap, which can store numbers (double-precision floating point, just like the stack) at any positive or negative integral index.  The heap can be used to store data, allowing you to build arrays, linked lists, or other more complex data structures.  Like the stack, the heap is initialized to zero at every location.
 
 ErrorFree does not provide a memory manager, so blocks of heap memory must be tracked by hand.  Similarly, ErrorFree does not provide a call stack, so function calls and return pointers must also be tracked by hand in the heap.
 
