@@ -14,11 +14,8 @@
   overflow: hidden;
   position: relative;
   z-index: 2;
-  -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -webkit-transition-property: margin-right margin-left;
   transition-property: margin-right margin-left;
   padding-right: 32%;
 }
@@ -35,11 +32,8 @@
   position: absolute;
   top: 0;
   z-index: -1;
-  -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -webkit-transition-property: right margin-right;
   transition-property: right margin-right;
   color: black;
   font-size: 16px;
@@ -81,7 +75,7 @@
   border-color: transparent transparent #368832 transparent;
 }
 .post-list li.csharp aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.css aside {
   background-color: #97d8ff;
@@ -114,7 +108,7 @@
   border-color: transparent transparent #e76f00 transparent;
 }
 .post-list li.java aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.javascript aside {
   background-color: #f3df49;
@@ -210,7 +204,7 @@
   border-color: transparent transparent #378ce9 transparent;
 }
 .post-list li.xaml aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.xml aside {
   background-color: #f60;
@@ -219,7 +213,7 @@
   border-color: transparent transparent #f60 transparent;
 }
 .post-list li.xml aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.async aside {
   background-color: #ff7700;
@@ -228,7 +222,7 @@
   border-color: transparent transparent #ff7700 transparent;
 }
 .post-list li.async aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.multi-threading aside {
   background-color: #ff7700;
@@ -237,7 +231,7 @@
   border-color: transparent transparent #ff7700 transparent;
 }
 .post-list li.multi-threading aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.cryptography aside {
   background-color: #a90a0a;
@@ -264,7 +258,7 @@
   border-color: transparent transparent #3babd0 transparent;
 }
 .post-list li.dot-net aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.roslyn aside {
   background-color: #68217a;
@@ -336,7 +330,7 @@
   border-color: transparent transparent #038fd6 transparent;
 }
 .post-list li.vs-code aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.visual-studio-code aside {
   background-color: #038fd6;
@@ -345,7 +339,7 @@
   border-color: transparent transparent #038fd6 transparent;
 }
 .post-list li.visual-studio-code aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.visual-studio aside {
   background-color: #742894;
@@ -381,7 +375,7 @@
   border-color: transparent transparent red transparent;
 }
 .post-list li.april-fools aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li.errorfree aside {
   background-color: red;
@@ -390,7 +384,7 @@
   border-color: transparent transparent red transparent;
 }
 .post-list li.errorfree aside a:hover {
-  color: #333;
+  color: #ccc;
 }
 .post-list li aside {
   position: absolute;
@@ -398,19 +392,13 @@
   top: 0;
   height: 100%;
   z-index: -2;
-  -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -webkit-transition-property: width right;
   transition-property: width right;
 }
 .post-list li aside:before {
-  -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -webkit-transition-property: border-width margin-left;
   transition-property: border-width margin-left;
   content: '';
   display: block;

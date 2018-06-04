@@ -12,11 +12,8 @@
   margin: 0;
   padding: 0;
   line-height: 1;
-  -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -webkit-transition-property: width opacity;
   transition-property: width opacity;
 }
 .side-post-list:hover {
@@ -51,11 +48,8 @@
 .side-post-list li + li p {
   margin: 0;
   max-height: 0;
-  -webkit-transition-duration: .2s;
   transition-duration: .2s;
-  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
-  -webkit-transition-property: margin-top max-height;
   transition-property: margin-top max-height;
 }
 .side-post-list li + li:hover p {

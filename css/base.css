@@ -43,7 +43,6 @@ header {
 }
 header a {
   text-decoration: none;
-  -webkit-transition: all linear .2s;
   transition: all linear .2s;
 }
 header a:hover {
