@@ -14,8 +14,8 @@ blogger:
 categories: [covariance, extension-methods, generics, bugs, C#, LINQ, .Net]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
@@ -34,7 +34,7 @@ if (names.Contains(sqlCommand.ExecuteScalar())
 
 <p>The problem is that <code>ExecuteScalar()</code> returns <code>object</code>, not <code>string</code>.&#160; Therefore, it doesn’t call <code>HashSet&lt;string&gt;.Contains(string)</code>, which is what it’s intending to call (and which uses the HashSet’s comparer).&#160; Instead, on .Net 4.0, this calls the&#160; <code>Enumerable.Contains&lt;object&gt;(IEnumerable&lt;object&gt;, string)</code> extension method, using the covariant conversion from <code>IEnumerable&lt;string&gt;</code> to <code>IEnumerable&lt;object&gt;</code>.&#160; Covariance allows us to pass <code>object</code> to the <code>Contains</code> method of any strongly-typed collection (of reference types).</p>
 
-<p>Still, why is it case-sensitive?&#160; As Jon Skeet <a href="http://msmvps.com/blogs/jon_skeet/archive/2011/01/12/reimplementing-linq-to-objects-part-32-contains.aspx">points out</a>, the LINQ Contains() method is supposed to call any built-in Contains() method from ICollection&lt;T&gt;, so it should still use the HashSet’s case-insensitive Contains().</p>
+<p>Still, why is it case-sensitive?&#160; As Jon Skeet <a href="https://msmvps.com/blogs/jon_skeet/archive/2011/01/12/reimplementing-linq-to-objects-part-32-contains.aspx">points out</a>, the LINQ Contains() method is supposed to call any built-in Contains() method from ICollection&lt;T&gt;, so it should still use the HashSet’s case-insensitive Contains().</p>
 
 <p>The reason is that although HashSet&lt;String&gt; implements ICollection&lt;string&gt;, it does not implement ICollection&lt;object&gt;.&#160; Since we’re calling Enumerable.Contains&lt;object&gt;, it checks whether the sequence implements ICollection&lt;object&gt;, which it doesn’t.&#160; (ICollection&lt;T&gt; is not covariant, since it allows write access)</p>
 
@@ -43,7 +43,7 @@ if (names.Contains(sqlCommand.ExecuteScalar())
 {% highlight csharp %}
 //Call HashSet<string>.Contains(string), not the
 //covariant Enumerable.Contains(IEnumerable<object>, object)
-//http://blog.slaks.net/2011/12/dark-side-of-covariance.html
+//https://blog.slaks.net/2011/12/dark-side-of-covariance.html
 if (names.Contains((string)sqlCommand.ExecuteScalar())
 {% endhighlight %}
 {% raw %}

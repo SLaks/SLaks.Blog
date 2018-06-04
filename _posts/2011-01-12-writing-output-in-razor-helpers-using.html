@@ -14,13 +14,13 @@ blogger:
 categories: [Razor, ASP.Net WebPages, Razor-helpers, C#, ASP.Net, .Net]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>The new ASP.Net WebPages view engine (formerly <a href="http://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx">Razor</a>) allows you to create reusable parameterized blocks of HTML called <a href="http://weblogs.asp.net/mikaelsoderstrom/archive/2010/10/06/declarative-helpers-in-razor.aspx">helpers</a>.&#160; </p>  <p>For example:</p>  
+<p>The new ASP.Net WebPages view engine (formerly <a href="https://weblogs.asp.net/scottgu/archive/2010/07/02/introducing-razor.aspx">Razor</a>) allows you to create reusable parameterized blocks of HTML called <a href="https://weblogs.asp.net/mikaelsoderstrom/archive/2010/10/06/declarative-helpers-in-razor.aspx">helpers</a>.&#160; </p>  <p>For example:</p>  
 <div class="razor"></div>
 {% endraw %}
 {% highlight csharp %}
@@ -36,9 +36,9 @@ author:
 {% endhighlight %}
 {% raw %}
 
-<p>This helper will write out the first <em>count</em> <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers</a>.&#160; It can be called by writing <code>@Fibonacci(30)</code> in the page that defines the helper.</p>
+<p>This helper will write out the first <em>count</em> <a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers</a>.&#160; It can be called by writing <code>@Fibonacci(30)</code> in the page that defines the helper.</p>
 
-<p>Using Razor syntax in this code looks strange.&#160; Razor syntax is designed to write HTML tags.&#160; Since I’m printing plain text, I need to use the&#160; <a href="http://weblogs.asp.net/scottgu/archive/2010/12/15/asp-net-mvc-3-razor-s-and-lt-text-gt-syntax.aspx"><code>@:</code> escape</a> (or the <code>&lt;text&gt;</code> tag) in order to output my text.&#160; This small bit of code looks confusing and can get lost inside larger blocks of server-side code.</p>
+<p>Using Razor syntax in this code looks strange.&#160; Razor syntax is designed to write HTML tags.&#160; Since I’m printing plain text, I need to use the&#160; <a href="https://weblogs.asp.net/scottgu/archive/2010/12/15/asp-net-mvc-3-razor-s-and-lt-text-gt-syntax.aspx"><code>@:</code> escape</a> (or the <code>&lt;text&gt;</code> tag) in order to output my text.&#160; This small bit of code looks confusing and can get lost inside larger blocks of server-side code.</p>
 
 <p>Instead, I can use an undocumented hack.&#160; Razor helpers are implemented by compiling a lambda expression as an <code>Action&lt;TextWriter&gt;</code>.&#160; The lambda expression receives a <code>TextWriter</code> parameter named <code>__razor_helper_writer</code>.&#160; (You can see this by writing a Razor page with a compilation error and clicking Show Complete Compilation Source)&#160; There is nothing preventing me from using this parameter yourself.&#160; (it even shows up in IntelliSense!)</p>
 
@@ -85,7 +85,7 @@ author:
 {% endhighlight %}
 {% raw %}
 
-This can be called the same way as the helper.&#160; Instead of using the special helper support, the call will just print a string, the same you print any other string.&#160; Therefore, the function’s output will be HTML-escaped.&#160; To prevent that, you can change the function to return an <code><a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString</a></code>.
+This can be called the same way as the helper.&#160; Instead of using the special helper support, the call will just print a string, the same you print any other string.&#160; Therefore, the function’s output will be HTML-escaped.&#160; To prevent that, you can change the function to return an <code><a href="https://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString</a></code>.
 
 
   

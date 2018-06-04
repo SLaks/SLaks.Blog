@@ -7,28 +7,28 @@ categories: [cryptography, security, mistakes]
 When writing code that deals with security or cryptography, there are a number of mistakes that many people make; some obvious and some quite subtle.  This post describes the most common mistakes I've seen and why they're wrong. 
 
 # Don't re-invent the car
-Correctly using cryptographic primitives is _hard_.  If at all possible, you should not use raw cryptographic primitives (even well-accepted ones like AES, RSA, or SHA2) directly; instead, you should use professionally-built and reviewed protocols that use these systems, such as TLS, [NaCl](http://nacl.cr.yp.to/), [Keyczar](https://github.com/google/keyczar), and others.
+Correctly using cryptographic primitives is _hard_.  If at all possible, you should not use raw cryptographic primitives (even well-accepted ones like AES, RSA, or SHA2) directly; instead, you should use professionally-built and reviewed protocols that use these systems, such as TLS, [NaCl](https://nacl.cr.yp.to/), [Keyczar](https://github.com/google/keyczar), and others.
 
 There are a variety of subtle issues that professional cryptographers know about and you don't (such padding and timing vulnerabilities), and these higher-level wrappers address these issues for you.
 
 There have been many security issues resulting from projects that attempt to build their own protocols, and get these wrong.
 
 # Don't re-invent the wheel
-Even if you do need to use primitives directly, stick to known, well-researched primitives, and use the [best ones available](http://www.daemonology.net/blog/2009-06-11-cryptographic-right-answers.html).
+Even if you do need to use primitives directly, stick to known, well-researched primitives, and use the [best ones available](https://www.daemonology.net/blog/2009-06-11-cryptographic-right-answers.html).
 
 In particular, _please_ don't try to build your own encryption or hash algorithms.  Cryptography is exceptionally complicated; unless you actually have substantial experience in the mathematical side of cryptanalysis, you are very unlikely to create a secure algorithm.  Standard algorithms like AES have had years of research, and yet still do not have known vulnerabilities (when used correctly).
 
 On a similar note, try not to write your own implementations of standard algorithms; instead, stick to existing, hardened, well-tested codebases.  These implementations have been hardened to avoid leaking data through timing issues with early termination or CPU caching (eg, not using secret information in CPU branching or loop boundaries).
 
 # Learn as much as possible
-Especially if you do use primitives directly, learn about things like padding attacks, replay vulnerabilities, and the like.  If you have time, take a course about cryptography (eg, [Stanford's online course](http://online.stanford.edu/course/cryptography)).  If you don't have time for a full course, at least read the Wikipedia articles about algorithms you use.
+Especially if you do use primitives directly, learn about things like padding attacks, replay vulnerabilities, and the like.  If you have time, take a course about cryptography (eg, [Stanford's online course](https://online.stanford.edu/course/cryptography)).  If you don't have time for a full course, at least read the Wikipedia articles about algorithms you use.
 
 Every bit of cryptographic lore you learn may help you catch a mistake in your design or implementation and stop a real-world attacker.
 
-If you use cryptography in production, you should keep up-to-date with the latest developments; read cryptographic blogs or follow cryptographers on Twitter.  Some good people to follow include [Bruce Schneier](https://www.schneier.com/) and [Matthew Green](http://blog.cryptographyengineering.com/).  
+If you use cryptography in production, you should keep up-to-date with the latest developments; read cryptographic blogs or follow cryptographers on Twitter.  Some good people to follow include [Bruce Schneier](https://www.schneier.com/) and [Matthew Green](https://blog.cryptographyengineering.com/).  
 
 # Don't reuse keys
-Don't use the same key for two different purposes.  In worst-case scenarios, you can accidentally serve an endpoint that decrypts input with the same key used elsewhere to encrypt things (yes, this [has happened](http://blogs.msdn.com/b/webdev/archive/2012/10/22/cryptographic-improvements-in-asp-net-4-5-pt-1.aspx)).  Even if you use keys only with unrelated cryptosystems, you still risk leaking information that a cryptanalyst can use to derive information about the key.
+Don't use the same key for two different purposes.  In worst-case scenarios, you can accidentally serve an endpoint that decrypts input with the same key used elsewhere to encrypt things (yes, this [has happened](https://blogs.msdn.com/b/webdev/archive/2012/10/22/cryptographic-improvements-in-asp-net-4-5-pt-1.aspx)).  Even if you use keys only with unrelated cryptosystems, you still risk leaking information that a cryptanalyst can use to derive information about the key.
 
 Ideally, each cryptosystem you use, and each scenario you use it in, should have its own unique key, each generated by a secure random number generator.  If, for whatever reason, you can't afford that much randomness, you can accept a single random blob (at least as large as the largest key you need), and use HMAC hashes with different (hard-coded) HMAC keys to derive a separate key from that blob for each use. 
 
@@ -59,7 +59,7 @@ Similarly, if you decrypt a ciphertext and validate the data using some business
 # Validate everything
 **Don't** be liberal with what you accept.  When creating public APIs, it can be helpful to accept all requests, even if they don't exactly match what you're expecting.  However, when dealing with cryptography or with sensitive information, this is exactly the attitude you don't want.
 
-Security-critical code should validate all attacker-controllable inputs as strictly as possible. Any invalid or unexpected data should be rejected immediately with no further processing, and with completely generic error messages.  When possible, you should sign ([with a MAC](http://www.daemonology.net/blog/2009-06-24-encrypt-then-mac.html)) all ciphertexts, so that you can reject any data that an attacker has modified before it has a chance to interact with anything else (and potentially expose weaknesses or side-channels in your decryption code).
+Security-critical code should validate all attacker-controllable inputs as strictly as possible. Any invalid or unexpected data should be rejected immediately with no further processing, and with completely generic error messages.  When possible, you should sign ([with a MAC](https://www.daemonology.net/blog/2009-06-24-encrypt-then-mac.html)) all ciphertexts, so that you can reject any data that an attacker has modified before it has a chance to interact with anything else (and potentially expose weaknesses or side-channels in your decryption code).
 
 Like detailed error messages, accepting invalid data can allow attackers to slowly learn parts of your encryption keys, using padding oracle attacks or timing vulnerabilities to see minute differences in how your system handles different inputs.  Rejecting modified inputs immediately prevents these attacks.
 

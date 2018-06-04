@@ -14,13 +14,13 @@ blogger:
 categories: [design, .Net, caller-info-attributes, C# 5]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p>C# 5 is all about asynchronous programming.&#160; However, in additional to the new async features, the C# team managed to slip in a much simpler feature: Caller Info Attributes.</p>  <p>Since C#’s inception, developers have asked for <code>__LINE__</code> and <code>__FILE__</code> macros like those in C and C++.&#160; Since C# intentionally does not support macros, these requests have not been answered.&#160; Until now.</p>  <p>C# 5 adds these features using attributes and optional parameters.&#160; As Anders Hejlsberg <a href="http://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-816T">presented</a> at //Build/, you can write</p>
+<p><strong>UPDATE</strong>: Now that the Visual Studio 11 beta has shipped with this feature implemented, I wrote a <a href="/2012/03/exploring-caller-info-attributes.html">separate blog post</a> exploring how it actually behaves in these corner cases.</p>  <p>C# 5 is all about asynchronous programming.&#160; However, in additional to the new async features, the C# team managed to slip in a much simpler feature: Caller Info Attributes.</p>  <p>Since C#’s inception, developers have asked for <code>__LINE__</code> and <code>__FILE__</code> macros like those in C and C++.&#160; Since C# intentionally does not support macros, these requests have not been answered.&#160; Until now.</p>  <p>C# 5 adds these features using attributes and optional parameters.&#160; As Anders Hejlsberg <a href="https://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-816T">presented</a> at //Build/, you can write</p>
 {% endraw %}
 {% highlight csharp %}
 public static void Log(string message,

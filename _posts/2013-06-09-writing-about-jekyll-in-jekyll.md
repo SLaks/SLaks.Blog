@@ -4,7 +4,7 @@ layout: "post"
 categories: [Jekyll, Liquid, jekyll-hacks]
 ---
 
-[Jekyll](http://jekyllrb.com) is a very nice system for writing blogs.  However, it does have some shortcomings, particularly in the Liquid templating engine.  In this post, I will talk about how to write about Liquid tags within a Liquid file (such as a Jekyll blog post).  The problem is that writing Liquid syntax such as tags or variables in the content will cause Liquid to interpret them as commands, and break evertything.
+[Jekyll](https://jekyllrb.com) is a very nice system for writing blogs.  However, it does have some shortcomings, particularly in the Liquid templating engine.  In this post, I will talk about how to write about Liquid tags within a Liquid file (such as a Jekyll blog post).  The problem is that writing Liquid syntax such as tags or variables in the content will cause Liquid to interpret them as commands, and break evertything.
 
 This problem can occur when writing a blog post about Liquid itself (such as this one), or when writing a blog post about code that generates Liquid markup (like I did [earlier]({% post_url 2013-06-02-migrating-syntax-highlighting-to-jekyll %})).
 

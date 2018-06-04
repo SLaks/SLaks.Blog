@@ -14,8 +14,8 @@ blogger:
 categories: [Razor, ASP.Net WebPages, Razor-helpers, ASP.Net, dissecting-razor, .Net]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
@@ -114,9 +114,9 @@ public class _Page_Razor_Helpers_cshtml : System.Web.WebPages.WebPage {
 
 <p>Looking inside the helper, we see that all content is passed to <code>WriteTo</code> and <code>WriteLiteralTo</code> methods, as opposed to the <code>Write</code> and <code>WriteLiteral</code> methods used by the rest of the page.</p>
 
-<p>Helper methods cannot call the normal <code>Write*</code> methods since they aren’t necessarily writing to the current output (even though they usually do).&#160; Therefore, they call these <code>Write*To</code> methods, which accept the <code>TextWriter</code> as a parameter.&#160; These static methods are inherited from the WebPageExecutingBase class; their names are also configured by the RazorHostFactory.&#160; The @ in the parameter is a little-used C# <a href="http://msdn.microsoft.com/en-us/library/aa664670%28v=vs.71%29.aspx">syntactictal feature</a> that allows keywords to be used as identifiers; it has nothing to do with Razor’s use of the @ character.</p>
+<p>Helper methods cannot call the normal <code>Write*</code> methods since they aren’t necessarily writing to the current output (even though they usually do).&#160; Therefore, they call these <code>Write*To</code> methods, which accept the <code>TextWriter</code> as a parameter.&#160; These static methods are inherited from the WebPageExecutingBase class; their names are also configured by the RazorHostFactory.&#160; The @ in the parameter is a little-used C# <a href="https://msdn.microsoft.com/en-us/library/aa664670%28v=vs.71%29.aspx">syntactictal feature</a> that allows keywords to be used as identifiers; it has nothing to do with Razor’s use of the @ character.</p>
 
-<p>Since helpers are compiled as normal methods, they can do almost anything that a normal method can.&#160; However, because their contents are compiled inside a lambda expression, they have some limitations.&#160; For example, helpers cannot use <code>ref</code> or <code>out</code> parameters, since <a href="http://stackoverflow.com/questions/1365689/cannot-use-ref-or-out-parameter-in-lambda-expressions/1365865#1365865">they cannot be used inside lambda expressions</a>.&#160; Helpers can take <code>params</code> arrays or optional parameters.</p>
+<p>Since helpers are compiled as normal methods, they can do almost anything that a normal method can.&#160; However, because their contents are compiled inside a lambda expression, they have some limitations.&#160; For example, helpers cannot use <code>ref</code> or <code>out</code> parameters, since <a href="https://stackoverflow.com/questions/1365689/cannot-use-ref-or-out-parameter-in-lambda-expressions/1365865#1365865">they cannot be used inside lambda expressions</a>.&#160; Helpers can take <code>params</code> arrays or optional parameters.</p>
 
 <p>Also, Razor’s C# code parser doesn’t support generic helper methods, although there is no reason that they couldn’t be supported in a later release.</p>
 

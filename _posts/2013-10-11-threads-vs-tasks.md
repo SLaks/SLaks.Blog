@@ -9,7 +9,7 @@ categories: [C#, async, multi-threading, concepts]
 # Thread
 `Thread` represents an actual OS-level thread, with its own stack and kernel resources.  (technically, a CLR implementation could use fibers instead, but no existing CLR does this)  `Thread` allows the highest degree of control; you can `Abort()` or `Suspend()` or `Resume()` a thread (though this is a very bad idea), you can observe its state, and you can set thread-level properties like the stack size, apartment state, or culture.
 
-The problem with `Thread` is that OS threads are costly.  Each thread you have consumes a non-trivial amount of memory for its stack, and adds additional CPU overhead as the processor [context-switch](http://en.wikipedia.org/wiki/Context_switch) between threads.  Instead, it is better to have a small pool of threads execute your code as work becomes available.
+The problem with `Thread` is that OS threads are costly.  Each thread you have consumes a non-trivial amount of memory for its stack, and adds additional CPU overhead as the processor [context-switch](https://en.wikipedia.org/wiki/Context_switch) between threads.  Instead, it is better to have a small pool of threads execute your code as work becomes available.
 
 There are times when there is no alternative `Thread`.  If you need to specify the name (for debugging purposes) or the apartment state (to show a UI), you must create your own `Thread` (note that having multiple UI threads is generally a bad idea).  Also, if you want to maintain an object that is _owned_ by a single thread and can only be used by that thread, it is much easier to explicitly create a `Thread` instance for it so you can easily check whether code trying to use it is running on the correct thread.
 
@@ -19,7 +19,7 @@ There are times when there is no alternative `Thread`.  If you need to specify t
 Using `ThreadPool` avoids the overhead of creating too many threads.  However, if you submit too many long-running tasks to the threadpool, it can get full, and later work that you submit can end up waiting for the earlier long-running items to finish.  In addition, the `ThreadPool` offers no way to find out when a work item has been completed (unlike `Thread.Join()`), nor a way to get the result.  Therefore, `ThreadPool` is best used for short operations where the caller does not need the result.
 
 # Task
-Finally, the `Task` class from the Task Parallel Library offers the best of both worlds.  Like the `ThreadPool`, a task does not create its own OS thread.  Instead, tasks are executed by a [`TaskScheduler`](http://msdn.microsoft.com/en-us/library/dd997402.aspx); the default scheduler simply runs on the ThreadPool.
+Finally, the `Task` class from the Task Parallel Library offers the best of both worlds.  Like the `ThreadPool`, a task does not create its own OS thread.  Instead, tasks are executed by a [`TaskScheduler`](https://msdn.microsoft.com/en-us/library/dd997402.aspx); the default scheduler simply runs on the ThreadPool.
 
 Unlike the ThreadPool, `Task` also allows you to find out when it finishes, and (via the generic `Task<T>`) to return a result.  You can call `ContinueWith()` on an existing `Task` to make it run more code once the task finishes (if it's already finished, it will run the callback immediately).  If the task is generic, `ContinueWith()` will pass you the task's result, allowing you to run more code that uses it.
 

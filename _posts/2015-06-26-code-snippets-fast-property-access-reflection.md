@@ -54,7 +54,7 @@ This uses [delegate return type covariance](https://msdn.microsoft.com/en-us/lib
 
 This approach has some caveats.  This can only work if you know the type of the objects you're operating on at compile-time (eg, in a generic method to bind or serialize parameters).  If you're operating on `object`s at compile time, this cannot work, since such a delegate wouldn't be type-safe.  
 
-This also won't work for properties that return value types.  Variance [works because](http://stackoverflow.com/a/12454932/34397) the runtime representation of the types are completely identical, so that the JITted code doesn't know or care that the actual type parameter is different.  Value types require different codegen than reference types, so this cannot begin to work.
+This also won't work for properties that return value types.  Variance [works because](https://stackoverflow.com/a/12454932/34397) the runtime representation of the types are completely identical, so that the JITted code doesn't know or care that the actual type parameter is different.  Value types require different codegen than reference types, so this cannot begin to work.
 
 To solve these problems, you can do actual runtime code generation, using the ever-handy `Expression<T>`.  Specifically, you need to create an expression tree that casts an `object` parameter to `T` (if you don't know the actual type at compile time), then boxes the result of the property into an `object` (if it's a value type).
 

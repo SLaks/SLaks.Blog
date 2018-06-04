@@ -25,7 +25,7 @@ If you're writing higher-level code, you can also use existing higher-level atom
 ## Locks
 This is the simplest approach.  If you wrap every public method in a `lock()` statement, other threads can never observe inconsistent state, since they can only start executing after all method calls finish.  This is the approach taken by Java's `Collections.synchronized*()` methods. 
 
-However, this approach [has a number of problems](http://en.wikipedia.org/wiki/Lock_%28computer_science%29#Disadvantages):
+However, this approach [has a number of problems](https://en.wikipedia.org/wiki/Lock_%28computer_science%29#Disadvantages):
 
  - It's slow.  To guarantee safety, every method must prevent every other method from running, even for methods that would be safe to run concurrently, in case a third, unsafe, method is running too.  This can be mitigated with ReaderWriterLocks, at the cost of additional complexity.  
    In addition, entering a lock is a kernel-level operation that comes with its own costs.
@@ -40,14 +40,14 @@ To avoid locks, you must only use primitive atomic operations.  This is where im
 
  1. Fetch the current value of the field into a local variable
  2. Run your actual logic to generate a new immutable object based on the current value (eg, push an item onto an immutable stack)
- 3. Use the atomic [compare-and-swap](http://en.wikipedia.org/wiki/Compare-and-swap) operation to set the field to the new value if and only if no other thread has changed it since step 1.
+ 3. Use the atomic [compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap) operation to set the field to the new value if and only if no other thread has changed it since step 1.
  4. If a different thread has changed the object (if the compare-and-swap failed), go back to step 1 and try again.
 
-It is important that the object being swapped be fully immutable.  Otherwise, changes to parts of the object from other threads can go unnoticed during the atomic replacement, leading to the [ABA problem](http://en.wikipedia.org/wiki/ABA_problem).  
+It is important that the object being swapped be fully immutable.  Otherwise, changes to parts of the object from other threads can go unnoticed during the atomic replacement, leading to the [ABA problem](https://en.wikipedia.org/wiki/ABA_problem).  
 
 Using deeply immutable objects prevents this from causing a problem.  If `A` is truly immutable, there can be nothing wrong with missing the `B` that happened in the middle; if there was any change that wasn't fully undone, the new value wouldn't be the same `A`.
 
-This technique only works if the mutation you're trying to perform (step 2) is a [pure function](http://en.wikipedia.org/wiki/Pure_function).  Since the operation can run more than once, any side effects that it has can happen multiple times, which will probably break your program.  Similarly, it must be thread-safe (which pure functions implicitly are), since nothing is preventing it from running on multiple threads concurrently.
+This technique only works if the mutation you're trying to perform (step 2) is a [pure function](https://en.wikipedia.org/wiki/Pure_function).  Since the operation can run more than once, any side effects that it has can happen multiple times, which will probably break your program.  Similarly, it must be thread-safe (which pure functions implicitly are), since nothing is preventing it from running on multiple threads concurrently.
 
 If the function does have side-effects, you can still use this technique by reverting those side effects if the compare-and-swap failed (in step 4).  This way, the side effects from each invocation will be cancelled before the next try.  However, this can only help if the function and its inverse (to revert changes) are both thread-safe, and if you can guarantee that the brief window of time before the side-effects of a failed attempt are reverted won't cause trouble.  If not, the only solution is a normal lock.
 
@@ -85,7 +85,7 @@ As with simple compare-and-swap loops, the individual mutations must be either p
 
 The idea behind all of these techniques is to either handle or prevent other threads that modify your object while your operation is running.  When using thread-safe objects, you must bear the same requirement in mind.  Any time you perform two operations on an object, it is your responsibility to ensure that nothing has changed between the two operations.  
 
-To aid in this, well-designed concurrent classes will offer composite operations that perform common tasks atomically, such as .Net's [`ConcurrentDictionary.GetOrAdd()` method](http://http://msdn.microsoft.com/en-us/library/ee378677)) (this is [one of the problems](http://stackoverflow.com/a/12182099/34397) with Java's `Collections.synchronized*()` wrappers).  In the absence of such methods, you will still need to use locks to ensure that no other mutations interrupt your operation.
+To aid in this, well-designed concurrent classes will offer composite operations that perform common tasks atomically, such as .Net's [`ConcurrentDictionary.GetOrAdd()` method](https://https://msdn.microsoft.com/en-us/library/ee378677)) (this is [one of the problems](https://stackoverflow.com/a/12182099/34397) with Java's `Collections.synchronized*()` wrappers).  In the absence of such methods, you will still need to use locks to ensure that no other mutations interrupt your operation.
 
 
 [_Next time: How to build thread-safe lock-free data structures using compare-and-swap loops_]({% post_url 2013-07-29-creating-lock-free-data-structures %})

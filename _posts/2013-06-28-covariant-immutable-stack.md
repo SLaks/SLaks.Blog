@@ -4,7 +4,7 @@ layout: "post"
 categories: [C#, variance, oop, thread-safety, immutability]
 ---
 
-[Last time]({% post_url 2013-06-23-creating-immutable-stack %}), I showed how to create a simple immutable stack.  However, this stack is not [covariant](http://msdn.microsoft.com/en-us/library/dd799517.aspx).  Ideally, we should be able (for example) to implicitly convert `IStack<string>` to `IStack<object>`.
+[Last time]({% post_url 2013-06-23-creating-immutable-stack %}), I showed how to create a simple immutable stack.  However, this stack is not [covariant](https://msdn.microsoft.com/en-us/library/dd799517.aspx).  Ideally, we should be able (for example) to implicitly convert `IStack<string>` to `IStack<object>`.
 
 Most collection types cannot be co-variant.  Had `List<string>` been convertible to `List<object>`, you would then be able to add an `int` (or any other type) to the converted `List<object>`, even though it can't fit in `List<string>` (which the casted instance actually is).  To be precise, covariance is only type-safe for immutable types.
 

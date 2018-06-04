@@ -55,7 +55,7 @@ Better yet, you can set `excerpt_separator` to an empty string, so that the exce
 In short, this bug can be fixed by adding the following line to `_config.yml`:
 
 ```yaml
-excerpt_separator: ""   # Workaround for http://blog.slaks.net{{ page.url }}
+excerpt_separator: ""   # Workaround for https://blog.slaks.net{{ page.url }}
 ```
 
 Once [#1386](https://github.com/mojombo/jekyll/pull/1386) is released, this line will disable excerpts entirely, adding another miniscule performance boost.

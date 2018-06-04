@@ -29,7 +29,7 @@ The second part of the preview is the new language services.  This part replaces
 The Roslyn-based language services faithfully reproduce the complete development experience from the native language services (except a couple of features that have not yet been implemented), as well as a host of new features that were made possible by the newly well-organized codebase.  These new editor features fall into a couple of categories:
 
 ## Syntax Highlighting
-Roslyn extends the editor's existing syntax highlighting to a number of new areas.  Tooltips for types and method signatures now syntax-highlight the declarations, including keywords and separate colors for User Types (classes, structs, etc), if configured in Fonts & Colors options (the [Productivity Power Tools](http://visualstudiogallery.msdn.microsoft.com/dbcb8670-889e-4a54-a226-a48a15e4cace) extension also has this feature, but Roslyn's works better).  It will even show syntax highlighting for members referenced in `<see />` tags in the doc comments!
+Roslyn extends the editor's existing syntax highlighting to a number of new areas.  Tooltips for types and method signatures now syntax-highlight the declarations, including keywords and separate colors for User Types (classes, structs, etc), if configured in Fonts & Colors options (the [Productivity Power Tools](https://visualstudiogallery.msdn.microsoft.com/dbcb8670-889e-4a54-a226-a48a15e4cace) extension also has this feature, but Roslyn's works better).  It will even show syntax highlighting for members referenced in `<see />` tags in the doc comments!
 
 Tooltips for collapsed methods or regions now show a fully syntax-highlighted preview of the code in the block.
 

@@ -94,7 +94,7 @@ blockquote.quoted-source {
 This allows you to add speciallize a class for a specific element type, while keeping the specializations nicely nested within the rest of the class.
 
 # Avoiding repetition when selecting repeated elements
-`&` can be used to repeatedly refer to the parent selector, while keeping your code [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Don't repeat yourself").  For example:
+`&` can be used to repeatedly refer to the parent selector, while keeping your code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Don't repeat yourself").  For example:
 
 <div class="less"></div>
 ```sass

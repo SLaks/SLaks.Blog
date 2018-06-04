@@ -14,13 +14,13 @@ blogger:
 categories: [iterators, C#, .Net]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>C# 2.0 introduced a powerful feature called an <a href="http://msdn.microsoft.com/en-us/library/dscyy5s0.aspx">iterator</a>, a method which returns an IEnumerable&lt;T&gt; or IEnumerator&lt;T&gt; using the new <a href="http://msdn.microsoft.com/en-us/library/9k7k7cf0.aspx">yield keyword</a>.</p>  <p>Using an iterator, you can quickly and easily create a method which returns lazily a sequence of values.&#160; However, lazily returning a sequence of <em>sequences</em> (IEnumerable&lt;IEnumerable&lt;T&gt;&gt;) is not so simple.</p>  <p>The obvious approach is to yield return a List&lt;T&gt;:</p>
+<p>C# 2.0 introduced a powerful feature called an <a href="https://msdn.microsoft.com/en-us/library/dscyy5s0.aspx">iterator</a>, a method which returns an IEnumerable&lt;T&gt; or IEnumerator&lt;T&gt; using the new <a href="https://msdn.microsoft.com/en-us/library/9k7k7cf0.aspx">yield keyword</a>.</p>  <p>Using an iterator, you can quickly and easily create a method which returns lazily a sequence of values.&#160; However, lazily returning a sequence of <em>sequences</em> (IEnumerable&lt;IEnumerable&lt;T&gt;&gt;) is not so simple.</p>  <p>The obvious approach is to yield return a List&lt;T&gt;:</p>
 {% endraw %}
 {% highlight csharp %}
 IEnumerable<IEnumerable<int>> SemiLazy() {

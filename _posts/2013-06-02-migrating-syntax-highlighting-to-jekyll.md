@@ -6,7 +6,7 @@ categories: [Jekyll, C#]
 
 The next step in [migrating my blog to Jekyll]({% post_url 2013-05-31-migrating-from-blogger-to-jekyll %}) was to convert the code blocks to use Jekyll's <code>&#123;% highlight %}</code> tag.  
 
-Since Blogger has no support for server-side syntax highlighting, all of the code blocks in my HTML are implemented as `<pre class="brush: someLanguage">...</pre>`, with HTML-escaped code inside the tag.  (the class name is used by [SyntaxHighlighter](http://alexgorbatchev.com/SyntaxHighlighter/))  I needed to convert that to Liquid tags with raw (non-escaped) code inside of them.
+Since Blogger has no support for server-side syntax highlighting, all of the code blocks in my HTML are implemented as `<pre class="brush: someLanguage">...</pre>`, with HTML-escaped code inside the tag.  (the class name is used by [SyntaxHighlighter](https://alexgorbatchev.com/SyntaxHighlighter/))  I needed to convert that to Liquid tags with raw (non-escaped) code inside of them.
 
 To do this, I wrote a small C# script:
 
@@ -47,11 +47,11 @@ foreach (var file in Directory.EnumerateFiles(PostsFolder, "*.html")) {
 }
 {% endraw %}```
 
-(This kind of script is most easily run in [LINQPad](http://linqpad.net) or [scriptcs](http://scriptcs.net/))
+(This kind of script is most easily run in [LINQPad](https://linqpad.net) or [scriptcs](https://scriptcs.net/))
 
 This code loops through every HTML file in `PostsFolder` and runs the text through a series of regular expressions (yes, evil) to update it for Jekyll.
 
-The first, and biggest, regex matches `<pre class="brush: someLanguage">...</pre>`, and convers each to Jekyll `{{ openTag }} highlight someLanguage %}` blocks.  Since SyntaxHighlighter uses different language names than [Pygments'](http://pygments.org/docs/lexers/#lexers-for-net-languages), I have a `langMappings` that maps language names from the HTML to language names for the Jekyll output.  I also un-HTML-escape the contents of each code block.  Finally, because I modified blogger2jekyll to wrap each post in a `{{ openTag }} raw %}` tag, it terminates the `{{ openTag }} raw %}` and re-enters it after the code.  
+The first, and biggest, regex matches `<pre class="brush: someLanguage">...</pre>`, and convers each to Jekyll `{{ openTag }} highlight someLanguage %}` blocks.  Since SyntaxHighlighter uses different language names than [Pygments'](https://pygments.org/docs/lexers/#lexers-for-net-languages), I have a `langMappings` that maps language names from the HTML to language names for the Jekyll output.  I also un-HTML-escape the contents of each code block.  Finally, because I modified blogger2jekyll to wrap each post in a `{{ openTag }} raw %}` tag, it terminates the `{{ openTag }} raw %}` and re-enters it after the code.  
 
 Depending on what your code blocks look like, you may want to change it to wrap the contents of each `{{ openTag }} highligh %}` tag in a `{{ openTag }} raw %}` block too.  
 

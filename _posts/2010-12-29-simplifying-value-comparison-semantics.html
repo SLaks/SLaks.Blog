@@ -14,13 +14,13 @@ blogger:
 categories: [comparison, C#, .Net]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>A common chore in developing real-world C# applications is implementing value semantics for equality.&#160; This involves implementing <code><a href="http://msdn.microsoft.com/en-us/library/ms131187.aspx">IEquatable&lt;T&gt;</a></code>, overriding <code>Equals()</code> and <code>GetHashCode()</code>, and overloading the <code>==</code> and <code>!=</code> operators.</p>  <p>Implementing these methods is a time-consuming and repetitive task, and is easy to get wrong, especially <code>GetHashCode()</code>.&#160; In particular, <a title="What is the best algorithm for an overridden System.Object.GetHashCode?" href="http://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416">the best way implement GetHashCode()</a><code></code> is much more complicated than <code>return x.GetHashCode() ^ y.GetHashCode()</code>.</p>  <p>To simplify this task, I created a <code>ValueComparer</code> class:</p>
+<p>A common chore in developing real-world C# applications is implementing value semantics for equality.&#160; This involves implementing <code><a href="https://msdn.microsoft.com/en-us/library/ms131187.aspx">IEquatable&lt;T&gt;</a></code>, overriding <code>Equals()</code> and <code>GetHashCode()</code>, and overloading the <code>==</code> and <code>!=</code> operators.</p>  <p>Implementing these methods is a time-consuming and repetitive task, and is easy to get wrong, especially <code>GetHashCode()</code>.&#160; In particular, <a title="What is the best algorithm for an overridden System.Object.GetHashCode?" href="https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416">the best way implement GetHashCode()</a><code></code> is much more complicated than <code>return x.GetHashCode() ^ y.GetHashCode()</code>.</p>  <p>To simplify this task, I created a <code>ValueComparer</code> class:</p>
 {% endraw %}
 {% highlight csharp %}
 ///<summary>
@@ -46,7 +46,7 @@ class ValueComparer<T> : IComparer<T>, IEqualityComparer<T> {
         return Properties.All(f => Equals(f(x), f(y)));    
     }
 
-    //http://stackoverflow.com/questions/263400/263416#263416
+    //https://stackoverflow.com/questions/263400/263416#263416
     public int GetHashCode(T obj) {
         if (obj == null) return -42;
         unchecked {
@@ -105,7 +105,7 @@ class Person : IComparable<Person>, IEquatable<Person>, IComparable {
 }
 {% endhighlight %}
 {% raw %}
-<p>To simplify this task, I created a <a href="http://www.slaks.net/Files/ValueComparer.snippet">code snippet</a>:</p>
+<p>To simplify this task, I created a <a href="https://www.slaks.net/Files/ValueComparer.snippet">code snippet</a>:</p>
 {% endraw %}
 {% highlight xml %}
 <?xml version="1.0" encoding="utf-8" ?>

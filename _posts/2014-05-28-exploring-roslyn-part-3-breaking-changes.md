@@ -13,7 +13,7 @@ Breaking changes come in two varieties: Forward-breaking changes, meaning that c
 Obviously, all of the new language features in C# 6 are backwards-breaking changes; they will never work with older compilers.  However, there are some more subtle changes which can prevent projects from being compiled without Roslyn even if they don't use any new features.
 
 # Lifting variables in iterator methods
-When you write an iterator method (using `yield return`), the compiler will transform your method into a class which implements `IEnumerable<T>`, turning your actual code into a state machine inside `MoveNext()`.  (See [Jon Skeet's blog post](http://csharpindepth.com/articles/chapter6/iteratorblockimplementation.aspx) for a thorough explanation.)
+When you write an iterator method (using `yield return`), the compiler will transform your method into a class which implements `IEnumerable<T>`, turning your actual code into a state machine inside `MoveNext()`.  (See [Jon Skeet's blog post](https://csharpindepth.com/articles/chapter6/iteratorblockimplementation.aspx) for a thorough explanation.)
 
 Local variables in your method become fields in the iterator class, so they can be persisted across calls to `MoveNext()`.  The old compiler would always lift every single local variable to a field, even if it's never used across a `yield return` boundary (meaning that it doesn't need to stick around between `MoveNext()` calls).  The Roslyn compiler is smarter, and only lifts locals when it needs to (if the local is used both before and after a `yield return`).
 
@@ -21,7 +21,7 @@ This is a breaking change in both directions.  If your pre-Roslyn code declares 
 
 This can also be a backwards-breaking change, for two reasons.  Most obviously, if your Roslyn code uses a very large object in only one place in an iterator, compiling it with the native compiler will cause that object to last much longer; potentially leaking large amounts of memory if your iterators are long-lived (which can happen in surprising ways with LINQ queries).
 
-More subtly, this means that code compiled with the native compiler can load types earlier than it would have with Roslyn.  This [bit me](https://github.com/SLaks/Ref12/commit/2c52df7be397c052980bf91d2bcc6a90eae9c926) in [Ref12](http://visualstudiogallery.msdn.microsoft.com/f89b27c5-7d7b-4059-adde-7ccc709fa86e), where I had an iterator that used a type in an [unversioned assembly](/2014-02-26/extending-visual-studio-part-5-dealing-with-unversioned-assemblies) that I loaded using a `AssemblyResolve` handler.  With Roslyn, it worked fine.  Without Roslyn, that type ended up in a field in the iterator class, so MEF tried to load the type when inspecting the assembly (through `Assembly.GetTypes()`), and the extension refused to load.
+More subtly, this means that code compiled with the native compiler can load types earlier than it would have with Roslyn.  This [bit me](https://github.com/SLaks/Ref12/commit/2c52df7be397c052980bf91d2bcc6a90eae9c926) in [Ref12](https://visualstudiogallery.msdn.microsoft.com/f89b27c5-7d7b-4059-adde-7ccc709fa86e), where I had an iterator that used a type in an [unversioned assembly](/2014-02-26/extending-visual-studio-part-5-dealing-with-unversioned-assemblies) that I loaded using a `AssemblyResolve` handler.  With Roslyn, it worked fine.  Without Roslyn, that type ended up in a field in the iterator class, so MEF tried to load the type when inspecting the assembly (through `Assembly.GetTypes()`), and the extension refused to load.
 
 ## Demo
 ```csharp

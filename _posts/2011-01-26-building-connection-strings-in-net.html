@@ -14,8 +14,8 @@ blogger:
 categories: [.Net, data, string-concatenation, C#]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
@@ -31,7 +31,7 @@ string conn = "Data Source=" + openFileDialog1.FileName + "; "
 {% raw %}
 <p>This code looks innocuous at first glance, but will not work for all filenames.&#160; If the filename contains characters like <code>'</code>, <code>&quot;</code>, <code>;</code>, or <code>=</code>, this code will create an invalid connection string and throw an exception.</p>
 
-<p>The correct way to build connection strings is to use one of the <a href="http://msdn.microsoft.com/en-us/library/system.data.common.dbconnectionstringbuilder.aspx">DbConnectionStringBuilder</a> classes.&#160; This class implements a dictionary of key-value pairs in the connection string.&#160; It has a <code>ConnectionString</code> property which assembles the instance’s contents into a usable connection string.&#160; Unlike the string concatenation shown above, this property will correctly escape all values.</p>
+<p>The correct way to build connection strings is to use one of the <a href="https://msdn.microsoft.com/en-us/library/system.data.common.dbconnectionstringbuilder.aspx">DbConnectionStringBuilder</a> classes.&#160; This class implements a dictionary of key-value pairs in the connection string.&#160; It has a <code>ConnectionString</code> property which assembles the instance’s contents into a usable connection string.&#160; Unlike the string concatenation shown above, this property will correctly escape all values.</p>
 
 <p>In addition, each of the database clients included with the .Net framework (SQL, OleDB, ODBC, Oracle, and Entity Framework) have their own inherited ConnectionStringBuilder classes in their respective namespaces.&#160; These classes add type-safe properties for the the keys supported by their databases, and handle any special cases when generating the connection string.</p>
 

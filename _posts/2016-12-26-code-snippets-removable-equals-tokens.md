@@ -66,7 +66,7 @@ a = (null);
 
 This trick works because variables of delegate type are both callable and (unlike functions) assignable.  By wrapping the right side of the assignment in parentheses, this becomes a valid function call when the `=` is removed.
 
-Making this compile is a bit tricky; the right side must be convertible to both the delegate type and its parameter.  `null` is the simple way to meet that requirement (and will come up again in more-complex answers).  To avoid the `null`, you must declare your own delegate that accepts itself as a parameter; this is impossible to achieve with the built-in `Action<T>` delegates (since you can't write `Action<Action<Action<...>>>` forever).  [_example_](http://tryroslyn.azurewebsites.net/#b:master/f:r/MYGwhgzhAEDC0G8BQBIAJgUxBg5mALhtAG4D2AlmtACIAU10aAlANxLQc2NuckVUBZWk0TtenKgF5otZi2hiOAXyRKgA)
+Making this compile is a bit tricky; the right side must be convertible to both the delegate type and its parameter.  `null` is the simple way to meet that requirement (and will come up again in more-complex answers).  To avoid the `null`, you must declare your own delegate that accepts itself as a parameter; this is impossible to achieve with the built-in `Action<T>` delegates (since you can't write `Action<Action<Action<...>>>` forever).  [_example_](https://tryroslyn.azurewebsites.net/#b:master/f:r/MYGwhgzhAEDC0G8BQBIAJgUxBg5mALhtAG4D2AlmtACIAU10aAlANxLQc2NuckVUBZWk0TtenKgF5otZi2hiOAXyRKgA)
 
 ### Variant: `ref` return
 ```csharp
@@ -135,7 +135,7 @@ This is similar to #3 and its variant, taking advantage of another new C# 7 feat
 
 With the `=`, this is a combination of a tuple literal and a deconstructing variable declaration.  Removing the `=` completely rewrites the parse tree, turning it into a chained call to a function named `var` with two parameters, followed by a call to its returned delegate with two more parameters.  `x` and `y` must be declared separately as fields so that they can be passed as parameters without `=` but be declared as variables with `=`.
 
-You can also replace the tuple literal with an explicit tuple construction ([demo](http://tryroslyn.azurewebsites.net/#b:master/f:r/K4Zwlgdg5gBAygTxAFwKYFsDcAoAxgGwEMQQYBhGAb2xlpgEFdkwB7CAHgBVgAHfVdpGQAaIQD4xMAG6EATgAohMQsJhKARgEoYAXkkRg+fDjpqIyGAA9VCE3SkswAExgBZeduqnTM2THnWMAjaOv7cfKgAdGSyqIRo8gCMqgBMmpp2tAC+2FlAA)), but the method must still be named `var`, since deconstructing assignment is only valid with `var`.
+You can also replace the tuple literal with an explicit tuple construction ([demo](https://tryroslyn.azurewebsites.net/#b:master/f:r/K4Zwlgdg5gBAygTxAFwKYFsDcAoAxgGwEMQQYBhGAb2xlpgEFdkwB7CAHgBVgAHfVdpGQAaIQD4xMAG6EATgAohMQsJhKARgEoYAXkkRg+fDjpqIyGAA9VCE3SkswAExgBZeduqnTM2THnWMAjaOv7cfKgAdGSyqIRo8gCMqgBMmpp2tAC+2FlAA)), but the method must still be named `var`, since deconstructing assignment is only valid with `var`.
 
 
 ## 7. Local functions

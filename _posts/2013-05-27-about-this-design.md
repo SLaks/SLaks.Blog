@@ -17,7 +17,7 @@ When implementing the design, I had the following goals in mind:
  - No Javascript
   - Especially with the power of CSS selectors, there should be no reason to use Javascript for static content
   - If I add comments, I will have to relax this restriction (since the site will no longer be purely static content)
- - [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Don't repeat yourself") implementation
+ - [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "Don't repeat yourself") implementation
   - Repetition of data or rules is a problem not only in large programs, but also in HTML templating engines or style definitions.  LESS in particular is very helpful in getting rid of unnecessary repetition in CSS.
  - Rich category support
   -  I feel that category listing pages are a great way to make posts more discoverable

@@ -14,8 +14,8 @@ blogger:
 categories: [C, closures, functions]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
@@ -44,7 +44,7 @@ filter(arr, 4, sizeof(int), &predicate);
 {% raw %}
 <p>However, if we want to replace the hard-coded <code>2</code> with a local variable, it becomes more complicated.&#160; Since function pointers, unlike delegates, do not have state, there is no simple way to pass the local variable to the function.</p>
 
-<p>The <a href="http://stackoverflow.com/questions/4210689/pass-extra-parameter-to-comparator-for-qsort/4210705#4210705">most obvious answer</a> is to use a global variable:</p>
+<p>The <a href="https://stackoverflow.com/questions/4210689/pass-extra-parameter-to-comparator-for-qsort/4210705#4210705">most obvious answer</a> is to use a global variable:</p>
 {% endraw %}
 {% highlight cpp %}
 static int minimum;
@@ -57,7 +57,7 @@ minimum = x;
 filter(arr, 4, sizeof(int), &predicate);
 {% endhighlight %}
 {% raw %}
-<p>However, this code will fail horribly if it’s ever run on multiple threads.&#160; In simple cases, you can work around that by storing the value in a global <a href="http://en.wikipedia.org/wiki/Thread-local_storage">thread-local variable</a> (or in <a href="http://msdn.microsoft.com/en-us/library/ms682661.aspx">fiber-local storage</a> for code that uses fibers).&#160;&#160; Because each thread will have its own global, the threads won’t conflict with each-other.&#160; Obviously, this won’t work if the callback might be run on a different thread.</p>
+<p>However, this code will fail horribly if it’s ever run on multiple threads.&#160; In simple cases, you can work around that by storing the value in a global <a href="https://en.wikipedia.org/wiki/Thread-local_storage">thread-local variable</a> (or in <a href="https://msdn.microsoft.com/en-us/library/ms682661.aspx">fiber-local storage</a> for code that uses fibers).&#160;&#160; Because each thread will have its own global, the threads won’t conflict with each-other.&#160; Obviously, this won’t work if the callback might be run on a different thread.</p>
 
 <p>However, even if everything is running on one thread, this still isn’t enough if the code can be re-entrant, or if the callback might be called after the original function call finishes.&#160; This technique assumes that exactly one callback (from a single call to the function that accepted the callback) will be used at any given time.&#160; If the callback might be invoked later (eg, a timer, or a UI handler), this method will break down, since all of the callbacks will share the same global.</p>
 

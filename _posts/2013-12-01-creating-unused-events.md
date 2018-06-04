@@ -59,4 +59,4 @@ public event EventHandler MyEvent {
 }
 ```
 
-Note that [you should not make a field-like event `virtual`](http://blogs.msdn.com/b/samng/archive/2007/11/26/virtual-events-in-c.aspx); the compiler does not handle overridden field-like events gracefully.
+Note that [you should not make a field-like event `virtual`](https://blogs.msdn.com/b/samng/archive/2007/11/26/virtual-events-in-c.aspx); the compiler does not handle overridden field-like events gracefully.

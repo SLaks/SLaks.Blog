@@ -16,7 +16,7 @@ However, it won't do any good for thread-safety.
 
 An **immutable** object is an object that cannot change _at all_, no matter what happens (Reflection doesn't count).  `string` is an excellent example of an immutable class; the value of an existing `string` instance can never change, no matter what happens.  (barring reflection, unsafe code, and certain marshalling tricks)
 
-.Net does not have any built-in immutable collections, but the CLR team [released a library of immutable collection types on NuGet](http://blogs.msdn.com/b/bclteam/archive/2012/12/18/preview-of-immutable-collections-released-on-nuget.aspx).
+.Net does not have any built-in immutable collections, but the CLR team [released a library of immutable collection types on NuGet](https://blogs.msdn.com/b/bclteam/archive/2012/12/18/preview-of-immutable-collections-released-on-nuget.aspx).
 
 Truly immutable objects are intrinsically thread-safe.  Since there is no way to modify them, there is no chance that other threads will observe an inconsistent instance.
 
@@ -27,7 +27,7 @@ These fields cannot be re-assigned to point to a different instance.   However, 
 
  - Read-only classes  
 These classes do not expose any APIs to mutate their contents, but can change by other means (typically, by changes made directly to the mutable objects they wrap, or in response to events handled within the class).  
-Examples include [`ReadOnlyCollection<T>`](http://msdn.microsoft.com/en-us/library/ms132474.aspx).
+Examples include [`ReadOnlyCollection<T>`](https://msdn.microsoft.com/en-us/library/ms132474.aspx).
 
  - API-enforced immutable classes  
 These classes are not intrinsically immutable, but have an API design that guarantees that mutations will not happen.  In other words, they may contain mutable state, but they will never actually mutate that state.

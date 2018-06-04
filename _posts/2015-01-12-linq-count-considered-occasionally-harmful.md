@@ -11,9 +11,9 @@ How many times have you seen code like this?
 if (someSequence.Count() > 2) { }
 ```
 
-LINQ's [`.Count()` method](http://msdn.microsoft.com/en-us/library/vstudio/bb338038() has an important performance subtlety which can make this code unnecessarily slow.  The root of the problem is that the `IEnumerable<T>` interface, which all LINQ methods operate on, doesn't actually have a count (if it did, there would be no need for the `Count()` extension method in the first place).  Therefore, the `Count()` method is actually O(n), looping through the entire collection to count every item.
+LINQ's [`.Count()` method](https://msdn.microsoft.com/en-us/library/vstudio/bb338038() has an important performance subtlety which can make this code unnecessarily slow.  The root of the problem is that the `IEnumerable<T>` interface, which all LINQ methods operate on, doesn't actually have a count (if it did, there would be no need for the `Count()` extension method in the first place).  Therefore, the `Count()` method is actually O(n), looping through the entire collection to count every item.
 
-Fortunately, the implementation of `Count()` is a bit smarter than this.  As you can see in the [source](http://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,41ef9e39e54d0d0b), `Count()` will check whether the source collection implements `ICollection<T>` or `ICollection`, and, if it does, will directly return the `Count` property without iterating at all (thus becoming O(1)).  Unfortunately, it does not check for `IReadOnlyCollection<T>`; if you call `Count()` on a collection that implements `IReadOnlyCollection<T>` but not `ICollection<T>`, it will still be O(n).  There are no such types in the BCL, but this has been enough of an issue for Roslyn that they wrote [an analyzer](http://source.roslyn.codeplex.com/#Roslyn.Diagnostics.Analyzers.CSharp/Performance/LinqAnalyzer.cs) to prevent it.
+Fortunately, the implementation of `Count()` is a bit smarter than this.  As you can see in the [source](https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,41ef9e39e54d0d0b), `Count()` will check whether the source collection implements `ICollection<T>` or `ICollection`, and, if it does, will directly return the `Count` property without iterating at all (thus becoming O(1)).  Unfortunately, it does not check for `IReadOnlyCollection<T>`; if you call `Count()` on a collection that implements `IReadOnlyCollection<T>` but not `ICollection<T>`, it will still be O(n).  There are no such types in the BCL, but this has been enough of an issue for Roslyn that they wrote [an analyzer](https://source.roslyn.codeplex.com/#Roslyn.Diagnostics.Analyzers.CSharp/Performance/LinqAnalyzer.cs) to prevent it.
 
 In fact, it can be even worse than that.  It is perfectly possible to make an infinite `IEnumerable<T>` &ndash; a sequence that can be iterated as far as you want, without running out of elements.  For example:
 
@@ -43,11 +43,13 @@ To get the best of both worlds, you need to write your own LINQ method:
 public static bool HasMoreThan<T>(this IEnumerable<T> sequence, int count) {
 	if (count < 0) return true;
 	int? staticCount = (sequence as ICollection<T>)?.Count 
-					?? (sequence as ICollection)?.Count					?? (sequence as IReadOnlyCollection<T>)?.Count;
+					?? (sequence as ICollection)?.Count
+					?? (sequence as IReadOnlyCollection<T>)?.Count;
 	if (staticCount != null)
 		return staticCount > count;
 	using (var enumerator = sequence.GetEnumerator())
-		for (int i = 0; i < count + 1; i++)			if (!enumerator.MoveNext())
+		for (int i = 0; i < count + 1; i++)
+			if (!enumerator.MoveNext())
 				return false;
 	return true;
 }

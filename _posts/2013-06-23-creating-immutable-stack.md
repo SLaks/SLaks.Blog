@@ -28,7 +28,7 @@ while (!myStack.IsEmpty) {
 
 Each implementation of this interface would supply a singleton `empty` instance; since they are immutable; there is no need to have more than one empty instance.  Thus, there is no need for a constructor.  Since `Pop()` needs to return the new stack, it cannot return the removed item; therefore, `Peek()` is the only way to get the item.  
 
-As a side benefit, this pattern naturally enables and encourages [fluent interfaces](http://en.wikipedia.org/wiki/Fluent_interface), since each mutation methods returns a new instance.  (eg, `myStack.Push(1).Push(2).Push(3)`)
+As a side benefit, this pattern naturally enables and encourages [fluent interfaces](https://en.wikipedia.org/wiki/Fluent_interface), since each mutation methods returns a new instance.  (eg, `myStack.Push(1).Push(2).Push(3)`)
 
 The naive implementation of this interface would use a list, and copy the list when creating a new stack:
 
@@ -65,7 +65,7 @@ public class NaiveStack<T> : IStack<T> {
 
 The problem with this approach is that each mutation requires an O(n) copy to create the list behind the new instance.  This makes `Push()` and `Pop()` awfully slow, and vastly increases the memory footprint until the intermediate instances can be GCd.
 
-To solve these problems, we can design the stack as a [persistent data structure](http://en.wikipedia.org/wiki/Persistent_data_structure).  Instead of copying anything when pushing on to a stack, we cab make the new stack instance hold only the newly added item, and maintain a reference to the previous instance storing the rest of the items.  Popping from the stack can then simply return the previous instance.  Basically, the stack becomes an immutable single-linked list.
+To solve these problems, we can design the stack as a [persistent data structure](https://en.wikipedia.org/wiki/Persistent_data_structure).  Instead of copying anything when pushing on to a stack, we cab make the new stack instance hold only the newly added item, and maintain a reference to the previous instance storing the rest of the items.  Popping from the stack can then simply return the previous instance.  Basically, the stack becomes an immutable single-linked list.
 
 ```csharp
 public abstract class PersistentStack<T> : IStack<T> {

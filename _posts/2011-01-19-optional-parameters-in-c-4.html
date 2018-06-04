@@ -14,13 +14,13 @@ blogger:
 categories: [C#, .Net, optional-parameters]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p>C# 4.0 adds support for <a href="http://msdn.microsoft.com/en-us/library/dd264739.aspx">optional parameters</a>.</p>  <p>The following code prints 4:</p>
+<p>C# 4.0 adds support for <a href="https://msdn.microsoft.com/en-us/library/dd264739.aspx">optional parameters</a>.</p>  <p>The following code prints 4:</p>
 {% endraw %}
 {% highlight csharp %}
 static void Main() {
@@ -49,7 +49,7 @@ static void TestMethod(int i = 4) {
 
 <p>Earlier versions of the C# compiler will ignore this metadata.&#160; Therefore, you can call such methods in earlier versions of C#, but you will always need to pass the optional parameters.</p>
 
-<p>You can also create methods with optional parameters in earlier versions of C#.&#160; You can force the compiler to emit this metadata using the <a href="http://msdn.microsoft.com/en-us/library/system.runtime.interopservices.optionalattribute.aspx"><code>[Optional]</code></a> and <a href="http://msdn.microsoft.com/en-us/library/system.runtime.interopservices.defaultparametervalueattribute.aspx"><code>[DefaultParameterValue]</code></a> attributes. 
+<p>You can also create methods with optional parameters in earlier versions of C#.&#160; You can force the compiler to emit this metadata using the <a href="https://msdn.microsoft.com/en-us/library/system.runtime.interopservices.optionalattribute.aspx"><code>[Optional]</code></a> and <a href="https://msdn.microsoft.com/en-us/library/system.runtime.interopservices.defaultparametervalueattribute.aspx"><code>[DefaultParameterValue]</code></a> attributes. 
 
   <br />(in the System.Runtime.InteropServices namespace)</p>
 
@@ -69,6 +69,6 @@ static void TestMethod(
 
 <p>The <code>[DefaultParameterValue]</code> attribute is optional; omitting it will use the type’s default value (<code>0</code>, an empty struct, or <code>null</code>, as appropriate) as the default.</p>
 
-<p>These attributes can also be used to create methods with optional parameters using <a href="http://msdn.microsoft.com/en-us/library/y2k85ax6.aspx">CodeDOM</a>, which cannot emit the new syntax.</p>
+<p>These attributes can also be used to create methods with optional parameters using <a href="https://msdn.microsoft.com/en-us/library/y2k85ax6.aspx">CodeDOM</a>, which cannot emit the new syntax.</p>
 </div>
 {% endraw %}

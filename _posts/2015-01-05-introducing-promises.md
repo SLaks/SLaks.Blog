@@ -56,7 +56,7 @@ function readFilePromise(path) {
 }
 ```
 
-More sophisticated promise libraries will also include helper methods to "promisify" existing async methods using standard callback patterns, such as Q's [`nfcall` & friends](https://github.com/kriskowal/q#adapting-node) or C#'s [`TaskFactory.FromAsync` overloads](http://msdn.microsoft.com/en-us/library/system.threading.tasks.taskfactory.fromasync).
+More sophisticated promise libraries will also include helper methods to "promisify" existing async methods using standard callback patterns, such as Q's [`nfcall` & friends](https://github.com/kriskowal/q#adapting-node) or C#'s [`TaskFactory.FromAsync` overloads](https://msdn.microsoft.com/en-us/library/system.threading.tasks.taskfactory.fromasync).
 
 Finally, most promise frameworks include convenience methods to create pre-resolved or pre-rejected promises from existing values (useful when an async API has a synchronous "fast path" such as a cache), as well as promises that will be resolved after a given delay.
 
@@ -82,7 +82,7 @@ var thirdPromise = delayedPromise.then(function(result) {
 // promises are resolved.
 ```
 
-More formally, this feature is an example of a [monad](http://en.wikipedia.org/wiki/Monad_%28functional_programming%29) &ndash; a generic type that &ldquo;amplifies&rdquo; (adds more features to) any existing type.  Other examples of monads include collection types, which amplify an existing type to store a number of values of that type, and optional/maybe types, which store either a `None` placeholder or a single value.  The monadic _unit_ operation, which creates a promise from an existing value, is `Promise.resolve()` (or equivalents in other frameworks).  The mondaic _bind_ operation, which applies a function to the value in a monad and returns a new monad containing the function's result(s), is the `then()` method.  This is what makes promises chainable.  For a deeper introduction to monads, see [Eric Lippert's excellent series of blog posts](http://ericlippert.com/2013/02/21/monads-part-one/).
+More formally, this feature is an example of a [monad](https://en.wikipedia.org/wiki/Monad_%28functional_programming%29) &ndash; a generic type that &ldquo;amplifies&rdquo; (adds more features to) any existing type.  Other examples of monads include collection types, which amplify an existing type to store a number of values of that type, and optional/maybe types, which store either a `None` placeholder or a single value.  The monadic _unit_ operation, which creates a promise from an existing value, is `Promise.resolve()` (or equivalents in other frameworks).  The mondaic _bind_ operation, which applies a function to the value in a monad and returns a new monad containing the function's result(s), is the `then()` method.  This is what makes promises chainable.  For a deeper introduction to monads, see [Eric Lippert's excellent series of blog posts](https://ericlippert.com/2013/02/21/monads-part-one/).
 
 Promise frameworks will also include helper methods to consume collections of other promises.  `Promise.all()` takes a collection of promises and returns a new promise of an array of the results of these promises, thus waiting for all of the promises to be resolved.  This can be used to kick off a number of asynchronous operations in parallel, then wait for them all to finish.  `Promise.any()` takes a collection of promises and returns a promise of the result of the first promise to be resolved (ignoring all of the other promises).
 
@@ -92,9 +92,9 @@ For example:
 function getWeather(city) {
 	// Try 3 services and use whichever one answers first.
 	return Promise.any([
-		httpRequestPromise('http://weather1.example.com', { city: city }),
-		httpRequestPromise('http://weather2.example.com', { city: city }),
-		httpRequestPromise('http://weather3.example.com', { city: city })
+		httpRequestPromise('https://weather1.example.com', { city: city }),
+		httpRequestPromise('https://weather2.example.com', { city: city }),
+		httpRequestPromise('https://weather3.example.com', { city: city })
 	]);
 }
 
@@ -158,7 +158,7 @@ To test that a method fails, you can add a success callback that throws an error
 
 ```js
 function testAjaxFailure() {
-	return httpRequestPromise('http://cannot parse')
+	return httpRequestPromise('https://cannot parse')
 		.then(function(result) {
 			assertFail('Expected failure but returned ' + result);
 		}, function(error) {

@@ -8,7 +8,7 @@ The first step in my migration to Jekyll was to import my old posts into the Jek
 
 Using this tool is very simple.  First, log into Blogger's admin panel, got to Settings, Other, and click Export blog to download a giant XML file with all of your posts.
 
-Next, install and run the script: (you'll need to install [Node.js](http://nodejs.org) first)
+Next, install and run the script: (you'll need to install [Node.js](https://nodejs.org) first)
 
 ```bash
 npm install -g blogger2jekyll
@@ -17,7 +17,7 @@ blogger2jekyll  /path/to/blog-dd-mm-yyyy.xml ./_posts
 
 If you aren't running it from the directory containing your Jekyll site, you'll need to specify the full path to Jekyll's `_posts` directory. 
  
-This script will create HTML files with the contents of each post from the exported blog, ready for Jekyll to serve.  It will include `layout: "post"` in the Jekyll [front matter](http://jekyllrb.com/docs/frontmatter/); if you have a different layout name, you'll need to do a bulk replace within the resulting files.  It will also set the `permalink` for each post so that existing posts keep their old URLs (even if the Jekyll blog hasa different URL scheme).
+This script will create HTML files with the contents of each post from the exported blog, ready for Jekyll to serve.  It will include `layout: "post"` in the Jekyll [front matter](https://jekyllrb.com/docs/frontmatter/); if you have a different layout name, you'll need to do a bulk replace within the resulting files.  It will also set the `permalink` for each post so that existing posts keep their old URLs (even if the Jekyll blog hasa different URL scheme).
 
 I had a couple of problems with this script:
 

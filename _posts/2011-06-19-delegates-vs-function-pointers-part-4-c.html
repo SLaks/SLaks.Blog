@@ -14,13 +14,13 @@ blogger:
 categories: [delegates, closures, C#, lambda-expressions, .Net]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><i>This is part 4 in a series about state and function pointers; part 1 is <a href="/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="/2011/06/delegates-vs-function-pointers-part-3-c.html">Last time</a>, we saw that it is possible to pass local state with a delegate in C#.&#160; However, it involves lots of repetitive single-use classes, leading to ugly code.</p>  <p>To alleviate this tedious task, C# 2 supports <a href="http://msdn.microsoft.com/en-us/library/0yw3tz5k%28v=VS.100%29.aspx">anonymous methods</a>, which allow you to embed a function inside another function.&#160; This makes my <a href="/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a> much simpler:</p>
+<p><i>This is part 4 in a series about state and function pointers; part 1 is <a href="/2011/06/delegates-vs-function-pointers-part-1.html">here</a>.</i> </p>  <p><a href="/2011/06/delegates-vs-function-pointers-part-3-c.html">Last time</a>, we saw that it is possible to pass local state with a delegate in C#.&#160; However, it involves lots of repetitive single-use classes, leading to ugly code.</p>  <p>To alleviate this tedious task, C# 2 supports <a href="https://msdn.microsoft.com/en-us/library/0yw3tz5k%28v=VS.100%29.aspx">anonymous methods</a>, which allow you to embed a function inside another function.&#160; This makes my <a href="/2011/06/delegates-vs-function-pointers-part-1.html#example">standard example</a> much simpler:</p>
 {% endraw %}
 {% highlight csharp %}
 //C# 2.0
@@ -43,9 +43,9 @@ IEnumerable<int> hugeNumbers = numbers.Where(n => n > x);
 {% raw %}
 <p>Clearly, this is much simpler than the C# 1.0 version from last time.&#160; However, anonymous methods and lambda expressions are compile-time features; the CLR itself is not aware of them.&#160; How does this code work? How can an anonymous method use a local variable from its parent scope?</p>
 
-<p>This is an example of a <a href="http://en.wikipedia.org/wiki/Closure_%28computer_science%29">closure</a> – a function bundled together with external variables that the function uses.&#160; The C# compiler handles this the same way that I did manually last time in C# 1: it generates a class to hold the function and the variables that it uses, then creates a delegate from the member function in the class.&#160; Thus, the local state is passed as the delegate’s <code>this</code> parameter.</p>
+<p>This is an example of a <a href="https://en.wikipedia.org/wiki/Closure_%28computer_science%29">closure</a> – a function bundled together with external variables that the function uses.&#160; The C# compiler handles this the same way that I did manually last time in C# 1: it generates a class to hold the function and the variables that it uses, then creates a delegate from the member function in the class.&#160; Thus, the local state is passed as the delegate’s <code>this</code> parameter.</p>
 
-<p>To see how the C# compiler implements closures, I’ll use <a href="http://wiki.sharpdevelop.net/ILSpy.ashx">ILSpy</a> to decompile the more-familiar C# 3 version: (I simplified the <a href="http://stackoverflow.com/q/6402491/34397">compiler-generated names</a> for readability)</p>
+<p>To see how the C# compiler implements closures, I’ll use <a href="https://github.com/icsharpcode/ILSpy">ILSpy</a> to decompile the more-familiar C# 3 version: (I simplified the <a href="https://stackoverflow.com/q/6402491/34397">compiler-generated names</a> for readability)</p>
 {% endraw %}
 {% highlight csharp %}
 [CompilerGenerated]

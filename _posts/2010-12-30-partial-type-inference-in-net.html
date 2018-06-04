@@ -6,16 +6,16 @@ uuid: "8378284758038699494"
 guid: "tag:blogger.com,1999:blog-4137132196361303955.post-8378284758038699494"
 date: "2010-12-30 01:58:00"
 updated: "2010-12-30 02:06:02"
-description: 
+description:
 blogger:
     siteid: "4137132196361303955"
     postid: "8378284758038699494"
     comments: "0"
 categories: [type-inference, generics, C#, .Net]
-author: 
+author:
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
@@ -37,10 +37,10 @@ using(DbConnection connection = ...) {
 {% endraw %}
 {% highlight csharp %}
 static class Extensions {
-    public static void AddParams<TParam>(this IDbCommand command, 
+    public static void AddParams<TParam>(this IDbCommand command,
                                          TParam parameters)
-        where TParam : class { 
-        if (parameters != null) 
+        where TParam : class {
+        if (parameters != null)
             ParamAdders<TParam>.Adder(command, parameters);
     }
     static class ParamAdders<TParam> where TParam : class {
@@ -48,8 +48,8 @@ static class Extensions {
                                         TParam parameters);
         public static readonly ParamAdder Adder = CreateParamAdder();
 
-        private static ParamAdder CreateParamAdder() { 
-            return ...; 
+        private static ParamAdder CreateParamAdder() {
+            return ...;
         }
     }
 }
@@ -64,13 +64,13 @@ static class Extensions {
 {% highlight csharp %}
 static class BetterExtensions {
     public static SqlStatement<T> Sql<T>(this IDbConnection conn,
-                                         string sqlText) { 
-        return new SqlStatement<T>(conn, sqlText); 
+                                         string sqlText) {
+        return new SqlStatement<T>(conn, sqlText);
     }
 }
 class SqlStatement<TReturn> : IHideObjectMembers {
-    public SqlStatement(IDbConnection connection, string sql) { 
-        Connection = connection; 
+    public SqlStatement(IDbConnection connection, string sql) {
+        Connection = connection;
         Sql = sql;
     }
     public IDbConnection Connection { get; private set; }
@@ -96,6 +96,6 @@ using(IDbConnection connection = null) {
 }
 {% endhighlight %}
 {% raw %}
-<p>The return type is specified explicitly in the call to <code>Sql&lt;T&gt;()</code>, and the parameter type is passed implicitly to <code>Execute&lt;TParam&gt;()</code>.</p>  
+<p>The return type is specified explicitly in the call to <code>Sql&lt;T&gt;()</code>, and the parameter type is passed implicitly to <code>Execute&lt;TParam&gt;()</code>.</p>
 </div>
 {% endraw %}

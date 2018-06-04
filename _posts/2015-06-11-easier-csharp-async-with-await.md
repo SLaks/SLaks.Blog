@@ -5,7 +5,7 @@ categories: [async, promises, multi-threading, concepts, C#]
 ---
 [Last time](/2015-06-10/advanced-promise-usage), I described more advanced patterns for complicated workflows involving asynchronous operations.  These patterns can be annoying to write.  However, modern compilers can bear the brunt of this complexity, allowing you to write code as if the operations were synchronous, then letting the compiler transform your code into mes promise chains. 
 
-C# 5 introduces this with its flagship new [`async` / `await` keywords](http://msdn.microsoft.com/en-us/library/hh191443).  However, the wealth of possibilities opened by this feature has left many developers confused about when to make `async` methods and when not to.
+C# 5 introduces this with its flagship new [`async` / `await` keywords](https://msdn.microsoft.com/en-us/library/hh191443).  However, the wealth of possibilities opened by this feature has left many developers confused about when to make `async` methods and when not to.
 
 # Non-blocking IO
 The `async` keyword does not _create_ asynchrony; instead, it allows you to call existing asynchronous methods easily.  If your code isn't calling any existing `*Async()` methods (which return `Task` or `Task<T>`), `async` won't do any you good.  However, if you have the option of calling synchronous or asynchronous versions of an operation (eg, `StreamWriter.WriteLine()` vs. `StreamWriter.WriteLineAsync()`), you can use `await` to switch your code to use asynchronous operations, gaining all of the scalability benefits of non-blocking IO without any of the complexity.
@@ -62,7 +62,7 @@ var hottest = xmlBodies
 	.Max();
 ```
 
-Behind the scenes, the compiler will transform `async` methods into a series of promise callbacks, storing your local variables in a mutable closure class.  (It's actually more complicated than that; Jon Skeet explained exactly how it works in his [Eduasync blog posts](http://codeblog.jonskeet.uk/2011/05/08/eduasync-part-1-introduction/))
+Behind the scenes, the compiler will transform `async` methods into a series of promise callbacks, storing your local variables in a mutable closure class.  (It's actually more complicated than that; Jon Skeet explained exactly how it works in his [Eduasync blog posts](https://codeblog.jonskeet.uk/2011/05/08/eduasync-part-1-introduction/))
 
 This feature is most helpful for more complicated code, especially when consuming operations in sequence.  For example, the complicated `reduce()` loop (from my [previous blog post](/2015-06-10/advanced-promise-usage)) to asynchronously process an array of items in sequence becomes much simpler:
 

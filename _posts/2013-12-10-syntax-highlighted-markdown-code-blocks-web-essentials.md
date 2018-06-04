@@ -15,7 +15,7 @@ You get the full editing experience you're used to in Visual Studio, including s
 This is perfect for writing Readmes or documentation for open-source projects on GitHub, or for any other Markdown files you may write.
 
 # How it works
-Visual Studio 2010 rewrote the editor from the ground up in WPF.  This new editor has a powerful feature called [Projection Buffers](http://msdn.microsoft.com/en-us/library/dd885240.aspx#projection), which allow a single editor to seamlessly mix text from different sources.  This can be used to make a virtual editor that mixes code from different files (eg, [Debugger Canvas](http://blogs.msdn.com/b/kaelr/archive/2012/03/10/code-canvas-vs-code-bubbles-vs-debugger-canvas.aspx)), or to mix different languages within a single file (eg, Javascript and CSS blocks within an HTML file).
+Visual Studio 2010 rewrote the editor from the ground up in WPF.  This new editor has a powerful feature called [Projection Buffers](https://msdn.microsoft.com/en-us/library/dd885240.aspx#projection), which allow a single editor to seamlessly mix text from different sources.  This can be used to make a virtual editor that mixes code from different files (eg, [Debugger Canvas](https://blogs.msdn.com/b/kaelr/archive/2012/03/10/code-canvas-vs-code-bubbles-vs-debugger-canvas.aspx)), or to mix different languages within a single file (eg, Javascript and CSS blocks within an HTML file).
 
 My Markdown editor uses this feature to project code blocks in your Markdown files using Visual Studio's built-in editor services   
 
@@ -26,7 +26,7 @@ All languages services built for the new WPF-based editor should work perfectly 
 
 If the language service needs to initialize things for its services to work (eg, a project system), I can still support it using an `ICodeLanguageEmbedder`, which Web Essentials will call to initialize whatever is necessary.  If you have such a language service, feel free to send a pull request.
 
-Before VS2010, an older system called [contained languages](http://msdn.microsoft.com/en-us/library/bb166334.aspx) allowed editors to be mixed like this.  However, this system needed explicit integration from the language service being embedded.  As far as I know, the only langauge services that support contained languages are C# & VB.  I added an adapter layer to make these languages work as well (thanks to [Jason Malinowski](https://twitter.com/jasonmalinowski) for spending lots of time getting this to work).  If you have a different language that implements `IVsContainedLanguageFactory`, get in touch with me & I'll add support.
+Before VS2010, an older system called [contained languages](https://msdn.microsoft.com/en-us/library/bb166334.aspx) allowed editors to be mixed like this.  However, this system needed explicit integration from the language service being embedded.  As far as I know, the only langauge services that support contained languages are C# & VB.  I added an adapter layer to make these languages work as well (thanks to [Jason Malinowski](https://twitter.com/jasonmalinowski) for spending lots of time getting this to work).  If you have a different language that implements `IVsContainedLanguageFactory`, get in touch with me & I'll add support.
 
 To specify the language, use either the name of the ContentType or any extension (without the `.`) recognized by Visual Studio.  If there are other names that should be recognized, send a pull request to add them to the map in `ContentTypeExtensions.ContentTypeAliases`.
 
@@ -59,7 +59,7 @@ So far, all I've done is provide the foundation for a modern Markdown editing ex
  - IntelliSense, URL tooltips, & clickable hyperlinks for reference-style links (eg, `[text][link name]`)
  - Smart tags to toggle between inline links and reference links
  - IntelliSense for URL paths in links
- - Separate IntelliSense & highlighting for [YAML front-matter](http://jekyllrb.com/docs/frontmatter/) for Jekyll blog posts ([#148](https://github.com/madskristensen/WebEssentials2013/issues/148#issuecomment-26823193))
+ - Separate IntelliSense & highlighting for [YAML front-matter](https://jekyllrb.com/docs/frontmatter/) for Jekyll blog posts ([#148](https://github.com/madskristensen/WebEssentials2013/issues/148#issuecomment-26823193))
  - Thumbnail tooltips for images
  - Separate config file with referenced assemblies & `using` statements for IntelliSense in C#/VB code blocks
  - Fix parser to code blocks in lists (which need 8 spaces)

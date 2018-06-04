@@ -6,7 +6,7 @@ categories: [Javascript, oop, inheritance, Node.js]
 
 _Javasript is not a traditionally object-oriented programming languague_.
 
-Wikipedia [describes Javascript](http://en.wikipedia.org/wiki/Javascript) as a &rdquo;scripting, object-oriented (prototype-based), imperative, functional&ldquo; language.  However, since most developers prefer to use classical (pun intended) object-oriented patterns, people have come up with ways to use Javascript with traditional OOP techniques, including classes and inheritance.
+Wikipedia [describes Javascript](https://en.wikipedia.org/wiki/Javascript) as a &rdquo;scripting, object-oriented (prototype-based), imperative, functional&ldquo; language.  However, since most developers prefer to use classical (pun intended) object-oriented patterns, people have come up with ways to use Javascript with traditional OOP techniques, including classes and inheritance.
 
 Most Javascript developers are by now familiar with the standard technique for Javascript classes.  For example:
 
@@ -117,7 +117,7 @@ Kangaroo.prototype = Object.create(
 );
 ```
 
-This is now almost equivalent to the standard `prototype` created for each function, as detailed in the spec in [section 13.2](http://es5.github.io/#x13.2 "Creating Function Objects") (point 17).  
+This is now almost equivalent to the standard `prototype` created for each function, as detailed in the spec in [section 13.2](https://es5.github.io/#x13.2 "Creating Function Objects") (point 17).  
 
 We can move all of this code into a helper function:
 

@@ -13,8 +13,8 @@ blogger:
 categories: [HTML, Javascript]
 author: 
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
@@ -22,10 +22,10 @@ author:
 <p>My <a href="/2010/12/on-copy-prevention-in-html-part-2.html">previous</a> post stretched the limit of simple copy prevention.  Beyond this point, it gets very complicated.  Before continuing, some thought is in order.  Who are you trying to prevent from copying your text?  Why shouldn't the text be copied?  Unless you are trying to stop a hardcore developer, the previous methods should suffice.  Also, what kind of copying are you trying to prevent?  If you are trying to prevent the copier from copying into a web page, it is significantly harder, because he can copy your source and it will display normally.</p>
 <p>I can think of two ways to prevent the copier from using a screenreader to copy your text.</p>
 <ol>
-<li>Put all of the text into a single, <a href="http://en.wikipedia.org/wiki/CAPTCHA">CAPTCHA</a>-like image.  This way, the screenreader will not be able to read the text.  However, this will also make it more difficult for legitimate people to read your text.  Also, the copier could simply insert the large image as-is into his document.  This risk could be mitigated by watermarking it with your name.</li>
+<li>Put all of the text into a single, <a href="https://en.wikipedia.org/wiki/CAPTCHA">CAPTCHA</a>-like image.  This way, the screenreader will not be able to read the text.  However, this will also make it more difficult for legitimate people to read your text.  Also, the copier could simply insert the large image as-is into his document.  This risk could be mitigated by watermarking it with your name.</li>
 <li>Break apart the text into many different images, each one somewhat smaller than a letter.  This could be done in server-side code.  Then, use a JavaScript timer to alternate the images so that the screenreader will never see all of the text at once.  To prevent the copier from modifying the JavaScript to show all of the images, alternate them with other images.  For example, write a server-side script that takes X and Y coordinates, and a timer index.  This script would either a white image, or the chunk of text at the given coordinates, depending on the timer index.  To prevent the copier from using GDI to OR-blit screenshots from different times, (or from using Photoshop to make the white transparent, then pasting them together) the white could have random black patterns.  However, this will make the text hard to read.  If a JavaScript timer isn't fast enough to make the text legible, it could be done in Flash.</li>
 </ol>
-Preventing the copier from copying your content into HTML is more difficult.  No matter how obscure your source is, the copier could use a tool like <a href="http://getfirebug.com/">Firebug</a> to copy your DOM source using the innerHTML property.  Here too, there are several options.
+Preventing the copier from copying your content into HTML is more difficult.  No matter how obscure your source is, the copier could use a tool like <a href="https://getfirebug.com/">Firebug</a> to copy your DOM source using the innerHTML property.  Here too, there are several options.
 <ol>
 <li>Use my Scrambler (see part 2), and put your name anywhere within the scrambled text.  (for example, you could put in, in the middle, Written by <i>Your Name Here</i>; do not copy)  It is virtually impossible for the copier to extricate the spans that form your name and then fill the resulting gap.  This could also be done in an image.  However,  if you put your name at the end, the copier could position a white DIV to hide it. Or, if his name is similar in length, he could position a white DIV with his name to hide it.</li>
 <li> If you are only worried about part of your text, scramble the entire page.  It would be extremely difficult for the copier to extract the sensitive part.  For example, you could add a lengthy copyright header before the content, and scramble it with the content.  However, the copier could position the containing DIV so that the copyright header is above the top of the DIV. </li>

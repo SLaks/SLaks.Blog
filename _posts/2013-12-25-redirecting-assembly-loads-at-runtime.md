@@ -4,13 +4,13 @@ layout: "post"
 categories: [.Net, C#, assemlies]
 ---
 
-.Net's [assembly resolver](http://msdn.microsoft.com/en-us/library/yx7xezcf) (Fusion) takes assembly names (eg, `MyCompany.MyProduct, Version=2.1.0.0, , Culture=neutral, PublicKeyToken=3bf5f017df1a30a5`) and resolves them to actual DLL files, searching in the Global Assembly Cache, the folder containing the entry assembly, and any additional PrivateBinPaths registered for the AppDomain.
+.Net's [assembly resolver](https://msdn.microsoft.com/en-us/library/yx7xezcf) (Fusion) takes assembly names (eg, `MyCompany.MyProduct, Version=2.1.0.0, , Culture=neutral, PublicKeyToken=3bf5f017df1a30a5`) and resolves them to actual DLL files, searching in the Global Assembly Cache, the folder containing the entry assembly, and any additional PrivateBinPaths registered for the AppDomain.
 
 You can change the way it resolves specific assemblies using `<bindingRedirect>` tags in your App.config (or Web.config) file, giving it a different name to use instead if it tries to resolve a specific range of versions for an assembly.  This is useful if you want to support references to multiple versions of the same assembly (eg, from older plugins), but only want to use a single version at runtime.
 
 However, these redirects must be specified statically in the config file, and cannot be changed at runtime.  If you don't control the config file (eg, if you're writing a plugin), or if you don't know what redirects you will want until runtime, this doesn't help.
 
-Instead, you can handle the [`AppDomain.AssemblyResolve` event](http://msdn.microsoft.com/en-us/library/system.appdomain.assemblyresolve), which lets you run your own code to load an assembly if the loader fails to find it. 
+Instead, you can handle the [`AppDomain.AssemblyResolve` event](https://msdn.microsoft.com/en-us/library/system.appdomain.assemblyresolve), which lets you run your own code to load an assembly if the loader fails to find it. 
 
 This event is meant to be used if you put your assemblies somewhere where the loader can't find them (eg, as embedded resources in your EXE for a single-file application, in a subfolder, or even over HTTP).  However, you can also use this to catch loads of older versions of an assembly and load the newest version instead.
 
@@ -26,7 +26,7 @@ Therefore, you must also add your handler before loading any type that uses the 
 
  - If you call `Assembly.Load()` in your handler with a more-precise assembly name, make sure to prevent stack overflows if that assembly name isn't found either (the loader will raise the event again and re-enter your handler)
 
- - Once an assembly name fails to load, [the runtime will cache the binding failure](http://msdn.microsoft.com/en-us/library/aa98tba8) and never try to load that name again.  In particular, if an assembly fails to load before you attach your handler, it's too late for you to handle it next time.
+ - Once an assembly name fails to load, [the runtime will cache the binding failure](https://msdn.microsoft.com/en-us/library/aa98tba8) and never try to load that name again.  In particular, if an assembly fails to load before you attach your handler, it's too late for you to handle it next time.
 
 I wrote code to handle `AssemblyResolve` and simulate a single binding redirect:
 

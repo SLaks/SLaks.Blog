@@ -10,7 +10,7 @@ To recap, this technique works as follows:
 
 > 1. Fetch the current value of the field into a local variable
 > 2. Run your actual logic to generate a new immutable object based on the current value (eg, push an item onto an immutable stack)
-> 3. Use the atomic [compare-and-swap](http://en.wikipedia.org/wiki/Compare-and-swap) operation to set the field to the new value if and only if no other thread has changed it since step 1.
+> 3. Use the atomic [compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap) operation to set the field to the new value if and only if no other thread has changed it since step 1.
 > 4. If a different thread has changed the object (if the compare-and-swap failed), go back to step 1 and try again.
 
 In C#, this algorithm looks like this:
@@ -51,7 +51,7 @@ class AtomicReference<T> where T : class {
 
 This class encapsulates a mutable reference to an inner type `T`, which must be immutable.  The `Mutate()` function can be called to assign a new value based on the previous value, and will keep calling its callback until the current value does not change underneath it, as described above.
 
-The `#pragma warning` directive is necessary to suppress a false positive about passing a `volatile` field as a `ref` parameter.  Ordinarily, passing a field by reference will not preserve the field's volatility, but the `Interlocked` methods are an exception to this rule.  This is noted in the warning's [documentation](http://msdn.microsoft.com/en-us/library/4bw5ewxy).
+The `#pragma warning` directive is necessary to suppress a false positive about passing a `volatile` field as a `ref` parameter.  Ordinarily, passing a field by reference will not preserve the field's volatility, but the `Interlocked` methods are an exception to this rule.  This is noted in the warning's [documentation](https://msdn.microsoft.com/en-us/library/4bw5ewxy).
 
 Using this class with my earlier immutable stack, one can easily implement a thread-safe lock free mutable stack:
 

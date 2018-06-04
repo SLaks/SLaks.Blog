@@ -124,7 +124,7 @@ loadPost(id)
 If you need to load multiple items in separate steps, you can keep building larger and larger arrays of all of the items you need to load (obviously, you should try to load them in parallel &ndash; by returning multiple promises in a single array &ndash; where possible).
 
 # Caching asynchronous operations
-Another common task when writing asynchronous code is to cache the result of an asynchronous operation.  As long as whatever you're doing is reasonably idempotent (eg, loading data that rarely changes, or executing a fixed version of an external script file), you will generally want to load it just once, and have future calls reuse the first call.  This technique is called [memoization](http://en.wikipedia.org/wiki/Memoization).
+Another common task when writing asynchronous code is to cache the result of an asynchronous operation.  As long as whatever you're doing is reasonably idempotent (eg, loading data that rarely changes, or executing a fixed version of an external script file), you will generally want to load it just once, and have future calls reuse the first call.  This technique is called [memoization](https://en.wikipedia.org/wiki/Memoization).
 
 When doing this, you must be careful to avoid race conditions.  If you only cache each call after the result arrives, you can still end up making multiple calls if the second call is made before the first one responds.  Instead, you should cache the promise of the result immediately, so you can return that promise directly for the next call, whether it has loaded or not.  However, if the call returns an error, you will presumably want to clear it from the cache so that the next call can try again (unless you know it's a permanent error).
 

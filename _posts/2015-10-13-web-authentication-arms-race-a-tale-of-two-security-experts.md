@@ -6,7 +6,7 @@ categories: [security]
 
 Web authentication systems have evolved over the past ten years to counter a growing variety of threats.  This post will present a fictional arms race between a web application developer and an attacker, showing how different threats can be countered with the latest security technologies.
 
-This entire conversation assumes that the user has already legitimately established some form of trust anchor (eg, a password or hardware token) with the defender before the attacker came onto the scene.  Cryptography [can only be used](http://blogs.msdn.com/b/ericlippert/archive/2011/09/27/keep-it-secret-keep-it-safe.aspx) to transfer existing trust or secrecy across time or space; if the attacker impersonates the defender before the user establishes anything, it becomes impossible for the user to tell which party is legitimate.  This also assumes that the site itself has no vulnerabilities (such as XSS or CSRF) that would allow attackers to run code or read data, or read certificates from the server.
+This entire conversation assumes that the user has already legitimately established some form of trust anchor (eg, a password or hardware token) with the defender before the attacker came onto the scene.  Cryptography [can only be used](https://blogs.msdn.com/b/ericlippert/archive/2011/09/27/keep-it-secret-keep-it-safe.aspx) to transfer existing trust or secrecy across time or space; if the attacker impersonates the defender before the user establishes anything, it becomes impossible for the user to tell which party is legitimate.  This also assumes that the site itself has no vulnerabilities (such as XSS or CSRF) that would allow attackers to run code or read data, or read certificates from the server.
 
  - **Defender**: Users will enter a username & password, and I will give them an authentication cookie for me to trust in the future.
  - **Attacker**: I will watch your network traffic and steal the passwords as they come down the wire.
@@ -39,7 +39,7 @@ This entire conversation assumes that the user has already legitimately establis
  
  - **Attacker**: I will trick the user into installing a malicious browser extension or desktop application, then use it to read the authentication cookie from the browser's cookie jar.
  
- - **Defender**: I will use [channel-bound cookies](http://www.browserauth.net/channel-bound-cookies), linking my authentication cookie to the private key used to generate the SSL connection.  This way, the authentication cookie will only work in an HTTPS session backed by the same private key, preventing the attacker from using it on his computer.
+ - **Defender**: I will use [channel-bound cookies](https://www.browserauth.net/channel-bound-cookies), linking my authentication cookie to the private key used to generate the SSL connection.  This way, the authentication cookie will only work in an HTTPS session backed by the same private key, preventing the attacker from using it on his computer.
  - **Attacker**: I will change my malicious code to exfiltrate the private key as well as the authentication cookie, allowing me to completely clone the SSL connection on my machine, and still use the cookie.
  
  - **Defender**: I will hope that the user's browser signs its HTTPS connections with a hardware-based private key (hardware-backed token binding), preventing the attacker from cloning the SSL session without access to that private key (which never leaves the hardware device).

@@ -15,7 +15,7 @@ The .Net Compiler Platform, codenamed "Roslyn", is the most ambitious project fr
 
 # What's so cool about Roslyn?
 
- - Roslyn is completely open source!  You can browse the complete source code for the compiler toolchain and Visual Studio integration at [source.roslyn.io](http://source.roslyn.io/), and you can even make your own contributions [on GitHub](http://github.com/dotnet/roslyn).
+ - Roslyn is completely open source!  You can browse the complete source code for the compiler toolchain and Visual Studio integration at [source.roslyn.io](http://source.roslyn.io/), and you can even make your own contributions [on GitHub](https://github.com/dotnet/roslyn).
  - Roslyn exposes the compiler's syntax tree and semantic model, allowing you to easily write C# (or VB) code that parses a source file and explores &ndash; or even rewrites &ndash; the code.  This makes it easy to build all sorts of tools to analyze or modify source code.
  - Roslyn exposes a simple extensibility model that lets you create your own warnings or refactorings that integrate seamlessly with Visual Studio.
  - Thanks to the newly accessible semantic information, Roslyn includes a number of new refactorings, and has vastly improved the existing ones (especially Rename).

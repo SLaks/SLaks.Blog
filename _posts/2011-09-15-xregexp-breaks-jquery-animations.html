@@ -6,37 +6,37 @@ uuid: "2272047003100374809"
 guid: "tag:blogger.com,1999:blog-4137132196361303955.post-2272047003100374809"
 date: "2011-09-15 01:12:00"
 updated: "2011-09-15 01:12:34"
-description: 
+description:
 blogger:
     siteid: "4137132196361303955"
     postid: "2272047003100374809"
     comments: "8"
 categories: [jQuery, Javascript, bugs]
-author: 
+author:
     name: "SLaks"
-    url: "http://www.blogger.com/profile/10900687553232370750?rel=author"
-    image: "http://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
+    url: "https://www.blogger.com/profile/10900687553232370750?rel=author"
+    image: "https://2.bp.blogspot.com/_iWJc6lVY4ho/TQVnDlN8sLI/AAAAAAAAHIs/0-Us6Xpqbc0/s1600-R/7deca8ec973c3c0875e9a36e1e3e2c44%253Fs%253D32%2526d%253Didenticon%2526r%253DPG"
 ---
 
 {% raw %}
 <div class="css-full-post-content js-full-post-content">
-<p><em><strong>Update</strong>: This bug was fixed in <a href="http://xregexp.com/history/#v1-5-1">XRegExp 1.5.1</a>.</em><br />
+<p><em><strong>Update</strong>: This bug was fixed in <a href="https://regexp.com/history/#v1-5-1">XRegExp 1.5.1</a>.</em><br />
 However, as far as I know, there are no released versions of SyntaxHighlighter that contain the fix.</p>
 <hr />
 
-<p><a href="http://xregexp.com/">XRegExp </a>is an open source JavaScript library that provides an augmented, extensible, cross-browser implementation of regular expressions, including support for additional syntax, flags, and methods.</p>  <p>It’s used by the popular <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter script</a>, which is in turn used by many websites (including this blog) to display syntax-highlighted source code on the client.&#160; Thus, XRegExp has a rather wide usage base.</p>  <p>However, XRegExp conflicts with jQuery.&#160; In IE, any page that includes XRegExp and runs a numeric jQuery animation will result in “TypeError: Object doesn't support this property or method”.</p>  <p><a href="http://jsfiddle.net/SLaks/LR7vA/">Demo</a> (only fails in IE)</p>  <p>This bug is caused by an XRegExp fix for an IE bug in which the <code>exec</code> method doesn't consistently return <code>undefined</code> for nonparticipating capturing groups.&#160; The fix, on line 271, assumes that the parameter passed to <code>exec</code> is a string.&#160; This behavior violates the ECMAScript standard (<a href="http://ecma262-5.com/ELS5_HTML.htm#Section_15.10.6.2">section 15.10.6.2</a>), which states that the parameter to <code>exec</code> should be converted to a string before proceeding.</p>  <p>jQuery relies on this behavior in its <code>animate</code> method, which parses a number using a regex to get the decimal portion.&#160; (<a href="https://github.com/jquery/jquery/blob/1.6.4/src/effects.js#L215">source</a>)</p>  <p>Thus, calling <code>animate</code> with a number after loading XRegExp will fail in IE when XRegExp tries to call <code>slice</code> on a number.</p>  <p>Fortunately, it is very simple to fix XRegExp to convert its argument to a string first:</p>
+<p><a href="http://regexp.com/">XRegExp </a>is an open source JavaScript library that provides an augmented, extensible, cross-browser implementation of regular expressions, including support for additional syntax, flags, and methods.</p>  <p>It’s used by the popular <a href="https://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter script</a>, which is in turn used by many websites (including this blog) to display syntax-highlighted source code on the client.&#160; Thus, XRegExp has a rather wide usage base.</p>  <p>However, XRegExp conflicts with jQuery.&#160; In IE, any page that includes XRegExp and runs a numeric jQuery animation will result in “TypeError: Object doesn't support this property or method”.</p>  <p><a href="https://jsfiddle.net/SLaks/LR7vA/">Demo</a> (only fails in IE)</p>  <p>This bug is caused by an XRegExp fix for an IE bug in which the <code>exec</code> method doesn't consistently return <code>undefined</code> for nonparticipating capturing groups.&#160; The fix, on line 271, assumes that the parameter passed to <code>exec</code> is a string.&#160; This behavior violates the ECMAScript standard (<a href="https://ecma262-5.com/ELS5_HTML.htm#Section_15.10.6.2">section 15.10.6.2</a>), which states that the parameter to <code>exec</code> should be converted to a string before proceeding.</p>  <p>jQuery relies on this behavior in its <code>animate</code> method, which parses a number using a regex to get the decimal portion.&#160; (<a href="https://github.com/jquery/jquery/blob/1.6.4/src/effects.js#L215">source</a>)</p>  <p>Thus, calling <code>animate</code> with a number after loading XRegExp will fail in IE when XRegExp tries to call <code>slice</code> on a number.</p>  <p>Fortunately, it is very simple to fix XRegExp to convert its argument to a string first:</p>
 {% endraw %}
 {% highlight js %}
 if (XRegExp) {
     var xExec = RegExp.prototype.exec;
     RegExp.prototype.exec = function(str) {
-        if (!str.slice) 
+        if (!str.slice)
             str = String(str);
         return xExec.call(this, str);
     };
 }
 {% endhighlight %}
 {% raw %}
-<a href="http://jsfiddle.net/SLaks/LR7vA/2/">Here</a> is an updated demo that uses this fix and works even in IE.  
+<a href="https://jsfiddle.net/SLaks/LR7vA/2/">Here</a> is an updated demo that uses this fix and works even in IE.
 </div>
 {% endraw %}
