@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -26,7 +26,6 @@
 		{% endif %}
 
 		<meta name="viewport" content="width=device-width" />
-		<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 		<link href="/css/normalize.min.css" rel="stylesheet" />
 		<link href="/css/base.min.css" rel="stylesheet" />
 		{% for ref in layout.stylesheets %}
@@ -42,9 +41,6 @@
 	{% endif %}
 	{% include extract-main-category %}
 	<body class="{{ mainCategorySlug }}">
-		<!--[if lt IE 7]>
-			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-		<![endif]-->
 		<header>
 			<h1><a href="http://slaks.net">SLaks</a>.<a href="/">Blog</a></h1>
 			<h2>Making the world a better place, one line of code at a time</h2>

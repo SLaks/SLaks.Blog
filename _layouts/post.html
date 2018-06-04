@@ -14,7 +14,7 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 	{{ content }}
 </article>
 
-<p class="post-categories">Categories: 
+<p class="post-categories">Categories:
 	{% for categories in page.categories %}
 		{% include slugify-categories %}
 		<a href="/#{{ categorySlugs | cgi_escape | xml_escape }}">{{ categories | xml_escape }}</a>{% unless forloop.last %}, {% endunless %}
@@ -43,10 +43,10 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 	})();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
-<ul class="side-post-list"> 
+<ul class="side-post-list">
 	<li><h2>Other posts</h2></li>
 	{% if site.github or jekyll.environment != "development" %}
 	{% for post in site.posts %}{% unless post.preview %}
