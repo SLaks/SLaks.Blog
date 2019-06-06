@@ -19,7 +19,7 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 		{% include slugify-categories %}
 		<a href="/#{{ categorySlugs | cgi_escape | xml_escape }}">{{ categories | xml_escape }}</a>{% unless forloop.last %}, {% endunless %}
 	{% endfor %}
-	<a class="RightLink" href="https://twitter.com/intent/tweet?related=Schabse&amp;text={{ "I'm reading “" | cgi_escape | xml_escape }}{{ page.title | truncate 105 | cgi_escape | xml_escape }}{{ "” by @Schabse " | cgi_escape | xml_escape }}{{ site.absoluteBaseUrl | cgi_escape | xml_escape }}{{ page.url | cgi_escape | xml_escape }}" target="_blank">Tweet this post</a>
+	<a class="RightLink" href="https://twitter.com/intent/tweet?related=Schabse&amp;text={{ "I'm reading “" | cgi_escape | xml_escape }}{{ page.title | truncate: 105 | cgi_escape | xml_escape }}{{ "” by @Schabse " | cgi_escape | xml_escape }}{{ site.absoluteBaseUrl | cgi_escape | xml_escape }}{{ page.url | cgi_escape | xml_escape }}" target="_blank">Tweet this post</a>
 </p>
 
 <p class="post-navigation">
@@ -57,7 +57,7 @@ stylesheets: ["post", "side-post-list", "code", "syntax-highlighting"]
 			<h3>This post</h3>
 			{% else %}
 			<h3 title="Posted on {{ post.date | date: '%Y-%m-%d' }}"><a href="{{ post.url }}">{{ post.title | xml_escape }}</a></h3>
-			<p>{{ post.content | strip_html | truncatewords 100 }}</p>
+			<p>{{ post.content | strip_html | truncatewords: 100 }}</p>
 			{% endif %}
 		</li>
 	{% endunless %}{% endfor %}

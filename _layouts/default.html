@@ -17,7 +17,7 @@
 		<meta name="og:title" content="{{ page.title | xml_escape }}{{ layout.titleSuffix }}" />
 		<meta name="twitter:title" content="{{ page.title | xml_escape }}{{ layout.titleSuffix }}" />
 		{% if page.layout == "post" %}
-			<meta name="twitter:description" content="{{ post.content | strip_html | truncatewords 100 }}" />
+			<meta name="twitter:description" content="{{ post.content | strip_html | truncatewords: 100 }}" />
 		{% else %}
 			<meta name="twitter:description" content="Making the world a better place, one line of code at a time" />
 		{% endif %}
@@ -26,7 +26,6 @@
 		{% endif %}
 
 		<meta name="viewport" content="width=device-width" />
-		<link href="/css/normalize.min.css" rel="stylesheet" />
 		<link href="/css/base.min.css" rel="stylesheet" />
 		{% for ref in layout.stylesheets %}
 			<link href="/css/{{ ref }}.min.css" rel="stylesheet" />
