@@ -45,14 +45,13 @@
 			<h2>Making the world a better place, one line of code at a time</h2>
 		</header>
 		<div class="container">{{ content }}</div>
-
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FX9N4KNJS1"></script>
 		<script>
-			var _gaq = [['_setAccount', 'UA-3656687-3'], ['_trackPageview']];
-			(function (d, t) {
-				var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-				g.src = '//www.google-analytics.com/ga.js';
-				s.parentNode.insertBefore(g, s)
-			}(document, 'script'));
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'G-FX9N4KNJS1');
 		</script>
 
 	</body>
